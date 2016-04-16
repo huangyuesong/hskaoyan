@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "set NODE_ENV=development && supervisor ./bin/www"
+    "dev": "webpack && set NODE_ENV=development && supervisor ./bin/www",
+    "watch": "webpack --watch",
+    "prod": "webpack -p && supervisor ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -12,7 +14,19 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "jquery": "^2.2.3",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }
