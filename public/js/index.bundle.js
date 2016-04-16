@@ -9934,7 +9934,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\r\n  padding: 50px;\r\n  font: 14px \"Lucida Grande\", Helvetica, Arial, sans-serif;\r\n}\r\n\r\na {\r\n  color: #00B7FF;\r\n}\r\n", ""]);
+	exports.push([module.id, "body {\r\n  padding: 50px;\r\n  font: 14px \"Lucida Grande\", Helvetica, Arial, sans-serif;\r\n}\r\n", ""]);
 
 	// exports
 

@@ -1,9 +1,15 @@
 var webpack = require('webpack');
+var fs = require('fs');
+var path = require('path');
+
+var entry = {};
+var files = fs.readdirSync(path.resolve('./src/js/'));
+files.map(function (file) {
+	entry[file.split('.')[0]] = './src/js/' + file;
+});
 
 module.exports = {
-	entry: {
-		index: './src/js/index.js',
-	},
+	entry: entry,
 
 	output: {
 		path: './public/js',
