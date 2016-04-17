@@ -5,7 +5,9 @@ var path = require('path');
 var entry = {};
 var files = fs.readdirSync(path.resolve('./src/js/'));
 files.map(function (file) {
-	entry[file.split('.')[0]] = './src/js/' + file;
+	if (/\.js$/.test(file)) {
+		entry[file.split('.')[0]] = './src/js/' + file;
+	}
 });
 
 module.exports = {
