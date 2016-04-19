@@ -1,0 +1,186 @@
+@import '_base';
+
+.app-header {
+	background-color: white;
+	text-align: center;
+	line-height: 50px;
+	font-size: 24px;
+
+	.logo {
+		position: relative;
+		left: -20%;
+	}
+
+	.index {
+
+		a {
+			color: #000f22;
+		}
+	}
+
+	.login {
+		position: relative;
+		left: 20%;
+	}
+
+	.register {
+		position: relative;
+		left: 21%;
+	}
+}
+
+.float-bar {
+	position: fixed;
+	right: 15px;
+	top: 35%;
+
+	img {
+		display: block;
+	}
+
+	.download-directly, .back-to-top {
+		position: relative;
+		left: 7px;
+	}
+}
+
+.section {
+	text-align: center;
+	
+	.content {
+		display: inline-block;
+		width: 1280px;
+	}
+}
+
+.section1 {
+	background-color: #7ccbd0;
+
+	.content {
+		height: 900px;
+		text-align: center;
+		position: relative;
+
+		.slogan1 {
+			margin-top: 50px;
+		}
+
+		.center-bottom {
+			position: absolute;
+			bottom: -10px;
+			width: 100%;
+			text-align: center;
+
+			.right {
+				display: inline-block;
+				position: relative;
+				top: -120px;
+				margin-left: 100px;
+
+				.slogan2 {
+					margin-bottom: 30px;
+				}
+
+				.qrcode {
+					display: block;
+				}
+
+				.download-pc-link {
+					display:inline-block;
+					background-color: #3eccc3;
+					height: 20px;
+					padding: 5px 10px;
+					border-radius: 15px;
+					margin-top: 50px;
+
+					a {
+						color: #e9f3f2;
+						font-size: 16px;
+					}
+				}
+
+				.android {
+					margin-right: 50px;
+				}
+
+				.ios {
+					margin-left: 50px;
+				}
+			}
+		}
+	}
+}
+
+.section2 {
+	
+	img {
+		display: block;
+	}
+}
+
+.section3 {
+	
+	img {
+		display: block;
+	}
+}
+
+.section4 {
+	background-color: #282e33;
+	padding: 100px 0;
+	
+	.content {
+
+		.left {
+			display: inline-block;
+			margin-right: 50px;
+
+			.download {
+				display: inline-block;
+				border: 1px solid #2369b5;
+				margin: 0 10px;
+
+				img {
+					vertical-align: middle;
+				}
+			}
+
+			.ios {
+				padding: 29px 35px;
+			}
+
+			.android {
+				padding: 20px 26.5px;
+			}
+
+			.text {
+				color: #2369b5;
+				font-size: 24px;
+				font-family: Microsoft Yahei;
+
+				.text-left {
+					position: relative;
+					left: -25px;
+				}
+
+				.text-right {
+					position: relative;
+					right: -58px;
+				}
+			}
+		}
+
+		.right {
+			display: inline-block;
+			font-family: hiragino sans gb,microsoft yahei,simsun;
+			font-size: 20px;
+			color: #7e90ae;
+			text-align: left;
+			margin-left: 50px;
+		
+			p {
+				font-size: 14px;
+			}
+		}
+	}
+}
