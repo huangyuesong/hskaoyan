@@ -23,7 +23,9 @@ module.exports = {
 
 	plugins: [
 		new webpack.ProvidePlugin({
-			$: "jquery",
+			$: 'jquery',
+			jQuery: 'jquery',
+			'window.jQuery': 'jquery',
 		}),
 	],
 
@@ -32,7 +34,6 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				include: ['node_modules/bootstrap'],
 				loader: 'babel-loader?presets[]=es2015',
 			},
 

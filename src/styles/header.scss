@@ -16,6 +16,7 @@
 
 			.nav {
 				margin: 0 30px;
+				display: inline-block;
 			}
 		}
 
@@ -59,12 +60,28 @@
 		line-height: 50px;
 		font-size: 22px;
 		text-align: center;
+		margin-top: 30px;
 
 		dl {
 
 			dt {
 				display: inline-block;
 				margin: 0 40px;
+
+				.arrow {
+					margin-left: 10px;
+					vertical-align: middle;
+				}
+
+				.dropdown-content-row {
+					
+					a {
+					    font-size: 20px;
+					    font-family: microsoft yahei;
+					    line-height: 30px;
+					    height: 30px;
+					}
+				}
 			}
 		}
 	}
