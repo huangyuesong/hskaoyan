@@ -1,3 +1,5 @@
 import '../styles/index.scss';
 
-console.log($('body'))
+import './header';
+
+import './footer'

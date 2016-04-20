@@ -3,9 +3,12 @@ var fs = require('fs');
 var path = require('path');
 
 var entry = {};
+var exclude = new Map();
+exclude.set('header.js', true);
+exclude.set('footer.js', true);
 var files = fs.readdirSync(path.resolve('./src/js/'));
 files.map(function (file) {
-	if (/\.js$/.test(file)) {
+	if (/\.js$/.test(file) && !exclude.get(file)) {
 		entry[file.split('.')[0]] = './src/js/' + file;
 	}
 });
@@ -29,6 +32,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
+				include: ['node_modules/bootstrap'],
 				loader: 'babel-loader?presets[]=es2015',
 			},
 

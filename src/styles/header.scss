@@ -1,0 +1,71 @@
+@import '_base';
+
+.header {
+	
+	.top-bar {
+		height: 50px;
+		box-sizing: border-box;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+		background-color: #F5F7FA;
+
+		.navs {
+			display: inline-block;
+			font-size: 12px;
+			line-height: 50px;
+			margin-left: 100px;
+
+			.nav {
+				margin: 0 30px;
+			}
+		}
+
+		.icons {
+			float: right;
+			line-height: 50px;
+			margin-right: 100px;
+
+			.icon {
+				margin: 0 10px;
+			}
+		}
+	}
+
+	.middle {
+		padding-top: 35px;
+		
+		.logo {
+			margin-left: 130px;
+		}
+
+		.right {
+			float: right;
+			margin-right: 100px;
+
+			img, span {
+				margin: 0 20px;
+			}
+
+			.login:hover, .register:hover {
+				color: #0E9F4E;
+			}
+
+			.search {
+				vertical-align: middle;
+			}
+		}
+	}
+
+	.nav-bar {
+		line-height: 50px;
+		font-size: 22px;
+		text-align: center;
+
+		dl {
+
+			dt {
+				display: inline-block;
+				margin: 0 40px;
+			}
+		}
+	}
+}
