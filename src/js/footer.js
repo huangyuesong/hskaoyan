@@ -1,6 +1,6 @@
 import '../styles/footer.scss';
 
-export default $(function () {
+export default $(()=> {
     let footer = [
     	'<div class="footer">',
     	'	<p>咨询热线：010-52899685&nbsp;&nbsp;13681568652&nbsp;&nbsp;15810695171</p>',

@@ -9,6 +9,7 @@
     "prod": "webpack -p && supervisor ./bin/www"
   },
   "dependencies": {
+    "amazeui": "^2.6.1",
     "body-parser": "~1.13.2",
     "bootstrap": "^3.3.6",
     "cookie-parser": "~1.3.5",

@@ -7,6 +7,45 @@
 		.col {
 			display: inline-block;
 		}
+
+		ul.am-nav-tabs {
+			text-align: center;
+			border-bottom: 1px solid #0E9F4E;
+
+			li {
+				display: inline-block;
+				float: none;
+				width: 230px;
+				height: 40px;
+				background-color: #D8D8D8;
+
+				a {
+					border: 0;
+					background-color: #D8D8D8;
+				}
+			}
+
+			li:hover {
+			    background-color: #D8D8D8;
+			}
+
+			li.am-active, li.am-active:hover {
+				background-color: #0E9F4E;
+
+				a {
+					background-color: #0E9F4E;
+					color: white;
+				}
+			}
+
+			li:first-of-type {
+				margin-left: 0;
+			}
+
+			li:last-of-type {
+				margin-right: 0;
+			}
+		}
 	}
 
 	.section1 {
@@ -75,11 +114,12 @@
 		}
 
 		.right {
-			float: right;
+			position: absolute;
+			top: 10px;
+			right: 0px;
 			background-color: white;
 			width: 210px;
 			text-align: center;
-			margin-top: 10px;
 
 			.top {
 				box-sizing: border-box;
@@ -174,10 +214,15 @@
 	.section4 {
 		text-align: center;
 
+		.image-wrapper:first-of-type {
+			margin-left: 0;
+		}
+
 		.image-wrapper {
 			display: inline-block;
-			width: 24.5%;
+			width: 25%;
 			position: relative;
+			margin-left: -4px;
 
 			.slogan {
 				position: absolute;
@@ -242,5 +287,38 @@
 
 	.section7 {
 		padding: 10px 0 30px 0;
+
+		ul.am-nav-tabs {
+
+			li {
+				margin: 0 10.5px;
+			}
+		}
+	}
+
+	.section8 {
+		text-align: center;
+		padding: 20px 0;
+		position: relative;
+
+		.left {
+			float: left;
+		}
+
+		.right {
+			float: right;
+		}
+	}
+
+	.section9 {
+		padding: 10px 0 30px 0;
+
+		ul.am-nav-tabs {
+
+			li {
+				width: 390px;
+				margin: 0 18px;
+			}
+		}
 	}
 }
