@@ -1,38 +1,10 @@
 @import '_base';
 
-.app-header {
-	background-color: white;
-	text-align: center;
-	line-height: 50px;
-	font-size: 24px;
-
-	.logo {
-		position: relative;
-		left: -20%;
-	}
-
-	.index {
-
-		a {
-			color: #000f22;
-		}
-	}
-
-	.login {
-		position: relative;
-		left: 20%;
-	}
-
-	.register {
-		position: relative;
-		left: 21%;
-	}
-}
-
 .float-bar {
 	position: fixed;
 	right: 15px;
 	top: 35%;
+	z-index: 1;
 
 	img {
 		display: block;
@@ -54,6 +26,35 @@
 }
 
 .section1 {
+	.app-header {
+		background-color: white;
+		text-align: center;
+		line-height: 50px;
+		font-size: 24px;
+
+		.logo {
+			position: relative;
+			left: -20%;
+		}
+
+		.index {
+
+			a {
+				color: #000f22;
+			}
+		}
+
+		.login {
+			position: relative;
+			left: 20%;
+		}
+
+		.register {
+			position: relative;
+			left: 21%;
+		}
+	}
+
 	background-color: #7ccbd0;
 
 	.content {
@@ -127,7 +128,6 @@
 
 .section4 {
 	background-color: #282e33;
-	padding: 300px 0;
 	
 	.content {
 

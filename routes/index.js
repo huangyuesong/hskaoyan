@@ -5,6 +5,10 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/index.html', function(req, res, next) {
+  res.render('index');
+});
+
 router.get('/AppDownload.html', function(req, res, next) {
   res.render('AppDownload');
 });
