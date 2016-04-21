@@ -1,1 +1,54 @@
 @import '_base';
+
+.container {
+	
+	.section {
+
+		.col {
+			display: inline-block;
+		}
+	}
+
+	.section1 {
+
+		.left-nav-bar {
+			width: 180px;
+			height: 350px;
+			line-height: 69px;
+			text-align: center;
+			box-sizing: border-box;
+
+			ul {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+
+				li {
+					border-bottom: 1px solid #C3C3C3;
+					box-sizing: border-box;
+
+					a {
+						margin: 0 10px;
+					}
+
+					a:hover {
+						color: white;
+					}
+				}
+
+				li:hover {
+					background-color: #0E9F4E;
+
+					a {
+						color: white;
+					}
+				}
+
+				li:first-of-type {
+					border-top: 1px solid #C3C3C3;
+					margin-top: -1px;
+				}
+			}
+		}
+	}
+}
