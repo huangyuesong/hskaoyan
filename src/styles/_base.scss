@@ -6,12 +6,27 @@ body {
 	font-family: microsoft yahei, Helvetica;
 	color: #333333;
 
+	@media (min-width: 1280px) {
+		.container {
+			width: 1280px;
+		}
+	}
+
+	p {
+		margin: 0;
+	}
+
 	a {
 		text-decoration: none;
 		color: #333333;
 	}
 
-	a:hover, a:focus {
+	a:focus {
+		text-decoration: none;
+		color: #333333;
+	}
+
+	a:hover {
 		text-decoration: none;
 		color: #0E9F4E;
 	}

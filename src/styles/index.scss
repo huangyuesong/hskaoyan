@@ -10,13 +10,15 @@
 	}
 
 	.section1 {
+		position: relative;
 
 		.left-nav-bar {
+			margin-top: 1px;
 			width: 180px;
 			height: 350px;
-			line-height: 69px;
 			text-align: center;
 			box-sizing: border-box;
+			background-color: white;
 
 			ul {
 				padding: 0;
@@ -28,7 +30,16 @@
 					box-sizing: border-box;
 
 					a {
-						margin: 0 10px;
+						height: 69px;
+						line-height: 69px;
+						width: 180px;
+						display: inline-block;
+
+						img {
+							margin-right: 10px;
+							width: 24px;
+							height: 16px;
+						}
 					}
 
 					a:hover {
@@ -47,6 +58,94 @@
 				li:first-of-type {
 					border-top: 1px solid #C3C3C3;
 					margin-top: -1px;
+
+					a {
+						height: 68px;
+						line-height: 68px;
+					}
+				}
+			}
+		}
+
+		.image-slider {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
+
+		.right {
+			float: right;
+			background-color: white;
+			width: 210px;
+			text-align: center;
+			margin-top: 10px;
+
+			.top {
+				box-sizing: border-box;
+				border-bottom: 1px solid #DDDDDD;
+
+				p {
+					line-height: 30px;
+					font-size: 18px;
+				}
+			}
+
+			.middle {
+				font-size: 14px;
+				padding: 10px 0;
+				padding-left: 20px;
+				box-sizing: border-box;
+				border-bottom: 1px solid #DDDDDD;
+
+				.title {
+					text-align: left;
+					margin: 5px 0;
+				}
+
+				.icon {
+					float: left;
+				}
+
+				.arrow-right {
+					float: right;
+					margin-top: 5px;
+					margin-right: 10px;
+				}
+
+				.content {
+					text-align: left;
+					margin-left: 50px;
+					
+					a {
+						color: #AAAAAA;
+					}
+				}
+
+				.active {
+					
+					a {
+						color: #1a7ecb;
+					}
+				}
+			}
+
+			.bottom {
+				padding: 5px 0;
+
+				.icon-row {
+
+					p {
+						font-size: 12px;
+					}
+
+					.icon {
+						display: inline-block;
+						padding: 12px 0;
+						width: 75px;
+						margin: 1px;
+						background-color: rgba(240, 240, 240, 0.6);
+					}
 				}
 			}
 		}
