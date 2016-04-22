@@ -12,6 +12,13 @@ body {
 		}
 	}
 
+	.container {
+		padding-right: 15px;
+	    padding-left: 15px;
+	    margin-right: auto;
+	    margin-left: auto;
+	}
+
 	p {
 		margin: 0;
 	}
@@ -78,7 +85,21 @@ body {
 		}
 	}
 
-	div.icon {
+	.icon {
 		display: inline-block;
+
+		a {
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.fl {
+		float: left;
+	}
+
+	.fr {
+		float: right;
 	}
 }

@@ -1,0 +1,71 @@
+@import '_base';
+
+body {
+	background: #F5F5F5;
+}
+
+.container {
+	
+	.section {
+		padding: 0 0; 
+	}
+
+	.section1 {
+		text-align: center;
+
+		.icon-ad {
+			background: url('/images/web/forum/ad.png') no-repeat;
+			width: 190px;
+			height: 79px;
+		}
+
+		.icon-banner {
+			background: url('/images/web/forum/banner.png') no-repeat;
+			width: 825px;
+			height: 80px;
+		}
+	}
+
+	.section2 {
+
+		.icon-logo {
+			background: url('/images/web/forum/logo.png') no-repeat;
+			width: 562px;
+			height: 107px;
+		}
+
+		.login {
+			display: inline-block;
+			font-size: 18px;
+			margin-top: 15px;
+
+			table tbody tr {
+
+				td:first-child {
+					text-align: right;
+				}
+
+				td {
+					padding: 3px 10px;
+					text-align: center;
+
+					input[type="checkbox"] {
+						width: 20px;
+						height: 20px;
+					    vertical-align: middle;
+					}
+
+					button {
+						font-weight: bold;
+						width: 100%;
+					}
+
+					.register {
+						color: #163575;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+}

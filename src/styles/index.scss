@@ -1,5 +1,9 @@
 @import '_base';
 
+dt {
+	font-weight: normal;
+}
+
 .container {
 	
 	.section {
@@ -115,7 +119,7 @@
 
 		.right {
 			position: absolute;
-			top: 10px;
+			top: 2px;
 			right: 0px;
 			background-color: white;
 			width: 210px;
@@ -220,9 +224,9 @@
 
 		.image-wrapper {
 			display: inline-block;
-			width: 25%;
+			width: 24.5%;
 			position: relative;
-			margin-left: -4px;
+			margin-left: -5px;
 
 			.slogan {
 				position: absolute;
@@ -291,7 +295,7 @@
 		ul.am-nav-tabs {
 
 			li {
-				margin: 0 10.5px;
+				margin: 0 10px;
 			}
 		}
 	}
@@ -317,7 +321,7 @@
 
 			li {
 				width: 390px;
-				margin: 0 18px;
+				margin: 0 17.5px;
 			}
 		}
 	}

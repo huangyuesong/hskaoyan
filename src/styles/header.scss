@@ -24,17 +24,6 @@
 				a:hover {
 					color: #0E9F4E;
 				}
-
-				.dropdown-content-row {
-				
-					a {
-					    font-size: 14px;
-					    font-family: microsoft yahei;
-					    line-height: 30px;
-					    height: 30px;
-					    color: #333333;
-					}
-				}
 			}
 		}
 
@@ -89,7 +78,7 @@
 				padding: 5px 20px;
 
 				.icon-arrow {
-					background: url('/imgs/index/arrow-down.png') no-repeat;
+					background: url('/images/web/index/arrow-down.png') no-repeat;
 					height: 9px;;
 					width: 14px;
 				}
@@ -98,13 +87,14 @@
 			dt.popup:hover {
 
 				.icon-arrow {
-					background: url('/imgs/index/arrow-up.png') no-repeat;
+					background: url('/images/web/index/arrow-up.png') no-repeat;
 					height: 9px;;
 					width: 14px;
 				}
 			}
 
 			.popup-wrapper {
+				padding-top: 50px;
 
 				.content {
 					font-weight: normal;
