@@ -13,7 +13,7 @@
 			margin-left: 100px;
 
 			.nav {
-				margin: 0 30px;
+				margin: 0 10px;
 				display: inline-block;
 				position: relative;
 
@@ -85,21 +85,29 @@
 
 			dt {
 				display: inline-block;
-				margin: 0 40px;
+				margin: 0 20px;
+				padding: 5px 20px;
 
-				.arrow {
-					margin-left: 10px;
-					vertical-align: middle;
+				.icon-arrow {
+					background: url('/imgs/index/arrow-down.png') no-repeat;
+					height: 9px;;
+					width: 14px;
 				}
+			}
 
-				.dropdown-content-row {
-					
-					a {
-					    font-size: 16px;
-					    font-family: microsoft yahei;
-					    line-height: 30px;
-					    height: 30px;
-					}
+			dt.popup:hover {
+
+				.icon-arrow {
+					background: url('/imgs/index/arrow-up.png') no-repeat;
+					height: 9px;;
+					width: 14px;
+				}
+			}
+
+			.popup-wrapper {
+
+				.content {
+					font-weight: normal;
 				}
 			}
 		}

@@ -34,4 +34,51 @@ body {
 	ui, li {
 		list-style-type:none;
 	}
+
+	.popup {
+		position: relative;
+		padding: 0 20px;
+	}
+
+	.popup:hover {
+		z-index: 1;
+		background-color: white;
+
+		.title {
+			text-decoration: none;
+			color: #0E9F4E;
+		}
+
+		.popup-wrapper {
+			display: inline-block;
+		}
+	}
+
+	.popup .popup-wrapper {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding-top: 40px;
+		padding-bottom: 10px;
+		z-index: -1;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		box-sizing: border-box;
+		background-color: white;
+		box-shadow: 0 6px 12px rgba(0,0,0,.175);
+
+		.content {
+			font-size: 12px;
+			line-height: 30px;
+			text-align: center;
+		}
+	}
+
+	div.icon {
+		display: inline-block;
+	}
 }
