@@ -1,4 +1,5 @@
 @import '_normalize';
+@import '_amazeui';
 
 body {
 	margin: 0 auto;
@@ -17,6 +18,10 @@ body {
 	    padding-left: 15px;
 	    margin-right: auto;
 	    margin-left: auto;
+	}
+
+	dt {
+		font-weight: normal;
 	}
 
 	p {
@@ -49,7 +54,6 @@ body {
 
 	.popup:hover {
 		z-index: 1;
-		background-color: white;
 
 		.title {
 			text-decoration: none;
