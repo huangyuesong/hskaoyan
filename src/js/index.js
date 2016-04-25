@@ -6,6 +6,10 @@ import './header';
 
 import './footer';
 
+$(window).load(()=> {
+	$('.loading').remove();
+});
+
 $(()=> {
 	
 });

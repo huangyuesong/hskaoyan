@@ -54,6 +54,10 @@
 
 	__webpack_require__(20);
 
+	$(window).load(function () {
+		$('.loading').remove();
+	});
+
 	$(function () {});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -10268,13 +10272,13 @@
 
 	__webpack_require__(18);
 
-	exports.default = $(function () {
+	exports.default = function () {
 		var header = function header() {
 			return $(['<div class="header">', '	<div class="top-bar">', '		<div class="navs">', '			<div class="nav popup">', '				<a href="#">网站导航<div class="icon icon-top-bar-arrow"></div></a>', '				<div class="popup-wrapper">', '					<div class="content">', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '					</div>', '				</div>', '			</div>', '			<div class="nav popup">', '				<a href="#">全部课程<div class="icon icon-top-bar-arrow"></div></a>', '				<div class="popup-wrapper">', '					<div class="content">', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '					</div>', '				</div>', '			</div>', '			<div class="nav popup">', '				<a href="#">考研工具<div class="icon icon-top-bar-arrow"></div></a>', '				<div class="popup-wrapper">', '					<div class="content">', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '					</div>', '				</div>', '			</div>', '		</div>', '		<div class="icons-wrapper">', '			<a href="app.html"><div class="icon icon-phone"></div></a>', '			<a href="#"><div class="icon icon-weixin"></div></a>', '			<a href="#"><div class="icon icon-weibo"></div></a>', '			<a href="#"><div class="icon icon-qq"></div></a>', '		</div>', '	</div>', '	<div class="middle">', '		<div class="icon icon-logo"></div>', '		<div class="right">', '			<a href="#"><div class="icon icon-search"></div></a>', '			<a href="#"><span class="login">登录</span></a>', '			<a href="#"><span class="register">注册</span></a>', '		</div>', '	</div>', '	<div class="nav-bar">', '		<dl>', '			<dt><a href="index.html">首页</a></dt>', '			<dt><a href="#">考研APP</a></dt>', '			<dt><a href="forum.html">论坛</a></dt>', '			<dt><a href="#">公共课</a></dt>', '			<dt class="popup">', '				<a href="#" class="title">专业课辅导</a>', '				<div class="icon icon-arrow"></div>', '				<div class="popup-wrapper">', '					<div class="content">', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '						<p><a href="#">正在建设中...</a></p>', '					</div>', '				</div>', '			</dt>', '			<dt><a href="#">集训营</a></dt>', '			<dt><a href="#">一对一</a></dt>', '			<dt><a href="#">资料下载</a></dt>', '		</dl>', '	</div>', '</div>'].join(''));
 		};
 
 		$('body').prepend(new header());
-	});
+	}();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
@@ -10329,13 +10333,13 @@
 
 	__webpack_require__(21);
 
-	exports.default = $(function () {
+	exports.default = function () {
 	    var footer = function footer() {
 	        return $(['<div class="footer">', '   <p>咨询热线：010-52899685&nbsp;&nbsp;13681568652&nbsp;&nbsp;15810695171</p>', '   <p>网络课堂报名电话：13681568652&nbsp;&nbsp;网络课堂技术支持：010-52899685</p>', '   <p>版权归属：慧升教育&nbsp;&nbsp;京ICP备</p>', '   <p>总部地址：北京市海淀区北四环中路238号柏彦大厦501</p>', '   <p>老师咨询QQ：李老师&nbsp;&nbsp;王老师&nbsp;&nbsp;张老师&nbsp;&nbsp;宗老师&nbsp;&nbsp;陈老师</p>', '</div>'].join(''));
 	    };
 
 	    $('script', $('body')).before(new footer());
-	});
+	}();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },

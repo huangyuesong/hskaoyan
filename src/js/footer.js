@@ -1,6 +1,6 @@
 import '../styles/footer.scss';
 
-export default $(()=> {
+export default (()=> {
     let footer = function () {
         return $([
             '<div class="footer">',
@@ -14,4 +14,4 @@ export default $(()=> {
     };
 
     $('script', $('body')).before(new footer());
-});
+})();

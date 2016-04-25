@@ -52,6 +52,10 @@
 
 	__webpack_require__(13);
 
+	$(window).load(function () {
+		$('.loading').remove();
+	});
+
 	$(function () {
 		$('#fullpage').fullpage({
 			anchors: ['page1', 'page2', 'page3', 'page4']

@@ -1,6 +1,6 @@
 import '../styles/header.scss';
 
-export default $(()=> {
+export default (()=> {
 	let header = function () {
 		return $([
 			'<div class="header">',
@@ -79,4 +79,4 @@ export default $(()=> {
 	};
 
     $('body').prepend(new header());
-});
+})();
