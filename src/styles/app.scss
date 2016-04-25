@@ -6,13 +6,24 @@
 	top: 35%;
 	z-index: 1;
 
-	img {
+	.icon-float-bar-download {
+		@include background('/images/web/app/float-bar-download.png', 120, 57);
+	}
+
+	.icon-float-bar-qrcode {
+		@include background('/images/web/app/float-bar-qrcode.png', 134, 184);
+	}
+
+	.icon-float-bar-back {
+		@include background('/images/web/app/float-bar-back.png', 120, 57);
+	}
+
+	.icon-float-bar-download, .icon-float-bar-qrcode, .icon-float-bar-back {
 		display: block;
 	}
 
-	.download-directly, .back-to-top {
-		position: relative;
-		left: 7px;
+	.icon-float-bar-download, .icon-float-bar-back {
+		margin-left: 7px;
 	}
 }
 
@@ -62,7 +73,8 @@
 		text-align: center;
 		position: relative;
 
-		.slogan1 {
+		.icon-slogan1 {
+			@include background('/images/web/app/section1-slogan1.png', 894, 164);
 			margin-top: 50px;
 		}
 
@@ -72,17 +84,23 @@
 			width: 100%;
 			text-align: center;
 
+			.icon-phone {
+				@include background('/images/web/app/section1-phone.png', 422, 673);
+			}
+
 			.right {
 				display: inline-block;
 				position: relative;
 				top: 200px;
 				margin-left: 100px;
 
-				.slogan2 {
+				.icon-slogan2 {
+					@include background('/images/web/app/section2-slogan2.png', 271, 34);
 					margin-bottom: 30px;
 				}
 
-				.qrcode {
+				.icon-qrcode {
+					@include background('/images/web/app/section1-qrcode.png', 441, 227);
 					display: block;
 				}
 
@@ -94,7 +112,7 @@
 					border-radius: 15px;
 					-moz-border-radius: 15px;
 					-webkit-border-radius: 15px;
-					margin-top: 50px;
+					margin-top: 30px;
 
 					a {
 						color: #e9f3f2;
@@ -115,15 +133,17 @@
 }
 
 .section2 {
-	
-	img {
+
+	.icon-bg {
+		@include background('/images/web/app/section2-bg.png');
 		display: block;
 	}
 }
 
 .section3 {
 	
-	img {
+	.icon-bg {
+		@include background('/images/web/app/section3-bg.png');
 		display: block;
 	}
 }
@@ -142,8 +162,12 @@
 				border: 1px solid #2369b5;
 				margin: 0 10px;
 
-				img {
-					vertical-align: middle;
+				.icon-ios {
+					@include background('/images/web/app/section4-ios.png', 58, 70);
+				}
+
+				.icon-android {
+					@include background('/images/web/app/section4-android.png', 75, 88);
 				}
 			}
 

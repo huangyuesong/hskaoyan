@@ -1,5 +1,6 @@
 @import '_normalize';
 @import '_amazeui';
+@import '_image';
 
 body {
 	margin: 0 auto;
@@ -86,16 +87,6 @@ body {
 			font-size: 12px;
 			line-height: 30px;
 			text-align: center;
-		}
-	}
-
-	.icon {
-		display: inline-block;
-
-		a {
-			display: inline-block;
-			width: 100%;
-			height: 100%;
 		}
 	}
 
