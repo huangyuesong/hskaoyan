@@ -1,5 +1,20 @@
 @import '_base';
 
+$icons: (
+	icon-float-bar-download: '/images/web/app/float-bar-download.png',
+	icon-float-bar-qrcode: '/images/web/app/float-bar-qrcode.png',
+	icon-float-bar-back: '/images/web/app/float-bar-back.png',
+	icon-slogan1: '/images/web/app/section1-slogan1.png',
+	icon-phone: '/images/web/app/section1-phone.png',
+	icon-slogan2: '/images/web/app/section2-slogan2.png',
+	icon-qrcode: '/images/web/app/section1-qrcode.png',
+	icon-section2-bg: '/images/web/app/section2-bg.png',
+	icon-section3-bg: '/images/web/app/section3-bg.png',
+	icon-ios: '/images/web/app/section4-ios.png',
+	icon-android: '/images/web/app/section4-android.png',
+	icon-slogan3: '/images/web/app/section4-slogan.png',
+);
+
 .float-bar {
 	position: fixed;
 	right: 15px;
@@ -7,15 +22,15 @@
 	z-index: 1;
 
 	.icon-float-bar-download {
-		@include background('/images/web/app/float-bar-download.png', 120, 57);
+		@include background(map-get($icons, icon-float-bar-download), 120, 57);
 	}
 
 	.icon-float-bar-qrcode {
-		@include background('/images/web/app/float-bar-qrcode.png', 134, 184);
+		@include background(map-get($icons, icon-float-bar-qrcode), 134, 184);
 	}
 
 	.icon-float-bar-back {
-		@include background('/images/web/app/float-bar-back.png', 120, 57);
+		@include background(map-get($icons, icon-float-bar-back), 120, 57);
 	}
 
 	.icon-float-bar-download, .icon-float-bar-qrcode, .icon-float-bar-back {
@@ -74,7 +89,7 @@
 		position: relative;
 
 		.icon-slogan1 {
-			@include background('/images/web/app/section1-slogan1.png', 894, 164);
+			@include background(map-get($icons, icon-slogan1), 894, 164);
 			margin-top: 50px;
 		}
 
@@ -85,7 +100,7 @@
 			text-align: center;
 
 			.icon-phone {
-				@include background('/images/web/app/section1-phone.png', 422, 673);
+				@include background(map-get($icons, icon-phone), 422, 673);
 			}
 
 			.right {
@@ -95,12 +110,12 @@
 				margin-left: 100px;
 
 				.icon-slogan2 {
-					@include background('/images/web/app/section2-slogan2.png', 271, 34);
+					@include background(map-get($icons, icon-slogan2), 271, 34);
 					margin-bottom: 30px;
 				}
 
 				.icon-qrcode {
-					@include background('/images/web/app/section1-qrcode.png', 441, 227);
+					@include background(map-get($icons, icon-qrcode), 441, 227);
 					display: block;
 				}
 
@@ -134,16 +149,16 @@
 
 .section2 {
 
-	.icon-bg {
-		@include background('/images/web/app/section2-bg.png');
+	.icon-section2-bg {
+		@include background(map-get($icons, icon-section2-bg));
 		display: block;
 	}
 }
 
 .section3 {
 	
-	.icon-bg {
-		@include background('/images/web/app/section3-bg.png');
+	.icon-section3-bg {
+		@include background(map-get($icons, icon-section3-bg));
 		display: block;
 	}
 }
@@ -152,6 +167,10 @@
 	background-color: #282e33;
 	
 	.content {
+
+		.icon-slogan3 {
+			@include background(map-get($icons, icon-slogan3), 1023, 149);
+		}
 
 		.left {
 			display: inline-block;
@@ -163,11 +182,11 @@
 				margin: 0 10px;
 
 				.icon-ios {
-					@include background('/images/web/app/section4-ios.png', 58, 70);
+					@include background(map-get($icons, icon-ios), 58, 70);
 				}
 
 				.icon-android {
-					@include background('/images/web/app/section4-android.png', 75, 88);
+					@include background(map-get($icons, icon-android), 75, 88);
 				}
 			}
 

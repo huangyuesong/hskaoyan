@@ -1,3 +1,17 @@
+@import '_image';
+
+$icons: (
+	icon-top-bar-arrow: '/images/web/header/top-bar-arrow.png',
+	icon-phone: '/images/web/header/phone.png',
+	icon-weixin: '/images/web/header/weixin.png',
+	icon-weibo: '/images/web/header/weibo.png',
+	icon-qq: '/images/web/header/qq.png',
+	icon-logo: '/images/web/header/logo.png',
+	icon-search: '/images/web/header/search.png',
+	icon-arrow-up: '/images/web/header/arrow-up.png',
+	icon-arrow-down: '/images/web/header/arrow-down.png',
+);
+
 .header {
 	
 	.top-bar {
@@ -19,6 +33,10 @@
 
 				a {
 					color: #333333;
+
+					.icon-top-bar-arrow {
+						@include background(map-get($icons, icon-top-bar-arrow), 11, 6);
+					}
 				}
 
 				a:hover {
@@ -27,7 +45,7 @@
 			}
 		}
 
-		.icons {
+		.icons-wrapper {
 			float: right;
 			line-height: 50px;
 			margin-right: 100px;
@@ -35,13 +53,30 @@
 			.icon {
 				margin: 0 10px;
 			}
+
+			.icon-phone {
+				@include background(map-get($icons, icon-phone), 13, 19);
+			}
+
+			.icon-weixin {
+				@include background(map-get($icons, icon-weixin), 19, 15);
+			}
+
+			.icon-weibo {
+				@include background(map-get($icons, icon-weibo), 19, 15);
+			}
+
+			.icon-qq {
+				@include background(map-get($icons, icon-qq), 17, 18);
+			}
 		}
 	}
 
 	.middle {
 		padding-top: 35px;
 		
-		.logo {
+		.icon-logo {
+			@include background(map-get($icons, icon-logo), 351, 41);
 			margin-left: 130px;
 		}
 
@@ -50,7 +85,7 @@
 			margin-right: 100px;
 			font-size: 12px;
 
-			img, span {
+			.icon, span {
 				margin: 0 20px;
 			}
 
@@ -58,8 +93,8 @@
 				color: #0E9F4E;
 			}
 
-			.search {
-				vertical-align: middle;
+			.icon-search {
+				@include background(map-get($icons, icon-search), 17, 18);
 			}
 		}
 	}
@@ -78,18 +113,14 @@
 				padding: 5px 20px;
 
 				.icon-arrow {
-					background: url('/images/web/index/arrow-down.png') no-repeat;
-					height: 9px;;
-					width: 14px;
+					@include background(map-get($icons, icon-arrow-down), 14, 9);
 				}
 			}
 
 			dt.popup:hover {
 
 				.icon-arrow {
-					background: url('/images/web/index/arrow-up.png') no-repeat;
-					height: 9px;;
-					width: 14px;
+					@include background(map-get($icons, icon-arrow-up), 14, 9);
 				}
 			}
 

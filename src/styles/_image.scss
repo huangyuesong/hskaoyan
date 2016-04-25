@@ -2,11 +2,14 @@
 	$url,
 	$width: 100%,
 	$height: 100%,
+	$bg_size_width: 100%,
+	$bg_size_height: 100%,
 	$position:center
 ) {
 	background: url(#{$url}) no-repeat #{$position};
 	width: if($width == 100%, 100%, #{$width}px);
 	height: if($height == 100%, 100%, #{$height}px);
+	background-size: if($bg_size_width == 100%, 100%, #{$bg_size_width}px) if($bg_size_height == 100%, 100%, #{$bg_size_height}px);
 }
 
 .icon {

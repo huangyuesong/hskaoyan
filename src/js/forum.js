@@ -55,7 +55,7 @@ $(()=> {
 	$('.section + .region').remove();
 
 	let region = new Region({
-		region: '北京',
+		region: '北京地区',
 	});
 
 	while (schools.length) {

@@ -1,5 +1,32 @@
 @import '_base';
 
+$icons: (
+	icon-zixun: '/images/web/index/zixun.png',
+	icon-ziliao: '/images/web/index/ziliao.png',
+	icon-kecheng: '/images/web/index/kecheng.png',
+	icon-yanyou: '/images/web/index/yanyou.png',
+	icon-dayi: '/images/web/index/dayi.png'	,
+	image-slider: '/images/web/index/banner.png',
+	icon-practive-everyday: '/images/web/index/practice-everyday.png',
+	icon-arrow-right: '/images/web/index/arrow-right.png',
+	icon-app: '/images/web/index/app.png',
+	icon-vip: '/images/web/index/vip.png',
+	icon-exam: '/images/web/index/exam.png',
+	icon-course: '/images/web/index/course.png',
+	icon-time: '/images/web/index/time.png',
+	icon-person1: '/images/web/index/person1.png',
+	icon-person2: '/images/web/index/person2.png',
+	icon-person3: '/images/web/index/person3.png',
+	icon-person4: '/images/web/index/person4.png',
+	icon-1: '/images/web/index/1.png',
+	icon-2: '/images/web/index/2.png',
+	icon-3: '/images/web/index/3.png',
+	icon-4: '/images/web/index/4.png',
+	icon-5: '/images/web/index/5.png',
+	icon-6: '/images/web/index/6.png',
+	icon-bottom: '/images/web/index/bottom.png',
+);
+
 dt {
 	font-weight: normal;
 }
@@ -68,23 +95,23 @@ dt {
 			}
 
 			.icon-zixun {
-				@include background('/images/web/index/zixun.png', 24, 16);
+				@include background(map-get($icons, icon-zixun), 24, 16);
 			}
 
 			.icon-ziliao {
-				@include background('/images/web/index/ziliao.png', 18, 20);
+				@include background(map-get($icons, icon-ziliao), 18, 20);
 			}
 
 			.icon-kecheng {
-				@include background('/images/web/index/kecheng.png', 16, 20);
+				@include background(map-get($icons, icon-kecheng), 16, 20);
 			}
 
 			.icon-yanyou {
-				@include background('/images/web/index/yanyou.png', 24, 15);
+				@include background(map-get($icons, icon-yanyou), 24, 15);
 			}
 
 			.icon-dayi {
-				@include background('/images/web/index/dayi.png', 24, 17);
+				@include background(map-get($icons, icon-dayi), 24, 17);
 			}
 
 			ul {
@@ -139,6 +166,7 @@ dt {
 			top: 0;
 			left: 0;
 			z-index: -1;
+			@include background(map-get($icons, image-slider));
 		}
 
 		.right {
@@ -171,12 +199,12 @@ dt {
 					margin: 5px 0;
 				}
 
-				.icon {
-					float: left;
+				.icon-practive-everyday {
+					@include background(map-get($icons, icon-practive-everyday), 22, 22);
 				}
 
-				.arrow-right {
-					float: right;
+				.icon-arrow-right {
+					@include background(map-get($icons, icon-arrow-right), 8, 12);
 					margin-top: 5px;
 					margin-right: 10px;
 				}
@@ -201,18 +229,34 @@ dt {
 			.bottom {
 				padding: 5px 0;
 
-				.icon-row {
+				.icon-row-wrapper {
 
 					p {
 						font-size: 12px;
 					}
 
-					.icon {
+					.icon-row {
 						display: inline-block;
 						padding: 12px 0;
 						width: 75px;
 						margin: 1px;
 						background-color: rgba(240, 240, 240, 0.6);
+
+						.icon-app {
+							@include background(map-get($icons, icon-app), 31, 34);
+						}
+
+						.icon-vip {
+							@include background(map-get($icons, icon-vip), 32, 29);
+						}
+
+						.icon-exam {
+							@include background(map-get($icons, icon-exam), 35, 28);
+						}
+
+						.icon-course {
+							@include background(map-get($icons, icon-course), 38, 26);
+						}
 					}
 				}
 			}
@@ -221,6 +265,10 @@ dt {
 
 	.section2 {
 		padding: 50px 0;
+
+		.icon-time {
+			@include background(map-get($icons, icon-time), 100%, 154);
+		}
 	}
 
 	.section3 {
@@ -251,6 +299,22 @@ dt {
 			width: 24.5%;
 			position: relative;
 			margin-left: -5px;
+
+			.icon-person1 {
+				@include background(map-get($icons, icon-person1), 100%, $container_width * 0.245 / 360 * 455);
+			}
+
+			.icon-person2 {
+				@include background(map-get($icons, icon-person2), 100%, $container_width * 0.245 / 360 * 455);
+			}
+
+			.icon-person3 {
+				@include background(map-get($icons, icon-person3), 100%, $container_width * 0.245 / 360 * 455);
+			}
+
+			.icon-person4 {
+				@include background(map-get($icons, icon-person4), 100%, $container_width * 0.245 / 360 * 455);
+			}
 
 			.slogan {
 				position: absolute;
@@ -304,12 +368,16 @@ dt {
 		padding: 20px 0;
 		position: relative;
 
-		.left {
-			float: left;
+		.icon-1 {
+			@include background(map-get($icons, icon-1), 390, 210);
 		}
 
-		.right {
-			float: right;
+		.icon-2 {
+			@include background(map-get($icons, icon-2), 390, 210);
+		}
+
+		.icon-3 {
+			@include background(map-get($icons, icon-3), 390, 210);
 		}
 	}
 
@@ -317,6 +385,8 @@ dt {
 		padding: 10px 0 30px 0;
 
 		ul.am-nav-tabs {
+			display: inline-block;
+			width: $container_width;
 
 			li {
 				margin: 0 10px;
@@ -329,12 +399,16 @@ dt {
 		padding: 20px 0;
 		position: relative;
 
-		.left {
-			float: left;
+		.icon-4 {
+			@include background(map-get($icons, icon-4), 390, 210);
 		}
 
-		.right {
-			float: right;
+		.icon-5 {
+			@include background(map-get($icons, icon-5), 390, 210);
+		}
+
+		.icon-6 {
+			@include background(map-get($icons, icon-6), 390, 210);
 		}
 	}
 
@@ -342,11 +416,20 @@ dt {
 		padding: 10px 0 30px 0;
 
 		ul.am-nav-tabs {
+			display: inline-block;
+			width: $container_width;
 
 			li {
 				width: 390px;
 				margin: 0 17.5px;
 			}
+		}
+	}
+
+	.section10 {
+
+		.icon-bottom {
+			@include background(map-get($icons, icon-bottom), 100%, 223);
 		}
 	}
 }
