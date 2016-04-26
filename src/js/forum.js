@@ -28,13 +28,13 @@ class District {
 	}
 
 	renderRow (colleges) {
-		let _row = $('<div class="row"></div>');
+		let row = $('<div class="row"></div>');
 
 		colleges.map((_college)=> {
-			_row.append(this.renderCollege( _college.id, _college.college));
+			row.append(this.renderCollege( _college.id, _college.college));
 		});
 
-		return _row;
+		return row;
 	}
 
 	render () {
@@ -48,56 +48,82 @@ class District {
 		].join(''));
 
 		while (this.list.length) {
-			$('.content', _district).append(this.renderRow(this.list.splice(0, 8)));
+			$('.content', _district).append(this.renderRow(this.list.splice(0, 6)));
 		}
 
 		return _district;
 	}
 }
 
-class Management {
+class Forum {
 	constructor () {
+		this.model = {
+			collegeList: [],
+			linkList: [],
+		};
+		this.controller = {
+			ajaxGetData: ()=> {
+				$.ajax({
+					url: 'http://www.hskaoyan.com/html_php/college_list.php',
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data)=> {
+						let { list, list_flink } = data
 
+						this.model.collegeList = list;
+						this.model.linkList = list_flink;
+						this.view.setDistrict();
+						this.view.setOtherSite();
+					},
+					error: (err)=> {
+						alert(err.statusText);
+					},
+				});
+			},
+		};
+		this.view = {
+			setDistrict: ()=> {
+				let { collegeList } = this.model;
+
+				$('.section + .district').remove();
+
+				collegeList.map((_district)=> {
+					let { district, list } = _district;
+
+					let __district = new District({
+						district: district,
+						list: list,
+					}).render();
+
+					$('.section + .management').before(__district);
+				});
+			},
+			setOtherSite: ()=> {
+				let { linkList } = this.model;
+				let content = $('.content', $('.section + .other-site'));
+
+				content.children().remove();
+
+				linkList.map((_link)=> {
+					let { name, href } = _link;
+
+					let link = $([
+						`<span class="link">`,
+						`	<a href="${href}" target="_blank">${name}</a>`,
+						`</span>`,
+					].join(''));
+
+					content.append(link);
+				});
+			},
+		}
 	}
 
-	render () {
-		return $([
-			`<div class="management">`,
-			`	<div class="title">`,
-			`		<span>站务管理</span>`,
-			`	</div>`,
-			`	<div class="content">`,
-			`		<div class="row">`, 
-			`			<span class="mng-link">`, 
-			`				<a href="${'javascript:void(0)'}">站务公告</a>`,
-			`				<span class="unread">(1)</span>`,
-			`			</span>`,
-			`			<span class="mng-link">`, 
-			`				<a href="${'javascript:void(0)'}">举报建议和咨询</a>`,
-			`				<span class="unread">(1)</span>`,
-			`			</span>`,
-			`			<span class="mng-link">`, 
-			`				<a href="${'javascript:void(0)'}">版主申请</a>`,
-			`				<span class="unread">(1)</span>`,
-			`			</span>`,
-			`		</div>`,
-			`		<div class="row">`, 
-			`			<span class="mng-link">`, 
-			`				<a href="${'javascript:void(0)'}">站务公告</a>`,
-			`				<span class="unread">(1)</span>`,
-			`			</span>`,
-			`			<span class="mng-link">`, 
-			`				<a href="${'javascript:void(0)'}">举报建议和咨询</a>`,
-			`				<span class="unread">(1)</span>`,
-			`			</span>`,
-			`			<span class="mng-link">`, 
-			`				<a href="${'javascript:void(0)'}">版主申请</a>`,
-			`				<span class="unread">(1)</span>`,
-			`			</span>`,
-			`		</div>`,
-			`	</div>`,
-			`</div>`,
-		].join(''));
+	init () {
+		let { controller } = this;
+
+		controller.ajaxGetData();
 	}
 }
 
@@ -106,32 +132,5 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	$('.section + .district').remove();
-
-	let districts = [];
-	for (let j = 0; j < 4; ++j) {
-		districts.push({
-			district: '北京地区',
-			list: [],
-		});
-		for (let i = 0; i < 23; ++i) {
-			districts[j].list.push({
-				id: `${i + 1}`,
-				college: '北京大学',
-			});
-		}
-	}
-
-	districts.map((_district)=> {
-		let { district, list } = _district;
-
-		let __district = new District({
-			district: district,
-			list: list,
-		}).render();
-
-		$('.container').append(__district);
-	});
-
-	$('.container').append(new Management().render());
+	let forum = new Forum().init();
 });

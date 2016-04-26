@@ -6,6 +6,8 @@ $icons: (
 	icon-logo: '/images/web/forum/logo.png',
 	icon-search: '/images/web/forum/search.png',
 	icon-banner2: '/images/web/forum/banner2.png',
+	icon-home: '/images/web/forum/home.png',
+	icon-arrow-right: '/images/web/forum/arrow-right.png',
 );
 
 body {
@@ -117,6 +119,7 @@ body {
 				border-radius: 8px;
 				-webkit-border-radius: 8px;
 				-moz-border-radius: 8px;
+				border-color: white;
 			}
 		}
 	}
@@ -128,7 +131,28 @@ body {
 		}
 	}
 
-	.district, .management {
+	.section5 {
+		padding: 10px 0;
+		
+		.link {
+			font-size: 18px;
+		}
+
+		.icon-home {
+			@include background(map-get($icons, icon-home), 22, 18);
+		}
+
+		.icon-arrow-right {
+			@include background(map-get($icons, icon-arrow-right), 8, 18);
+			margin: 0 10px;
+		}
+
+		.icon {
+			margin-top: -5px;
+		}
+	}
+
+	.district, .management, .other-site {
 		border: 2px solid #9e9e9e;
 		margin-bottom: 30px;
 
@@ -144,6 +168,7 @@ body {
 
 		.content {
 			padding: 10px 0;
+			background: white;
 
 			.row {
 				border-bottom: 1px dashed #888888;
@@ -152,7 +177,7 @@ body {
 				    margin: 10px 0;
 					font-size: 14px;
 					display: inline-block;
-					width: 12.5%;
+					width: 16.6%;
 					padding-left: 30px;
 
 					.name-wrapper {
@@ -160,11 +185,19 @@ body {
 						a {
 							color: #2d7bbd;
 							display: inline-block;
-							width: 95px;
+							width: 125px;
 							overflow: hidden;
 							text-overflow: ellipsis;
 							white-space: nowrap;
+
+							&:hover {
+								cursor: default;
+							}
 						}
+					}
+
+					a {
+						margin-right: 5px;
 					}
 				}
 
@@ -184,6 +217,27 @@ body {
 
 			.row:last-of-type {
 				border: 0;
+			}
+		}
+	}
+
+	.other-site {
+
+		.title {
+			background: white;
+			color: #333333;
+			font-size: 20px;
+			line-height: 40px;
+		}
+
+		.content {
+
+			.link {
+				display: inline-block;
+				width: 12.5%;
+				text-align: center;
+				font-size: 14px;
+				color: #9e9e9e;
 			}
 		}
 	}
