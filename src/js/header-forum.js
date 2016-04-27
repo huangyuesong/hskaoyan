@@ -25,7 +25,7 @@ export default class headerForum {
 								`<tr>`,
 									`<td><span>密码</span></td>`,
 									`<td><input type="password"></input></td>`,
-									`<td><button>登陆</button></td>`,
+									`<td><button>登录</button></td>`,
 									`<td><span class="register">`,
 									`<a href="javascript:void(0)">注册</a>`,
 									`</span></td>`,

@@ -1,7 +1,9 @@
 @import '_base';
 
 $icons: (
-	
+	icon-communication: '/images/web/forum/communication.png',
+	icon-practice: '/images/web/forum/practice.png',
+	icon-waiting: '/images/web/forum/waiting.png',
 );
 
 body {
@@ -12,6 +14,69 @@ body {
 	
 	.section {
 		padding: 0 0; 
+	}
+
+	.english, .math, .politics {
+		margin-bottom: 30px;
+
+		.title {
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			box-sizing: border-box;
+			background: #fafafa;
+			height: 40px;
+			font-size: 18px;
+			padding: 0 20px;
+
+			span {
+				line-height: 40px;
+			}
+		}
+
+		.content {
+			border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+			padding: 20px 30px;
+			text-align: center;
+
+			.area {
+				display: inline-block;
+				width: 270px;
+				text-align: left;
+
+				.icon-communication {
+					@include background(map-get($icons, icon-communication), 66, 66, 39, 35);
+					background-color: #EEEEEE;
+					margin-right: 10px;
+				}
+
+				.icon-practice {
+					@include background(map-get($icons, icon-practice), 66, 66, 29, 33);
+					background-color: #EEEEEE;
+					margin-right: 10px;
+				}
+
+				.icon-waiting {
+					@include background(map-get($icons, icon-waiting), 66, 66, 36, 25);
+					background-color: #EEEEEE;
+					margin-right: 10px;
+				}
+
+				p {
+					font-size: 14px;
+					color: #5e5e5e;
+					white-space: nowrap;
+				    text-overflow: ellipsis;
+				    overflow: hidden;
+				}
+
+				.name {
+					
+					a, span {
+						color: #f6211c;
+						font-size: 16px;
+					}
+				}
+			}
+		}
 	}
 
 	.district, .management, .other-site {
