@@ -1,4 +1,4 @@
-import '../styles/header-forum.scss';
+import '../styles/header_forum.scss';
 
 export default class headerForum {
 	constructor (subLinks) {

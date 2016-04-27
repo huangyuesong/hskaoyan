@@ -54,9 +54,9 @@
 
 	__webpack_require__(20);
 
-	var _headerForum = __webpack_require__(26);
+	var _header_forum = __webpack_require__(23);
 
-	var _headerForum2 = _interopRequireDefault(_headerForum);
+	var _header_forum2 = _interopRequireDefault(_header_forum);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77,7 +77,7 @@
 		_createClass(District, [{
 			key: 'renderCollege',
 			value: function renderCollege(id, college) {
-				return $(['<div class="school">', '\t<div class="name-wrapper">', '\t\t<a href="' + 'javascript:void(0)' + '" title="' + college + '">', '\t\t\t' + college, '\t\t</a>', '\t</div>', '\t<a href="' + 'javascript:void(0)' + '" class="link">论坛</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资讯</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资料</a>', '</div>'].join(''));
+				return $(['<div class="school">', '\t<div class="name-wrapper">', '\t\t<a href="' + 'javascript:void(0)' + '" title="' + college + '">', '\t\t\t' + college, '\t\t</a>', '\t</div>', '\t<a href="forum_college.html?college_id=' + id + '&college_name=' + college + '" class="link">论坛</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资讯</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资料</a>', '</div>'].join(''));
 			}
 		}, {
 			key: 'renderRow',
@@ -197,7 +197,7 @@
 	});
 
 	$(function () {
-		new _headerForum2.default().render();
+		new _header_forum2.default().render();
 		new Forum().init();
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
@@ -10562,10 +10562,7 @@
 
 
 /***/ },
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
@@ -10576,7 +10573,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(27);
+	__webpack_require__(24);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10610,13 +10607,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 27 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(28);
+	var content = __webpack_require__(25);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -10625,8 +10622,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header-forum.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header-forum.scss");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header_forum.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header_forum.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -10636,7 +10633,7 @@
 	}
 
 /***/ },
-/* 28 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -10644,7 +10641,7 @@
 
 
 	// module
-	exports.push([module.id, ".icon {\n  display: inline-block;\n  vertical-align: middle; }\n  .icon a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.header-forum .section1 {\n  text-align: center; }\n  .header-forum .section1 .icon-ad {\n    background: url(/images/web/header-forum/ad.png) no-repeat center;\n    width: 190px;\n    height: 79px;\n    background-size: 100% 100%; }\n  .header-forum .section1 .icon-banner {\n    background: url(/images/web/header-forum/banner.png) no-repeat center;\n    width: 825px;\n    height: 80px;\n    background-size: 100% 100%; }\n\n.header-forum .section2 .icon-logo {\n  background: url(/images/web/header-forum/logo.png) no-repeat center;\n  width: 562px;\n  height: 107px;\n  background-size: 100% 100%; }\n\n.header-forum .section2 .login {\n  display: inline-block;\n  font-size: 18px;\n  margin-top: 15px; }\n  .header-forum .section2 .login table tbody tr td:first-child {\n    text-align: right; }\n  .header-forum .section2 .login table tbody tr td {\n    padding: 3px 10px;\n    text-align: center; }\n    .header-forum .section2 .login table tbody tr td input[type=\"checkbox\"] {\n      width: 20px;\n      height: 20px;\n      vertical-align: middle;\n      margin: 0 5px; }\n    .header-forum .section2 .login table tbody tr td button {\n      font-weight: bold;\n      width: 100%; }\n    .header-forum .section2 .login table tbody tr td .register {\n      color: #163575;\n      font-weight: bold; }\n\n.header-forum .section3 {\n  background: #2d7bbd; }\n  .header-forum .section3 .navs {\n    margin: 0;\n    padding: 10px 20px;\n    display: inline-block; }\n    .header-forum .section3 .navs .nav {\n      display: inline-block;\n      height: 40px;\n      line-height: 40px;\n      font-size: 22px;\n      font-weight: bold;\n      padding: 0 10px;\n      box-sizing: border-box;\n      border-left: 1px solid rgba(255, 255, 255, 0.15); }\n      .header-forum .section3 .navs .nav a {\n        color: white; }\n    .header-forum .section3 .navs .nav:first-of-type {\n      border: 0; }\n    .header-forum .section3 .navs .popup {\n      position: relative; }\n      .header-forum .section3 .navs .popup .popup-wrapper {\n        display: none;\n        position: absolute;\n        top: 100%;\n        left: 0;\n        width: 100%;\n        padding: 0 0;\n        z-index: -1;\n        border: 0;\n        border-radius: 0px;\n        -webkit-border-radius: 0px;\n        -moz-border-radius: 0px;\n        box-sizing: border-box;\n        background-color: white;\n        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }\n        .header-forum .section3 .navs .popup .popup-wrapper .content {\n          font-size: 12px;\n          line-height: 30px;\n          text-align: center; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content ul {\n            margin: 0;\n            padding: 0 10px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content ul li {\n              height: 40px;\n              border-top: 1px solid rgba(0, 0, 0, 0.2);\n              box-sizing: border-box; }\n              .header-forum .section3 .navs .popup .popup-wrapper .content ul li:first-of-type {\n                border: 0; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content a {\n            color: #333333;\n            font-size: 18px;\n            line-height: 40px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content a:hover {\n              color: #0E9F4E; }\n      .header-forum .section3 .navs .popup:hover .popup-wrapper {\n        display: inline-block; }\n  .header-forum .section3 .search {\n    line-height: 60px; }\n    .header-forum .section3 .search input[type=\"text\"] {\n      width: 270px;\n      height: 37px;\n      outline: 0; }\n    .header-forum .section3 .search button {\n      vertical-align: middle;\n      margin: 0px 5px;\n      background: url(/images/web/header-forum/search.png) no-repeat center;\n      width: 36px;\n      height: 36px;\n      background-size: 17px 18px;\n      background-color: white;\n      border-radius: 8px;\n      -webkit-border-radius: 8px;\n      -moz-border-radius: 8px;\n      border-color: white; }\n\n.header-forum .section4 .icon-banner2 {\n  background: url(/images/web/header-forum/banner2.png) no-repeat center;\n  width: 100%;\n  height: 114px;\n  background-size: 100% 100%; }\n\n.header-forum .section5 {\n  padding: 10px 0; }\n  .header-forum .section5 .link {\n    font-size: 18px; }\n  .header-forum .section5 .icon-home {\n    background: url(/images/web/header-forum/home.png) no-repeat center;\n    width: 22px;\n    height: 18px;\n    background-size: 100% 100%; }\n  .header-forum .section5 .icon-arrow-right {\n    background: url(/images/web/header-forum/arrow-right.png) no-repeat center;\n    width: 8px;\n    height: 18px;\n    background-size: 100% 100%;\n    margin: 0 10px; }\n  .header-forum .section5 .icon {\n    margin-top: -5px; }\n", ""]);
+	exports.push([module.id, ".icon {\n  display: inline-block;\n  vertical-align: middle; }\n  .icon a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.header-forum .section1 {\n  text-align: center; }\n  .header-forum .section1 .icon-ad {\n    background: url(/images/web/header_forum/ad.png) no-repeat center;\n    width: 190px;\n    height: 79px;\n    background-size: 100% 100%; }\n  .header-forum .section1 .icon-banner {\n    background: url(/images/web/header_forum/banner.png) no-repeat center;\n    width: 825px;\n    height: 80px;\n    background-size: 100% 100%; }\n\n.header-forum .section2 .icon-logo {\n  background: url(/images/web/header_forum/logo.png) no-repeat center;\n  width: 562px;\n  height: 107px;\n  background-size: 100% 100%; }\n\n.header-forum .section2 .login {\n  display: inline-block;\n  font-size: 18px;\n  margin-top: 15px; }\n  .header-forum .section2 .login table tbody tr td:first-child {\n    text-align: right; }\n  .header-forum .section2 .login table tbody tr td {\n    padding: 3px 10px;\n    text-align: center; }\n    .header-forum .section2 .login table tbody tr td input[type=\"checkbox\"] {\n      width: 20px;\n      height: 20px;\n      vertical-align: middle;\n      margin: 0 5px; }\n    .header-forum .section2 .login table tbody tr td button {\n      font-weight: bold;\n      width: 100%; }\n    .header-forum .section2 .login table tbody tr td .register {\n      color: #163575;\n      font-weight: bold; }\n\n.header-forum .section3 {\n  background: #2d7bbd; }\n  .header-forum .section3 .navs {\n    margin: 0;\n    padding: 10px 20px;\n    display: inline-block; }\n    .header-forum .section3 .navs .nav {\n      display: inline-block;\n      height: 40px;\n      line-height: 40px;\n      font-size: 22px;\n      font-weight: bold;\n      padding: 0 10px;\n      box-sizing: border-box;\n      border-left: 1px solid rgba(255, 255, 255, 0.15); }\n      .header-forum .section3 .navs .nav a {\n        color: white; }\n    .header-forum .section3 .navs .nav:first-of-type {\n      border: 0; }\n    .header-forum .section3 .navs .popup {\n      position: relative; }\n      .header-forum .section3 .navs .popup .popup-wrapper {\n        display: none;\n        position: absolute;\n        top: 100%;\n        left: 0;\n        width: 100%;\n        padding: 0 0;\n        z-index: -1;\n        border: 0;\n        border-radius: 0px;\n        -webkit-border-radius: 0px;\n        -moz-border-radius: 0px;\n        box-sizing: border-box;\n        background-color: white;\n        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }\n        .header-forum .section3 .navs .popup .popup-wrapper .content {\n          font-size: 12px;\n          line-height: 30px;\n          text-align: center; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content ul {\n            margin: 0;\n            padding: 0 10px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content ul li {\n              height: 40px;\n              border-top: 1px solid rgba(0, 0, 0, 0.2);\n              box-sizing: border-box; }\n              .header-forum .section3 .navs .popup .popup-wrapper .content ul li:first-of-type {\n                border: 0; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content a {\n            color: #333333;\n            font-size: 18px;\n            line-height: 40px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content a:hover {\n              color: #0E9F4E; }\n      .header-forum .section3 .navs .popup:hover .popup-wrapper {\n        display: inline-block; }\n  .header-forum .section3 .search {\n    line-height: 60px; }\n    .header-forum .section3 .search input[type=\"text\"] {\n      width: 270px;\n      height: 37px;\n      outline: 0; }\n    .header-forum .section3 .search button {\n      vertical-align: middle;\n      margin: 0px 5px;\n      background: url(/images/web/header_forum/search.png) no-repeat center;\n      width: 36px;\n      height: 36px;\n      background-size: 17px 18px;\n      background-color: white;\n      border-radius: 8px;\n      -webkit-border-radius: 8px;\n      -moz-border-radius: 8px;\n      border-color: white; }\n\n.header-forum .section4 .icon-banner2 {\n  background: url(/images/web/header_forum/banner2.png) no-repeat center;\n  width: 100%;\n  height: 114px;\n  background-size: 100% 100%; }\n\n.header-forum .section5 {\n  padding: 10px 0; }\n  .header-forum .section5 .link {\n    font-size: 18px; }\n    .header-forum .section5 .link:last-of-type {\n      font-weight: bold; }\n  .header-forum .section5 .icon-home {\n    background: url(/images/web/header_forum/home.png) no-repeat center;\n    width: 22px;\n    height: 18px;\n    background-size: 100% 100%; }\n  .header-forum .section5 .icon-arrow-right {\n    background: url(/images/web/header_forum/arrow-right.png) no-repeat center;\n    width: 8px;\n    height: 18px;\n    background-size: 100% 100%;\n    margin: 0 10px; }\n  .header-forum .section5 .icon {\n    margin-top: -5px; }\n", ""]);
 
 	// exports
 

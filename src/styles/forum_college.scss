@@ -1,0 +1,169 @@
+@import '_base';
+
+$icons: (
+	icon-arrow-down: '/images/web/forum_college/arrow-down.png',
+	icon-arrow-down-gray: '/images/web/forum_college/arrow-down-gray.png',
+);
+
+.container {
+	overflow: hidden;
+
+	.left {
+		display: inline-block;
+		width: 170px;
+
+		.hot-section, .recommend {
+			border: 1px solid #C2D5E3;
+			width: 155px;
+			background: #FAFAFA;
+
+			ul {
+				margin: 0;
+				padding: 0;
+			}
+
+			.title {
+				padding-left: 20px;
+				line-height: 40px;
+				font-size: 18px;
+				border-bottom: 1px solid #C2D5E3;
+			}
+		}
+
+		.hot-section {
+
+			.content {
+				padding: 5px 10px;
+
+				ul li {
+					font-size: 12px;
+					line-height: 24px;
+					padding-left: 20px;
+
+					&:first-of-type {
+						font-size: 14px;
+						line-height: 35px;
+						border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+					}
+				}
+			}
+		}
+
+		.recommend {
+			margin: 30px 0;
+
+			.content {
+				padding: 0 5px;
+
+				ul li {
+					font-size: 14px;
+					height: 90px;
+					margin: 10px 0;
+
+					p {
+						text-align: right;
+
+						.bbs-author {
+							color: #656565;
+						}
+					}
+
+					.bbs-title {
+						display: inline-block;
+						width: 143px;
+						max-height: 65px;
+					    text-overflow: ellipsis;
+					    overflow: hidden;
+					}
+				}
+			}
+		}
+	}
+
+	.right {
+
+		.head {
+			width: 1080px;
+			padding-left: 20px;
+			line-height: 40px;
+			font-size: 18px;
+			border: 1px solid #C2D5E3;
+			background: #FAFAFA;
+
+			.today, .topic {
+				font-size: 16px;
+				margin: 0 30px;
+			}
+
+			.red {
+				color: #fe4a4a;
+			}
+		}
+
+		.forum-body {
+			width: 900px;
+
+			.button {
+				display: inline-block;
+				width: 90px;
+				height: 43px;
+				@include border-radius(5);
+				color: white;
+				background: #498ACC;
+				text-align: center;
+				line-height: 43px;
+				cursor: pointer;
+				font-size: 18px;
+				margin: 20px 0;
+
+				.icon-arrow-down {
+					@include background(map-get($icons, icon-arrow-down), 9, 5);
+					position: relative;
+					right: -10px;
+				}
+			}
+
+			.am-pagination {
+				margin-top: 20px;
+
+				a {
+					cursor: pointer;
+				}
+			}
+
+			.keyword-section {
+				border-top: 2px solid #BCBCBC;
+				padding-top: 20px;
+
+				.keyword-wrapper {
+					display: inline-block;
+					height: 35px;
+					width: 50px;
+					line-height: 35px;
+					text-align: center;
+					background: #F6F6F6;
+					box-sizing: border-box;
+					border: 1px solid rgba(0, 0, 0, 0.1);
+				}
+			}
+
+			.operation-bar {
+				height: 35px;
+				line-height: 35px;
+				background: #e2f0fa;
+				border: 1px solid #C2D5E3;
+				padding: 0 10px;
+				font-size: 14px;
+
+				.operation {
+					color: #4972ab;
+					margin: 0 5px;
+
+					.icon-arrow-down-gray {
+						@include background(map-get($icons, icon-arrow-down-gray), 11, 6);
+					}
+				}
+			}
+		}
+	}		
+}

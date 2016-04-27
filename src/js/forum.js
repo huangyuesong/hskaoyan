@@ -4,7 +4,7 @@ import './header';
 
 import './footer';
 
-import headerForum from './header-forum';
+import headerForum from './header_forum';
 
 class District {
 	constructor (data) {
@@ -22,7 +22,7 @@ class District {
 			`			${college}`,
 			`		</a>`,
 			`	</div>`,
-			`	<a href="${'javascript:void(0)'}" class="link">论坛</a>`,
+			`	<a href="forum_college.html?college_id=${id}&college_name=${college}" class="link">论坛</a>`,
 			`	<a href="${'javascript:void(0)'}" class="link">资讯</a>`,
 			`	<a href="${'javascript:void(0)'}" class="link">资料</a>`,
 			`</div>`,

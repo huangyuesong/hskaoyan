@@ -1,13 +1,13 @@
 @import '_image';
 
 $icons: (
-	icon-ad: '/images/web/header-forum/ad.png',
-	icon-banner: '/images/web/header-forum/banner.png',
-	icon-logo: '/images/web/header-forum/logo.png',
-	icon-search: '/images/web/header-forum/search.png',
-	icon-banner2: '/images/web/header-forum/banner2.png',
-	icon-home: '/images/web/header-forum/home.png',
-	icon-arrow-right: '/images/web/header-forum/arrow-right.png',
+	icon-ad: '/images/web/header_forum/ad.png',
+	icon-banner: '/images/web/header_forum/banner.png',
+	icon-logo: '/images/web/header_forum/logo.png',
+	icon-search: '/images/web/header_forum/search.png',
+	icon-banner2: '/images/web/header_forum/banner2.png',
+	icon-home: '/images/web/header_forum/home.png',
+	icon-arrow-right: '/images/web/header_forum/arrow-right.png',
 );
 
 .header-forum {
@@ -186,6 +186,10 @@ $icons: (
 		
 		.link {
 			font-size: 18px;
+
+			&:last-of-type {
+				font-weight: bold;
+			}
 		}
 
 		.icon-home {

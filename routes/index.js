@@ -17,4 +17,8 @@ router.get('/forum.html', function(req, res, next) {
   res.render('forum');
 });
 
+router.get('/forum_college.html', function(req, res, next) {
+  res.render('forum_college');
+});
+
 module.exports = router;
