@@ -4,6 +4,8 @@ import './header';
 
 import './footer';
 
+import headerForum from './header-forum';
+
 class District {
 	constructor (data) {
 		let { district, list } = data;
@@ -86,8 +88,6 @@ class Forum {
 			setDistrict: ()=> {
 				let { collegeList } = this.model;
 
-				$('.section + .district').remove();
-
 				collegeList.map((_district)=> {
 					let { district, list } = _district;
 
@@ -96,7 +96,7 @@ class Forum {
 						list: list,
 					}).render();
 
-					$('.section + .management').before(__district);
+					$('.management').before(__district);
 				});
 			},
 			setOtherSite: ()=> {
@@ -132,5 +132,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	let forum = new Forum().init();
+	new headerForum().render();
+	new Forum().init();
 });

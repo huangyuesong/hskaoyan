@@ -6,6 +6,7 @@ var entry = {};
 var exclude = new Map();
 exclude.set('header.js', true);
 exclude.set('footer.js', true);
+exclude.set('header-forum.js', true);
 var files = fs.readdirSync(path.resolve('./src/js/'));
 files.map(function (file) {
 	if (/\.js$/.test(file) && !exclude.get(file)) {
