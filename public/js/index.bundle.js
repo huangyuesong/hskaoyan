@@ -46,9 +46,9 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
-	__webpack_require__(35);
+	__webpack_require__(37);
 
-	__webpack_require__(36);
+	__webpack_require__(38);
 
 	__webpack_require__(17);
 
@@ -10395,7 +10395,9 @@
 /* 32 */,
 /* 33 */,
 /* 34 */,
-/* 35 */
+/* 35 */,
+/* 36 */,
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! Amaze UI v2.6.1 | by Amaze UI Team | (c) 2016 AllMobilize, Inc. | Licensed under MIT | 2016-04-06T09:34:39+0800 */ 
@@ -26952,13 +26954,13 @@
 	;
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(37);
+	var content = __webpack_require__(39);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -26978,7 +26980,7 @@
 	}
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();

@@ -1,0 +1,18 @@
+@import '_base';
+
+$icons: (
+	icon-logo: '/images/web/forum_article/logo.png',
+);
+
+.header-forum .section3 {
+	
+	.icon-logo {
+		@include background(map-get($icons, icon-logo), 153, 39);
+		margin-left: 10px;
+		margin-top: -10px;
+	}
+}
+
+.container {
+	
+}

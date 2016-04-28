@@ -24,7 +24,7 @@ $(window).load(()=> {
 $(()=> {
 	new headerForum([
 		{
-			name: `${college_name || '清华大学'}论坛`,
+			name: `${college_name || ''}论坛`,
 			href: `forum_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 	]).render();
