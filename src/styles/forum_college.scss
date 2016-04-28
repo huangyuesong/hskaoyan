@@ -3,6 +3,8 @@
 $icons: (
 	icon-arrow-down: '/images/web/forum_college/arrow-down.png',
 	icon-arrow-down-gray: '/images/web/forum_college/arrow-down-gray.png',
+	icon-ad-right: '/images/web/forum_college/ad-right.png',
+	icon-arrow-up: '/images/web/forum_college/arrow-up.png',
 );
 
 .container {
@@ -102,6 +104,7 @@ $icons: (
 
 		.forum-body {
 			width: 900px;
+			padding: 0 10px;
 
 			.button {
 				display: inline-block;
@@ -114,7 +117,7 @@ $icons: (
 				line-height: 43px;
 				cursor: pointer;
 				font-size: 18px;
-				margin: 20px 0;
+				margin: 20px 10px;
 
 				.icon-arrow-down {
 					@include background(map-get($icons, icon-arrow-down), 9, 5);
@@ -133,17 +136,55 @@ $icons: (
 
 			.keyword-section {
 				border-top: 2px solid #BCBCBC;
-				padding-top: 20px;
+				padding: 20px 0;
+
+				p:first-of-type {
+					text-align: right;
+					padding: 0 5px;
+					font-size: 12px;
+
+					a {
+						color: #94A9C8;
+					}
+
+					.icon-arrow-up {
+						@include background(map-get($icons, icon-arrow-up), 9, 5);
+						margin: 0 3px;
+					}
+				}
 
 				.keyword-wrapper {
 					display: inline-block;
-					height: 35px;
-					width: 50px;
-					line-height: 35px;
 					text-align: center;
 					background: #F6F6F6;
 					box-sizing: border-box;
 					border: 1px solid rgba(0, 0, 0, 0.1);
+					padding: 0 5px;
+					margin-bottom: 3px;
+
+					.keyword {
+						font-size: 14px;
+						padding-top: 2px;
+						margin: 0 5px;
+					}
+
+					.number {
+						background: #BCBCBC;
+						font-size: 10px;
+						color: #E5E5E5;
+						position: relative;
+						top: -1.5px;
+					}
+				}
+
+				.active {
+					color: #7198C6;
+					border: 1px solid #7198C6;
+					background: #E5EDF2;
+
+					.number {
+						color: #E5E5E5;
+					}
 				}
 			}
 
@@ -163,7 +204,116 @@ $icons: (
 						@include background(map-get($icons, icon-arrow-down-gray), 11, 6);
 					}
 				}
+
+				span {
+					margin-right: 20px;
+				}
 			}
+
+			.article {
+				padding: 0 15px;
+				background: #F9F9F9;
+				border: 1px solid #E2E2E2;
+
+				ul {
+					padding: 0;
+					margin: 0;
+
+					li {
+						border-bottom: 1px solid #BACADE;
+						padding: 15px 0;
+
+						&:last-of-type {
+							border: 0;
+						}
+
+						img {
+							margin: 0 10px;
+						}
+
+						.title {
+							font-size: 16px;
+							margin-right: 10px;
+						}
+
+						.author, .release, .date, .time {
+							font-size: 14px;
+							color: #8C8C8C;
+							margin: 0 5px;
+						}
+
+						.author {
+							margin: 0;
+						}
+
+						.reply, .visit {
+							position: relative;
+							font-size: 14px
+						}
+
+						.reply {
+							right: 55px;
+							top: -20px;
+							color: #3a6ba4;
+						}
+
+						.visit {
+							right: -11px;
+							top: 0px;
+						}
+					}
+				}
+			}
+
+			.write {
+				margin: 20px 0;
+				border: 1px solid #C2D5E3;
+
+				.title {
+					padding-left: 20px;
+					line-height: 40px;
+					font-size: 18px;
+					border-bottom: 1px solid #C2D5E3;
+					background: #e2f0fa;
+					color: #4972ab;
+				}
+
+				.content {
+					padding: 15px;
+					background: #FAFAFA;
+
+					select {
+						width: 90px;
+					}
+
+					input[type="text"] {
+						width: 350px;
+						margin: 20px;
+					}
+
+					span {
+						font-size: 14px;
+					}
+
+					textarea {
+						width: 100%;
+						height: 200px;
+						resize: none;
+						overflow: auto;
+					}
+
+					.button {
+						margin: 0;
+						margin-top: 10px;
+						height: 30px;
+						line-height: 30px;
+					}
+				}
+			}
+		}
+
+		.icon-ad-right {
+			@include background(map-get($icons, icon-ad-right), 175, 200);
 		}
 	}		
 }

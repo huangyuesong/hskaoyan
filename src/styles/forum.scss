@@ -6,10 +6,6 @@ $icons: (
 	icon-waiting: '/images/web/forum/waiting.png',
 );
 
-body {
-	background: #F5F5F5;
-}
-
 .container {
 	
 	.section {
@@ -95,7 +91,7 @@ body {
 
 		.content {
 			padding: 10px 0;
-			background: white;
+			background: #F5F5F5;
 
 			.row {
 				border-bottom: 1px dashed #888888;

@@ -10377,7 +10377,7 @@
 
 
 	// module
-	exports.push([module.id, ".footer {\n  color: white;\n  background-color: #313131;\n  text-align: center;\n  font-size: 20px;\n  padding: 55px 0; }\n", ""]);
+	exports.push([module.id, ".footer {\n  color: white;\n  background-color: #313131;\n  text-align: center;\n  font-size: 14px;\n  padding: 55px 0; }\n", ""]);
 
 	// exports
 

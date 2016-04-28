@@ -13,6 +13,10 @@ let {
 	college_id,
 } = url.parse(location.href, true).query;
 
+if (!college_name || !college_id) {
+	location.href = '/forum.html';
+}
+
 $(window).load(()=> {
 	$('.loading').remove();
 });
