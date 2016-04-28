@@ -41,9 +41,16 @@ $(()=> {
 	$('.section4', $('.header-forum')).remove();
 	$('.middle', $('.header')).remove();
 	$('.nav-bar', $('.header')).remove();
+	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
 		color: '#9E9E9E',
 	});
-	$('p:last-of-type', $('.footer')).remove();
+
+	let article = $('.article-wrapper');
+	$('.article-title-wrapper').after(article.clone());
+	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
+	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
+	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
+	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
 });

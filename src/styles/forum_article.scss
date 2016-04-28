@@ -2,7 +2,15 @@
 
 $icons: (
 	icon-logo: '/images/web/forum_article/logo.png',
+	icon-arrow-down: '/images/web/forum_article/arrow-down.png',
+	icon-star: '/images/web/forum_article/star.png',
+	icon-good: '/images/web/forum_article/good.png',
+	icon-message: '/images/web/forum_article/message.png',
 );
+
+body {
+	background: #F5F5F5;
+}
 
 .header-forum .section3 {
 	
@@ -14,5 +22,219 @@ $icons: (
 }
 
 .container {
-	
+
+	.button {
+		display: inline-block;
+		width: 90px;
+		height: 43px;
+		@include border-radius(5);
+		color: white;
+		background: #498ACC;
+		text-align: center;
+		line-height: 43px;
+		cursor: pointer;
+		font-size: 18px;
+		margin: 20px 10px;
+
+		.icon-arrow-down {
+			@include background(map-get($icons, icon-arrow-down), 9, 5);
+			position: relative;
+			right: -10px;
+		}
+	}
+
+	.am-pagination {
+		margin-top: 20px;
+
+		a {
+			cursor: pointer;
+		}
+	}
+
+	.article-title-wrapper {
+		font-size: 20px;
+
+		.author {
+			color: #ff3838;
+		}
+
+		.article-title {
+			margin: 0 10px;
+		}
+	}
+
+	.article-wrapper {
+		margin: 20px 0;
+		background: white;
+		position: relative;
+		border: 2px solid #E5E5E5;
+
+		.user-info {
+			width: 175px;
+			border-right: 1px solid #E5E5E5;
+			box-sizing: border-box;
+			padding: 0 10px;
+			font-size: 14px;
+		    height: 100%;
+		    position: absolute;
+		    background: white;
+		    z-index: 1;
+
+			.red {
+				color: #fa6069;
+			}
+
+			.top {
+				text-align: center;
+				line-height: 45px;
+			}
+
+			.author {
+				line-height: 35px;
+				border-bottom: 1px dotted #E5E5E5;
+			}
+
+			.avatar {
+				display: block;
+				margin: 20px auto;
+			}
+
+			.role {
+				color: #7292DD;
+			}
+
+			.group {
+				color: #FF5C66;
+			}
+
+			.icon-star {
+				@include background(map-get($icons, icon-star), 16, 16);
+			}
+
+			.icon-message {
+				@include background(map-get($icons, icon-message), 18, 15);
+				margin-right: 5px;
+			}
+
+			.role, .group, .star, .send-message {
+				padding-left: 35px;
+			}
+
+			.send-message {
+				color: #7292DD;
+			}
+		}
+
+		.content-wrapper {
+			min-height: 600px;
+		    padding-left: 175px;
+		    position: relative;
+		    padding-bottom: 60px;
+
+			.top {
+				font-size: 14px;
+				line-height: 45px;
+				border-bottom: 1px dotted #E5E5E5;
+
+				span {
+					margin: 0 15px;
+
+					&:first-of-type {
+						margin-right: -5px;
+					}
+				}
+			}
+
+			.content {
+				padding: 20px;
+			}
+
+			.bottom {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				padding-left: 176px;
+				font-size: 14px;
+				line-height: 60px;
+				text-align: center;
+				border-top: 1px dotted #E5E5E5;
+
+				a:first-of-type, a:last-of-type {
+
+					span {
+						margin: 0 20px;
+					}
+				}
+
+				.collect, .good {
+					display: inline-block;
+					width: 80px;
+					line-height: 32px;
+					@include border-radius(5);
+					background: #e6edf2;
+					margin: 0 10px;
+
+					.icon-star {
+						@include background(map-get($icons, icon-star), 16, 16);
+					}
+
+					.icon-good {
+						@include background(map-get($icons, icon-good), 14, 17);
+					}
+
+					.icon {
+						position: relative;
+						top: -3px;
+					}
+				}
+			}
+		}
+	}
+
+	.write {
+		margin: 20px 0;
+		border: 1px solid #C2D5E3;
+
+		.title {
+			padding-left: 20px;
+			line-height: 40px;
+			font-size: 18px;
+			border-bottom: 1px solid #C2D5E3;
+			background: #e2f0fa;
+			color: #4972ab;
+		}
+
+		.content {
+			padding: 15px;
+			background: #FAFAFA;
+
+			select {
+				width: 90px;
+			}
+
+			input[type="text"] {
+				width: 350px;
+				margin: 20px;
+			}
+
+			span {
+				font-size: 14px;
+			}
+
+			textarea {
+				width: 100%;
+				height: 200px;
+				resize: none;
+				overflow: auto;
+			}
+
+			.button {
+				margin: 0;
+				margin-top: 10px;
+				height: 30px;
+				line-height: 30px;
+			}
+		}
+	}
 }

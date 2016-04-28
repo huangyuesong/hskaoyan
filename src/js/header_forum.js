@@ -36,7 +36,7 @@ export default class headerForum {
 				`</div>`,
 				`<div class="section section3">`,
 					`<ul class="navs">`,
-						`<li class="nav"><a href="javascript:void(0)">考研论坛</a></li>`,
+						`<li class="nav"><a href="forum.html">考研论坛</a></li>`,
 						`<li class="nav"><a href="javascript:void(0)">考研APP</a></li>`,
 						`<li class="nav popup">`,
 							`<a href="javascript:void(0)">考研资讯</a>`,

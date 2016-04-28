@@ -28,4 +28,12 @@ $(()=> {
 			href: `forum_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 	]).render();
+
+	for (let i = 0; i < 17; ++i) {
+		$('.keyword-section').append($('.keyword-wrapper').eq(1).parent().clone());
+	}
+
+	for (let i = 0; i < 10; ++i) {
+		$('.article ul').append($('.article ul li').eq(0).clone());
+	}
 });

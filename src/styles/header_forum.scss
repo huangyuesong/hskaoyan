@@ -57,8 +57,11 @@ $icons: (
 					}
 
 					.register {
-						color: #163575;
 						font-weight: bold;
+
+						a {
+							color: #163575;
+						}
 					}
 				}
 			}
