@@ -11,4 +11,8 @@ $(()=> {
 	$('#fullpage').fullpage({
 		anchors: ['page1', 'page2', 'page3', 'page4'],
 	});
+
+	$('.sroll-to-top', $('.float-bar')).click((evt)=> {
+		location.href = 'app.html#page1';
+	});
 });

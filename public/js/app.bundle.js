@@ -60,6 +60,10 @@
 		$('#fullpage').fullpage({
 			anchors: ['page1', 'page2', 'page3', 'page4']
 		});
+
+		$('.sroll-to-top', $('.float-bar')).click(function (evt) {
+			location.href = 'app.html#page1';
+		});
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 

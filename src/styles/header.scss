@@ -13,6 +13,96 @@ $icons: (
 );
 
 .header {
+
+	.modal-login, .modal-register {
+
+		.am-modal-hd {
+			text-align: left;
+			background: #F7F7F7;
+			border-bottom: 2px solid #C9C9C9;
+			line-height: 45px;
+		}
+
+		.am-modal-bd {
+			text-align: center;
+			padding: 30px 90px;
+			color: #A5A5A5;
+
+			input[type="text"], input[type="password"] {
+				display: inline-block;
+				width: 350px;
+				height: 40px;
+				margin: 5px 0;
+				padding-left: 35px;
+				color: #333333;
+			}
+
+			input[type="checkbox"] {
+				width: 15px;
+				height: 15px;
+				margin: 0 5px;
+				position: relative;
+				top: 2px;
+			}
+
+			.button {
+				display: inline-block;
+				width: 350px;
+				line-height: 40px;
+				color: white;
+				background: #00A0E9;
+				margin: 10px 0;
+			}
+
+			.color-link {
+				color: #00A0E9;
+			}
+
+			.al {
+				text-align: left;
+			}
+
+			.fr {
+				float: right;
+			}
+		}
+	}
+
+	.modal-login {
+
+		.am-modal-bd {
+
+			.forget {
+				float: right;
+				color: #00A0E9;
+			}
+		}
+	}
+
+	.modal-register {
+
+		.am-modal-bd {
+
+			input[type="text"], input[type="password"] {
+				padding-left: 15px;
+			}
+
+			input.captcha {
+				width: 200px;
+				margin-left: 5px;
+			}
+
+			.get-captcha {
+				width: 110px;
+				line-height: 30px;
+				text-align: center;
+				margin: 0;
+				margin-left: 15px;
+				position: relative;
+				top: 1px;
+			}
+		}
+	}
 	
 	.top-bar {
 		height: 50px;
