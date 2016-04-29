@@ -23,7 +23,7 @@ class District {
 			`		</a>`,
 			`	</div>`,
 			`	<a href="forum_college.html?college_id=${id}&college_name=${college}" class="link">论坛</a>`,
-			`	<a href="${'javascript:void(0)'}" class="link">资讯</a>`,
+			`	<a href="news_college.html?college_id=${id}&college_name=${college}" class="link">资讯</a>`,
 			`	<a href="${'javascript:void(0)'}" class="link">资料</a>`,
 			`</div>`,
 		].join(''));

@@ -52,9 +52,9 @@
 
 	__webpack_require__(17);
 
-	__webpack_require__(20);
+	__webpack_require__(21);
 
-	var _header_forum = __webpack_require__(23);
+	var _header_forum = __webpack_require__(24);
 
 	var _header_forum2 = _interopRequireDefault(_header_forum);
 
@@ -77,7 +77,7 @@
 		_createClass(District, [{
 			key: 'renderCollege',
 			value: function renderCollege(id, college) {
-				return $(['<div class="school">', '\t<div class="name-wrapper">', '\t\t<a href="' + 'javascript:void(0)' + '" title="' + college + '">', '\t\t\t' + college, '\t\t</a>', '\t</div>', '\t<a href="forum_college.html?college_id=' + id + '&college_name=' + college + '" class="link">论坛</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资讯</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资料</a>', '</div>'].join(''));
+				return $(['<div class="school">', '\t<div class="name-wrapper">', '\t\t<a href="' + 'javascript:void(0)' + '" title="' + college + '">', '\t\t\t' + college, '\t\t</a>', '\t</div>', '\t<a href="forum_college.html?college_id=' + id + '&college_name=' + college + '" class="link">论坛</a>', '\t<a href="news_college.html?college_id=' + id + '&college_name=' + college + '" class="link">资讯</a>', '\t<a href="' + 'javascript:void(0)' + '" class="link">资料</a>', '</div>'].join(''));
 			}
 		}, {
 			key: 'renderRow',
@@ -10451,7 +10451,7 @@
 
 	__webpack_require__(18);
 
-	__webpack_require__(37);
+	__webpack_require__(20);
 
 	exports.default = function () {
 		var header = function header() {
@@ -10516,163 +10516,6 @@
 
 /***/ },
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	__webpack_require__(21);
-
-	exports.default = function () {
-	    var footer = function footer() {
-	        return $(['<div class="footer">', '   <p>咨询热线：010-52899685&nbsp;&nbsp;13681568652&nbsp;&nbsp;15810695171</p>', '   <p>网络课堂报名电话：13681568652&nbsp;&nbsp;网络课堂技术支持：010-52899685</p>', '   <p>版权归属：慧升教育&nbsp;&nbsp;京ICP备</p>', '   <p>总部地址：北京市海淀区北四环中路238号柏彦大厦501</p>', '   <p>老师咨询QQ：李老师&nbsp;&nbsp;王老师&nbsp;&nbsp;张老师&nbsp;&nbsp;宗老师&nbsp;&nbsp;陈老师</p>', '</div>'].join(''));
-	    };
-
-	    $('script', $('body')).before(new footer());
-	}();
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(22);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(4)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".footer {\n  color: white;\n  background-color: #313131;\n  text-align: center;\n  font-size: 14px;\n  padding: 55px 0; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(24);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var headerForum = function () {
-		function headerForum(subLinks) {
-			_classCallCheck(this, headerForum);
-
-			this.subLinks = subLinks || [];
-
-			this.html = ['<div class="header-forum">', '<div class="section section1">', '<div class="icon icon-ad fl"><a href="javascript:void(0)"></a></div>', '<div class="icon icon-banner"><a href="javascript:void(0)"></a></div>', '<div class="icon icon-ad fr"><a href="javascript:void(0)"></a></div>', '</div>', '<div class="section section2">', '<div class="icon icon-logo"></div>', '<div class="login fr">', '<table>', '<tbody>', '<tr>', '<td><span>用户名</span></td>', '<td><input type="text"></input></td>', '<td><input type="checkbox"></input><span>自动登录</span></td>', '<td><span><a href="javascript:void(0)">找回密码</a></span></td>', '</tr>', '<tr>', '<td><span>密码</span></td>', '<td><input type="password"></input></td>', '<td><button>登录</button></td>', '<td><span class="register">', '<a href="javascript:void(0)">注册</a>', '</span></td>', '</tr>', '</tbody>', '</table>', '</div>', '</div>', '<div class="section section3">', '<ul class="navs">', '<li class="nav"><a href="forum.html">考研论坛</a></li>', '<li class="nav"><a href="app.html">考研APP</a></li>', '<li class="nav popup">', '<a href="javascript:void(0)">考研资讯</a>', '<div class="popup-wrapper">', '<div class="content">', '<ul>', '<li><a href="javascript:void(0)">院校信息</a></li>', '<li><a href="javascript:void(0)">导师介绍</a></li>', '<li><a href="javascript:void(0)">分数线</a></li>', '<li><a href="javascript:void(0)">推免保研</a></li>', '<li><a href="javascript:void(0)">在职硕士</a></li>', '<li><a href="javascript:void(0)">学费补助</a></li>', '<li><a href="javascript:void(0)">专业介绍</a></li>', '<li><a href="javascript:void(0)">考研复试</a></li>', '<li><a href="javascript:void(0)">考研调剂</a></li>', '<li><a href="javascript:void(0)">考研经验</a></li>', '<li><a href="javascript:void(0)">联系方式</a></li>', '</ul>', '</div>', '</div>', '</li>', '<li class="nav"><a href="javascript:void(0)">考研资料</a></li>', '<li class="nav"><a href="javascript:void(0)">辅导班推荐</a></li>', '<li class="nav"><a href="javascript:void(0)">联系慧升</a></li>', '</ul>', '<div class="search fr">', '<input type="text" placeholder="请输入搜索内容"></input>', '<button></button>', '</div>', '</div>', '<div class="section section4">', '<div class="icon icon-banner2"></div>', '</div>', '<div class="section section5">', '<div class="icon icon-home"><a href="index.html"></a></div>', '<div class="icon icon-arrow-right"></div>', '<a href="forum.html" class="link">考研论坛</a>', '</div>', '</div>'].join('');
-		}
-
-		_createClass(headerForum, [{
-			key: 'render',
-			value: function render() {
-				var _header = $(this.html);
-
-				this.subLinks.map(function (_link) {
-					$('.section5', _header).append($('<div class="icon icon-arrow-right"></div>')).append($('<a href="' + _link.href + '" class="link">' + _link.name + '</a>'));
-				});
-
-				$('.container').prepend(_header);
-			}
-		}]);
-
-		return headerForum;
-	}();
-
-	exports.default = headerForum;
-	;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(25);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header_forum.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header_forum.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(4)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".icon {\n  display: inline-block;\n  vertical-align: middle; }\n  .icon a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.header-forum .section1 {\n  text-align: center; }\n  .header-forum .section1 .icon-ad {\n    background: url(/images/web/header_forum/ad.png) no-repeat center;\n    width: 190px;\n    height: 79px;\n    background-size: 100% 100%; }\n  .header-forum .section1 .icon-banner {\n    background: url(/images/web/header_forum/banner.png) no-repeat center;\n    width: 825px;\n    height: 80px;\n    background-size: 100% 100%; }\n\n.header-forum .section2 .icon-logo {\n  background: url(/images/web/header_forum/logo.png) no-repeat center;\n  width: 562px;\n  height: 107px;\n  background-size: 100% 100%; }\n\n.header-forum .section2 .login {\n  display: inline-block;\n  font-size: 18px;\n  margin-top: 15px; }\n  .header-forum .section2 .login table tbody tr td:first-child {\n    text-align: right; }\n  .header-forum .section2 .login table tbody tr td {\n    padding: 3px 10px;\n    text-align: center; }\n    .header-forum .section2 .login table tbody tr td input[type=\"checkbox\"] {\n      width: 20px;\n      height: 20px;\n      vertical-align: middle;\n      margin: 0 5px; }\n    .header-forum .section2 .login table tbody tr td button {\n      font-weight: bold;\n      width: 100%; }\n    .header-forum .section2 .login table tbody tr td .register {\n      font-weight: bold; }\n      .header-forum .section2 .login table tbody tr td .register a {\n        color: #163575; }\n\n.header-forum .section3 {\n  background: #2d7bbd; }\n  .header-forum .section3 .navs {\n    margin: 0;\n    padding: 10px 20px;\n    display: inline-block; }\n    .header-forum .section3 .navs .nav {\n      display: inline-block;\n      height: 40px;\n      line-height: 40px;\n      font-size: 22px;\n      font-weight: bold;\n      padding: 0 10px;\n      box-sizing: border-box;\n      border-left: 1px solid rgba(255, 255, 255, 0.15); }\n      .header-forum .section3 .navs .nav a {\n        color: white; }\n    .header-forum .section3 .navs .nav:first-of-type {\n      border: 0; }\n    .header-forum .section3 .navs .popup {\n      position: relative; }\n      .header-forum .section3 .navs .popup .popup-wrapper {\n        display: none;\n        position: absolute;\n        top: 100%;\n        left: 0;\n        width: 100%;\n        padding: 0 0;\n        z-index: -1;\n        border: 0;\n        border-radius: 0px;\n        -webkit-border-radius: 0px;\n        -moz-border-radius: 0px;\n        box-sizing: border-box;\n        background-color: white;\n        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }\n        .header-forum .section3 .navs .popup .popup-wrapper .content {\n          font-size: 12px;\n          line-height: 30px;\n          text-align: center; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content ul {\n            margin: 0;\n            padding: 0 10px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content ul li {\n              height: 40px;\n              border-top: 1px solid rgba(0, 0, 0, 0.2);\n              box-sizing: border-box; }\n              .header-forum .section3 .navs .popup .popup-wrapper .content ul li:first-of-type {\n                border: 0; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content a {\n            color: #333333;\n            font-size: 18px;\n            line-height: 40px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content a:hover {\n              color: #0E9F4E; }\n      .header-forum .section3 .navs .popup:hover .popup-wrapper {\n        display: inline-block; }\n  .header-forum .section3 .search {\n    line-height: 60px; }\n    .header-forum .section3 .search input[type=\"text\"] {\n      width: 270px;\n      height: 37px;\n      outline: 0; }\n    .header-forum .section3 .search button {\n      vertical-align: middle;\n      margin: 0px 5px;\n      background: url(/images/web/header_forum/search.png) no-repeat center;\n      width: 36px;\n      height: 36px;\n      background-size: 17px 18px;\n      background-color: white;\n      border-radius: 8px;\n      -webkit-border-radius: 8px;\n      -moz-border-radius: 8px;\n      border-color: white; }\n\n.header-forum .section4 .icon-banner2 {\n  background: url(/images/web/header_forum/banner2.png) no-repeat center;\n  width: 100%;\n  height: 114px;\n  background-size: 100% 100%; }\n\n.header-forum .section5 {\n  padding: 10px 0; }\n  .header-forum .section5 .link {\n    font-size: 18px; }\n    .header-forum .section5 .link:last-of-type {\n      font-weight: bold; }\n  .header-forum .section5 .icon-home {\n    background: url(/images/web/header_forum/home.png) no-repeat center;\n    width: 22px;\n    height: 18px;\n    background-size: 100% 100%; }\n  .header-forum .section5 .icon-arrow-right {\n    background: url(/images/web/header_forum/arrow-right.png) no-repeat center;\n    width: 8px;\n    height: 18px;\n    background-size: 100% 100%;\n    margin: 0 10px; }\n  .header-forum .section5 .icon {\n    margin-top: -5px; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! Amaze UI v2.6.1 | by Amaze UI Team | (c) 2016 AllMobilize, Inc. | Licensed under MIT | 2016-04-06T09:34:39+0800 */ 
@@ -27227,6 +27070,152 @@
 	/******/ ])
 	});
 	;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	__webpack_require__(22);
+
+	exports.default = function () {
+	    var footer = function footer() {
+	        return $(['<div class="footer">', '   <p>咨询热线：010-52899685&nbsp;&nbsp;13681568652&nbsp;&nbsp;15810695171</p>', '   <p>网络课堂报名电话：13681568652&nbsp;&nbsp;网络课堂技术支持：010-52899685</p>', '   <p>版权归属：慧升教育&nbsp;&nbsp;京ICP备</p>', '   <p>总部地址：北京市海淀区北四环中路238号柏彦大厦501</p>', '   <p>老师咨询QQ：李老师&nbsp;&nbsp;王老师&nbsp;&nbsp;张老师&nbsp;&nbsp;宗老师&nbsp;&nbsp;陈老师</p>', '</div>'].join(''));
+	    };
+
+	    $('script', $('body')).before(new footer());
+	}();
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(23);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(4)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".footer {\n  color: white;\n  background-color: #313131;\n  text-align: center;\n  font-size: 14px;\n  padding: 55px 0; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(25);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var headerForum = function () {
+		function headerForum(subLinks) {
+			_classCallCheck(this, headerForum);
+
+			this.subLinks = subLinks || [];
+
+			this.html = ['<div class="header-forum">', '<div class="section section1">', '<div class="icon icon-ad fl"><a href="javascript:void(0)"></a></div>', '<div class="icon icon-banner"><a href="javascript:void(0)"></a></div>', '<div class="icon icon-ad fr"><a href="javascript:void(0)"></a></div>', '</div>', '<div class="section section2">', '<div class="icon icon-logo"></div>', '<div class="login fr">', '<table>', '<tbody>', '<tr>', '<td><span>用户名</span></td>', '<td><input type="text"></input></td>', '<td><input type="checkbox"></input><span>自动登录</span></td>', '<td><span><a href="javascript:void(0)">找回密码</a></span></td>', '</tr>', '<tr>', '<td><span>密码</span></td>', '<td><input type="password"></input></td>', '<td><button>登录</button></td>', '<td><span class="register">', '<a href="javascript:void(0)">注册</a>', '</span></td>', '</tr>', '</tbody>', '</table>', '</div>', '</div>', '<div class="section section3">', '<ul class="navs">', '<li class="nav"><a href="forum.html">考研论坛</a></li>', '<li class="nav"><a href="app.html">考研APP</a></li>', '<li class="nav popup">', '<a href="javascript:void(0)">考研资讯</a>', '<div class="popup-wrapper">', '<div class="content">', '<ul>', '<li><a href="javascript:void(0)">院校信息</a></li>', '<li><a href="javascript:void(0)">导师介绍</a></li>', '<li><a href="javascript:void(0)">分数线</a></li>', '<li><a href="javascript:void(0)">推免保研</a></li>', '<li><a href="javascript:void(0)">在职硕士</a></li>', '<li><a href="javascript:void(0)">学费补助</a></li>', '<li><a href="javascript:void(0)">专业介绍</a></li>', '<li><a href="javascript:void(0)">考研复试</a></li>', '<li><a href="javascript:void(0)">考研调剂</a></li>', '<li><a href="javascript:void(0)">考研经验</a></li>', '<li><a href="javascript:void(0)">联系方式</a></li>', '</ul>', '</div>', '</div>', '</li>', '<li class="nav"><a href="javascript:void(0)">考研资料</a></li>', '<li class="nav"><a href="javascript:void(0)">辅导班推荐</a></li>', '<li class="nav"><a href="javascript:void(0)">联系慧升</a></li>', '</ul>', '<div class="search fr">', '<input type="text" placeholder="请输入搜索内容"></input>', '<button></button>', '</div>', '</div>', '<div class="section section4">', '<div class="icon icon-banner2"></div>', '</div>', '<div class="section section5">', '<div class="icon icon-home"><a href="index.html"></a></div>', '<div class="icon icon-arrow-right"></div>', '<a href="forum.html" class="link">考研论坛</a>', '</div>', '</div>'].join('');
+		}
+
+		_createClass(headerForum, [{
+			key: 'render',
+			value: function render() {
+				var _header = $(this.html);
+
+				this.subLinks.map(function (_link) {
+					$('.section5', _header).append($('<div class="icon icon-arrow-right"></div>')).append($('<a href="' + _link.href + '" class="link">' + _link.name + '</a>'));
+				});
+
+				$('.container').prepend(_header);
+			}
+		}]);
+
+		return headerForum;
+	}();
+
+	exports.default = headerForum;
+	;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(26);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header_forum.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./header_forum.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(4)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".icon {\n  display: inline-block;\n  vertical-align: middle; }\n  .icon a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.header-forum .section1 {\n  text-align: center; }\n  .header-forum .section1 .icon-ad {\n    background: url(/images/web/header_forum/ad.png) no-repeat center;\n    width: 190px;\n    height: 79px;\n    background-size: 100% 100%; }\n  .header-forum .section1 .icon-banner {\n    background: url(/images/web/header_forum/banner.png) no-repeat center;\n    width: 825px;\n    height: 80px;\n    background-size: 100% 100%; }\n\n.header-forum .section2 .icon-logo {\n  background: url(/images/web/header_forum/logo.png) no-repeat center;\n  width: 562px;\n  height: 107px;\n  background-size: 100% 100%; }\n\n.header-forum .section2 .login {\n  display: inline-block;\n  font-size: 18px;\n  margin-top: 15px; }\n  .header-forum .section2 .login table tbody tr td:first-child {\n    text-align: right; }\n  .header-forum .section2 .login table tbody tr td {\n    padding: 3px 10px;\n    text-align: center; }\n    .header-forum .section2 .login table tbody tr td input[type=\"checkbox\"] {\n      width: 20px;\n      height: 20px;\n      vertical-align: middle;\n      margin: 0 5px; }\n    .header-forum .section2 .login table tbody tr td button {\n      font-weight: bold;\n      width: 100%; }\n    .header-forum .section2 .login table tbody tr td .register {\n      font-weight: bold; }\n      .header-forum .section2 .login table tbody tr td .register a {\n        color: #163575; }\n\n.header-forum .section3 {\n  background: #2d7bbd; }\n  .header-forum .section3 .navs {\n    margin: 0;\n    padding: 10px 20px;\n    display: inline-block; }\n    .header-forum .section3 .navs .nav {\n      display: inline-block;\n      height: 40px;\n      line-height: 40px;\n      font-size: 22px;\n      font-weight: bold;\n      padding: 0 10px;\n      box-sizing: border-box;\n      border-left: 1px solid rgba(255, 255, 255, 0.15); }\n      .header-forum .section3 .navs .nav a {\n        color: white; }\n    .header-forum .section3 .navs .nav:first-of-type {\n      border: 0; }\n    .header-forum .section3 .navs .popup {\n      position: relative; }\n      .header-forum .section3 .navs .popup .popup-wrapper {\n        display: none;\n        position: absolute;\n        top: 100%;\n        left: 0;\n        width: 100%;\n        padding: 0 0;\n        z-index: -1;\n        border: 0;\n        border-radius: 0px;\n        -webkit-border-radius: 0px;\n        -moz-border-radius: 0px;\n        box-sizing: border-box;\n        background-color: white;\n        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }\n        .header-forum .section3 .navs .popup .popup-wrapper .content {\n          font-size: 12px;\n          line-height: 30px;\n          text-align: center; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content ul {\n            margin: 0;\n            padding: 0 10px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content ul li {\n              height: 40px;\n              border-top: 1px solid rgba(0, 0, 0, 0.2);\n              box-sizing: border-box; }\n              .header-forum .section3 .navs .popup .popup-wrapper .content ul li:first-of-type {\n                border: 0; }\n          .header-forum .section3 .navs .popup .popup-wrapper .content a {\n            color: #333333;\n            font-size: 18px;\n            line-height: 40px; }\n            .header-forum .section3 .navs .popup .popup-wrapper .content a:hover {\n              color: #0E9F4E; }\n      .header-forum .section3 .navs .popup:hover .popup-wrapper {\n        display: inline-block; }\n  .header-forum .section3 .search {\n    line-height: 60px; }\n    .header-forum .section3 .search input[type=\"text\"] {\n      width: 270px;\n      height: 37px;\n      outline: 0; }\n    .header-forum .section3 .search button {\n      vertical-align: middle;\n      margin: 0px 5px;\n      background: url(/images/web/header_forum/search.png) no-repeat center;\n      width: 36px;\n      height: 36px;\n      background-size: 17px 18px;\n      background-color: white;\n      border-radius: 8px;\n      -webkit-border-radius: 8px;\n      -moz-border-radius: 8px;\n      border-color: white; }\n\n.header-forum .section4 .icon-banner2 {\n  background: url(/images/web/header_forum/banner2.png) no-repeat center;\n  width: 100%;\n  height: 114px;\n  background-size: 100% 100%; }\n\n.header-forum .section5 {\n  padding: 10px 0; }\n  .header-forum .section5 .link {\n    font-size: 18px; }\n    .header-forum .section5 .link:last-of-type {\n      font-weight: bold; }\n  .header-forum .section5 .icon-home {\n    background: url(/images/web/header_forum/home.png) no-repeat center;\n    width: 22px;\n    height: 18px;\n    background-size: 100% 100%; }\n  .header-forum .section5 .icon-arrow-right {\n    background: url(/images/web/header_forum/arrow-right.png) no-repeat center;\n    width: 8px;\n    height: 18px;\n    background-size: 100% 100%;\n    margin: 0 10px; }\n  .header-forum .section5 .icon {\n    margin-top: -5px; }\n", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);

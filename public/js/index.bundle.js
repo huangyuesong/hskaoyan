@@ -46,13 +46,13 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
-	__webpack_require__(37);
+	__webpack_require__(20);
 
 	__webpack_require__(38);
 
 	__webpack_require__(17);
 
-	__webpack_require__(20);
+	__webpack_require__(21);
 
 	$(window).load(function () {
 		$('.loading').remove();
@@ -10272,7 +10272,7 @@
 
 	__webpack_require__(18);
 
-	__webpack_require__(37);
+	__webpack_require__(20);
 
 	exports.default = function () {
 		var header = function header() {
@@ -10337,81 +10337,6 @@
 
 /***/ },
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	__webpack_require__(21);
-
-	exports.default = function () {
-	    var footer = function footer() {
-	        return $(['<div class="footer">', '   <p>咨询热线：010-52899685&nbsp;&nbsp;13681568652&nbsp;&nbsp;15810695171</p>', '   <p>网络课堂报名电话：13681568652&nbsp;&nbsp;网络课堂技术支持：010-52899685</p>', '   <p>版权归属：慧升教育&nbsp;&nbsp;京ICP备</p>', '   <p>总部地址：北京市海淀区北四环中路238号柏彦大厦501</p>', '   <p>老师咨询QQ：李老师&nbsp;&nbsp;王老师&nbsp;&nbsp;张老师&nbsp;&nbsp;宗老师&nbsp;&nbsp;陈老师</p>', '</div>'].join(''));
-	    };
-
-	    $('script', $('body')).before(new footer());
-	}();
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(22);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(4)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".footer {\n  color: white;\n  background-color: #313131;\n  text-align: center;\n  font-size: 14px;\n  padding: 55px 0; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! Amaze UI v2.6.1 | by Amaze UI Team | (c) 2016 AllMobilize, Inc. | Licensed under MIT | 2016-04-06T09:34:39+0800 */ 
@@ -26968,6 +26893,81 @@
 	;
 
 /***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	__webpack_require__(22);
+
+	exports.default = function () {
+	    var footer = function footer() {
+	        return $(['<div class="footer">', '   <p>咨询热线：010-52899685&nbsp;&nbsp;13681568652&nbsp;&nbsp;15810695171</p>', '   <p>网络课堂报名电话：13681568652&nbsp;&nbsp;网络课堂技术支持：010-52899685</p>', '   <p>版权归属：慧升教育&nbsp;&nbsp;京ICP备</p>', '   <p>总部地址：北京市海淀区北四环中路238号柏彦大厦501</p>', '   <p>老师咨询QQ：李老师&nbsp;&nbsp;王老师&nbsp;&nbsp;张老师&nbsp;&nbsp;宗老师&nbsp;&nbsp;陈老师</p>', '</div>'].join(''));
+	    };
+
+	    $('script', $('body')).before(new footer());
+	}();
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(23);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/.npminstall/sass-loader/3.2.0/sass-loader/index.js!./footer.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(4)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".footer {\n  color: white;\n  background-color: #313131;\n  text-align: center;\n  font-size: 14px;\n  padding: 55px 0; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
