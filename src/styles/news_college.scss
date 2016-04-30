@@ -14,7 +14,7 @@ $color-blue: #2D7BBD;
 	@include border-radius(20);
 	margin-right: 8px;
 	position: relative;
-	top: -2px;
+	top: -4px;
 }
 
 .blue {
@@ -136,7 +136,7 @@ body {
 
 							li {
 								line-height: 24px;
-								width: 130px;
+								width: 135px;
 							}
 						}
 					}
@@ -147,7 +147,7 @@ body {
 
 						ul li {
 							margin-bottom: 3px;
-							width: 400px;
+							width: 410px;
 						}
 					}
 				}
@@ -195,119 +195,62 @@ body {
 	.apply {
 
 		.content {
-			overflow: hidden;
-			padding-top: 15px;
 
-			.left {
-				border-top: 2px solid rgba(0, 0, 0, 0.2);
-				border-right: 2px solid rgba(0, 0, 0, 0.2);
-				width: 350px;
-				padding: 0 10px 10px 10px;
-				box-sizing: border-box;
-				margin-left: -100%;
-				min-height: 615px;
+			.layout {
+				margin-top: 15px;
 
-				.top {
-					color: $color-blue;
-					padding: 0 30px;
+				.left, .center, .right {
+					vertical-align: top;
 				}
 
-				.image-slider {
+				.left {
+					border-top: 2px solid rgba(0, 0, 0, 0.2);
+					border-right: 2px solid rgba(0, 0, 0, 0.1);
+					width: 350px;
+					padding: 0 10px 10px 10px;
+					box-sizing: border-box;
 
-					.icon-college {
-						@include background(map-get($icons, icon-college), 330, 300);
+					.top {
+						color: $color-blue;
+						padding: 0 30px;
 					}
-				}
 
-				ul {
-					margin-top: 20px;
+					.image-slider {
 
-					li {
-						font-size: 14px;
-						width: 330px;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-						-o-text-overflow: ellipsis;
-						line-height: 27px;
-
-						a span {
-							color: #808080;
-
-							&:hover {
-								color: $color-a-hover;
-							}
-
-							&.point {
-								background: #808080;
-							}
+						.icon-college {
+							@include background(map-get($icons, icon-college), 330, 300);
 						}
 					}
-				}
-			}
 
-			.right {
-				width: 300px;
-				border-top: 2px solid rgba(0, 0, 0, 0.2);
-				border-left: 2px solid rgba(0, 0, 0, 0.2);
-				padding: 10px 15px;
-				font-size: 14px;
-				margin-left: -300px;
+					ul {
+						margin-top: 20px;
 
-				.top {
-					color: $color-blue;
+						li {
+							font-size: 14px;
+							width: 320px;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							-o-text-overflow: ellipsis;
+							line-height: 27px;
 
-					.rect {
-						background: $color-blue;
-						width: 5px;
-						height: 16px;
-						display: inline-block;
-						position: relative;
-					    top: 3px;
-					    margin-right: 7px;
-					}
-				}
-
-				table {
-					margin-top: 10px;
-
-					tr {
-
-						td {
-							width: 135px;
-
-							a {
-								display: inline-block;
-								width: 135px;
-								overflow: hidden;
-								white-space: nowrap;
-								text-overflow: ellipsis;
-								-o-text-overflow: ellipsis;
+							a span {
 								color: #808080;
 
 								&:hover {
 									color: $color-a-hover;
 								}
-							}
 
-							&:nth-child(2) {
-								a {
-									margin-left: 8px;
+								&.point {
+									background: #808080;
 								}
 							}
 						}
 					}
 				}
-			}
-
-			.center-wrapper {
-				width: 100%;
 
 				.center {
-					margin: 0 auto;
-					width: 595px;
 					padding: 0 20px;
-					margin-left: 350px;
 
 					a {
 						color: #808080;
@@ -318,12 +261,76 @@ body {
 					}
 
 					.am-tabs:nth-child(2) {
-						position: relative;
-						top: 30px;
+						margin-top: 50px;
 					}
 
-					.am-tabs-bd ul li a {
-						 line-height: 27px;
+					.am-tabs-bd {
+
+						ul li {
+							width: 531px;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							-o-text-overflow: ellipsis;
+
+							a {
+								line-height: 27px;
+							}
+						}
+					}
+				}
+
+				.right {
+					width: 300px;
+					border-top: 2px solid rgba(0, 0, 0, 0.2);
+					border-left: 2px solid rgba(0, 0, 0, 0.1);
+					box-sizing: border-box;
+					padding: 15px 10px;
+					font-size: 14px;
+
+					.top {
+						color: $color-blue;
+
+						.rect {
+							background: $color-blue;
+							width: 5px;
+							height: 16px;
+							display: inline-block;
+							position: relative;
+						    top: 3px;
+						    margin-right: 7px;
+						}
+					}
+
+					table {
+						margin-top: 10px;
+
+						tr {
+
+							td {
+								width: 135px;
+
+								a {
+									display: inline-block;
+									width: 135px;
+									overflow: hidden;
+									white-space: nowrap;
+									text-overflow: ellipsis;
+									-o-text-overflow: ellipsis;
+									color: #808080;
+
+									&:hover {
+										color: $color-a-hover;
+									}
+								}
+
+								&:nth-child(2) {
+									a {
+										margin-left: 8px;
+									}
+								}
+							}
+						}
 					}
 				}
 			}
