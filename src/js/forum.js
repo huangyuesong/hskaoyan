@@ -6,6 +6,8 @@ import './footer';
 
 import headerForum from './header_forum';
 
+import OtherSite from './other_site';
+
 class District {
 	constructor (data) {
 		let { district, list } = data;
@@ -24,7 +26,7 @@ class District {
 			`	</div>`,
 			`	<a href="forum_college.html?college_id=${id}&college_name=${college}" class="link">论坛</a>`,
 			`	<a href="news_college.html?college_id=${id}&college_name=${college}" class="link">资讯</a>`,
-			`	<a href="${'javascript:void(0)'}" class="link">资料</a>`,
+			`	<a href="material_course.html?college_id=${id}&college_name=${college}&course=${'828信号与系统'}" class="link">资料</a>`,
 			`</div>`,
 		].join(''));
 	}
@@ -101,21 +103,8 @@ class Forum {
 			},
 			setOtherSite: ()=> {
 				let { linkList } = this.model;
-				let content = $('.content', $('.section + .other-site'));
 
-				content.children().remove();
-
-				linkList.map((_link)=> {
-					let { name, href } = _link;
-
-					let link = $([
-						`<span class="link">`,
-						`	<a href="${href}" target="_blank">${name}</a>`,
-						`</span>`,
-					].join(''));
-
-					content.append(link);
-				});
+				new OtherSite(linkList).render();
 			},
 		}
 	}

@@ -6,6 +6,10 @@ $icons: (
 	icon-waiting: '/images/web/forum/waiting.png',
 );
 
+body {
+	background: #F5F5F5;
+}
+
 .container {
 	
 	.section {
@@ -75,7 +79,7 @@ $icons: (
 		}
 	}
 
-	.district, .management, .other-site {
+	.district, .management {
 		border: 2px solid #9e9e9e;
 		margin-bottom: 30px;
 
@@ -91,7 +95,7 @@ $icons: (
 
 		.content {
 			padding: 10px 0;
-			background: #F5F5F5;
+			background: white;
 
 			.row {
 				border-bottom: 1px dashed #888888;
@@ -140,27 +144,6 @@ $icons: (
 				&:last-of-type {
 					border: 0;
 				}
-			}
-		}
-	}
-
-	.other-site {
-
-		.title {
-			background: white;
-			color: #333333;
-			font-size: 20px;
-			line-height: 40px;
-		}
-
-		.content {
-
-			.link {
-				display: inline-block;
-				width: 12.5%;
-				text-align: center;
-				font-size: 14px;
-				color: #9e9e9e;
 			}
 		}
 	}

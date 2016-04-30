@@ -10,6 +10,8 @@ import url from 'url';
 
 import 'amazeui';
 
+import OtherSite from './other_site';
+
 let {
 	college_name,
 	college_id,
@@ -26,9 +28,19 @@ $(window).load(()=> {
 $(()=> {
 	new headerForum([
 		{
-			name: `${college_name || ''}资讯`,
+			name: `${college_name}`,
 			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
+		{
+			name: `资讯`,
+			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
+		},
+	]).render();
+
+	new OtherSite([
+		{name: '百度', href: 'http://www.baidu.com'},
+		{name: '百度', href: 'http://www.baidu.com'},
+		{name: '百度', href: 'http://www.baidu.com'},
 	]).render();
 
 	$('p:last-of-type', $('.footer')).remove();
@@ -67,9 +79,5 @@ $(()=> {
 
 	for (let i = 0; i < 2; ++i) {
 		$('.school-wrapper .content').append($('.school-wrapper .row').eq(0).clone());
-	}
-
-	for (let i = 0; i < 12; ++i) {
-		$('.other-site .content').append($('.other-site .link').eq(0).clone());
 	}
 });

@@ -29,4 +29,8 @@ router.get('/news_college.html', function(req, res, next) {
   res.render('news_college');
 });
 
+router.get('/material_course.html', function(req, res, next) {
+  res.render('material_course');
+});
+
 module.exports = router;

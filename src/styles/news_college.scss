@@ -31,7 +31,7 @@ body {
 
 .container {
 	
-	.introduction, .apply, .school-wrapper, .other-site{
+	.introduction, .apply, .school-wrapper {
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 		background: white;
@@ -205,7 +205,7 @@ body {
 
 				.left {
 					border-top: 2px solid rgba(0, 0, 0, 0.2);
-					border-right: 2px solid rgba(0, 0, 0, 0.1);
+					border-right: 2px solid rgba(0, 0, 0, 0.2);
 					width: 350px;
 					padding: 0 10px 10px 10px;
 					box-sizing: border-box;
@@ -283,7 +283,7 @@ body {
 				.right {
 					width: 300px;
 					border-top: 2px solid rgba(0, 0, 0, 0.2);
-					border-left: 2px solid rgba(0, 0, 0, 0.1);
+					border-left: 2px solid rgba(0, 0, 0, 0.2);
 					box-sizing: border-box;
 					padding: 15px 10px;
 					font-size: 14px;
@@ -376,27 +376,6 @@ body {
 				&:last-of-type {
 					border: 0;
 				}
-			}
-		}
-	}
-
-	.other-site {
-
-		.title {
-			background: white;
-			color: #333333;
-			font-size: 20px;
-			line-height: 40px;
-		}
-
-		.content {
-
-			.link {
-				display: inline-block;
-				width: 150px;
-				text-align: center;
-				font-size: 14px;
-				color: #9e9e9e;
 			}
 		}
 	}

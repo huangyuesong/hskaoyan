@@ -30,6 +30,14 @@ body {
 	    margin-left: auto;
 	}
 
+	table {
+		border-collapse: initial;
+
+		td {
+			vertical-align: top;
+		}
+	}
+
 	dt {
 		font-weight: normal;
 	}
