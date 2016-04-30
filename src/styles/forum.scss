@@ -136,10 +136,10 @@ $icons: (
 						color: #d92828;
 					}
 				}
-			}
 
-			.row:last-of-type {
-				border: 0;
+				&:last-of-type {
+					border: 0;
+				}
 			}
 		}
 	}

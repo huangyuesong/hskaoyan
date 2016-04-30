@@ -31,7 +31,7 @@ body {
 
 .container {
 	
-	.introduction, .apply {
+	.introduction, .apply, .school-wrapper, .other-site{
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 		background: white;
@@ -156,7 +156,7 @@ body {
 			.right {
 				width: 270px;
 				border-left: 1px solid #BFBFBF;
-				height: 95%;
+				min-height: 485px;
 				padding: 10px;
 				margin: 15px 0;
 				text-align: center;
@@ -333,6 +333,70 @@ body {
 						}
 					}
 				}
+			}
+		}
+	}
+
+	.school-wrapper {
+
+		.content {
+			padding: 10px 0;
+
+			.row {
+				border-bottom: 1px dashed #888888;
+
+				.school {
+				    margin: 10px 0;
+					font-size: 14px;
+					display: inline-block;
+					width: 12%;
+					padding-left: 30px;
+
+					.name-wrapper {
+					
+						a {
+							color: #2d7bbd;
+							display: inline-block;
+							width: 125px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+
+							&:hover {
+								cursor: default;
+							}
+						}
+					}
+
+					a {
+						margin-right: 5px;
+					}
+				}
+
+				&:last-of-type {
+					border: 0;
+				}
+			}
+		}
+	}
+
+	.other-site {
+
+		.title {
+			background: white;
+			color: #333333;
+			font-size: 20px;
+			line-height: 40px;
+		}
+
+		.content {
+
+			.link {
+				display: inline-block;
+				width: 150px;
+				text-align: center;
+				font-size: 14px;
+				color: #9e9e9e;
 			}
 		}
 	}
