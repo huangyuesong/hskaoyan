@@ -4,14 +4,35 @@ $icons: (
 	icon-college: '/images/web/news_college/college.png',
 );
 
+$color-blue: #2D7BBD;
+
+.point {
+	display: inline-block;
+	width: 4px;
+	height: 4px;
+	background: #65A7E0;
+	@include border-radius(20);
+	margin-right: 8px;
+	position: relative;
+	top: -2px;
+}
+
+.blue {
+	color: $color-blue;
+
+	&:hover {
+		color: $color-a-hover;
+	}
+}
+
 body {
 	background: #F5F5F5;
 }
 
 .container {
 	
-	.introduction {
-		border: 2px solid #9e9e9e;
+	.introduction, .apply {
+		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 		background: white;
 
@@ -21,7 +42,7 @@ body {
 			color: #2d7bbd;
 			font-size: 24px;
 			padding: 0 50px;
-			border-bottom: 2px solid #9e9e9e;
+			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 			box-sizing: border-box;
 		}
 
@@ -31,14 +52,14 @@ body {
 	}
 
 	.introduction {
+		overflow: hidden;
 
 		.content {
-			overflow: hidden;
 			position: relative;
 
 			.left {
 				width: 350px;
-				position: absolute;
+				margin-left: -100%;
 
 				.image-slider {
 
@@ -52,93 +73,94 @@ body {
 					color: #808080;
 					padding: 10px;
 
-					.blue {
-						color: #2D7BBD;
-
-						&:hover {
-							color: #0E9F4E;
-						}
+					.brief {
+						width: 330px;
+						height: 66px;
+						overflow:hidden;
 					}
 
-					p:first-of-type {
+					.detail {
 						margin-bottom: 15px;
 					}
 				}
 			}
 
-			.link-wrapper {
-				font-size: 14px;
-				padding: 10px 15px;
-				padding-left: 365px;
-				width: 975px;
-				text-align: center;
+			.center-wrapper {
+				width: 100%;
 
-				.upper, .lower {
-					ul {
-						padding: 0;
-						margin: 0;
+				.center {
+					font-size: 14px;
+					padding: 10px 15px;
+					width: 540px;
+					margin-left: 350px;
+					text-align: center;
 
-						li {
-							text-align: left;
-							overflow:hidden;
-							white-space:nowrap;
-							text-overflow:ellipsis;
-							-o-text-overflow:ellipsis;
+					& > div {
+						margin-left: 10px;
+					}
 
-							a {
-								color: #808080;
+					.upper, .lower {
+						ul {
+							padding: 0;
+							margin: 0;
 
-								&:hover {
-									color: #0E9F4E;
+							li {
+								text-align: left;
+								overflow:hidden;
+								white-space:nowrap;
+								text-overflow:ellipsis;
+								-o-text-overflow:ellipsis;
+
+								a {
+									color: #808080;
+
+									&:hover {
+										color: $color-a-hover;
+									}
 								}
 							}
 						}
 					}
-				}
 
-				.upper {
-					border-bottom: 1px solid #BFBFBF;
+					.upper {
+						border-bottom: 1px solid #BFBFBF;
 
-					.top {
-						font-size: 24px;
-						color: #2D7BBD;
-					}
+						.top {
+							font-size: 24px;
+						}
 
-					ul {
-						display: inline-block;
-						margin: 20px 55px;
-						padding: 0;
+						ul {
+							display: inline-block;
+							margin: 20px 55px;
+							padding: 0;
 
-						li {
-							line-height: 24px;
-							width: 130px;
+							li {
+								line-height: 24px;
+								width: 130px;
+							}
 						}
 					}
-				}
 
-				.lower {
-					padding: 10px 0;
-					padding-left: 110px;
-					line-height: 27px;
+					.lower {
+						padding: 10px 0 10px 65px;
+						line-height: 27px;
 
-					ul li {
-						margin-bottom: 3px;
-						width: 400px;
+						ul li {
+							margin-bottom: 3px;
+							width: 400px;
+						}
 					}
 				}
 			}
 
 			.right {
-				position: absolute;
-				right: 0;
-				top: 0;
-				text-align: left;
 				width: 270px;
 				border-left: 1px solid #BFBFBF;
 				height: 95%;
 				padding: 10px;
-				margin-top: 15px;
+				margin: 15px 0;
 				text-align: center;
+				margin-left: -270px;
 
 				.top {
 					color: #2D7BBD;
@@ -150,7 +172,7 @@ body {
 					color: #808080;
 
 					&:hover {
-						color: #0E9F4E;
+						color: $color-a-hover;
 					}
 
 					.button {
@@ -164,6 +186,144 @@ body {
 						@include border-radius(20);
 						text-align: center;
 						margin: 8px 10px;
+					}
+				}
+			}
+		}
+	}
+
+	.apply {
+
+		.content {
+			overflow: hidden;
+			padding-top: 15px;
+
+			.left {
+				border-top: 2px solid rgba(0, 0, 0, 0.2);
+				border-right: 2px solid rgba(0, 0, 0, 0.2);
+				width: 350px;
+				padding: 0 10px 10px 10px;
+				box-sizing: border-box;
+				margin-left: -100%;
+				min-height: 615px;
+
+				.top {
+					color: $color-blue;
+					padding: 0 30px;
+				}
+
+				.image-slider {
+
+					.icon-college {
+						@include background(map-get($icons, icon-college), 330, 300);
+					}
+				}
+
+				ul {
+					margin-top: 20px;
+
+					li {
+						font-size: 14px;
+						width: 330px;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+						-o-text-overflow: ellipsis;
+						line-height: 27px;
+
+						a span {
+							color: #808080;
+
+							&:hover {
+								color: $color-a-hover;
+							}
+
+							&.point {
+								background: #808080;
+							}
+						}
+					}
+				}
+			}
+
+			.right {
+				width: 300px;
+				border-top: 2px solid rgba(0, 0, 0, 0.2);
+				border-left: 2px solid rgba(0, 0, 0, 0.2);
+				padding: 10px 15px;
+				font-size: 14px;
+				margin-left: -300px;
+
+				.top {
+					color: $color-blue;
+
+					.rect {
+						background: $color-blue;
+						width: 5px;
+						height: 16px;
+						display: inline-block;
+						position: relative;
+					    top: 3px;
+					    margin-right: 7px;
+					}
+				}
+
+				table {
+					margin-top: 10px;
+
+					tr {
+
+						td {
+							width: 135px;
+
+							a {
+								display: inline-block;
+								width: 135px;
+								overflow: hidden;
+								white-space: nowrap;
+								text-overflow: ellipsis;
+								-o-text-overflow: ellipsis;
+								color: #808080;
+
+								&:hover {
+									color: $color-a-hover;
+								}
+							}
+
+							&:nth-child(2) {
+								a {
+									margin-left: 8px;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.center-wrapper {
+				width: 100%;
+
+				.center {
+					margin: 0 auto;
+					width: 595px;
+					padding: 0 20px;
+					margin-left: 350px;
+
+					a {
+						color: #808080;
+
+						&:hover {
+							color: $color-a-hover;
+						}
+					}
+
+					.am-tabs:nth-child(2) {
+						position: relative;
+						top: 30px;
+					}
+
+					.am-tabs-bd ul li a {
+						 line-height: 27px;
 					}
 				}
 			}

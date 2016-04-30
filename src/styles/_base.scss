@@ -3,6 +3,7 @@
 @import '_image';
 
 $container_width: 1280;
+$color-a-hover: #0E9F4E;
 
 @mixin border-radius ($radius) {
 	border-radius: #{$radius}px;
@@ -40,20 +41,30 @@ body {
 	a {
 		text-decoration: none;
 		color: #333333;
+
+		&:focus {
+			text-decoration: none;
+			color: #333333;
+		}
+
+		&:hover {
+			text-decoration: none;
+			color: $color-a-hover;
+		}
+
+		&:hover > * {
+			text-decoration: none;
+			color: $color-a-hover;
+		}
 	}
 
-	a:focus {
-		text-decoration: none;
-		color: #333333;
-	}
-
-	a:hover {
-		text-decoration: none;
-		color: #0E9F4E;
-	}
-
-	ui, li {
-		list-style-type:none;
+	ul {
+		margin: 0;
+		padding: 0;
+		
+		li {
+			list-style-type:none;
+		}
 	}
 
 	.popup {
