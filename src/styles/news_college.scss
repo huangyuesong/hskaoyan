@@ -186,6 +186,11 @@ body {
 						@include border-radius(20);
 						text-align: center;
 						margin: 8px 10px;
+						color: #939394;
+
+						&:hover {
+							color: $color-a-hover;
+						}
 					}
 				}
 			}
