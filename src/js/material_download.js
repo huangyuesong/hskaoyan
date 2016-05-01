@@ -59,6 +59,6 @@ $(()=> {
 
 	for (let i = 0; i < 10; ++i) {
 		$('ul.knowledge-point-wrapper')
-			.append($('ul.knowledge-point-wrapper li').eq(0).clone());
+			.append($('ul.knowledge-point-wrapper li').eq(i).clone());
 	}
 });

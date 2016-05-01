@@ -105,6 +105,8 @@ class Forum {
 				let { linkList } = this.model;
 
 				new OtherSite(linkList).render();
+
+				$('.other-site .title, .other-site .content').css({background: '#F5F5F5'});
 			},
 		}
 	}

@@ -33,6 +33,10 @@ router.get('/news_college_list.html', function(req, res, next) {
   res.render('news_college_list');
 });
 
+router.get('/news_detail.html', function(req, res, next) {
+  res.render('news_detail');
+});
+
 router.get('/material_course.html', function(req, res, next) {
   res.render('material_course');
 });

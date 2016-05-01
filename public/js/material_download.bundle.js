@@ -107,7 +107,7 @@
 		}));
 
 		for (var i = 0; i < 10; ++i) {
-			$('ul.knowledge-point-wrapper').append($('ul.knowledge-point-wrapper li').eq(0).clone());
+			$('ul.knowledge-point-wrapper').append($('ul.knowledge-point-wrapper li').eq(i).clone());
 		}
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))

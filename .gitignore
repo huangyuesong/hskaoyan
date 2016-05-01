@@ -31,6 +31,7 @@ npm-debug.log
 
 # Webpack Bundles
 *.bunle.js
+public/js
 
 # subversion
 .svn

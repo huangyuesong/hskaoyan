@@ -11,6 +11,14 @@ $color-a-hover: #0E9F4E;
 	-moz-border-radius: #{$radius}px;
 }
 
+@mixin text-overflow ($width) {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	width: #{$width}px;
+}
+
 body {
 	margin: 0 auto;
 	font-size: 16px;

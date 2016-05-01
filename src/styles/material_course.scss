@@ -60,7 +60,7 @@ body {
 						border-bottom: 1px dashed rgba(0, 0, 0, 0.6);
 
 						a {
-							color: #afafaf; 
+							color: #8C8C8C; 
 
 							&:hover {
 								color: #6998b5;
@@ -109,11 +109,7 @@ body {
 									display: inline-block;
 									margin-left: 50px;
 									color: #6998b5;
-									width: 575px;
-									overflow: hidden;
-									white-space: nowrap;
-									text-overflow: ellipsis;
-									-o-text-overflow: ellipsis;
+									@include text-overflow(575);
 									vertical-align: top;
 								}
 							}

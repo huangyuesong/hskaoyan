@@ -106,10 +106,6 @@ body {
 
 							li {
 								text-align: left;
-								overflow:hidden;
-								white-space:nowrap;
-								text-overflow:ellipsis;
-								-o-text-overflow:ellipsis;
 
 								a {
 									color: #808080;
@@ -136,7 +132,7 @@ body {
 
 							li {
 								line-height: 24px;
-								width: 135px;
+								@include text-overflow(135);
 							}
 						}
 					}
@@ -147,7 +143,7 @@ body {
 
 						ul li {
 							margin-bottom: 3px;
-							width: 410px;
+							@include text-overflow(410);
 						}
 					}
 				}
@@ -232,11 +228,7 @@ body {
 
 						li {
 							font-size: 14px;
-							width: 320px;
-							overflow: hidden;
-							white-space: nowrap;
-							text-overflow: ellipsis;
-							-o-text-overflow: ellipsis;
+							@include text-overflow(320);
 							line-height: 27px;
 
 							a span {
@@ -272,11 +264,7 @@ body {
 					.am-tabs-bd {
 
 						ul li {
-							width: 531px;
-							overflow: hidden;
-							white-space: nowrap;
-							text-overflow: ellipsis;
-							-o-text-overflow: ellipsis;
+							@include text-overflow(531);
 
 							a {
 								line-height: 27px;
@@ -317,11 +305,7 @@ body {
 
 								a {
 									display: inline-block;
-									width: 135px;
-									overflow: hidden;
-									white-space: nowrap;
-									text-overflow: ellipsis;
-									-o-text-overflow: ellipsis;
+									@include text-overflow(135);
 									color: #808080;
 
 									&:hover {
@@ -362,10 +346,7 @@ body {
 						a {
 							color: #2d7bbd;
 							display: inline-block;
-							width: 125px;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							white-space: nowrap;
+							@include text-overflow(125);
 
 							&:hover {
 								cursor: default;

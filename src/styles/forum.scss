@@ -6,10 +6,6 @@ $icons: (
 	icon-waiting: '/images/web/forum/waiting.png',
 );
 
-body {
-	background: #F5F5F5;
-}
-
 .container {
 	
 	.section {
@@ -63,9 +59,7 @@ body {
 				p {
 					font-size: 14px;
 					color: #5e5e5e;
-					white-space: nowrap;
-				    text-overflow: ellipsis;
-				    overflow: hidden;
+				 @include text-overflow(186);
 				}
 
 				.name {
@@ -95,7 +89,7 @@ body {
 
 		.content {
 			padding: 10px 0;
-			background: white;
+			background: #F5F5F5;
 
 			.row {
 				border-bottom: 1px dashed #888888;
@@ -112,10 +106,7 @@ body {
 						a {
 							color: #2d7bbd;
 							display: inline-block;
-							width: 125px;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							white-space: nowrap;
+							@include text-overflow(125);
 
 							&:hover {
 								cursor: default;
