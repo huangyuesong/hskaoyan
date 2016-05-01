@@ -76,11 +76,16 @@ body {
 					.brief {
 						width: 330px;
 						height: 66px;
+						line-height: 22px;
 						overflow:hidden;
 					}
 
 					.detail {
-						margin-bottom: 15px;
+
+						&:before, &::before {
+							content: '...';
+							color: #808080;
+						}
 					}
 				}
 			}

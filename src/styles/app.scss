@@ -2,17 +2,18 @@
 
 $icons: (
 	icon-float-bar-download: '/images/web/app/float-bar-download.png',
-	icon-float-bar-qrcode: '/images/web/app/float-bar-qrcode.png',
 	icon-float-bar-back: '/images/web/app/float-bar-back.png',
 	icon-slogan1: '/images/web/app/section1-slogan1.png',
 	icon-phone: '/images/web/app/section1-phone.png',
 	icon-slogan2: '/images/web/app/section2-slogan2.png',
-	icon-qrcode: '/images/web/app/section1-qrcode.png',
+	icon-qrcode-bg: '/images/web/app/section1-qrcode-bg.png',
 	icon-section2-bg: '/images/web/app/section2-bg.png',
 	icon-section3-bg: '/images/web/app/section3-bg.png',
 	icon-ios: '/images/web/app/section4-ios.png',
 	icon-android: '/images/web/app/section4-android.png',
 	icon-slogan3: '/images/web/app/section4-slogan.png',
+	icon-qrcode-android: '/images/web/app/qrcode-android.png',
+	icon-qrcode-ios: '/images/web/app/qrcode-ios.png',
 );
 
 .float-bar {
@@ -25,8 +26,12 @@ $icons: (
 		@include background(map-get($icons, icon-float-bar-download), 120, 57);
 	}
 
-	.icon-float-bar-qrcode {
-		@include background(map-get($icons, icon-float-bar-qrcode), 134, 184);
+	.qrcode-wrapper {
+		@include background(map-get($icons, icon-qrcode-android), 140, 150, 120, 120);
+		background-color: white;
+		border: 3px solid #294962;
+		box-sizing: border-box;
+		@include border-radius(15);
 	}
 
 	.icon-float-bar-back {
@@ -38,7 +43,7 @@ $icons: (
 	}
 
 	.icon-float-bar-download, .icon-float-bar-back {
-		margin-left: 7px;
+		margin-left: 10px;
 	}
 }
 
@@ -52,15 +57,21 @@ $icons: (
 }
 
 .section1 {
+	background-color: #7ccbd0;
+
 	.app-header {
 		background-color: white;
 		text-align: center;
 		line-height: 50px;
 		font-size: 24px;
+		position: absolute;
+		width: 100%;
+		top: 0;
+		z-index: 1;
 
 		.logo {
-			position: relative;
-			left: -20%;
+			position: absolute;
+			left: 200px;
 		}
 
 		.index {
@@ -69,78 +80,109 @@ $icons: (
 				color: #000f22;
 			}
 		}
-
-		.login {
-			position: relative;
-			left: 20%;
-		}
-
-		.register {
-			position: relative;
-			left: 21%;
-		}
 	}
 
-	background-color: #7ccbd0;
+	.fp-tableCell {
+		vertical-align: top;
+	}
 
-	.content {
-		height: 900px;
-		text-align: center;
+	.main-wrapper {
+		margin: 0 auto;
+		width: 1000px;
+		height: 100%;
 		position: relative;
 
 		.icon-slogan1 {
 			@include background(map-get($icons, icon-slogan1), 894, 164);
-			margin-top: 50px;
+			position: absolute;
+			top: 70px;
+			left: 30px;
 		}
 
-		.center-bottom {
+		.icon-phone {
+			@include background(map-get($icons, icon-phone), 422, 673);
 			position: absolute;
-			bottom: -10px;
-			width: 100%;
-			text-align: center;
+			bottom: 0;
+			left: 0;
+		}
+
+		.right {
+			position: absolute;
+			bottom: 150px;
+			right: 0;
+
+			.icon-slogan2 {
+				@include background(map-get($icons, icon-slogan2), 271, 34);
+				margin-bottom: 30px;
+			}
+
+			.qrcode-wrapper {
+				@include background(map-get($icons, icon-qrcode-bg), 441, 227);
+				padding-top: 25px;
+
+				span {
+					margin: 0 20px;
+				}
+
+				.icon-qrcode-android {
+					@include background(map-get($icons, icon-qrcode-android), 150, 150);
+				}
+
+				.icon-qrcode-ios {
+					@include background(map-get($icons, icon-qrcode-ios), 150, 150);
+				}
+			}
+
+			.download-pc-link {
+				display:inline-block;
+				background-color: #3eccc3;
+				line-height: 20px;
+				padding: 5px 10px;
+				border-radius: 15px;
+				-moz-border-radius: 15px;
+				-webkit-border-radius: 15px;
+				margin-top: 30px;
+
+				a {
+					color: #e9f3f2;
+					font-size: 16px;
+				}
+			}
+
+			.android {
+				margin-right: 30px;
+			}
+
+			.ios {
+				margin-left: 30px;
+			}
+		}
+
+		@media only screen and (max-height: 768px) {
+
+			.icon-slogan1 {
+				@include background(map-get($icons, icon-slogan1), 894, 164 * 0.85);
+			}
 
 			.icon-phone {
-				@include background(map-get($icons, icon-phone), 422, 673);
+				@include background(map-get($icons, icon-phone), 422 * 0.7, 673 * 0.7);
+				left: 100px;
 			}
 
 			.right {
-				display: inline-block;
-				position: relative;
-				top: 200px;
-				margin-left: 100px;
+				right: 100px;
+				bottom: 100px;
 
 				.icon-slogan2 {
-					@include background(map-get($icons, icon-slogan2), 271, 34);
-					margin-bottom: 30px;
-				}
-
-				.icon-qrcode {
-					@include background(map-get($icons, icon-qrcode), 441, 227);
-					display: block;
-				}
-
-				.download-pc-link {
-					display:inline-block;
-					background-color: #3eccc3;
-					line-height: 20px;
-					padding: 5px 10px;
-					border-radius: 15px;
-					-moz-border-radius: 15px;
-					-webkit-border-radius: 15px;
-					margin-top: 30px;
-
-					a {
-						color: #e9f3f2;
-						font-size: 16px;
-					}
+					@include background(map-get($icons, icon-slogan2), 271 * 0.7, 34 * 0.7);
 				}
 
 				.android {
-					margin-right: 50px;
+					margin-right: 15px;
 				}
 
 				.ios {
-					margin-left: 50px;
+					margin-left: 15px;
 				}
 			}
 		}

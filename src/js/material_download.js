@@ -28,7 +28,7 @@ $(()=> {
 	new headerForum([
 		{
 			name: `${college_name}`,
-			href: `forum_college.html?college_id=${college_id}&college_name=${college_name}`,
+			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 		{
 			name: `资料`,
