@@ -1,4 +1,4 @@
-import '../styles/material_course.scss';
+import '../styles/material_download.scss';
 
 import './header';
 
@@ -8,15 +8,15 @@ import headerForum from './header_forum';
 
 import url from 'url';
 
-import OtherSite from './other_site';
-
 let {
 	college_name,
 	college_id,
 	course,
+	material_id,
+	material_name,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id || !course) {
+if (!college_name || !college_id || !course || !material_id) {
 	location.href = '/forum.html';
 }
 
@@ -38,21 +38,27 @@ $(()=> {
 			name: `${course}`,
 			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course=${course}`,
 		},
+		{
+			name: `${material_name}`,
+			href: `material_download.html?college_id=${college_id}&college_name=${college_name}
+				&course=${course}&material_id=${material_id}&material_name=${material_name}`,
+		},
 	]).render();
 
-	new OtherSite([
-		{name: '百度', href: 'http://www.baidu.com'},
-		{name: '百度', href: 'http://www.baidu.com'},
-		{name: '百度', href: 'http://www.baidu.com'},
-	]).render();
-
+	$('p:last-of-type', $('.footer')).remove();
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
 		color: '#9E9E9E',
 	});
 
-	for (let i = 0; i < 19; i++) {
-		$('.layout .right table tbody').append($('.layout .right table tbody tr').eq(1).clone());
+	$('.material-wrapper').append($('.footer').css({
+		padding: '20px 0',
+		background: 'white',
+	}));
+
+	for (let i = 0; i < 10; ++i) {
+		$('ul.knowledge-point-wrapper')
+			.append($('ul.knowledge-point-wrapper li').eq(0).clone());
 	}
 });

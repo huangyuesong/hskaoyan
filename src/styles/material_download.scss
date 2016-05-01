@@ -1,0 +1,134 @@
+@import '_base';
+
+$icons: (
+	icon-ad: '/images/web/material_download/ad.png',
+);
+
+.point {
+	display: inline-block;
+	width: 2px;
+	height: 2px;
+	background: black;
+	@include border-radius(20);
+	margin-right: 5px;
+	position: relative;
+	top: -4px;
+}
+
+body {
+	background: #F5F5F5;
+}
+
+.container {
+	position: relative;
+
+	.material-wrapper {
+		background: white;
+		width: 1000px;
+		border: 1px solid #89D0F3;
+		box-sizing: border-box;
+
+		.material-name {
+			line-height: 50px;
+			color: white;
+			background: #3399CC;
+			padding: 0 20px;
+			font-size: 20px;
+
+			.link {
+				color: #333333;
+				font-size: 14px;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.content {
+			padding: 20px;
+			font-size: 16px;
+
+			.knowledge-point {
+				font-size: 18px;
+			}
+
+			ul.knowledge-point-wrapper {
+				width: 750px;
+
+				li {
+					display: inline-block;
+					margin: 5px 5px 5px 0;
+				}
+			}
+
+			table tbody tr td {
+
+				&:first-of-type {
+					font-weight: bold;
+				}
+
+				a {
+					color: #2079A6;
+
+					&:hover {
+						color: $color-a-hover;
+					}
+				}
+			}
+
+			.download {
+				font-size: 20px;
+				line-height: 80px;
+
+				a {
+					color: #5E5EFF;
+
+					&:hover {
+						color: $color-a-hover;
+					}
+				}
+
+				.icon-download {
+
+				}
+			}
+
+			.hint {
+				border: 1px dashed #333333;
+				padding: 10px;
+				font-size: 14px;
+
+				.blue {
+					color: #5E5EFF;
+				}
+
+				.red {
+					color: #FF0707;
+				}
+
+				.green {
+					color: #008000;
+				}
+
+				p:first-of-type {
+					font-size: 16px;
+				}
+			}
+		}
+	}
+
+	.icon-ad {
+		@include background(map-get($icons, icon-ad), 226, 241);
+		position: absolute;
+		top: 410px;
+		right: 15px;
+	}
+
+	.icon-ad2 {
+		@include background(map-get($icons, icon-ad), 226, 241);
+		position: absolute;
+		top: 660px;
+		right: 15px;
+	}
+}

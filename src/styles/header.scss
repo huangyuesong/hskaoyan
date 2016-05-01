@@ -179,8 +179,11 @@ $icons: (
 				margin: 0 20px;
 			}
 
-			.login:hover, .register:hover {
-				color: #0E9F4E;
+			.login, .register {
+
+				a:hover {
+					color: #0E9F4E;
+				}
 			}
 
 			.icon-search {

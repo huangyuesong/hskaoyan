@@ -33,4 +33,8 @@ router.get('/material_course.html', function(req, res, next) {
   res.render('material_course');
 });
 
+router.get('/material_download.html', function(req, res, next) {
+  res.render('material_download');
+});
+
 module.exports = router;
