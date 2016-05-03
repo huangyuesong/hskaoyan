@@ -4,7 +4,7 @@ import './header';
 
 import './footer';
 
-import headerForum from './header_forum';
+import HeaderForum from './header_forum';
 
 import url from 'url';
 
@@ -23,7 +23,7 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new headerForum([
+	new HeaderForum([
 		{
 			name: `${college_name}`,
 			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,

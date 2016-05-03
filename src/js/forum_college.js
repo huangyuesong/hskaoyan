@@ -4,11 +4,13 @@ import './header';
 
 import './footer';
 
-import headerForum from './header_forum';
+import HeaderForum from './header_forum';
 
 import url from 'url';
 
 import { serverUrl } from '../../config';
+
+import Pagination from './pagination';
 
 let {
 	college_name,
@@ -28,6 +30,19 @@ class ForumCollege {
 			pages: 1,
 		};
 		this.controller = {
+			bindEvents: ()=> {
+				$('.keyword-section p:first-of-type a').click((evt)=> {
+					if ($(evt.target).attr('class') === 'up') {
+						$(evt.target).html('<span class="icon icon-arrow-down-gray"></span>展开');
+						$('.keyword-section p:first-of-type').nextAll().css({display: 'none'});
+						$(evt.target).removeClass('up').addClass('down');
+					} else if ($(evt.target).attr('class') === 'down') {
+						$(evt.target).html('<span class="icon icon-arrow-up"></span>收起');
+						$('.keyword-section p:first-of-type').nextAll().css({display: 'inline-block'});
+						$(evt.target).removeClass('down').addClass('up');
+					}
+				});
+			},
 			setHotTopic: ()=> {
 				$.ajax({
 					url: `${serverUrl}/hot_topic_list.php?college_id=${college_id}`,
@@ -101,60 +116,30 @@ class ForumCollege {
 			setPagination: ()=> {
 				let { pages } = this.model;
 				let idx = Number(page) || 1;
+				pages = Number(pages) || 1;
 
-				if (pages > 5) {
-					$('.am-pagination .am-pagination-prev').next().remove();
-
-					if (idx === 1) {
-						$('.am-pagination .am-pagination-next').before($(`<li class="page am-active"><a herf="javascript:">1</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">2</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<span style="margin: 0 10px 0 5px; ">……</span>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">${pages}</a></li>`));
-					} else if (idx === 2) {
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">1</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page am-active"><a herf="javascript:">2</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">3</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<span style="margin: 0 10px 0 5px; ">……</span>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">${pages}</a></li>`));
-					} else if (idx === pages - 1) {
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">1</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<span style="margin: 0 10px 0 5px; ">……</span>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">${pages - 2}</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page am-active"><a herf="javascript:">${pages - 1}</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">${pages}</a></li>`));
-					} else if (idx === pages) {
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">1</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<span style="margin: 0 10px 0 5px; ">……</span>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">${pages - 1}</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page am-active"><a herf="javascript:">${pages}</a></li>`));
-					} else {
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">1</a></li>`));
-						$('.am-pagination .am-pagination-next').before($(`<span style="margin: 0 10px 0 5px; ">……</span>`));
-
-						for (let i = idx - 1; i <= idx + 1; ++i) {
-							$('.am-pagination .am-pagination-next').before($(`<li class="page ${idx === i ? 'am-active' : ''}"><a herf="javascript:">${i}</a></li>`));
-						}
-
-						$('.am-pagination .am-pagination-next').before($(`<span style="margin: 0 10px 0 5px; ">……</span>`));
-						$('.am-pagination .am-pagination-next').before($(`<li class="page"><a herf="javascript:">${pages}</a></li>`));
-					}
-				} else if (pages > 1) {
-					$('.am-pagination .am-pagination-prev').next().remove();
-
-					for(let i = 1; i <= pages; ++i) {
-						$('.am-pagination .am-pagination-next').before($([
-							`<li class="page ${idx === i ? 'am-active' : ''}"><a herf="javascript:">${i}</a></li>`,
-						].join('')));
-					}
-				} else if (pages === 1) {
-					$('.am-pagination').remove();
-				}
-
-				$('.am-pagination li.page').click((evt)=> {
-					let { target } = evt;
-					let idx = $(target).html();
-					$(target).attr('href', `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${idx}`);
-				});
+				$('.pagination-wrapper').append(new Pagination({
+					idx: idx,
+					pages: pages,
+					onPageSelect: (page)=> {
+						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${page}`;
+					},
+					onFirstSelect: ()=> {
+						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${1}`;
+					},
+					onLastSelect: ()=> {
+						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${pages}`;
+					},
+					onPrevSelect: ()=> {
+						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${idx > 1 ? idx - 1 : 1}`;
+					},
+					onNextSelect: ()=> {
+						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${idx < pages ? idx + 1 : pages}`;
+					},
+					onGoSelect: (target)=> {
+						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${target}`;
+					},
+				}).render());
 			},
 		};
 	}
@@ -162,6 +147,7 @@ class ForumCollege {
 	init () {
 		this.controller.setHotTopic();
 		this.controller.setTopic();
+		this.controller.bindEvents();
 	}
 }
 
@@ -170,7 +156,7 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new headerForum([
+	new HeaderForum([
 		{
 			name: `${college_name}`,
 			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
@@ -182,16 +168,4 @@ $(()=> {
 	]).render();
 
 	new ForumCollege().init();
-
-	$('.keyword-section p:first-of-type a').click((evt)=> {
-		if ($(evt.target).attr('class') === 'up') {
-			$(evt.target).html('<span class="icon icon-arrow-down-gray"></span>展开');
-			$('.keyword-section p:first-of-type').nextAll().css({display: 'none'});
-			$(evt.target).removeClass('up').addClass('down');
-		} else if ($(evt.target).attr('class') === 'down') {
-			$(evt.target).html('<span class="icon icon-arrow-up"></span>收起');
-			$('.keyword-section p:first-of-type').nextAll().css({display: 'inline-block'});
-			$(evt.target).removeClass('down').addClass('up');
-		}
-	});
 });

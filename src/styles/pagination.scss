@@ -1,6 +1,24 @@
 .am-pagination {
 
-	a {
-		cursor: pointer;
+	li {
+
+		a, span {
+			padding: .3em .7em;
+		}
+
+		a {
+			cursor: pointer;
+		}
+
+		input {
+			width: 75px;
+			font-size: 12px;
+			margin: 0 10px 0 5px; 
+			color: #333333;
+		}
+	}
+
+	.seperator {
+		margin: 0 10px 0 5px; 
 	}
 }

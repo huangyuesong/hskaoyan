@@ -4,7 +4,7 @@ import './header';
 
 import './footer';
 
-import headerForum from './header_forum';
+import HeaderForum from './header_forum';
 
 import OtherSite from './other_site';
 
@@ -125,6 +125,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new headerForum().render();
+	new HeaderForum().render();
 	new Forum().init();
 });

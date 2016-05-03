@@ -23,50 +23,50 @@ $icons: (
 		}
 	}
 
-	.section2 {
+	// .section2 {
 
-		.icon-logo {
-			@include background(map-get($icons, icon-logo), 562, 107);
-		}
+	// 	.icon-logo {
+	// 		@include background(map-get($icons, icon-logo), 562, 107);
+	// 	}
 
-		.login {
-			display: inline-block;
-			font-size: 18px;
-			margin-top: 15px;
+	// 	.login {
+	// 		display: inline-block;
+	// 		font-size: 18px;
+	// 		margin-top: 15px;
 
-			table tbody tr {
+	// 		table tbody tr {
 
-				td:first-child {
-					text-align: right;
-				}
+	// 			td:first-child {
+	// 				text-align: right;
+	// 			}
 
-				td {
-					padding: 3px 10px;
-					text-align: center;
+	// 			td {
+	// 				padding: 3px 10px;
+	// 				text-align: center;
 
-					input[type="checkbox"] {
-						width: 20px;
-						height: 20px;
-					    vertical-align: middle;
-					    margin: 0 5px;
-					}
+	// 				input[type="checkbox"] {
+	// 					width: 20px;
+	// 					height: 20px;
+	// 				    vertical-align: middle;
+	// 				    margin: 0 5px;
+	// 				}
 
-					button {
-						font-weight: bold;
-						width: 100%;
-					}
+	// 				button {
+	// 					font-weight: bold;
+	// 					width: 100%;
+	// 				}
 
-					.register {
-						font-weight: bold;
+	// 				.register {
+	// 					font-weight: bold;
 
-						a {
-							color: #163575;
-						}
-					}
-				}
-			}
-		}
-	}
+	// 					a {
+	// 						color: #163575;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	.section3 {
 		background: #2d7bbd;
