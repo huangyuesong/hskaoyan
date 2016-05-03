@@ -10,17 +10,25 @@ $icons: (
 	icon-search: '/images/web/header/search.png',
 	icon-arrow-up: '/images/web/header/arrow-up.png',
 	icon-arrow-down: '/images/web/header/arrow-down.png',
+	icon-modal-logo: '/images/web/header/modal-logo.png',
+	icon-user: '/images/web/header/user.png',
+	icon-key: '/images/web/header/key.png',
 );
 
 .header {
 
-	.modal-login, .modal-register {
+	.modal-login, .modal-register, .modal-forget-password {
 
 		.am-modal-hd {
 			text-align: left;
 			background: #F7F7F7;
 			border-bottom: 2px solid #C9C9C9;
 			line-height: 45px;
+
+			.icon-modal-logo {
+				@include background(map-get($icons, icon-modal-logo), 32, 30);
+				margin: 0 15px;
+			}
 		}
 
 		.am-modal-bd {
@@ -72,6 +80,28 @@ $icons: (
 
 		.am-modal-bd {
 
+			p:first-of-type {
+				position: relative;
+
+				.icon-user {
+					@include background(map-get($icons, icon-user), 19, 19);
+					position: absolute;
+					top: 15px;
+					left: 15px;
+				}
+			}
+
+			p:nth-of-type(2) {
+				position: relative;
+
+				.icon-key {
+					@include background(map-get($icons, icon-key), 19, 19);
+					position: absolute;
+					top: 15px;
+					left: 15px;
+				}
+			}
+
 			.forget {
 				float: right;
 				color: #00A0E9;
@@ -79,7 +109,7 @@ $icons: (
 		}
 	}
 
-	.modal-register {
+	.modal-register, .modal-forget-password {
 
 		.am-modal-bd {
 

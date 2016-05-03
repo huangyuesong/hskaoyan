@@ -151,6 +151,11 @@ $icons: (
 						@include background(map-get($icons, icon-arrow-up), 9, 5);
 						margin: 0 3px;
 					}
+
+					.icon-arrow-down-gray {
+						@include background(map-get($icons, icon-arrow-down-gray), 11, 6);
+						margin: 0 3px;
+					}
 				}
 
 				.keyword-wrapper {

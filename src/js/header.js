@@ -79,19 +79,20 @@ export default (()=> {
 			'	<div class="am-modal" id="modal-login">',
 			'		<div class="am-modal-dialog modal-login">',
 			'			<div class="am-modal-hd">',
+			'				<span class="icon icon-modal-logo"></span>',
 			'				<span>登录慧升账号</span>',
 			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
 			'			</div>',
 			'			<div class="am-modal-bd">',
-			'				<p><input type="text" placeholder="手机/用户名" /></p>',
-			'				<p><input type="password" placeholder="密码" /></p>',
+			'				<p><span class="icon icon-user"></span><input type="text" placeholder="手机/用户名" /></p>',
+			'				<p><span class="icon icon-key"></span><input type="password" placeholder="密码" /></p>',
 			'				<p class="al">',
 			'					<input type="checkbox" /><span>下次自动登录</span>',
 			'					<a class="forget" href="javascript:">忘记密码?</a>',
 			'				</p>',
 			'				<a href="javascript:"><span class="button">登录</span></a>',
 			'				<p class="al">没有账户?',
-			'					<a href="javascript:"><span class="color-link">立即注册>></span></a>',
+			'					<a href="javascript:"><span class="color-link to-register">立即注册>></span></a>',
 			'				</p>',
 			'			</div>',
 			'		</div>',
@@ -99,6 +100,7 @@ export default (()=> {
 			'	<div class="am-modal" id="modal-register">',
 			'		<div class="am-modal-dialog modal-register">',
 			'			<div class="am-modal-hd">',
+			'				<span class="icon icon-modal-logo"></span>',
 			'				<span>慧升新用户注册</span>',
 			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
 			'			</div>',
@@ -111,11 +113,28 @@ export default (()=> {
 			'				<p><input type="password" placeholder="请输入密码" /></p>',
 			'				<a href="javascript:"><span class="button">注册</span></a>',
 			'				<p class="al">已有账户?',
-			'					<a href="javascript:"><span class="color-link">直接登录>></span></a>',
+			'					<a href="javascript:"><span class="color-link to-login">直接登录>></span></a>',
 			'					<span class="fr">',
 			'						<input type="checkbox" /><span>同意协议条款</span>',
 			'					</span>',
 			'				</p>',
+			'			</div>',
+			'		</div>',
+			'	</div>',
+			'	<div class="am-modal" id="modal-forget-password">',
+			'		<div class="am-modal-dialog modal-forget-password">',
+			'			<div class="am-modal-hd">',
+			'				<span class="icon icon-modal-logo"></span>',
+			'				<span>慧升用户手机验证码登录</span>',
+			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
+			'			</div>',
+			'			<div class="am-modal-bd">',
+			'				<p><input type="text" placeholder="请输入手机号码" /></p>',
+			'				<p class="al">',
+			'					<input class="captcha" type="text" placeholder="短信验证码" />',
+			'					<a href="javascript:"><span class="button get-captcha">获取验证码</span></a>',
+			'				</p>',
+			'				<a href="javascript:"><span class="button">登录</span></a>',
 			'			</div>',
 			'		</div>',
 			'	</div>',
@@ -135,5 +154,15 @@ export default (()=> {
     	$('#modal-register', $('.header')).modal({
     		relatedTarget: this,
     	});
+    });
+
+    $('#modal-login .forget').click((evt)=> {
+    	$('#modal-login', $('.header')).modal('toggle');
+    	$('#modal-forget-password', $('.header')).modal('toggle');
+    });
+
+    $('#modal-register .to-login, #modal-login .to-register').click((evt)=> {
+    	$('#modal-login', $('.header')).modal('toggle');
+    	$('#modal-register', $('.header')).modal('toggle');
     });
 })();
