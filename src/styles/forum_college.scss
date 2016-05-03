@@ -59,7 +59,7 @@ $icons: (
 
 				ul li {
 					font-size: 14px;
-					height: 90px;
+					max-height: 90px;
 					margin: 10px 0;
 
 					p {
@@ -67,6 +67,7 @@ $icons: (
 
 						.bbs-author {
 							color: #656565;
+							@include text-overflow(90);
 						}
 					}
 
@@ -227,6 +228,8 @@ $icons: (
 					li {
 						border-bottom: 1px solid #BACADE;
 						padding: 15px 0;
+						position: relative;
+						width: 100%;
 
 						&:last-of-type {
 							border: 0;
@@ -241,7 +244,7 @@ $icons: (
 							margin-right: 10px;
 						}
 
-						.author, .release, .date, .time {
+						.author, .release, .date {
 							font-size: 14px;
 							color: #8C8C8C;
 							margin: 0 5px;
@@ -252,19 +255,22 @@ $icons: (
 						}
 
 						.reply, .visit {
-							position: relative;
-							font-size: 14px
+							position: absolute;
+							font-size: 14px;
+							right: 0;
 						}
 
 						.reply {
-							right: 55px;
-							top: -20px;
+							top: 15px;
 							color: #3a6ba4;
+							width: 100px;
+							text-align: center;
 						}
 
 						.visit {
-							right: -11px;
-							top: 0px;
+							top: 35px;
+							width: 100px;
+							text-align: center;
 						}
 					}
 				}

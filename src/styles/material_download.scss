@@ -2,6 +2,7 @@
 
 $icons: (
 	icon-ad: '/images/web/material_download/ad.png',
+	icon-download: '/images/web/material_download/download.png',
 );
 
 .point {
@@ -90,7 +91,8 @@ body {
 				}
 
 				.icon-download {
-
+					@include background(map-get($icons, icon-download), 63, 63);
+					margin: 0 20px;
 				}
 			}
 

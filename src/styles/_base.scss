@@ -17,6 +17,7 @@ $color-a-hover: #0E9F4E;
 	text-overflow: ellipsis;
 	-o-text-overflow: ellipsis;
 	width: #{$width}px;
+	display: inline-block;
 }
 
 body {

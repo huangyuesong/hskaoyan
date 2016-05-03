@@ -8,6 +8,8 @@ import headerForum from './header_forum';
 
 import OtherSite from './other_site';
 
+import { serverUrl } from '../../config';
+
 class District {
 	constructor (data) {
 		let { district, list } = data;
@@ -66,9 +68,9 @@ class Forum {
 			linkList: [],
 		};
 		this.controller = {
-			ajaxGetData: ()=> {
+			setData: ()=> {
 				$.ajax({
-					url: 'http://www.hskaoyan.com/html_php/college_list.php',
+					url: `${serverUrl}/college_list.php`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -114,7 +116,7 @@ class Forum {
 	init () {
 		let { controller } = this;
 
-		controller.ajaxGetData();
+		controller.setData();
 	}
 }
 
