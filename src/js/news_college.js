@@ -8,9 +8,7 @@ import HeaderForum from './header_forum';
 
 import url from 'url';
 
-import 'amazeui';
-
-import OtherSite from './other_site';
+import 'amazeui';import OtherSite from './other_site';
 
 let {
 	college_name,

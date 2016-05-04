@@ -5,7 +5,6 @@ import './header';
 import './footer';
 
 import HeaderForum from './header_forum';
-
 import OtherSite from './other_site';
 
 import { serverUrl } from '../../config';

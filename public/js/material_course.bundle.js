@@ -56,13 +56,13 @@
 
 	var _header_forum2 = _interopRequireDefault(_header_forum);
 
-	var _url = __webpack_require__(33);
-
-	var _url2 = _interopRequireDefault(_url);
-
 	var _other_site = __webpack_require__(27);
 
 	var _other_site2 = _interopRequireDefault(_other_site);
+
+	var _url = __webpack_require__(33);
+
+	var _url2 = _interopRequireDefault(_url);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

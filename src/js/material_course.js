@@ -5,10 +5,9 @@ import './header';
 import './footer';
 
 import HeaderForum from './header_forum';
+import OtherSite from './other_site';
 
 import url from 'url';
-
-import OtherSite from './other_site';
 
 let {
 	college_name,
