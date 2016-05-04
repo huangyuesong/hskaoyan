@@ -42,6 +42,10 @@ class District {
 		return row;
 	}
 
+	renderMore () {
+		return $(`<a class="more" href="javascript:">查看更多学校>></a>`);
+	}
+
 	render () {
 		let _district = $([
 			`<div class="section district">`,
@@ -53,8 +57,10 @@ class District {
 		].join(''));
 
 		while (this.list.length) {
-			$('.content', _district).append(this.renderRow(this.list.splice(0, 6)));
+			$('.content', _district).append(this.renderRow(this.list.splice(0, 5)));
 		}
+
+		$('.content .row:last-of-type', _district).append(this.renderMore());
 
 		return _district;
 	}
@@ -69,7 +75,7 @@ class Forum {
 		this.controller = {
 			setData: ()=> {
 				$.ajax({
-					url: `${serverUrl}/college_list.php`,
+					url: `${serverUrl}/college_list.php?college_limit=24`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
