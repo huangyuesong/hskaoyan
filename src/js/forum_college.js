@@ -5,12 +5,11 @@ import './header';
 import './footer';
 
 import HeaderForum from './header_forum';
+import Pagination from './pagination';
 
 import url from 'url';
 
 import { serverUrl } from '../../config';
-
-import Pagination from './pagination';
 
 let {
 	college_name,
@@ -28,6 +27,7 @@ class ForumCollege {
 			topics: [],
 			hotTopics: [],
 			pages: 1,
+			labels: [],
 		};
 		this.controller = {
 			bindEvents: ()=> {
@@ -41,6 +41,42 @@ class ForumCollege {
 						$('.keyword-section p:first-of-type').nextAll().css({display: 'inline-block'});
 						$(evt.target).removeClass('down').addClass('up');
 					}
+				});
+
+				$('.write .content .button').click((evt)=> {
+					let _context = $(evt.target).parent();
+					
+					let label = $('select', _context).val().replace('选择主题', '').replace('无', '');
+					let title = $('input', _context).val();
+					let content = $('textarea', _context).val();
+
+					$.ajax({
+						url: `${serverUrl}/topic_post.php`,
+						type: 'post',
+						data: {
+							college_id: college_id,
+							labels: label,
+							title: title,
+							content: content,
+						},
+						cache: false,
+						success: (data)=> {
+							alert('发帖成功');
+							location.reload();
+						},
+						error: (err)=> {
+							alert(err.statusText);
+						},
+					});
+				});
+
+				$('.write .content input').on('input', (evt)=> {
+					let countDown = $('.write .content .count-down');
+					let title = $(evt.target).val();
+
+					$(evt.target).val(title.substring(0, 50))
+					if (title.length > 50) return;
+					countDown.text(50 - title.length);
 				});
 			},
 			setHotTopic: ()=> {
@@ -69,6 +105,21 @@ class ForumCollege {
 						this.model.pages = data.page_count;
 						this.view.setPagination();
 						this.view.setTopic();
+					},
+					error: (err)=> {
+						alert(err.statusText);
+					},
+				});
+			},
+			setLabel: ()=> {
+				$.ajax({
+					url: `${serverUrl}/topic_label.php`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data)=> {
+						this.model.labels = data.list;
+						this.view.setLabel();
 					},
 					error: (err)=> {
 						alert(err.statusText);
@@ -113,6 +164,17 @@ class ForumCollege {
 					].join('')));
 				});
 			},
+			setLabel: ()=> {
+				let { labels } = this.model;
+
+				labels.map((_label)=> {
+					$('.write .content select').append($(`<option>${_label}</option>`));
+				});
+
+				$('.write .content select').change((evt)=> {
+					$('.write .content select').children().eq(0).text('无');
+				});
+			},
 			setPagination: ()=> {
 				let { pages } = this.model;
 				let idx = Number(page) || 1;
@@ -147,6 +209,7 @@ class ForumCollege {
 	init () {
 		this.controller.setHotTopic();
 		this.controller.setTopic();
+		this.controller.setLabel();
 		this.controller.bindEvents();
 	}
 }

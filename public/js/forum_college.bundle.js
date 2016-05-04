@@ -58,15 +58,15 @@
 
 	var _header_forum2 = _interopRequireDefault(_header_forum);
 
+	var _pagination = __webpack_require__(42);
+
+	var _pagination2 = _interopRequireDefault(_pagination);
+
 	var _url = __webpack_require__(33);
 
 	var _url2 = _interopRequireDefault(_url);
 
 	var _config = __webpack_require__(30);
-
-	var _pagination = __webpack_require__(54);
-
-	var _pagination2 = _interopRequireDefault(_pagination);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92,7 +92,8 @@
 			this.model = {
 				topics: [],
 				hotTopics: [],
-				pages: 1
+				pages: 1,
+				labels: []
 			};
 			this.controller = {
 				bindEvents: function bindEvents() {
@@ -106,6 +107,42 @@
 							$('.keyword-section p:first-of-type').nextAll().css({ display: 'inline-block' });
 							$(evt.target).removeClass('down').addClass('up');
 						}
+					});
+
+					$('.write .content .button').click(function (evt) {
+						var _context = $(evt.target).parent();
+
+						var label = $('select', _context).val().replace('选择主题', '').replace('无', '');
+						var title = $('input', _context).val();
+						var content = $('textarea', _context).val();
+
+						$.ajax({
+							url: _config.serverUrl + '/topic_post.php',
+							type: 'post',
+							data: {
+								college_id: college_id,
+								labels: label,
+								title: title,
+								content: content
+							},
+							cache: false,
+							success: function success(data) {
+								alert('发帖成功');
+								location.reload();
+							},
+							error: function error(err) {
+								alert(err.statusText);
+							}
+						});
+					});
+
+					$('.write .content input').on('input', function (evt) {
+						var countDown = $('.write .content .count-down');
+						var title = $(evt.target).val();
+
+						$(evt.target).val(title.substring(0, 50));
+						if (title.length > 50) return;
+						countDown.text(50 - title.length);
 					});
 				},
 				setHotTopic: function setHotTopic() {
@@ -139,6 +176,21 @@
 							alert(err.statusText);
 						}
 					});
+				},
+				setLabel: function setLabel() {
+					$.ajax({
+						url: _config.serverUrl + '/topic_label.php',
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: function success(data) {
+							_this.model.labels = data.list;
+							_this.view.setLabel();
+						},
+						error: function error(err) {
+							alert(err.statusText);
+						}
+					});
 				}
 			};
 			this.view = {
@@ -158,6 +210,18 @@
 					$('.article ul').empty();
 					topics.map(function (_topic) {
 						$('.article ul').append($(['<li>', '<img class="fl" src="' + _topic.avatar + '" width="50" height="50">', '<p>', '<a href="forum_article.html?article_id=' + _topic.id + '&college_id=' + college_id + '&college_name=' + college_name + '">', '<span class="title" title="' + _topic.title + '">' + _topic.title + '</span>', '</a>', '</p>', '<span class="author">' + _topic.nick_name + '</span>', '<span class="release">发表于</span>', '<span class="date">' + _topic.pub_time + '</span>', '<span class="reply fr">' + _topic.reply_num + '</span>', '<span class="visit fr">' + _topic.view_num + '</span>', '</li>'].join('')));
+					});
+				},
+				setLabel: function setLabel() {
+					var labels = _this.model.labels;
+
+
+					labels.map(function (_label) {
+						$('.write .content select').append($('<option>' + _label + '</option>'));
+					});
+
+					$('.write .content select').change(function (evt) {
+						$('.write .content select').children().eq(0).text('无');
 					});
 				},
 				setPagination: function setPagination() {
@@ -197,6 +261,7 @@
 			value: function init() {
 				this.controller.setHotTopic();
 				this.controller.setTopic();
+				this.controller.setLabel();
 				this.controller.bindEvents();
 			}
 		}]);
@@ -28766,19 +28831,7 @@
 
 
 /***/ },
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
@@ -28789,7 +28842,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(55);
+	__webpack_require__(43);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28942,13 +28995,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 55 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(56);
+	var content = __webpack_require__(44);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -28968,7 +29021,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
