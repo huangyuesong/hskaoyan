@@ -1,3 +1,13 @@
+var fs = require('fs');
+
+if (process.env.NODE_ENV.indexOf('development') > -1) {
+  fs.watch('./src/html/', function (event, filename) {
+    if (event === 'change') {
+      fs.writeFileSync('./public/html/' + filename, fs.readFileSync('./src/html/' + filename));
+    }
+  });
+}
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,7 +20,7 @@ var routes = require('./routes/index');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'src/html'));
+app.set('views', path.join(__dirname, 'public', 'html'));
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 

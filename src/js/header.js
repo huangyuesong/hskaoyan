@@ -84,8 +84,8 @@ export default (()=> {
 			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
 			'			</div>',
 			'			<div class="am-modal-bd">',
-			'				<p><span class="icon icon-user"></span><input type="text" placeholder="手机/用户名" /></p>',
-			'				<p><span class="icon icon-key"></span><input type="password" placeholder="密码" /></p>',
+			'				<p><span class="icon icon-user"></span><input id="username" type="text" placeholder="手机/用户名" /></p>',
+			'				<p><span class="icon icon-key"></span><input id="password" type="password" placeholder="密码" /></p>',
 			'				<p class="al">',
 			'					<input type="checkbox" /><span>下次自动登录</span>',
 			'					<a class="forget" href="javascript:">忘记密码?</a>',
@@ -164,5 +164,10 @@ export default (()=> {
     $('#modal-register .to-login, #modal-login .to-register').click((evt)=> {
     	$('#modal-login', $('.header')).modal('toggle');
     	$('#modal-register', $('.header')).modal('toggle');
+    });
+
+    $('.button', $('#modal-login')).click((evt)=> {
+    	let username = $('#username', $('#modal-login')).val();
+    	let password = $('#password', $('#modal-login')).val();
     });
 })();

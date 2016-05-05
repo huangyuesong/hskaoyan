@@ -2,6 +2,12 @@ var webpack = require('webpack');
 var fs = require('fs');
 var path = require('path');
 
+fs.readdirSync(path.resolve('./src/html/')).map(function (filename) {
+	if (/\.html$/.test(filename)) {
+		fs.writeFileSync('./public/html/' + filename, fs.readFileSync('./src/html/' + filename));
+	}
+});
+
 var exclude = new Map();
 exclude.set('header.js', true);
 exclude.set('footer.js', true);
