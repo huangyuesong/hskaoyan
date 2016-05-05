@@ -27,7 +27,7 @@ class District {
 			`	</div>`,
 			`	<a href="forum_college.html?college_id=${id}&college_name=${college}" class="link">论坛</a>`,
 			`	<a href="news_college.html?college_id=${id}&college_name=${college}" class="link">资讯</a>`,
-			`	<a href="material_course.html?college_id=${id}&college_name=${college}&course=${'828信号与系统'}" class="link">资料</a>`,
+			`	<a href="material_college.html?college_id=${id}&college_name=${college}" class="link">资料</a>`,
 			`</div>`,
 		].join(''));
 	}

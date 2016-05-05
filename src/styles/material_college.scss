@@ -1,7 +1,7 @@
 @import '_base';
 
 $icons: (
-	icon-college: '/images/web/news_college/college.png',
+	icon-college: '/images/web/material_college/college.png',
 );
 
 $color-blue: #2D7BBD;
@@ -31,7 +31,7 @@ body {
 
 .container {
 	
-	.introduction, .apply, .school-wrapper {
+	.introduction {
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 		background: white;
@@ -136,7 +136,7 @@ body {
 							padding: 0;
 
 							li {
-								line-height: 24px;
+								line-height: 20px;
 								@include text-overflow(135);
 								display: block;
 							}
@@ -201,134 +201,55 @@ body {
 		}
 	}
 
-	.apply {
+	.department-wrapper {
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		margin-bottom: 30px;
+
+		.title {
+			line-height: 60px;
+			background: #e4edf9;
+			color: #2d7bbd;
+			font-size: 24px;
+			padding: 0 50px;
+			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+			box-sizing: border-box;
+		}
 
 		.content {
+			padding: 10px 0;
+			background: white;
 
-			.layout {
-				margin-top: 15px;
+			.row {
+				border-bottom: 1px dashed #888888;
+				position: relative;
 
-				.left, .center, .right {
-					vertical-align: top;
-				}
+				.department {
+				    margin: 10px 0;
+					font-size: 14px;
+					display: inline-block;
+					width: 19.5%;
+					padding-left: 30px;
 
-				.left {
-					border-top: 2px solid rgba(0, 0, 0, 0.2);
-					border-right: 2px solid rgba(0, 0, 0, 0.2);
-					width: 350px;
-					padding: 0 10px 10px 10px;
-					box-sizing: border-box;
+					.name-wrapper {
+					
+						a {
+							color: #2d7bbd;
+							display: inline-block;
+							@include text-overflow(150);
 
-					.top {
-						color: $color-blue;
-						padding: 0 30px;
-					}
-
-					.image-slider {
-
-						.icon-college {
-							@include background(map-get($icons, icon-college), 330, 300);
-						}
-					}
-
-					ul {
-						margin-top: 20px;
-
-						li {
-							font-size: 14px;
-							@include text-overflow(320);
-							line-height: 27px;
-
-							a span {
-								color: #808080;
-
-								&:hover {
-									color: $color-a-hover;
-								}
-
-								&.point {
-									background: #808080;
-								}
+							&:hover {
+								cursor: default;
 							}
 						}
 					}
-				}
-
-				.center {
-					padding: 0 20px;
 
 					a {
-						color: #808080;
-
-						&:hover {
-							color: $color-a-hover;
-						}
-					}
-
-					.am-tabs:nth-child(2) {
-						margin-top: 50px;
-					}
-
-					.am-tabs-bd {
-
-						ul li {
-							@include text-overflow(531);
-
-							a {
-								line-height: 27px;
-							}
-						}
+						margin-right: 5px;
 					}
 				}
 
-				.right {
-					width: 300px;
-					border-top: 2px solid rgba(0, 0, 0, 0.2);
-					border-left: 2px solid rgba(0, 0, 0, 0.2);
-					box-sizing: border-box;
-					padding: 15px 10px;
-					font-size: 14px;
-
-					.top {
-						color: $color-blue;
-
-						.rect {
-							background: $color-blue;
-							width: 5px;
-							height: 16px;
-							display: inline-block;
-							position: relative;
-						    top: 3px;
-						    margin-right: 7px;
-						}
-					}
-
-					table {
-						margin-top: 10px;
-
-						tr {
-
-							td {
-								width: 135px;
-
-								a {
-									display: inline-block;
-									@include text-overflow(135);
-									color: #808080;
-
-									&:hover {
-										color: $color-a-hover;
-									}
-								}
-
-								&:nth-child(2) {
-									a {
-										margin-left: 8px;
-									}
-								}
-							}
-						}
-					}
+				&:last-of-type {
+					border: 0;
 				}
 			}
 		}

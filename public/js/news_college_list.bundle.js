@@ -46,7 +46,7 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
-	__webpack_require__(55);
+	__webpack_require__(57);
 
 	__webpack_require__(17);
 
@@ -89,7 +89,7 @@
 			href: 'news_college.html?college_id=' + college_id + '&college_name=' + college_name
 		}, {
 			name: '' + category_name,
-			href: 'news_college_list.html?college_id=' + college_id + '&college_name=' + college_name + '\n\t\t\t\t&category_id=' + category_id + '&category_name=' + category_name
+			href: 'javascript:'
 		}]).render();
 
 		$('p:last-of-type', $('.footer')).remove();
@@ -28626,13 +28626,15 @@
 /* 52 */,
 /* 53 */,
 /* 54 */,
-/* 55 */
+/* 55 */,
+/* 56 */,
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(56);
+	var content = __webpack_require__(58);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -28652,7 +28654,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();

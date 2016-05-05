@@ -14,7 +14,8 @@ import { serverUrl } from '../../config';
 let {
 	college_name,
 	college_id,
-	page, 
+	page,
+	type,
 } = url.parse(location.href, true).query;
 
 if (!college_name || !college_id) {
@@ -78,6 +79,18 @@ class ForumCollege {
 					if (title.length > 50) return;
 					countDown.text(50 - title.length);
 				});
+
+				$('.operation-bar a').click((evt)=> {
+					location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&type=${$(evt.target).prop('type')}`;
+				});
+
+				$('.operation-bar a').each((idx, _link)=> {
+					if (!type) {
+						$(_link).prop('type') === '1' ? $(_link).addClass('active') : ()=> null;
+					} else {
+						$(_link).prop('type') === type ? $(_link).addClass('active') : ()=> null;
+					}
+				});
 			},
 			setHotTopic: ()=> {
 				$.ajax({
@@ -96,7 +109,7 @@ class ForumCollege {
 			},
 			setTopic: ()=> {
 				$.ajax({
-					url: `${serverUrl}/topic_list.php?college_id=${college_id}`,
+					url: `${serverUrl}/topic_list.php?college_id=${college_id}&type=${type || 1}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -163,6 +176,10 @@ class ForumCollege {
 						`</li>`,
 					].join('')));
 				});
+
+				if (!topics.length) {
+					$('.article ul').css({'padding': '130px 0', 'text-align': 'center'}).text('暂无帖子');
+				}
 			},
 			setLabel: ()=> {
 				let { labels } = this.model;
@@ -226,7 +243,7 @@ $(()=> {
 		},
 		{
 			name: `论坛`,
-			href: `forum_college.html?college_id=${college_id}&college_name=${college_name}`,
+			href: `javascript:`,
 		},
 	]).render();
 

@@ -42,8 +42,7 @@ $(()=> {
 		},
 		{
 			name: `${news_name}`,
-			href: `news_detail.html?college_id=${college_id}&college_name=${college_name}
-				&news_id=${news_id}&news_name=${news_name}`,
+			href: `javascript:`,
 		},
 	]).render();
 

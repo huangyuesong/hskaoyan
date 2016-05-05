@@ -2,17 +2,16 @@ var webpack = require('webpack');
 var fs = require('fs');
 var path = require('path');
 
-var entry = {};
 var exclude = new Map();
 exclude.set('header.js', true);
 exclude.set('footer.js', true);
 exclude.set('header_forum.js', true);
 exclude.set('other_site.js', true);
 exclude.set('pagination.js', true);
-var files = fs.readdirSync(path.resolve('./src/js/'));
-files.map(function (file) {
-	if (/\.js$/.test(file) && !exclude.get(file)) {
-		entry[file.split('.')[0]] = './src/js/' + file;
+var entry = {};
+fs.readdirSync(path.resolve('./src/js/')).map(function (filename) {
+	if (/\.js$/.test(filename) && !exclude.get(filename)) {
+		entry[filename.split('.')[0]] = './src/js/' + filename;
 	}
 });
 

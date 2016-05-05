@@ -46,7 +46,7 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
-	__webpack_require__(49);
+	__webpack_require__(51);
 
 	__webpack_require__(17);
 
@@ -87,10 +87,10 @@
 			href: 'news_college.html?college_id=' + college_id + '&college_name=' + college_name
 		}, {
 			name: '资料',
-			href: 'material_course.html?college_id=' + college_id + '&college_name=' + college_name + '&course=' + course
+			href: 'material_college.html?college_id=' + college_id + '&college_name=' + college_name
 		}, {
 			name: '' + course,
-			href: 'material_course.html?college_id=' + college_id + '&college_name=' + college_name + '&course=' + course
+			href: 'javascript:'
 		}]).render();
 
 		new _other_site2.default([{ name: '百度', href: 'http://www.baidu.com' }, { name: '百度', href: 'http://www.baidu.com' }, { name: '百度', href: 'http://www.baidu.com' }]).render();
@@ -28690,13 +28690,15 @@
 /* 46 */,
 /* 47 */,
 /* 48 */,
-/* 49 */
+/* 49 */,
+/* 50 */,
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(50);
+	var content = __webpack_require__(52);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -28716,7 +28718,7 @@
 	}
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();

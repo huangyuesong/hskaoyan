@@ -31,11 +31,11 @@ $(()=> {
 		},
 		{
 			name: `资料`,
-			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course=${course}`,
+			href: `material_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 		{
 			name: `${course}`,
-			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course=${course}`,
+			href: `javascript:`,
 		},
 	]).render();
 

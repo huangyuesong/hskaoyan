@@ -1,4 +1,4 @@
-import '../styles/news_college.scss';
+import '../styles/material_college.scss';
 
 import './header';
 
@@ -8,8 +8,6 @@ import HeaderForum from './header_forum';
 import OtherSite from './other_site';
 
 import url from 'url';
-
-import 'amazeui';
 
 let {
 	college_name,
@@ -31,7 +29,7 @@ $(()=> {
 			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 		{
-			name: `资讯`,
+			name: `资料`,
 			href: `javascript:`,
 		},
 	]).render();
@@ -60,15 +58,11 @@ $(()=> {
 		$('.introduction .right').append($('.introduction .right p').eq(1).clone());
 	}
 
-	for (let i = 0; i < 7; ++i) {
-		$('.apply .left ul').append($('.apply .left ul li').eq(0).clone());
+	for (let i = 0; i < 4; ++i) {
+		$('.department-wrapper .content .row').append($('.department-wrapper .content .row .department').eq(i).clone());
 	}
 
-	for (let i = 0; i < 6; ++i) {
-		$('.apply .center .am-tabs-bd ul').append($('.apply .center .am-tabs-bd ul li').eq(0).clone());
-	}
-
-	for (let i = 0; i < 21; ++i) {
-		$('.apply .right tbody').append($('.apply .right tbody tr').eq(0).clone());
+	for (let i = 0; i < 2; ++i) {
+		$('.department-wrapper .content').append($('.department-wrapper .content .row').eq(i).clone());
 	}
 });

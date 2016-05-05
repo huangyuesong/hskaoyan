@@ -46,7 +46,7 @@
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
-	__webpack_require__(51);
+	__webpack_require__(53);
 
 	__webpack_require__(17);
 
@@ -85,13 +85,13 @@
 			href: 'news_college.html?college_id=' + college_id + '&college_name=' + college_name
 		}, {
 			name: '资料',
-			href: 'material_course.html?college_id=' + college_id + '&college_name=' + college_name + '&course=' + course
+			href: 'material_college.html?college_id=' + college_id + '&college_name=' + college_name
 		}, {
 			name: '' + course,
 			href: 'material_course.html?college_id=' + college_id + '&college_name=' + college_name + '&course=' + course
 		}, {
 			name: '' + material_name,
-			href: 'material_download.html?college_id=' + college_id + '&college_name=' + college_name + '\n\t\t\t\t&course=' + course + '&material_id=' + material_id + '&material_name=' + material_name
+			href: 'javascript:'
 		}]).render();
 
 		$('p:last-of-type', $('.footer')).remove();
@@ -28618,13 +28618,15 @@
 /* 48 */,
 /* 49 */,
 /* 50 */,
-/* 51 */
+/* 51 */,
+/* 52 */,
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(52);
+	var content = __webpack_require__(54);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -28644,7 +28646,7 @@
 	}
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();

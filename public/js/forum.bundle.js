@@ -83,7 +83,7 @@
 		_createClass(District, [{
 			key: 'renderCollege',
 			value: function renderCollege(id, college) {
-				return $(['<div class="school">', '\t<div class="name-wrapper">', '\t\t<a href="' + 'javascript:void(0)' + '" title="' + college + '">', '\t\t\t' + college, '\t\t</a>', '\t</div>', '\t<a href="forum_college.html?college_id=' + id + '&college_name=' + college + '" class="link">论坛</a>', '\t<a href="news_college.html?college_id=' + id + '&college_name=' + college + '" class="link">资讯</a>', '\t<a href="material_course.html?college_id=' + id + '&college_name=' + college + '&course=' + '828信号与系统' + '" class="link">资料</a>', '</div>'].join(''));
+				return $(['<div class="school">', '\t<div class="name-wrapper">', '\t\t<a href="' + 'javascript:void(0)' + '" title="' + college + '">', '\t\t\t' + college, '\t\t</a>', '\t</div>', '\t<a href="forum_college.html?college_id=' + id + '&college_name=' + college + '" class="link">论坛</a>', '\t<a href="news_college.html?college_id=' + id + '&college_name=' + college + '" class="link">资讯</a>', '\t<a href="material_college.html?college_id=' + id + '&college_name=' + college + '" class="link">资料</a>', '</div>'].join(''));
 			}
 		}, {
 			key: 'renderRow',

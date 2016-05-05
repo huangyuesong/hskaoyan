@@ -32,7 +32,7 @@ $(()=> {
 		},
 		{
 			name: `资料`,
-			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course=${course}`,
+			href: `material_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 		{
 			name: `${course}`,
@@ -40,8 +40,7 @@ $(()=> {
 		},
 		{
 			name: `${material_name}`,
-			href: `material_download.html?college_id=${college_id}&college_name=${college_name}
-				&course=${course}&material_id=${material_id}&material_name=${material_name}`,
+			href: `javascript:`,
 		},
 	]).render();
 

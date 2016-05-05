@@ -202,6 +202,14 @@ $icons: (
 					color: #4972ab;
 					margin: 0 5px;
 
+					&.active {
+						font-weight: bold;
+					}
+
+					&:hover {
+						color: $color-a-hover;
+					}
+
 					.icon-arrow-down-gray {
 						@include background(map-get($icons, icon-arrow-down-gray), 11, 6);
 					}
