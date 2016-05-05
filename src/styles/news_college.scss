@@ -138,6 +138,7 @@ body {
 							li {
 								line-height: 24px;
 								@include text-overflow(135);
+								display: block;
 							}
 						}
 					}
@@ -326,46 +327,6 @@ body {
 							}
 						}
 					}
-				}
-			}
-		}
-	}
-
-	.school-wrapper {
-
-		.content {
-			padding: 10px 0;
-
-			.row {
-				border-bottom: 1px dashed #888888;
-
-				.school {
-				    margin: 10px 0;
-					font-size: 14px;
-					display: inline-block;
-					width: 12%;
-					padding-left: 30px;
-
-					.name-wrapper {
-					
-						a {
-							color: #2d7bbd;
-							display: inline-block;
-							@include text-overflow(125);
-
-							&:hover {
-								cursor: default;
-							}
-						}
-					}
-
-					a {
-						margin-right: 5px;
-					}
-				}
-
-				&:last-of-type {
-					border: 0;
 				}
 			}
 		}

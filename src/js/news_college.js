@@ -70,12 +70,4 @@ $(()=> {
 	for (let i = 0; i < 21; ++i) {
 		$('.apply .right tbody').append($('.apply .right tbody tr').eq(0).clone());
 	}
-
-	for (let i = 0; i < 7; ++i) {
-		$('.school-wrapper .row').append($('.school-wrapper .row .school').eq(0).clone());
-	}
-
-	for (let i = 0; i < 2; ++i) {
-		$('.school-wrapper .content').append($('.school-wrapper .row').eq(0).clone());
-	}
 });
