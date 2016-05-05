@@ -101,7 +101,7 @@
 		}, {
 			key: 'renderMore',
 			value: function renderMore() {
-				return $('<a class="more" href="javascript:">查看更多学校>></a>');
+				return $('<a class="more" href="forum_college_more.html?district=' + this.district + '">查看更多学校>></a>');
 			}
 		}, {
 			key: 'render',

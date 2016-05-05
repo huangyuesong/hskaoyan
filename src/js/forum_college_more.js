@@ -1,4 +1,4 @@
-import '../styles/forum.scss';
+import '../styles/forum_college_more.scss';
 
 import './header';
 
@@ -8,6 +8,16 @@ import HeaderForum from './header_forum';
 import OtherSite from './other_site';
 
 import { serverUrl } from '../../config';
+
+import url from 'url';
+
+let {
+	district,
+} = url.parse(location.href, true).query;
+
+if (!district) {
+	location.href = 'forum.html';
+}
 
 class District {
 	constructor (data) {
@@ -42,10 +52,6 @@ class District {
 		return row;
 	}
 
-	renderMore () {
-		return $(`<a class="more" href="forum_college_more.html?district=${this.district}">查看更多学校>></a>`);
-	}
-
 	render () {
 		let _district = $([
 			`<div class="section district">`,
@@ -60,8 +66,6 @@ class District {
 			$('.content', _district).append(this.renderRow(this.list.splice(0, 5)));
 		}
 
-		$('.content .row:last-of-type', _district).append(this.renderMore());
-
 		return _district;
 	}
 }
@@ -75,7 +79,7 @@ class Forum {
 		this.controller = {
 			setData: ()=> {
 				$.ajax({
-					url: `${serverUrl}/college_list.php?college_limit=24`,
+					url: `${serverUrl}/college_list.php?district=${district}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -97,16 +101,14 @@ class Forum {
 			setDistrict: ()=> {
 				let { collegeList } = this.model;
 
-				collegeList.map((_district)=> {
-					let { district, list } = _district;
+				let { district, list } = collegeList;
 
-					let __district = new District({
-						district: district,
-						list: list,
-					}).render();
+				let __district = new District({
+					district: district,
+					list: list,
+				}).render();
 
-					$('.management').before(__district);
-				});
+				$('.management').before(__district);
 			},
 			setOtherSite: ()=> {
 				let { linkList } = this.model;
@@ -130,6 +132,9 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum().render();
+	new HeaderForum([{
+		name: `${district}院校`,
+		href: 'javascript:',
+	}]).render();
 	new Forum().init();
 });
