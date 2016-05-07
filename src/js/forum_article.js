@@ -1,10 +1,10 @@
 import '../styles/forum_article.scss';
 
-import './header';
+import './component/header';
 
-import './footer';
+import './component/footer';
 
-import HeaderForum from './header_forum';
+import HeaderForum from './component/header_forum';
 
 import url from 'url';
 

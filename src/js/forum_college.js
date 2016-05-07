@@ -1,11 +1,11 @@
 import '../styles/forum_college.scss';
 
-import './header';
+import './component/header';
 
-import './footer';
+import './component/footer';
 
-import HeaderForum from './header_forum';
-import Pagination from './pagination';
+import HeaderForum from './component/header_forum';
+import Pagination from './component/pagination';
 
 import url from 'url';
 

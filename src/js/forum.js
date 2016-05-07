@@ -1,11 +1,11 @@
 import '../styles/forum.scss';
 
-import './header';
+import './component/header';
 
-import './footer';
+import './component/footer';
 
-import HeaderForum from './header_forum';
-import OtherSite from './other_site';
+import HeaderForum from './component/header_forum';
+import OtherSite from './component/other_site';
 
 import { serverUrl } from '../../config';
 

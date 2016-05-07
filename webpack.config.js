@@ -1,34 +1,16 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var fs = require('fs');
 var path = require('path');
 
-fs.readdirSync(path.resolve('./src/html/')).map(function (filename) {
-	if (/\.html$/.test(filename)) {
-		fs.writeFileSync('./public/html/' + filename, fs.readFileSync('./src/html/' + filename));
-	}
-});
+var env = process.env.NODE_ENV || '';
 
-var exclude = new Map();
-exclude.set('header.js', true);
-exclude.set('footer.js', true);
-exclude.set('header_forum.js', true);
-exclude.set('other_site.js', true);
-exclude.set('pagination.js', true);
-var entry = {};
-fs.readdirSync(path.resolve('./src/js/')).map(function (filename) {
-	if (/\.js$/.test(filename) && !exclude.get(filename)) {
-		entry[filename.split('.')[0]] = './src/js/' + filename;
-	}
-});
-
-module.exports = {
-	entry: entry,
-
+webpackConfig = {
+	entry: {},
 	output: {
-		path: './public/js',
-		filename: '[name].bundle.js',
+		path: path.join(__dirname, 'public'),
+		filename: '[name].js',
 	},
-
 	plugins: [
 		new webpack.ProvidePlugin({
 			$: 'jquery',
@@ -36,42 +18,63 @@ module.exports = {
 			'window.jQuery': 'jquery',
 		}),
 	],
-
 	module: {
-		loaders: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'babel-loader',
-				query: {
-					presets: ['es2015'],
-				},
+		loaders: [{
+			test: /\.html$/,
+            loader: 'html-loader',
+		},{
+			test: /\.js$/,
+			exclude: /node_modules/,
+			loader: 'babel-loader',
+			query: {
+				presets: ['es2015'],
 			},
-
-			{
-				test: /\.css$/,
-				loaders: [
-					'style-loader',
-					'css-loader',
-				],
-			},
-
-			{
-				test: /\.scss$/,
-				loaders: [
-					'style-loader',
-					'css-loader',
-					'sass-loader',
-				],
-			},
-
-			{
-				test: /\.(otf|eot|svg|ttf|woff|woff2)\??.*$/,
-				loader: 'file-loader',
-                query: {
-                    name: 'font/[name].[hash].[ext]'
-                },
-			},
-		],
+		},{
+			test: /\.css$/,
+			loaders: [
+				'style-loader',
+				'css-loader',
+			],
+		},{
+			test: /\.scss$/,
+			loaders: [
+				'style-loader',
+				'css-loader',
+				'sass-loader',
+			],
+		},{
+			test: /\.(otf|eot|svg|ttf|woff|woff2)\??.*$/,
+			loader: 'file-loader',
+            query: {
+                name: 'font/[name].[hash].[ext]'
+            },
+		}],
 	},
 };
+
+fs.readdirSync(path.join(__dirname, 'src', 'html')).map(function (filename) {
+    if (/\.html$/.test(filename)) {
+        webpackConfig.plugins.push(new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'src', 'index.ejs'),
+            filename: path.join(__dirname, 'public', filename),
+            inject: false,
+            body: fs.readFileSync(path.join(__dirname, 'src', 'html', filename)),
+            script: env.indexOf('production') > -1 ? '<script src="/js/' + filename.split('.')[0] + '.js"></script>' : '',
+            dev: env.indexOf('development') > -1 ?'<script src="/js/__dev__/__' + filename.split('.')[0] + '__.js"></script>' : '',
+        }));
+    }
+});
+
+fs.readdirSync(path.join(__dirname, 'src', 'js')).map(function (filename) {
+    if (/\.js$/.test(filename)) {
+        webpackConfig.entry['js/' + filename.split('.')[0]] = path.join(__dirname, 'src', 'js', filename);
+    }
+});
+
+fs.readdirSync(path.join(__dirname, 'src', 'js', '__dev__')).map(function (filename) {
+    if (/\.js$/.test(filename)) {
+        webpackConfig.entry['js/__dev__/__' + filename.split('.')[0] + '__'] = path.join(__dirname, 'src', 'js', '__dev__', filename);
+    }
+});
+
+module.exports = webpackConfig;

@@ -2,9 +2,9 @@ import 'amazeui';
 
 import '../styles/index.scss';
 
-import './header';
+import './component/header';
 
-import './footer';
+import './component/footer';
 
 $(window).load(()=> {
 	$('.loading').remove();
