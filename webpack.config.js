@@ -6,10 +6,12 @@ var path = require('path');
 var env = process.env.NODE_ENV || '';
 
 webpackConfig = {
-	entry: {},
+	entry: {
+		'js/__dev__/__dev__.js':  path.resolve(__dirname, 'src', 'js', '__dev__', 'dev.js'),
+	},
 	output: {
-		path: path.join(__dirname, 'public'),
-		filename: '[name].js',
+		path: path.resolve(__dirname, 'public'),
+		filename: '[name]',
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
@@ -43,6 +45,12 @@ webpackConfig = {
 				'sass-loader',
 			],
 		},{
+			test: /\.(jpg|png)$/, 
+			loader: 'url-loader',
+			query: {
+				limit: 8192,
+			},
+		},{
 			test: /\.(otf|eot|svg|ttf|woff|woff2)\??.*$/,
 			loader: 'file-loader',
             query: {
@@ -52,28 +60,22 @@ webpackConfig = {
 	},
 };
 
-fs.readdirSync(path.join(__dirname, 'src', 'html')).map(function (filename) {
+fs.readdirSync(path.resolve(__dirname, 'src', 'html')).map(function (filename) {
     if (/\.html$/.test(filename)) {
         webpackConfig.plugins.push(new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src', 'index.ejs'),
-            filename: path.join(__dirname, 'public', filename),
+            template: path.resolve(__dirname, 'src', 'index.ejs'),
+            filename: path.resolve(__dirname, 'public', filename),
             inject: false,
-            body: fs.readFileSync(path.join(__dirname, 'src', 'html', filename)),
-            script: env.indexOf('production') > -1 ? '<script src="/js/' + filename.split('.')[0] + '.js"></script>' : '',
-            dev: env.indexOf('development') > -1 ?'<script src="/js/__dev__/__' + filename.split('.')[0] + '__.js"></script>' : '',
+            body: fs.readFileSync(path.resolve(__dirname, 'src', 'html', filename)),
+            script: env.indexOf('production') > -1 ? '<script src="/js/' + filename.replace(/html/, 'js') + '"></script>' : '',
+            dev: env.indexOf('development') > -1 ?'<script src="/js/__dev__/__dev__.js"></script>' : '',
         }));
     }
 });
 
-fs.readdirSync(path.join(__dirname, 'src', 'js')).map(function (filename) {
+fs.readdirSync(path.resolve(__dirname, 'src', 'js')).map(function (filename) {
     if (/\.js$/.test(filename)) {
-        webpackConfig.entry['js/' + filename.split('.')[0]] = path.join(__dirname, 'src', 'js', filename);
-    }
-});
-
-fs.readdirSync(path.join(__dirname, 'src', 'js', '__dev__')).map(function (filename) {
-    if (/\.js$/.test(filename)) {
-        webpackConfig.entry['js/__dev__/__' + filename.split('.')[0] + '__'] = path.join(__dirname, 'src', 'js', '__dev__', filename);
+        webpackConfig.entry['js/' + filename] = path.resolve(__dirname, 'src', 'js', filename);
     }
 });
 

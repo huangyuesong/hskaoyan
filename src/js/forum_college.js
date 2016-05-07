@@ -94,7 +94,7 @@ class ForumCollege {
 			},
 			setHotTopic: ()=> {
 				$.ajax({
-					url: `${serverUrl}/hot_topic_list.php?college_id=${college_id}`,
+					url: `${serverUrl}/hot_topic_list.php?board_id=${college_id}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -109,7 +109,7 @@ class ForumCollege {
 			},
 			setTopic: ()=> {
 				$.ajax({
-					url: `${serverUrl}/topic_list.php?college_id=${college_id}&type=${type || 1}`,
+					url: `${serverUrl}/topic_list.php?board_id=${college_id}&type=${type || 1}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,

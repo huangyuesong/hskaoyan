@@ -2,6 +2,8 @@ import '../../styles/header.scss';
 
 import 'amazeui';
 
+import { serverUrl } from '../../../config';
+
 export default (()=> {
 	let header = function () {
 		return $([
@@ -84,10 +86,10 @@ export default (()=> {
 			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
 			'			</div>',
 			'			<div class="am-modal-bd">',
-			'				<p><span class="icon icon-user"></span><input id="username" type="text" placeholder="手机/用户名" /></p>',
-			'				<p><span class="icon icon-key"></span><input id="password" type="password" placeholder="密码" /></p>',
+			'				<p><span class="icon icon-user"></span><input id="username" type="text" placeholder="请输入手机号" /></p>',
+			'				<p><span class="icon icon-key"></span><input id="password" type="password" placeholder="请输入密码" /></p>',
 			'				<p class="al">',
-			'					<input type="checkbox" /><span>下次自动登录</span>',
+			'					<input type="checkbox" id="auto-login" /><span>下次自动登录</span>',
 			'					<a class="forget" href="javascript:">忘记密码?</a>',
 			'				</p>',
 			'				<a href="javascript:"><span class="button">登录</span></a>',
@@ -105,12 +107,12 @@ export default (()=> {
 			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
 			'			</div>',
 			'			<div class="am-modal-bd">',
-			'				<p><input type="text" placeholder="请输入手机号码" /></p>',
+			'				<p><input id="username" type="text" placeholder="请输入手机号码" /></p>',
 			'				<p class="al">',
-			'					<input class="captcha" type="text" placeholder="短信验证码" />',
+			'					<input id="captcha" class="captcha" type="text" placeholder="短信验证码" />',
 			'					<a href="javascript:"><span class="button get-captcha">获取验证码</span></a>',
 			'				</p>',
-			'				<p><input type="password" placeholder="请输入密码" /></p>',
+			'				<p><input id="password" type="password" placeholder="请输入密码" /></p>',
 			'				<a href="javascript:"><span class="button">注册</span></a>',
 			'				<p class="al">已有账户?',
 			'					<a href="javascript:"><span class="color-link to-login">直接登录>></span></a>',
@@ -169,5 +171,52 @@ export default (()=> {
     $('.button', $('#modal-login')).click((evt)=> {
     	let username = $('#username', $('#modal-login')).val();
     	let password = $('#password', $('#modal-login')).val();
+    	let autoLogin = $('#auto-login', $('#modal-login')).prop('checked');
+
+    	$.ajax(`${serverUrl}/login.php`, {
+    		method: 'post',
+    		data: {
+    			user_tel: username,
+    			user_pwd: password,
+    			auto_login: autoLogin,
+    		},
+    		dataType: 'json',
+    		cache: false,
+			success: (data)=> {
+				let { result_code, message } = data;
+				
+				if (result_code === 0) {
+					location.reload();
+				} else {
+					alert(message);
+				}
+			},
+			error: (err)=> {
+				alert(err.statusText);
+			},
+    	});
+    });
+
+    $('.button', $('#modal-register')).click((evt)=> {
+    	let username = $('#username', $('#modal-register')).val();
+    	let password = $('#password', $('#modal-register')).val();
+    	let captcha = $('#captcha', $('#modal-register')).val();
+
+    	$.ajax(`${serverUrl}/register.php`, {
+    		method: 'post',
+    		data: {
+    			user_tel: username,
+    			user_pwd: password,
+    			phone_code: captcha,
+    		},
+    		dataType: 'json',
+    		cache: false,
+			success: (data)=> {
+				console.log(data)
+			},
+			error: (err)=> {
+				alert(err.statusText);
+			},
+    	});
     });
 })();

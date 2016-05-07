@@ -246,6 +246,7 @@ $icons: (
 						.title {
 							font-size: 16px;
 							margin-right: 10px;
+							@include text-overflow(670);
 						}
 
 						.author, .release, .date {
