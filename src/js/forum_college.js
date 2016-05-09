@@ -54,6 +54,7 @@ class ForumCollege {
 					$.ajax({
 						url: `${serverUrl}/topic_post.php`,
 						type: 'post',
+						dataType: 'json',
 						data: {
 							college_id: college_id,
 							labels: label,
@@ -61,12 +62,12 @@ class ForumCollege {
 							content: content,
 						},
 						cache: false,
-						success: (data)=> {
+						success: (data, status)=> {
 							alert('发帖成功');
 							location.reload();
 						},
-						error: (err)=> {
-							alert(err.statusText);
+						error: (xhr, status, error)=> {
+							alert(error);
 						},
 					});
 				});
@@ -98,12 +99,12 @@ class ForumCollege {
 					type: 'get',
 					dataType: 'json',
 					cache: false,
-					success: (data)=> {
+					success: (data, status)=> {
 						this.model.hotTopics = data.list;
 						this.view.setHotTopic();
 					},
-					error: (err)=> {
-						alert(err.statusText);
+					error: (xhr, status, error)=> {
+						alert(error);
 					},
 				});
 			},
@@ -113,14 +114,14 @@ class ForumCollege {
 					type: 'get',
 					dataType: 'json',
 					cache: false,
-					success: (data)=> {
+					success: (data, status)=> {
 						this.model.topics = data.list;
 						this.model.pages = data.page_count;
 						this.view.setPagination();
 						this.view.setTopic();
 					},
-					error: (err)=> {
-						alert(err.statusText);
+					error: (xhr, status, error)=> {
+						alert(error);
 					},
 				});
 			},
@@ -130,12 +131,12 @@ class ForumCollege {
 					type: 'get',
 					dataType: 'json',
 					cache: false,
-					success: (data)=> {
+					success: (data, status)=> {
 						this.model.labels = data.list;
 						this.view.setLabel();
 					},
-					error: (err)=> {
-						alert(err.statusText);
+					error: (xhr, status, error)=> {
+						alert(error);
 					},
 				});
 			},

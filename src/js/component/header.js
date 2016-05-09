@@ -110,10 +110,10 @@ export default (()=> {
 			'				<p><input id="username" type="text" placeholder="请输入手机号码" /></p>',
 			'				<p class="al">',
 			'					<input id="captcha" class="captcha" type="text" placeholder="短信验证码" />',
-			'					<a href="javascript:"><span class="button get-captcha">获取验证码</span></a>',
+			'					<a href="javascript:"><span id="get-captcha" class="button get-captcha">获取验证码</span></a>',
 			'				</p>',
 			'				<p><input id="password" type="password" placeholder="请输入密码" /></p>',
-			'				<a href="javascript:"><span class="button">注册</span></a>',
+			'				<a href="javascript:"><span id="register" class="button">注册</span></a>',
 			'				<p class="al">已有账户?',
 			'					<a href="javascript:"><span class="color-link to-login">直接登录>></span></a>',
 			'					<span class="fr">',
@@ -144,6 +144,18 @@ export default (()=> {
 		].join(''));
 	};
 
+	$.ajax(`${serverUrl}/user_info.php`, {
+		method: 'get',
+		dataType: 'json',
+		cache: false,
+		success: (data, status)=> {
+			console.log(data)
+		},
+		error: (xhr, status, error)=> {
+			alert(error);
+		},
+	});
+
     $('body').prepend(new header());
 
     $('#login-link', $('.header')).click((evt)=> {
@@ -173,16 +185,16 @@ export default (()=> {
     	let password = $('#password', $('#modal-login')).val();
     	let autoLogin = $('#auto-login', $('#modal-login')).prop('checked');
 
-    	$.ajax(`${serverUrl}/login.php`, {
-    		method: 'post',
-    		data: {
-    			user_tel: username,
-    			user_pwd: password,
-    			auto_login: autoLogin,
-    		},
-    		dataType: 'json',
-    		cache: false,
-			success: (data)=> {
+		$.ajax(`${serverUrl}/login.php`, {
+			method: 'post',
+			data: {
+				user_tel: username,
+				user_pwd: password,
+				auto_login: autoLogin ? 1 : 0,
+			},
+			dataType: 'json',
+			cache: false,
+			success: (data, status)=> {
 				let { result_code, message } = data;
 				
 				if (result_code === 0) {
@@ -191,13 +203,13 @@ export default (()=> {
 					alert(message);
 				}
 			},
-			error: (err)=> {
-				alert(err.statusText);
+			error: (xhr, status, error)=> {
+				alert(error);
 			},
-    	});
+		});
     });
 
-    $('.button', $('#modal-register')).click((evt)=> {
+    $('#register', $('#modal-register')).click((evt)=> {
     	let username = $('#username', $('#modal-register')).val();
     	let password = $('#password', $('#modal-register')).val();
     	let captcha = $('#captcha', $('#modal-register')).val();
@@ -209,13 +221,13 @@ export default (()=> {
     			user_pwd: password,
     			phone_code: captcha,
     		},
-    		dataType: 'json',
+			dataType: 'json',
     		cache: false,
-			success: (data)=> {
+			success: (data, status)=> {
 				console.log(data)
 			},
-			error: (err)=> {
-				alert(err.statusText);
+			error: (xhr, status, error)=> {
+				alert(error);
 			},
     	});
     });

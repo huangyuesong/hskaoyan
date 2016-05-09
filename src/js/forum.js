@@ -79,7 +79,7 @@ class Forum {
 					type: 'get',
 					dataType: 'json',
 					cache: false,
-					success: (data)=> {
+					success: (data, status)=> {
 						let { list, list_flink } = data
 
 						this.model.collegeList = list;
@@ -87,8 +87,8 @@ class Forum {
 						this.view.setDistrict();
 						this.view.setOtherSite();
 					},
-					error: (err)=> {
-						alert(err.statusText);
+					error: (xhr, status, error)=> {
+						alert(error);
 					},
 				});
 			},
