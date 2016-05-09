@@ -1,0 +1,118 @@
+@import '_base';
+
+$icons: (
+	icon-logo: '/images/web/personal_center/logo.png',
+	icon-bg: '/images/web/personal_center/bg.png',
+);
+
+body {
+	background: #F5F5F5;
+}
+
+.personal-center-top-bar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 60px;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+	background: white;
+	padding: 0 15%;
+	position: relative;
+
+	.icon-logo {
+		@include background(map-get($icons, icon-logo), 153, 41);
+		position: absolute;
+		top: 50%;
+		margin-top: -20.5px;
+	}
+
+	ul {
+		margin: 0 20px;
+		margin-left: 180px;
+
+		li {
+			display: inline-block;
+			line-height: 60px;
+			font-size: 18px;
+			margin: 0 15px;
+		}
+	}
+}
+
+.container {
+
+	& > div {
+		margin: 20px 0;
+	}
+
+	.section-name {
+		@include background(map-get($icons, icon-bg), 100%, 80);
+		padding: 0 80px;
+		font-size: 24px;
+
+		p {
+			line-height: 80px;
+		}
+	}
+
+	.main {
+		position: relative;
+		padding-left: 200px;
+
+		.nav {
+			width: 200px;
+			background: white;
+			text-align: center;
+			position: absolute;
+			left: 0;
+			top: 39px;
+			border: 1px solid rgba(0, 0, 0, 0.15);
+			border-right: 0;
+			height: 460px;
+
+			.avatar-wrapper {
+				padding: 10px 0;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+				img {
+					@include border-radius(50);
+				}
+			}
+
+			ul {
+				margin: 0;
+
+				li {
+					line-height: 50px;
+					border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+					.rect {
+						width: 5px;
+						height: 50px;
+						background: #548EBA;
+						display: none;
+					}
+
+					&.active {
+						
+						a {
+							color: #548EBA;
+						}
+
+						.rect {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+
+		.am-tabs {
+
+			.am-tabs-bd {
+				background: white;
+			    min-height: 460px;
+			}
+		}
+	}
+}

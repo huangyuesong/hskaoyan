@@ -149,7 +149,40 @@ export default (()=> {
 		dataType: 'json',
 		cache: false,
 		success: (data, status)=> {
-			console.log(data)
+			let { result, list } = data;
+
+			if (result !== -1) {
+				let { avatar, nick_name, message_count } = list;
+
+				$('.header .middle .right .login').remove();
+				$('.header .middle .right .register').remove();
+
+				let alreadyLogin = $([
+					`<img class="avatar" width="30" height="30" src="http://hskaoyan.com/${avatar}">`,
+					`<span class="nick-name">${nick_name}</span>`,
+					`<a href="javascript:"><span>站内消息<span class="unread">（${message_count}）</span></span></a>`,
+					`<a href="personal_center.html"><span>个人中心</span></a>`,
+					`<a href="javascript:" id="logout"><span>退出登录</span></a>`,
+				].join(''));
+
+				$('.header .middle .right').append(alreadyLogin);
+			}
+
+			$('.middle .right #logout', header).click((evt)=> {
+		    	$.ajax(`${serverUrl}/logout.php`, {
+					method: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						if (data.result_code === 0) {
+							location.reload();
+						}
+					},
+					error: (xhr, status, error)=> {
+						alert(error);
+					},
+				});
+		    });
 		},
 		error: (xhr, status, error)=> {
 			alert(error);

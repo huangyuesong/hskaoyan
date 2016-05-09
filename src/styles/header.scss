@@ -209,15 +209,22 @@ $icons: (
 				margin: 0 20px;
 			}
 
-			.login, .register {
-
-				a:hover {
-					color: #0E9F4E;
-				}
-			}
-
 			.icon-search {
 				@include background(map-get($icons, icon-search), 17, 18);
+			}
+
+			.nick-name {
+				font-size: 16px;
+				font-weight: bold;
+			}
+
+			.avatar {
+				margin-left: 10px;
+			}
+
+			.unread {
+				margin: 0;
+				color: red;
 			}
 		}
 	}

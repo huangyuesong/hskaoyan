@@ -6,12 +6,11 @@ var path = require('path');
 var env = process.env.NODE_ENV || '';
 
 webpackConfig = {
-	entry: {
-		'js/__dev__/__dev__.js':  path.resolve(__dirname, 'src', 'js', '__dev__', 'dev.js'),
-	},
+	entry: {},
 	output: {
 		path: path.resolve(__dirname, 'public'),
 		filename: '[name]',
+		publicPath: '/',
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
@@ -45,10 +44,10 @@ webpackConfig = {
 				'sass-loader',
 			],
 		},{
-			test: /\.(jpg|png)$/, 
-			loader: 'url-loader',
+			test: /\.(jpg|png|jpeg|gif)$/,
+			loader: 'url-loader?limit=8192',
 			query: {
-				limit: 8192,
+				name: 'img/[name].[hash].[ext]',
 			},
 		},{
 			test: /\.(otf|eot|svg|ttf|woff|woff2)\??.*$/,
@@ -68,7 +67,7 @@ fs.readdirSync(path.resolve(__dirname, 'src', 'html')).map(function (filename) {
             inject: false,
             body: fs.readFileSync(path.resolve(__dirname, 'src', 'html', filename)),
             script: env.indexOf('production') > -1 ? '<script src="/js/' + filename.replace(/html/, 'js') + '"></script>' : '',
-            dev: env.indexOf('development') > -1 ?'<script src="/js/__dev__/__dev__.js"></script>' : '',
+            dev: env.indexOf('development') > -1 ?'<script src="/js/__dev__/' + filename.replace(/html/, 'js') + '"></script>' : '',
         }));
     }
 });
@@ -76,6 +75,12 @@ fs.readdirSync(path.resolve(__dirname, 'src', 'html')).map(function (filename) {
 fs.readdirSync(path.resolve(__dirname, 'src', 'js')).map(function (filename) {
     if (/\.js$/.test(filename)) {
         webpackConfig.entry['js/' + filename] = path.resolve(__dirname, 'src', 'js', filename);
+    }
+});
+
+fs.readdirSync(path.resolve(__dirname, 'src', 'js', '__dev__')).map(function (filename) {
+    if (/\.js$/.test(filename)) {
+        webpackConfig.entry['js/__dev__/' + filename] = path.resolve(__dirname, 'src', 'js', '__dev__', filename);
     }
 });
 
