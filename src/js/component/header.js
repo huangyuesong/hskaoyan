@@ -160,7 +160,7 @@ export default (()=> {
 				let alreadyLogin = $([
 					`<img class="avatar" width="30" height="30" src="http://hskaoyan.com/${avatar}">`,
 					`<span class="nick-name">${nick_name}</span>`,
-					`<a href="javascript:"><span>站内消息<span class="unread">（${message_count}）</span></span></a>`,
+					`<a href="personal_center.html#message"><span>站内消息<span class="unread">（${message_count}）</span></span></a>`,
 					`<a href="personal_center.html"><span>个人中心</span></a>`,
 					`<a href="javascript:" id="logout"><span>退出登录</span></a>`,
 				].join(''));

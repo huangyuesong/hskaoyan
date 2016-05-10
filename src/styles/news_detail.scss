@@ -125,7 +125,7 @@ body {
 								display: block;
 
 								.icon-temp {
-									@include background(map-get($icons, icon-temp), 100, 100);
+									@include background(map-get($icons, icon-temp), 100.1, 100.1);
 									border: 1px solid #B3B3B3;
 									box-sizing: border-box;
 									margin: 2px;
