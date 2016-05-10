@@ -144,7 +144,7 @@ export default (()=> {
 		].join(''));
 	};
 
-	$.ajax(`${serverUrl}/user_info.php`, {
+	$.ajax(`${serverUrl}/user_info_local.php`, {
 		method: 'get',
 		dataType: 'json',
 		cache: false,
