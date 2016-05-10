@@ -38,6 +38,21 @@ class PersonalCenter {
 					idx: 1,
 					pages: 3,
 				}).render());
+
+				$('.container .main .article .question .pagination-wrapper').append(new Pagination({
+					idx: 1,
+					pages: 3,
+				}).render());
+
+				$('.container .main .article .answer .pagination-wrapper').append(new Pagination({
+					idx: 1,
+					pages: 3,
+				}).render());
+
+				$('.container .main .article .my-article .pagination-wrapper').append(new Pagination({
+					idx: 1,
+					pages: 3,
+				}).render());
 			},
 		};
 	}
