@@ -17,7 +17,7 @@
 				<img src="/images/web/personal_center/avatar.png" width="80" height="80">
 			</div>
 			<ul>
-				<li class="active"><span class="rect fl"></span><a href="javascript:">个人设置</a></li>
+				<li class="setting"><span class="rect fl"></span><a href="#setting">个人设置</a></li>
 				<li><span class="rect fl"></span><a href="javascript:">消息中心</a></li>
 				<li><span class="rect fl"></span><a href="javascript:">我的帖子</a></li>
 				<li><span class="rect fl"></span><a href="javascript:">我的收藏</a></li>
@@ -41,7 +41,7 @@
 		        				性别：
 		        				<span><input type="radio" name="sex"/>男</span>
 		        				<span><input type="radio" name="sex"/>女</span>
-		        				<span><input type="radio" name="sex"/>保密</span>
+		        				<span><input type="radio" name="sex" checked/>保密</span>
 		        			</li>
 		        			<li>慧升昵称：<span class="nick-name">未设置</span><a class="button fr" href="javascript:">去设置</a></li>
 		        			<li>手机号码：<span class="tel">13681568652</span><a class="button fr" href="javascript:">修改手机</a></li>
@@ -49,15 +49,22 @@
 		        			<li>考研院校信息（完整正确设置本信息有助于我们精准为您个性化推送考研资讯和练习）</li>
 		        			<li class="select-college">
 		        				省份
-		        				<select></select>
+		        				<select><option>请选择</option></select>
 		        				学校
-		        				<select></select>
+		        				<select><option>请选择</option></select>
 		        			</li>
 		        		</ul>
 		        	</div>
 		        </div>
 		        <div class="am-tab-panel am-fade">
-		        	
+		        	<div class="change-password">
+		        		<ul>
+		        			<li><input type="text" placeholder="请输入原密码" /></li>
+		        			<li><input type="password" placeholder="请输入新密码"/></li>
+		        			<li><input type="password" placeholder="请再次输入新密码"/></li>
+		        			<li><a class="button" href="javascript:">确认修改</a></li>
+		        		</ul>
+		        	</div>
 		        </div>
 		    </div>
 	    </div>
