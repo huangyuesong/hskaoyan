@@ -89,7 +89,7 @@ export default (()=> {
 			'				<p><span class="icon icon-user"></span><input id="username" type="text" placeholder="请输入手机号" /></p>',
 			'				<p><span class="icon icon-key"></span><input id="password" type="password" placeholder="请输入密码" /></p>',
 			'				<p class="al">',
-			'					<input type="checkbox" id="auto-login" /><span>下次自动登录</span>',
+			'					<input type="checkbox" id="auto-login" checked /><span>下次自动登录</span>',
 			'					<a class="forget" href="javascript:">忘记密码?</a>',
 			'				</p>',
 			'				<a href="javascript:"><span class="button">登录</span></a>',
@@ -137,6 +137,22 @@ export default (()=> {
 			'					<a href="javascript:"><span class="button get-captcha">获取验证码</span></a>',
 			'				</p>',
 			'				<a href="javascript:"><span class="button">登录</span></a>',
+			'			</div>',
+			'		</div>',
+			'	</div>',
+			'	<div class="am-modal" id="modal-captcha">',
+			'		<div class="am-modal-dialog modal-captcha">',
+			'			<div class="am-modal-hd">',
+			'				<span class="icon icon-modal-logo"></span>',
+			'				<span>请输入图片验证码</span>',
+			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
+			'			</div>',
+			'			<div class="am-modal-bd">',
+			'				<p class="al">',
+			'					<input class="captcha" type="text" placeholder="请输入右侧的验证码" id="image_code" />',
+			'					<img id="captcha" src="" width="100" height="40">',
+			'				</p>',
+			'				<a href="javascript:"><span class="button">确定</span></a>',
 			'			</div>',
 			'		</div>',
 			'	</div>',
@@ -232,6 +248,10 @@ export default (()=> {
 				
 				if (result_code === 0) {
 					location.reload();
+				} else if (result_code === 4) {
+					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+					$('.header #modal-login').modal('toggle');
+					$('.header #modal-captcha').modal('toggle');
 				} else {
 					alert(message);
 				}
@@ -263,5 +283,38 @@ export default (()=> {
 				alert(error);
 			},
     	});
+    });
+
+    $('.button', $('#modal-captcha')).click((evt)=> {
+    	let image_code = $('#image_code', $('#modal-captcha')).val();
+		let username = $('#username', $('#modal-login')).val();
+    	let password = $('#password', $('#modal-login')).val();
+    	let autoLogin = $('#auto-login', $('#modal-login')).prop('checked');
+
+		$.ajax(`${serverUrl}/login.php`, {
+			method: 'post',
+			data: {
+				user_tel: username,
+				user_pwd: password,
+				auto_login: autoLogin ? 1 : 0,
+				image_code: image_code,
+			},
+			dataType: 'json',
+			cache: false,
+			success: (data, status)=> {
+				let { result_code, message } = data;
+				
+				if (result_code === 0) {
+					location.reload();
+				} else if (result_code === 4) {
+					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+				} else {
+					alert(message);
+				}
+			},
+			error: (xhr, status, error)=> {
+				alert(error);
+			},
+		});
     });
 })();

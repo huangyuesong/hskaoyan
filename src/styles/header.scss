@@ -17,7 +17,7 @@ $icons: (
 
 .header {
 
-	.modal-login, .modal-register, .modal-forget-password {
+	.modal-login, .modal-register, .modal-forget-password, .modal-captcha {
 
 		.am-modal-hd {
 			text-align: left;
@@ -130,6 +130,21 @@ $icons: (
 				margin-left: 15px;
 				position: relative;
 				top: 1px;
+			}
+		}
+	}
+
+	.modal-captcha {
+
+		.am-modal-bd {
+
+			.al {
+				text-align: center;
+			}
+
+			input[type="text"] {
+				width: 250px;
+				padding: 0 5px;
 			}
 		}
 	}
