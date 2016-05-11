@@ -280,52 +280,6 @@ $icons: (
 					}
 				}
 			}
-
-			.write {
-				margin: 20px 0;
-				border: 1px solid #C2D5E3;
-
-				.title {
-					padding-left: 20px;
-					line-height: 40px;
-					font-size: 18px;
-					border-bottom: 1px solid #C2D5E3;
-					background: #e2f0fa;
-					color: #4972ab;
-				}
-
-				.content {
-					padding: 15px;
-					background: #FAFAFA;
-
-					select {
-						width: 90px;
-					}
-
-					input[type="text"] {
-						width: 350px;
-						margin: 20px;
-					}
-
-					span {
-						font-size: 14px;
-					}
-
-					textarea {
-						width: 100%;
-						height: 200px;
-						resize: none;
-						overflow: auto;
-					}
-
-					.button {
-						margin: 0;
-						margin-top: 10px;
-						height: 30px;
-						line-height: 30px;
-					}
-				}
-			}
 		}
 
 		.icon-ad-right {

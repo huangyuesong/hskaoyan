@@ -5,6 +5,9 @@ import './component/header';
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
+import WriteArticle from './component/write_article';
+
+import { serverUrl, imagePrefix } from '../../config';
 
 import url from 'url';
 
@@ -20,16 +23,106 @@ if (!college_name || !college_id || !article_id) {
 
 class ForumArticle {
 	constructor () {
-		this.model = {};
+		this.model = {
+			title: '',
+			nick_name: '',
+			view_num: 0,
+			reply_num: 0,
+			avatar: '/images/web/forum_article/avatar.png',
+			pub_time: '2016-01-01',
+			content: '',
+			comment_list: [],
+		};
 		this.controller = {
 			bindEvents: ()=> {
 
 			},
+			setArticle: ()=> {
+				$.ajax({
+					url: `${serverUrl}/topic_view.php?topic_id=${article_id}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { title, nick_name, view_num, reply_num, avatar, pub_time, content, comment_list } = data.topic_array;
+
+						this.model.title = title;
+						this.model.nick_name = nick_name;
+						this.model.view_num = view_num;
+						this.model.reply_num = reply_num;
+						this.model.avatar = avatar;
+						this.model.pub_time = pub_time;
+						this.model.content = content;
+						this.model.comment_list = comment_list;
+
+						this.view.setArticle();
+						this.view.setComment();
+					},
+					error: (xhr, status, error)=> {
+						alert(error);
+					},
+				});
+			},
+			setWrite: ()=> {
+				$.ajax({
+					url: `${serverUrl}/topic_label.php`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.view.setWrite(data.list);
+					},
+					error: (xhr, status, error)=> {
+						alert(error);
+					},
+				});
+			},
 		};
-		this.view = {};
+		this.view = {
+			setArticle: ()=> {
+				let { title, nick_name, view_num, reply_num, avatar, pub_time, content } = this.model;
+				let titleWrapper = $('.container .article-title-wrapper').eq(0);
+				let articleWrapper = $('.container .article-wrapper').eq(0);
+
+				$('#title', titleWrapper).html(title);
+				$('#nick-name', titleWrapper).html('[' + nick_name + ']');
+
+				$('#view-num', articleWrapper).html(view_num);
+				$('#reply-num', articleWrapper).html(reply_num);
+				$('#nick-name', articleWrapper).html(nick_name);
+				$('#avatar', articleWrapper).prop('src', `${imagePrefix}${avatar}`).load();
+				$('#pub-time', articleWrapper).html(pub_time);
+				$('#content', articleWrapper).html(content);
+			},
+			setComment: ()=> {
+				let { comment_list } = this.model;
+
+				comment_list.map((_comment, idx)=> {
+					let wrapper = $('.container .article-wrapper').eq(0).clone();
+					let { nick_name, avatar, content, pub_time } = _comment;
+
+					$('#floor', wrapper).html(`${idx + 2}楼`);
+					$('#nick-name', wrapper).html(nick_name);
+					$('#avatar', wrapper).prop('src', `${imagePrefix}${avatar}`).load();
+					$('#pub-time', wrapper).html(pub_time);
+					$('#content', wrapper).html(content);
+
+					$('.container .article-wrapper:last-of-type').after(wrapper);
+				});
+			},
+			setWrite: (labels)=> {
+				$('.container > .button:last-of-type').after(new WriteArticle({
+					url: `${serverUrl}/topic_post.php`,
+					labels: labels,
+					college_id: college_id,
+				}).render());
+			},
+		};
 	}
 
 	init () {
+		this.controller.setArticle();
+		this.controller.setWrite();
 		this.controller.bindEvents();
 	}
 }
@@ -54,8 +147,6 @@ $(()=> {
 		},
 	]).render();
 
-	new ForumArticle().init();
-
 	let logo = $(`<div class="icon icon-logo"></div>`);
 	$('.section3', $('.header-forum')).prepend(logo);
 	$('.section1', $('.header-forum')).remove();
@@ -69,10 +160,5 @@ $(()=> {
 		color: '#9E9E9E',
 	});
 
-	let article = $('.article-wrapper');
-	$('.article-title-wrapper').after(article.clone());
-	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
-	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
-	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
-	$('.article-title-wrapper').after($('.article-wrapper').eq(0).clone());
+	new ForumArticle().init();
 });

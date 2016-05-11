@@ -4,3 +4,6 @@ export const serverUrl = DEVELOPMENT
 export const userInfoUrl = DEVELOPMENT 
 						? 'http://www.hskaoyan.com/html_php/user_info_local.php' 
 						: '/html_php/user_info.php';
+export const imagePrefix = DEVELOPMENT
+						? 'http://www.hskaoyan.com/'
+						: '';

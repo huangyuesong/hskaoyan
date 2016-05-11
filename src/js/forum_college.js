@@ -6,10 +6,11 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 import Pagination from './component/pagination';
+import WriteArticle from './component/write_article';
 
 import url from 'url';
 
-import { serverUrl } from '../../config';
+import { serverUrl, imagePrefix } from '../../config';
 
 let {
 	college_name,
@@ -28,7 +29,6 @@ class ForumCollege {
 			topics: [],
 			hotTopics: [],
 			pages: 1,
-			labels: [],
 		};
 		this.controller = {
 			bindEvents: ()=> {
@@ -132,8 +132,7 @@ class ForumCollege {
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						this.model.labels = data.list;
-						this.view.setLabel();
+						this.view.setLabel(data.list);
 					},
 					error: (xhr, status, error)=> {
 						alert(error);
@@ -163,7 +162,7 @@ class ForumCollege {
 				topics.map((_topic)=> {
 					$('.article ul').append($([
 						`<li>`,
-							`<img class="fl" src="${_topic.avatar}" width="50" height="50">`,
+							`<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">`,
 							`<p>`,
 								`<a href="forum_article.html?article_id=${_topic.id}&college_id=${college_id}&college_name=${college_name}">`,
 									`<span class="title" title="${_topic.title}">${_topic.title}</span>`,
@@ -182,16 +181,12 @@ class ForumCollege {
 					$('.article ul').css({'padding': '130px 0', 'text-align': 'center'}).text('暂无帖子');
 				}
 			},
-			setLabel: ()=> {
-				let { labels } = this.model;
-
-				labels.map((_label)=> {
-					$('.write .content select').append($(`<option>${_label}</option>`));
-				});
-
-				$('.write .content select').change((evt)=> {
-					$('.write .content select').children().eq(0).text('无');
-				});
+			setLabel: (labels)=> {
+				$('.container .pagination-wrapper:last-of-type').after(new WriteArticle({
+					url: `${serverUrl}/topic_post.php`,
+					labels: labels,
+					college_id: college_id,
+				}).render());
 			},
 			setPagination: ()=> {
 				let { pages } = this.model;
