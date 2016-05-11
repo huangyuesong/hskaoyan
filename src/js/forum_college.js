@@ -10,7 +10,10 @@ import WriteArticle from './component/write_article';
 
 import url from 'url';
 
-import { serverUrl, imagePrefix } from '../../config';
+import {
+	serverUrl,
+	imagePrefix,
+} from '../../config';
 
 let {
 	college_name,

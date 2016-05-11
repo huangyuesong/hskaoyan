@@ -7,7 +7,9 @@ import './component/footer';
 import HeaderForum from './component/header_forum';
 import OtherSite from './component/other_site';
 
-import { serverUrl } from '../../config';
+import {
+	serverUrl,
+} from '../../config';
 
 class District {
 	constructor (data) {

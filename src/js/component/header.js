@@ -2,7 +2,14 @@ import '../../styles/header.scss';
 
 import 'amazeui';
 
-import { serverUrl, userInfoUrl } from '../../../config';
+import {
+	serverUrl,
+	userInfoUrl,
+	SUCCESS,
+	COMMON_ERROR,
+	NEED_LOGIN,
+	NEED_CAPTCHA,
+} from '../../../config';
 
 export default (()=> {
 	let header = function () {
@@ -168,7 +175,7 @@ export default (()=> {
 		success: (data, status)=> {
 			let { result, list } = data;
 
-			if (result === 0) {
+			if (result === SUCCESS) {
 				let { avatar, nick_name, message_count } = list;
 
 				$('.header .middle .right .login').remove();
@@ -190,7 +197,7 @@ export default (()=> {
 						dataType: 'json',
 						cache: false,
 						success: (data, status)=> {
-							if (data.result_code === 0) {
+							if (data.result_code === SUCCESS) {
 								location.reload();
 							}
 						},
@@ -247,9 +254,9 @@ export default (()=> {
 			success: (data, status)=> {
 				let { result_code, message } = data;
 				
-				if (result_code === 0) {
+				if (result_code === SUCCESS) {
 					location.reload();
-				} else if (result_code === 4) {
+				} else if (result_code === NEED_CAPTCHA) {
 					$('.header #modal-captcha #image_code').val('');
 					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
 					$('.header #modal-login').modal('toggle');
@@ -282,7 +289,7 @@ export default (()=> {
 			success: (data, status)=> {
 				let { result_code, message } = data;
 
-				if (result_code === 0) {
+				if (result_code === SUCCESS) {
 					alert(message);
 					location.reload();
 				} else {
@@ -305,7 +312,7 @@ export default (()=> {
 			success: (data, status)=> {
 				let { result_code, message } = data;
 
-				if (result_code === 4) {
+				if (result_code === NEED_CAPTCHA) {
 					$('.header #modal-captcha #image_code').val('');
 					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
 					$('.header #modal-register').modal('toggle');
@@ -343,9 +350,9 @@ export default (()=> {
 				success: (data, status)=> {
 					let { result_code, message } = data;
 					
-					if (result_code === 0) {
+					if (result_code === SUCCESS) {
 						location.reload();
-					} else if (result_code === 4) {
+					} else if (result_code === NEED_CAPTCHA) {
 						$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
 						alert(message);
 					} else {
@@ -366,7 +373,7 @@ export default (()=> {
 				success: (data, status)=> {
 					let { result_code, message } = data;
 
-					if (result_code === 4) {
+					if (result_code === NEED_CAPTCHA) {
 						$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
 						alert(message);
 					} else {

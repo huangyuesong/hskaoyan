@@ -7,7 +7,10 @@ import './component/footer';
 import HeaderForum from './component/header_forum';
 import WriteArticle from './component/write_article';
 
-import { serverUrl, imagePrefix } from '../../config';
+import {
+	serverUrl,
+	imagePrefix,
+} from '../../config';
 
 import url from 'url';
 
