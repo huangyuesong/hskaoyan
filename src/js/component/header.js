@@ -1,7 +1,5 @@
 import '../../styles/header.scss';
 
-import 'amazeui';
-
 import {
 	serverUrl,
 	userInfoUrl,
