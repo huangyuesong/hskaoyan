@@ -1,6 +1,7 @@
 @import '_base';
 
 $icons: (
+	icon-logo: '/images/web/app/logo.png',
 	icon-float-bar-download: '/images/web/app/float-bar-download.png',
 	icon-float-bar-back: '/images/web/app/float-bar-back.png',
 	icon-slogan1: '/images/web/app/section1-slogan1.png',
@@ -62,7 +63,7 @@ $icons: (
 	.app-header {
 		background-color: white;
 		text-align: center;
-		line-height: 50px;
+		line-height: 60px;
 		font-size: 24px;
 		position: absolute;
 		width: 100%;
@@ -72,6 +73,10 @@ $icons: (
 		.logo {
 			position: absolute;
 			left: 200px;
+
+			.icon-logo {
+				@include background(map-get($icons, icon-logo), 153, 41);
+			}
 		}
 
 		.index {

@@ -57,10 +57,6 @@ $(()=> {
 	}
 
 	for (let i = 0; i < 7; ++i) {
-		$('.introduction .right').append($('.introduction .right p').eq(1).clone());
-	}
-
-	for (let i = 0; i < 7; ++i) {
 		$('.apply .left ul').append($('.apply .left ul li').eq(0).clone());
 	}
 

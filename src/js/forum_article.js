@@ -34,10 +34,8 @@ class ForumArticle {
 			comment_list: [],
 		};
 		this.controller = {
-			bindEvents: ()=> {
-
-			},
-			setArticle: ()=> {
+			bindEvents: ()=> {},
+			setArticleAndComment: ()=> {
 				$.ajax({
 					url: `${serverUrl}/topic_view.php?topic_id=${article_id}`,
 					type: 'get',
@@ -81,33 +79,86 @@ class ForumArticle {
 		this.view = {
 			setArticle: ()=> {
 				let { title, nick_name, view_num, reply_num, avatar, pub_time, content } = this.model;
-				let titleWrapper = $('.container .article-title-wrapper').eq(0);
-				let articleWrapper = $('.container .article-wrapper').eq(0);
 
-				$('#title', titleWrapper).html(title);
-				$('#nick-name', titleWrapper).html('[' + nick_name + ']');
+				let wrapper = $([
+					`<div class="article-title-wrapper">`,
+						`<span class="author" id="nick-name">[${nick_name}]</span>`,
+						`<span class="article-title" id="title">`,
+							`${title}`,
+						`</span>`,
+					`</div>`,
+					`<div class="article-wrapper">`,
+						`<div class="user-info fl">`,
+							`<p class="top">`,
+								`<span>查看:</span>`,
+								`<span class="red" id="view-num">${view_num}</span>`,
+								`<span>回复:</span>`,
+								`<span class="red" id="reply-num">${reply_num}</span>`,
+							`</p>`,
+							`<p class="author red" id="nick-name">${nick_name}</p>`,
+							`<img class="avatar" src="${imagePrefix}${avatar}" width="50%" id="avatar">`,
+							`<p class="star"><span class="icon icon-star"></span><span class="icon icon-star"></span></p>`,
+							`<a href="javascript:"><p class="send-message"><span class="icon icon-message"></span><span>发消息</span></p></a>`,
+						`</div>`,
+						`<div class="content-wrapper">`,
+							`<div class="top">`,
+								`<span>发表于</span>`,
+								`<span id="pub-time">${pub_time}</span>`,
+								`<a href="javascript:"><span>只看该作者</span></a>`,
+								`<a href="javascript:"><span>倒序浏览</span></a>`,
+								`<a href="javascript:"><span>删除主题</span></a>`,
+								`<span class="fr" id="floor">1楼</span>`,
+							`</div>`,
+							`<div class="content" id="content">${content}</div>`,
+							`<div class="bottom">`,
+								`<a href="javascript:"><span class="fl"><!-- 删除回复 --></span></a>`,
+								`<a href="javascript:"><span class="collect"><span class="icon icon-star"></span>收藏</span></a>`,
+								`<a href="javascript:"><span class="good"><span class="icon icon-good"></span>点赞</span></a>`,
+								`<a href="javascript:"><span class="fr">举报</span></a>`,
+							`</div>`,
+						`</div>`,
+					`</div>`,
+				].join(''));
 
-				$('#view-num', articleWrapper).html(view_num);
-				$('#reply-num', articleWrapper).html(reply_num);
-				$('#nick-name', articleWrapper).html(nick_name);
-				$('#avatar', articleWrapper).prop('src', `${imagePrefix}${avatar}`).load();
-				$('#pub-time', articleWrapper).html(pub_time);
-				$('#content', articleWrapper).html(content);
+				$('.container .article-title-wrapper, .container .article-wrapper').remove();
+
+				$('.container > .button:first-of-type').after(wrapper);
 			},
 			setComment: ()=> {
 				let { comment_list } = this.model;
 
 				comment_list.map((_comment, idx)=> {
-					let wrapper = $('.container .article-wrapper').eq(0).clone();
 					let { nick_name, avatar, content, pub_time } = _comment;
 
-					$('#floor', wrapper).html(`${idx + 2}楼`);
-					$('#nick-name', wrapper).html(nick_name);
-					$('#avatar', wrapper).prop('src', `${imagePrefix}${avatar}`).load();
-					$('#pub-time', wrapper).html(pub_time);
-					$('#content', wrapper).html(content);
+					let wrapper = $([
+						`<div class="article-wrapper">`,
+							`<div class="user-info fl">`,
+								`<p class="author red" id="nick-name">${nick_name}</p>`,
+								`<img class="avatar" src="${imagePrefix}${avatar}" width="50%" id="avatar">`,
+								`<p class="star"><span class="icon icon-star"></span><span class="icon icon-star"></span></p>`,
+								`<a href="javascript:"><p class="send-message"><span class="icon icon-message"></span><span>发消息</span></p></a>`,
+							`</div>`,
+							`<div class="content-wrapper">`,
+								`<div class="top">`,
+									`<span>发表于</span>`,
+									`<span id="pub-time">${pub_time}</span>`,
+									`<a href="javascript:"><span>只看该作者</span></a>`,
+									`<a href="javascript:"><span>倒序浏览</span></a>`,
+									`<a href="javascript:"><span>删除主题</span></a>`,
+									`<span class="fr" id="floor">${idx + 2}楼</span>`,
+								`</div>`,
+								`<div class="content" id="content">${content}</div>`,
+								`<div class="bottom">`,
+									`<a href="javascript:"><span class="fl"><!-- 删除回复 --></span></a>`,
+									`<a href="javascript:"><span class="collect"><span class="icon icon-star"></span>收藏</span></a>`,
+									`<a href="javascript:"><span class="good"><span class="icon icon-good"></span>点赞</span></a>`,
+									`<a href="javascript:"><span class="fr">举报</span></a>`,
+								`</div>`,
+							`</div>`,
+						`</div>`,
+					].join(''));
 
-					$('.container .article-wrapper:last-of-type').after(wrapper);
+					$('.container > .button:last-of-type').before(wrapper);
 				});
 			},
 			setWrite: (labels)=> {
@@ -121,7 +172,7 @@ class ForumArticle {
 	}
 
 	init () {
-		this.controller.setArticle();
+		this.controller.setArticleAndComment();
 		this.controller.setWrite();
 		this.controller.bindEvents();
 	}

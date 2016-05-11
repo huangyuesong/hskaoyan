@@ -51,10 +51,6 @@ $(()=> {
 		$('.main-wrapper .list ul').append($('.main-wrapper .list ul li').eq(i).clone());
 	}
 
-	for (let i = 0; i < 5; ++i) {
-		$('.college-section').append($('.college-section p').eq(i + 1).clone());
-	}
-
 	for (let i = 0; i < 6; ++i) {
 		$('.latest-news ul').append($('.latest-news ul li').eq(i).clone());
 	}
