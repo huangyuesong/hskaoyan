@@ -18,6 +18,22 @@ if (!college_name || !college_id || !article_id) {
 	location.href = '/forum.html';
 }
 
+class ForumArticle {
+	constructor () {
+		this.model = {};
+		this.controller = {
+			bindEvents: ()=> {
+
+			},
+		};
+		this.view = {};
+	}
+
+	init () {
+		this.controller.bindEvents();
+	}
+}
+
 $(window).load(()=> {
 	$('.loading').remove();
 });
@@ -37,6 +53,8 @@ $(()=> {
 			href: `javascript:`,
 		},
 	]).render();
+
+	new ForumArticle().init();
 
 	let logo = $(`<div class="icon icon-logo"></div>`);
 	$('.section3', $('.header-forum')).prepend(logo);

@@ -19,7 +19,7 @@ class PersonalCenter {
 			section: section,
 		};
 		this.controller = {
-			bindEvent: ()=> {
+			bindEvents: ()=> {
 				$('.container .main .nav ul li a').click((evt)=> location.reload());
 			},
 			setActiveNav: ()=> {
@@ -105,7 +105,7 @@ class PersonalCenter {
 		this.controller.setActiveTabs();
 		this.controller.setSwitch();
 		this.controller.setPagination();
-		this.controller.bindEvent();
+		this.controller.bindEvents();
 	}
 }
 

@@ -2,7 +2,7 @@ import '../../styles/header.scss';
 
 import 'amazeui';
 
-import { serverUrl } from '../../../config';
+import { serverUrl, userInfoUrl } from '../../../config';
 
 export default (()=> {
 	let header = function () {
@@ -149,6 +149,7 @@ export default (()=> {
 			'			</div>',
 			'			<div class="am-modal-bd">',
 			'				<p class="al">',
+			'					<input type="hidden" id="type" value="login" />',
 			'					<input class="captcha" type="text" placeholder="请输入右侧的验证码" id="image_code" />',
 			'					<img id="captcha" src="" width="100" height="40">',
 			'				</p>',
@@ -160,14 +161,14 @@ export default (()=> {
 		].join(''));
 	};
 
-	$.ajax(`${serverUrl}/user_info_local.php`, {
+	$.ajax(`${userInfoUrl}`, {
 		method: 'get',
 		dataType: 'json',
 		cache: false,
 		success: (data, status)=> {
 			let { result, list } = data;
 
-			if (result !== -1) {
+			if (result === 0) {
 				let { avatar, nick_name, message_count } = list;
 
 				$('.header .middle .right .login').remove();
@@ -182,23 +183,23 @@ export default (()=> {
 				].join(''));
 
 				$('.header .middle .right').append(alreadyLogin);
-			}
 
-			$('.middle .right #logout', header).click((evt)=> {
-		    	$.ajax(`${serverUrl}/logout.php`, {
-					method: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						if (data.result_code === 0) {
-							location.reload();
-						}
-					},
-					error: (xhr, status, error)=> {
-						alert(error);
-					},
-				});
-		    });
+				$('.middle .right #logout', header).click((evt)=> {
+			    	$.ajax(`${serverUrl}/logout.php`, {
+						method: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							if (data.result_code === 0) {
+								location.reload();
+							}
+						},
+						error: (xhr, status, error)=> {
+							alert(error);
+						},
+					});
+			    });
+			}
 		},
 		error: (xhr, status, error)=> {
 			alert(error);
@@ -249,8 +250,10 @@ export default (()=> {
 				if (result_code === 0) {
 					location.reload();
 				} else if (result_code === 4) {
+					$('.header #modal-captcha #image_code').val('');
 					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
 					$('.header #modal-login').modal('toggle');
+					$('#type', $('#modal-captcha')).val('login');
 					$('.header #modal-captcha').modal('toggle');
 				} else {
 					alert(message);
@@ -277,7 +280,40 @@ export default (()=> {
 			dataType: 'json',
     		cache: false,
 			success: (data, status)=> {
-				console.log(data)
+				let { result_code, message } = data;
+
+				if (result_code === 0) {
+					alert(message);
+					location.reload();
+				} else {
+					alert(message)
+				}
+			},
+			error: (xhr, status, error)=> {
+				alert(error);
+			},
+    	});
+    });
+
+    $('#get-captcha', $('#modal-register')).click((evt)=> {
+    	let username = $('#username', $('#modal-register')).val();
+
+    	$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
+    		method: 'get',
+			dataType: 'json',
+    		cache: false,
+			success: (data, status)=> {
+				let { result_code, message } = data;
+
+				if (result_code === 4) {
+					$('.header #modal-captcha #image_code').val('');
+					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+					$('.header #modal-register').modal('toggle');
+					$('#type', $('#modal-captcha')).val('register');
+					$('.header #modal-captcha').modal('toggle');
+				} else {
+					alert(message);
+				}
 			},
 			error: (xhr, status, error)=> {
 				alert(error);
@@ -287,34 +323,62 @@ export default (()=> {
 
     $('.button', $('#modal-captcha')).click((evt)=> {
     	let image_code = $('#image_code', $('#modal-captcha')).val();
-		let username = $('#username', $('#modal-login')).val();
-    	let password = $('#password', $('#modal-login')).val();
-    	let autoLogin = $('#auto-login', $('#modal-login')).prop('checked');
+    	let type = $('#type', $('#modal-captcha')).val();
 
-		$.ajax(`${serverUrl}/login.php`, {
-			method: 'post',
-			data: {
-				user_tel: username,
-				user_pwd: password,
-				auto_login: autoLogin ? 1 : 0,
-				image_code: image_code,
-			},
-			dataType: 'json',
-			cache: false,
-			success: (data, status)=> {
-				let { result_code, message } = data;
-				
-				if (result_code === 0) {
-					location.reload();
-				} else if (result_code === 4) {
-					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
-				} else {
-					alert(message);
-				}
-			},
-			error: (xhr, status, error)=> {
-				alert(error);
-			},
-		});
+		if (type === 'login') {
+			let username = $('#username', $('#modal-login')).val();
+	    	let password = $('#password', $('#modal-login')).val();
+	    	let autoLogin = $('#auto-login', $('#modal-login')).prop('checked');
+
+			$.ajax(`${serverUrl}/login.php`, {
+				method: 'post',
+				data: {
+					user_tel: username,
+					user_pwd: password,
+					auto_login: autoLogin ? 1 : 0,
+					image_code: image_code,
+				},
+				dataType: 'json',
+				cache: false,
+				success: (data, status)=> {
+					let { result_code, message } = data;
+					
+					if (result_code === 0) {
+						location.reload();
+					} else if (result_code === 4) {
+						$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+						alert(message);
+					} else {
+						alert(message);
+					}
+				},
+				error: (xhr, status, error)=> {
+					alert(error);
+				},
+			});
+		} else if (type === 'register') {
+			let username = $('#username', $('#modal-register')).val();
+
+	    	$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}&image_code=${image_code}`, {
+	    		method: 'get',
+				dataType: 'json',
+	    		cache: false,
+				success: (data, status)=> {
+					let { result_code, message } = data;
+
+					if (result_code === 4) {
+						$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+						alert(message);
+					} else {
+						alert(message);
+						$('.header #modal-register').modal('toggle');
+						$('.header #modal-captcha').modal('toggle');
+					}
+				},
+				error: (xhr, status, error)=> {
+					alert(error);
+				},
+	    	});
+		}
     });
 })();

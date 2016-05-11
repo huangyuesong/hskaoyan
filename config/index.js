@@ -1,2 +1,6 @@
-export const serverUrl = 'http://www.hskaoyan.com/html_php';
-// export const serverUrl = '/html_php';
+export const serverUrl = DEVELOPMENT 
+						? 'http://www.hskaoyan.com/html_php' 
+						: '/html_php';
+export const userInfoUrl = DEVELOPMENT 
+						? 'http://www.hskaoyan.com/html_php/user_info_local.php' 
+						: '/html_php/user_info.php';

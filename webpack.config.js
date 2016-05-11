@@ -18,6 +18,9 @@ webpackConfig = {
 			jQuery: 'jquery',
 			'window.jQuery': 'jquery',
 		}),
+		new webpack.DefinePlugin({
+			DEVELOPMENT: env.indexOf('development') > -1,
+		}),
 	],
 	module: {
 		loaders: [{
