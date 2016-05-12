@@ -113,7 +113,7 @@ class ForumCollege {
 			},
 			setTopic: ()=> {
 				$.ajax({
-					url: `${serverUrl}/topic_list.php?board_id=${college_id}&type=${type || 1}`,
+					url: `${serverUrl}/topic_list.php?board_id=${college_id}&type=${type || 1}&page=${page || 1}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,

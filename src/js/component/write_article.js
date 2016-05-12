@@ -1,14 +1,21 @@
 import '../../styles/write_article.scss';
 
+import {
+	SUCCESS,
+	NEED_LOGIN,
+} from '../../../config';
+
 export default class WriteArticle {
 	constructor (options) {
-		let { url, labels, college_id, tag, buttonText } = options;
+		let { url, labels, college_id, tag, buttonText, topic_id, news_id } = options;
 
 		this.url = url || '';
 		this.labels = labels || [];
 		this.college_id = college_id || 1;
 		this.tag = tag || '发表帖子';
 		this.buttonText = buttonText || '发表帖子';
+		this.topic_id = topic_id;
+		this.news_id = news_id;
 
 		this.write = $([
 			`<div class="write-article-wrapper">`,
@@ -43,33 +50,47 @@ export default class WriteArticle {
 			let countDown = $('.content .count-down', this.write);
 			let title = $(evt.target).val();
 
-			$(evt.target).val(title.substring(0, 50))
-			if (title.length > 50) return;
+			if (title.length > 50) {
+				$(evt.target).val(title.substring(0, 50));
+				return;
+			}
 			countDown.text(50 - title.length);
 		});
 
 		$('.content .button', this.write).click((evt)=> {
 			let _context = $(evt.target).parent();
+			let content = $('textarea', _context).val();
 
 			if (this.tag === '回复') {
-				let content = $('textarea', _context).val();
-
 				if (!content) {
 					alert('内容不能为空');
 					return;
 				}
 
+				let data = {content: content};
+
+				if (this.topic_id) {
+					data.topic_id = this.topic_id;
+				}
+
+				if (this.news_id) {
+					data.news_id = this.news_id;
+				}
+
 				$.ajax({
 					url: this.url,
 					type: 'post',
-					data: {
-						college_id: this.college_id,
-						content: content,
-					},
+					data: data,
 					cache: false,
 					success: (data, status)=> {
-						alert('回复成功');
-						location.reload();
+						let { result_code, message } = JSON.parse(data);
+
+						if (result_code === SUCCESS) {
+							alert('发表成功');
+							location.reload();
+						} else  {
+							alert(message);
+						}
 					},
 					error: (xhr, status, error)=> {
 						alert(error);
@@ -78,7 +99,6 @@ export default class WriteArticle {
 			} else {
 				let label = $('select', _context).val().replace('选择主题', '').replace('无', '');
 				let title = $('input', _context).val();
-				let content = $('textarea', _context).val();
 
 				if (!title || !content) {
 					alert('标题和内容不能为空');
@@ -96,8 +116,14 @@ export default class WriteArticle {
 					},
 					cache: false,
 					success: (data, status)=> {
-						alert('发帖成功');
-						location.reload();
+						let { result_code, message } = JSON.parse(data);
+
+						if (result_code === SUCCESS) {
+							alert('发帖成功');
+							location.reload();
+						} else {
+							alert(message);
+						}
 					},
 					error: (xhr, status, error)=> {
 						alert(error);

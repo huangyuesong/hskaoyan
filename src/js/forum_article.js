@@ -36,6 +36,7 @@ class ForumArticle {
 			content: '',
 			comment_list: [],
 			is_locked: 0,
+			labels: [],
 		};
 		this.controller = {
 			bindEvents: ()=> {},
@@ -46,7 +47,7 @@ class ForumArticle {
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { title, nick_name, view_count, comment_count, avatar, pub_time, content, comment_list, is_locked } = data.topic_array;
+						let { title, nick_name, view_count, comment_count, avatar, pub_time, content, comment_list, is_locked, labels } = data.topic_array;
 
 						this.model.title = title;
 						this.model.nick_name = nick_name;
@@ -57,6 +58,7 @@ class ForumArticle {
 						this.model.content = content;
 						this.model.comment_list = comment_list;
 						this.model.is_locked = is_locked;
+						this.model.labels = labels.split(',').filter(_=> _);
 
 						this.view.setArticle();
 						this.view.setComment();
@@ -67,27 +69,16 @@ class ForumArticle {
 				});
 			},
 			setWrite: ()=> {
-				$.ajax({
-					url: `${serverUrl}/topic_label.php`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						this.view.setWrite(data.list);
-					},
-					error: (xhr, status, error)=> {
-						alert(error);
-					},
-				});
+				this.view.setWrite();
 			},
 		};
 		this.view = {
 			setArticle: ()=> {
-				let { title, nick_name, view_count, comment_count, avatar, pub_time, content } = this.model;
+				let { title, nick_name, view_count, comment_count, avatar, pub_time, content, labels } = this.model;
 
 				let wrapper = $([
 					`<div class="article-title-wrapper">`,
-						`<span class="author" id="nick-name">[${nick_name}]</span>`,
+						`<span class="author" id="nick-name">[${labels.join(',') || '无主题'}]</span>`,
 						`<span class="article-title" id="title">`,
 							`${title}`,
 						`</span>`,
@@ -166,13 +157,12 @@ class ForumArticle {
 					$('.container > .button:last-of-type').css({display: 'none'}).before(wrapper);
 				});
 			},
-			setWrite: (labels)=> {
+			setWrite: ()=> {
 				let { is_locked } = this.model;
 
 				$('.container > .button:last-of-type').css({display: 'none'}).after(new WriteArticle({
-					url: `${serverUrl}/topic_post.php`,
-					labels: Object.keys(labels),
-					college_id: college_id,
+					url: `${serverUrl}/comment_post.php`,
+					topic_id: article_id,
 					tag: '回复',
 					buttonText: '发表回复',
 				}).render());

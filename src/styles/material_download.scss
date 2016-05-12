@@ -120,7 +120,7 @@ body {
 		}
 	}
 
-	.icon-ad {
+	 & > .icon-ad {
 		@include background(map-get($icons, icon-ad), 226, 241);
 		position: absolute;
 		top: 410px;

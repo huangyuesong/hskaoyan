@@ -83,6 +83,8 @@ export default class Pagination {
 			onPageSelect(idx);
 		});
 
+		$('li.am-active', pagination).unbind();
+
 		$('li.am-pagination-first', pagination).click((evt)=> {
 			onFirstSelect();
 		});
