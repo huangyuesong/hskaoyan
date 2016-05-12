@@ -213,6 +213,7 @@ $icons: (
 
 	.middle {
 		padding-top: 35px;
+		padding-bottom: 15px;
 		
 		.icon-logo {
 			@include background(map-get($icons, icon-logo), 351, 41);

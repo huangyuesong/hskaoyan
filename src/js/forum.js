@@ -82,7 +82,7 @@ class Forum {
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { list, list_flink } = data
+						let { list, list_flink } = data;
 
 						this.model.collegeList = list;
 						this.model.linkList = list_flink;

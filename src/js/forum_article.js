@@ -127,7 +127,7 @@ class ForumArticle {
 
 				$('.container .article-title-wrapper, .container .article-wrapper').remove();
 
-				$('.container > .button:first-of-type').after(wrapper);
+				$('.container > .button:first-of-type').css({display: 'none'}).after(wrapper);
 			},
 			setComment: ()=> {
 				let { comment_list } = this.model;
@@ -163,13 +163,13 @@ class ForumArticle {
 						`</div>`,
 					].join(''));
 
-					$('.container > .button:last-of-type').before(wrapper);
+					$('.container > .button:last-of-type').css({display: 'none'}).before(wrapper);
 				});
 			},
 			setWrite: (labels)=> {
 				let { is_locked } = this.model;
 
-				$('.container > .button:last-of-type').after(new WriteArticle({
+				$('.container > .button:last-of-type').css({display: 'none'}).after(new WriteArticle({
 					url: `${serverUrl}/topic_post.php`,
 					labels: Object.keys(labels),
 					college_id: college_id,
@@ -212,7 +212,7 @@ $(()=> {
 	$('.section1', $('.header-forum')).remove();
 	$('.section2', $('.header-forum')).remove();
 	$('.section4', $('.header-forum')).remove();
-	$('.middle', $('.header')).remove();
+	// $('.middle', $('.header')).remove();
 	$('.nav-bar', $('.header')).remove();
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({

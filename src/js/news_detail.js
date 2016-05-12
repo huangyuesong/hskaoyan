@@ -30,6 +30,13 @@ class NewsDetail {
 	constructor () {
 		this.model = {
 			avatar: '',
+			title : '',
+			author: '',
+			is_locked: 0,
+			comment_count: 0,
+			edit_time: '',
+			media: 0,
+			content: '',
 		};
 		this.controller = {
 			bindEvents: ()=> {},
@@ -41,6 +48,30 @@ class NewsDetail {
 					this.view.setComment();
 				}
 			},
+			setDetail: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_view.php?news_id=${news_id}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { title, author, is_locked, comment_count, edit_time, media, content } = data.news_array;
+
+						this.model.title = title;
+						this.model.author = author;
+						this.model.is_locked = is_locked;
+						this.model.comment_count = comment_count;
+						this.model.edit_time = edit_time;
+						this.model.media = media;
+						this.model.content = content;
+
+						this.view.setDetail();
+					},
+					error: (xhr, status, error)=> {
+						alert(error);
+					},
+				});
+			},
 		};
 		this.view = {
 			setComment: ()=> {
@@ -48,11 +79,32 @@ class NewsDetail {
 
 				$('.container .comment #avatar').prop('src', `${imagePrefix}${avatar}`).load();
 			},
+			setDetail: ()=> {
+				let { title, author, is_locked, comment_count, edit_time, content } = this.model;
+
+				let detailWrapper = $([
+					`<p class="news-name">${title}</p>`,
+					`<p class="instruction">`,
+						`<span>来源：${author}</span>`,
+						`<span>${edit_time}</span>`,
+						`<span>相关院校：</span>`,
+						`<a class="college-link" 
+							href="news_college.html?college_id=${college_id}&college_name=${college_name}">${college_name}</a>`,
+					`</p>`,
+					`<div class="news-content">`,
+						`<p>${content}</p>`,
+					`</div>`,
+				].join(''));
+
+				$('.container .main-wrapper .left').empty();
+				$('.container .main-wrapper .left').append(detailWrapper);
+			},
 		};
 	}
 
 	init () {
 		window.onLogin = this.controller.onLogin;
+		this.controller.setDetail();
 		this.controller.bindEvents();
 	}
 }
