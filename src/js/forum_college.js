@@ -174,8 +174,8 @@ class ForumCollege {
 							`<span class="author">${_topic.nick_name}</span>`,
 							`<span class="release">发表于</span>`,
 							`<span class="date">${_topic.pub_time}</span>`,
-							`<span class="reply fr">${_topic.reply_num}</span>`,
-							`<span class="visit fr">${_topic.view_num}</span>`,
+							`<span class="reply fr">${_topic.comment_count}</span>`,
+							`<span class="visit fr">${_topic.view_count}</span>`,
 						`</li>`,
 					].join('')));
 				});
@@ -187,7 +187,7 @@ class ForumCollege {
 			setLabel: (labels)=> {
 				$('.container .pagination-wrapper:last-of-type').after(new WriteArticle({
 					url: `${serverUrl}/topic_post.php`,
-					labels: labels,
+					labels: Object.keys(labels),
 					college_id: college_id,
 				}).render());
 			},

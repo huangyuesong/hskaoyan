@@ -1,5 +1,3 @@
-import 'amazeui';
-
 import '../styles/index.scss';
 
 import './component/header';

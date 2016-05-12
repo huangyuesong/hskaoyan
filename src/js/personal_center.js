@@ -2,7 +2,6 @@ import '../styles/personal_center.scss';
 
 import './component/footer';
 
-import 'amazeui';
 import 'amazeui-switch';
 import 'amazeui-switch/amazeui.switch.css';
 

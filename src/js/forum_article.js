@@ -29,12 +29,13 @@ class ForumArticle {
 		this.model = {
 			title: '',
 			nick_name: '',
-			view_num: 0,
-			reply_num: 0,
+			view_count: 0,
+			comment_count: 0,
 			avatar: '/images/web/forum_article/avatar.png',
 			pub_time: '2016-01-01',
 			content: '',
 			comment_list: [],
+			is_locked: 0,
 		};
 		this.controller = {
 			bindEvents: ()=> {},
@@ -45,16 +46,17 @@ class ForumArticle {
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { title, nick_name, view_num, reply_num, avatar, pub_time, content, comment_list } = data.topic_array;
+						let { title, nick_name, view_count, comment_count, avatar, pub_time, content, comment_list, is_locked } = data.topic_array;
 
 						this.model.title = title;
 						this.model.nick_name = nick_name;
-						this.model.view_num = view_num;
-						this.model.reply_num = reply_num;
+						this.model.view_count = view_count;
+						this.model.comment_count = comment_count;
 						this.model.avatar = avatar;
 						this.model.pub_time = pub_time;
 						this.model.content = content;
 						this.model.comment_list = comment_list;
+						this.model.is_locked = is_locked;
 
 						this.view.setArticle();
 						this.view.setComment();
@@ -81,7 +83,7 @@ class ForumArticle {
 		};
 		this.view = {
 			setArticle: ()=> {
-				let { title, nick_name, view_num, reply_num, avatar, pub_time, content } = this.model;
+				let { title, nick_name, view_count, comment_count, avatar, pub_time, content } = this.model;
 
 				let wrapper = $([
 					`<div class="article-title-wrapper">`,
@@ -94,9 +96,9 @@ class ForumArticle {
 						`<div class="user-info fl">`,
 							`<p class="top">`,
 								`<span>查看:</span>`,
-								`<span class="red" id="view-num">${view_num}</span>`,
+								`<span class="red" id="view-num">${view_count}</span>`,
 								`<span>回复:</span>`,
-								`<span class="red" id="reply-num">${reply_num}</span>`,
+								`<span class="red" id="reply-num">${comment_count}</span>`,
 							`</p>`,
 							`<p class="author red" id="nick-name">${nick_name}</p>`,
 							`<img class="avatar" src="${imagePrefix}${avatar}" width="50%" id="avatar">`,
@@ -165,10 +167,14 @@ class ForumArticle {
 				});
 			},
 			setWrite: (labels)=> {
+				let { is_locked } = this.model;
+
 				$('.container > .button:last-of-type').after(new WriteArticle({
 					url: `${serverUrl}/topic_post.php`,
-					labels: labels,
+					labels: Object.keys(labels),
 					college_id: college_id,
+					tag: '回复',
+					buttonText: '发表回复',
 				}).render());
 			},
 		};

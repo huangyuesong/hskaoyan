@@ -1,5 +1,7 @@
 import '../../styles/header.scss';
 
+import 'amazeui';
+
 import {
 	serverUrl,
 	userInfoUrl,
@@ -9,7 +11,7 @@ import {
 	NEED_CAPTCHA,
 } from '../../../config';
 
-export default (()=> {
+export default $(()=> {
 	let header = function () {
 		return $([
 			'<div class="header">',
@@ -136,12 +138,12 @@ export default (()=> {
 			'				<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>',
 			'			</div>',
 			'			<div class="am-modal-bd">',
-			'				<p><input type="text" placeholder="请输入手机号码" /></p>',
+			'				<p><input type="text" placeholder="请输入手机号码" id="username" /></p>',
 			'				<p class="al">',
-			'					<input class="captcha" type="text" placeholder="短信验证码" />',
-			'					<a href="javascript:"><span class="button get-captcha">获取验证码</span></a>',
+			'					<input class="captcha" type="text" placeholder="短信验证码" id="captcha" />',
+			'					<a href="javascript:"><span class="button get-captcha" id="get-captcha">获取验证码</span></a>',
 			'				</p>',
-			'				<a href="javascript:"><span class="button">登录</span></a>',
+			'				<a href="javascript:"><span class="button" id="login">登录</span></a>',
 			'			</div>',
 			'		</div>',
 			'	</div>',
@@ -176,6 +178,11 @@ export default (()=> {
 			if (result === SUCCESS) {
 				let { avatar, nick_name, message_count } = list;
 
+				$('body').data('userInfo', JSON.stringify({
+					avatar: avatar,
+					nick_name: nick_name,
+				}));
+
 				$('.header .middle .right .login').remove();
 				$('.header .middle .right .register').remove();
 
@@ -190,6 +197,8 @@ export default (()=> {
 				$('.header .middle .right').append(alreadyLogin);
 
 				$('.middle .right #logout', header).click((evt)=> {
+					$('body').removeData('userInfo');
+
 			    	$.ajax(`${serverUrl}/logout.php`, {
 						method: 'get',
 						dataType: 'json',
@@ -204,6 +213,10 @@ export default (()=> {
 						},
 					});
 			    });
+
+			    if (window.onLogin) {
+			    	window.onLogin();
+			    }
 			}
 		},
 		error: (xhr, status, error)=> {
@@ -300,24 +313,28 @@ export default (()=> {
     	});
     });
 
-    $('#get-captcha', $('#modal-register')).click((evt)=> {
-    	let username = $('#username', $('#modal-register')).val();
+    $('#get-captcha', $('#modal-register')).click(onModalRegisterGetCaptchaClick);
 
-    	$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
-    		method: 'get',
+     $('#login', $('#modal-forget-password')).click((evt)=> {
+    	let username = $('#username', $('#modal-forget-password')).val();
+    	let captcha = $('#captcha', $('#modal-forget-password')).val();
+
+    	$.ajax(`${serverUrl}/register.php`, {
+    		method: 'post',
+    		data: {
+    			user_tel: username,
+    			phone_code: captcha,
+    		},
 			dataType: 'json',
     		cache: false,
 			success: (data, status)=> {
 				let { result_code, message } = data;
 
-				if (result_code === NEED_CAPTCHA) {
-					$('.header #modal-captcha #image_code').val('');
-					$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
-					$('.header #modal-register').modal('toggle');
-					$('#type', $('#modal-captcha')).val('register');
-					$('.header #modal-captcha').modal('toggle');
-				} else {
+				if (result_code === SUCCESS) {
 					alert(message);
+					location.reload();
+				} else {
+					alert(message)
 				}
 			},
 			error: (xhr, status, error)=> {
@@ -325,6 +342,8 @@ export default (()=> {
 			},
     	});
     });
+
+    $('#get-captcha', $('#modal-forget-password')).click(onModalForgetPasswordGetCaptcha);
 
     $('.button', $('#modal-captcha')).click((evt)=> {
     	let image_code = $('#image_code', $('#modal-captcha')).val();
@@ -384,6 +403,112 @@ export default (()=> {
 					alert(error);
 				},
 	    	});
+		} else if (type === 'captcha-login') {
+			let username = $('#username', $('#modal-forget-password')).val();
+
+	    	$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}&image_code=${image_code}`, {
+	    		method: 'get',
+				dataType: 'json',
+	    		cache: false,
+				success: (data, status)=> {
+					let { result_code, message } = data;
+
+					if (result_code === NEED_CAPTCHA) {
+						$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+						alert(message);
+					} else {
+						alert(message);
+						$('.header #modal-forget-password').modal('toggle');
+						$('.header #modal-captcha').modal('toggle');
+					}
+				},
+				error: (xhr, status, error)=> {
+					alert(error);
+				},
+	    	});
 		}
     });
-})();
+});
+
+function onModalRegisterGetCaptchaClick (evt) {
+	let username = $('#username', $('#modal-register')).val();
+
+	$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
+		method: 'get',
+		dataType: 'json',
+		cache: false,
+		success: (data, status)=> {
+			let { result_code, message } = data;
+
+			if (result_code === NEED_CAPTCHA) {
+				$('.header #modal-captcha #image_code').val('');
+				$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+				$('.header #modal-register').modal('toggle');
+				$('#type', $('#modal-captcha')).val('register');
+				$('.header #modal-captcha').modal('toggle');
+			} else if (result_code === SUCCESS) {
+				countDown('modal-register');
+
+				alert(message);
+			} else {
+				alert(message);
+			}
+		},
+		error: (xhr, status, error)=> {
+			alert(error);
+		},
+	});
+}
+
+function onModalForgetPasswordGetCaptcha (evt) {
+	let username = $('#username', $('#modal-forget-password')).val();
+
+	$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
+		method: 'get',
+		dataType: 'json',
+		cache: false,
+		success: (data, status)=> {
+			let { result_code, message } = data;
+
+			if (result_code === NEED_CAPTCHA) {
+				$('.header #modal-captcha #image_code').val('');
+				$('.header #modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+				$('.header #modal-forget-password').modal('toggle');
+				$('#type', $('#modal-captcha')).val('captcha-login');
+				$('.header #modal-captcha').modal('toggle');
+			} else if (result_code === SUCCESS) {
+				countDown('modal-forget-password');
+
+				alert(message);
+			} else {
+				alert(message);
+			}
+		},
+		error: (xhr, status, error)=> {
+			alert(error);
+		},
+	});
+}
+
+function countDown (modal) {
+	let second = 60;
+	let button = $(`.header .${modal} #get-captcha`);
+	button.addClass('disabled');
+	button.unbind();
+	button.text(`请等待60秒`);
+	let interval = setInterval(()=> {
+		--second;
+		button.text(`请等待${second}秒`);
+
+		if (second === 0) {
+			clearInterval(interval);
+			button.text(`获取验证码`);
+			button.removeClass('disabled');
+			if (modal === 'modal-register') {
+				button.click(onModalRegisterGetCaptchaClick);
+			} else if (modal === 'modal-forget-password') {
+				button.click(onModalForgetPasswordGetCaptcha);
+			}
+		}
+	}, 1000);
+}

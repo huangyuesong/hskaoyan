@@ -6,6 +6,11 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 
+import {
+	serverUrl,
+	imagePrefix,
+} from '../../config';
+
 import url from 'url';
 
 let {
@@ -19,6 +24,37 @@ let {
 
 if (!college_name || !college_id || !news_id || !news_name) {
 	location.href = '/forum.html';
+}
+
+class NewsDetail {
+	constructor () {
+		this.model = {
+			avatar: '',
+		};
+		this.controller = {
+			bindEvents: ()=> {},
+			onLogin: ()=> {
+				let { avatar } = JSON.parse($('body').data('userInfo'));
+
+				if (avatar) {
+					this.model.avatar = avatar;
+					this.view.setComment();
+				}
+			},
+		};
+		this.view = {
+			setComment: ()=> {
+				let { avatar } = this.model;
+
+				$('.container .comment #avatar').prop('src', `${imagePrefix}${avatar}`).load();
+			},
+		};
+	}
+
+	init () {
+		window.onLogin = this.controller.onLogin;
+		this.controller.bindEvents();
+	}
 }
 
 $(window).load(()=> {
@@ -51,6 +87,8 @@ $(()=> {
 		background: '#ECECEC',
 		color: '#9E9E9E',
 	});
+
+	new NewsDetail().init();
 
 	for (let i = 0; i < 6; ++i) {
 		$('.score-over-year ul.link').append($('.score-over-year ul.link li').eq(i).clone());

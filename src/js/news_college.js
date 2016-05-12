@@ -9,8 +9,6 @@ import OtherSite from './component/other_site';
 
 import url from 'url';
 
-import 'amazeui';
-
 let {
 	college_name,
 	college_id,

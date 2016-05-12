@@ -2,24 +2,32 @@ import '../../styles/write_article.scss';
 
 export default class WriteArticle {
 	constructor (options) {
-		let { url, labels, college_id } = options;
+		let { url, labels, college_id, tag, buttonText } = options;
 
 		this.url = url || '';
 		this.labels = labels || [];
 		this.college_id = college_id || 1;
+		this.tag = tag || '发表帖子';
+		this.buttonText = buttonText || '发表帖子';
 
 		this.write = $([
 			`<div class="write-article-wrapper">`,
-				`<div class="title"><p>快速发帖</p></div>`,
+				`<div class="title"><p>${this.tag}</p></div>`,
 				`<div class="content">`,
 					`<select><option>选择主题</option></select>`,
 					`<input type="text"></input>`,
 					`<span>还可以输入<span class="count-down">50</span>个字符</span>`,
 					`<textarea></textarea>`,
-					`<span class="button">发表帖子</span>`,
+					`<span class="button">${this.buttonText}</span>`,
 				`</div>`,
 			`</div>`,
 		].join(''));
+
+		if (this.tag === '回复') {
+			$('input[type="text"]', this.write).prev().remove();
+			$('input[type="text"]', this.write).next().remove();
+			$('input[type="text"]', this.write).remove();
+		}
 	}
 
 	render () {
@@ -42,34 +50,60 @@ export default class WriteArticle {
 
 		$('.content .button', this.write).click((evt)=> {
 			let _context = $(evt.target).parent();
-			
-			let label = $('select', _context).val().replace('选择主题', '').replace('无', '');
-			let title = $('input', _context).val();
-			let content = $('textarea', _context).val();
 
-			if (!title || !content) {
-				alert('标题和内容不能为空');
-				return;
+			if (this.tag === '回复') {
+				let content = $('textarea', _context).val();
+
+				if (!content) {
+					alert('内容不能为空');
+					return;
+				}
+
+				$.ajax({
+					url: this.url,
+					type: 'post',
+					data: {
+						college_id: this.college_id,
+						content: content,
+					},
+					cache: false,
+					success: (data, status)=> {
+						alert('回复成功');
+						location.reload();
+					},
+					error: (xhr, status, error)=> {
+						alert(error);
+					},
+				});
+			} else {
+				let label = $('select', _context).val().replace('选择主题', '').replace('无', '');
+				let title = $('input', _context).val();
+				let content = $('textarea', _context).val();
+
+				if (!title || !content) {
+					alert('标题和内容不能为空');
+					return;
+				}
+
+				$.ajax({
+					url: this.url,
+					type: 'post',
+					data: {
+						college_id: this.college_id,
+						labels: label,
+						title: title,
+						content: content,
+					},
+					cache: false,
+					success: (data, status)=> {
+						alert('发帖成功');
+						location.reload();
+					},
+					error: (xhr, status, error)=> {
+						alert(error);
+					},
+				});
 			}
-
-			$.ajax({
-				url: this.url,
-				type: 'post',
-				data: {
-					college_id: this.college_id,
-					labels: label,
-					title: title,
-					content: content,
-				},
-				cache: false,
-				success: (data, status)=> {
-					alert('发帖成功');
-					location.reload();
-				},
-				error: (xhr, status, error)=> {
-					alert(error);
-				},
-			});
 		});
 
 		return this.write;

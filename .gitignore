@@ -33,10 +33,9 @@ npm-debug.log
 *.bunle.js
 public/js
 
-# Public htmls
-
-public/html
+# Statics
 public/*.html
+public/font
 
 # subversion
 .svn

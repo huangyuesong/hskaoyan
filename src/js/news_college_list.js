@@ -8,8 +8,6 @@ import HeaderForum from './component/header_forum';
 
 import url from 'url';
 
-import 'amazeui';
-
 let {
 	college_name,
 	college_id,
