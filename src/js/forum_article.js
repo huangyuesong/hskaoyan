@@ -42,6 +42,7 @@ class ForumArticle {
 			labels: '',
 			is_liked: '0',
 			check_delete: '0',
+			mark_value: '0',
 		};
 		this.controller = {
 			bindEvents: ()=> {},
@@ -68,7 +69,8 @@ class ForumArticle {
 		};
 		this.view = {
 			setArticle: ()=> {
-				let { title, nick_name, view_count, comment_count, avatar, pub_time, content, labels, is_liked, id, check_delete } = this.model;
+				let { title, nick_name, view_count, comment_count, avatar, pub_time, 
+					content, labels, is_liked, id, check_delete, mark_value } = this.model;
 
 				let wrapper = $([
 					`<div class="article-title-wrapper">`,
@@ -110,7 +112,11 @@ class ForumArticle {
 							`<div class="content" id="content">${content}</div>`,
 							`<div class="bottom">`,
 								`<a href="javascript:"><span class="fl"><!-- 删除回复 --></span></a>`,
-								`<a href="javascript:"><span class="collect"><span class="icon icon-star"></span>收藏</span></a>`,
+								`<a href="javascript:">`,
+									`<span class="collect" id="favorate">`,
+										`<span class="icon icon-star"></span>${Number(mark_value) ? '取消收藏' : '收藏'}`,
+									`</span>`,
+								`</a>`,
 								`<a href="javascript:">`,
 									`<span class="good" id="like">`,
 										`<span class="icon icon-good"></span>${Number(is_liked) ? '取消点赞': '点赞'}`,
@@ -169,6 +175,28 @@ class ForumArticle {
 					});
 				});
 
+				$('#favorate', wrapper).click(evt=> {
+					$.ajax({
+						url: `${serverUrl}/mark_item.php?mark_id=${id}&type=1&value=${Number(mark_value) ? 0 : 1}`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === SUCCESS) {
+								alert(message.replace('标记', '收藏'));
+								location.reload();
+							} else {
+								alert(message);
+							}
+						},
+						error: (xhr, status, error)=> {
+							alert(error);
+						},
+					});
+				});
+
 				$('.container .article-title-wrapper, .container .article-wrapper').remove();
 
 				$('.container > .button:first-of-type').css({display: 'none'}).after(wrapper);
@@ -209,7 +237,6 @@ class ForumArticle {
 								`<div class="content" id="content">${content}</div>`,
 								`<div class="bottom">`,
 									`<a href="javascript:"><span class="fl"><!-- 删除回复 --></span></a>`,
-									`<a href="javascript:"><span class="collect"><span class="icon icon-star"></span>收藏</span></a>`,
 									`<a href="javascript:">`,
 									`<span class="good" id="like">`,
 											`<span class="icon icon-good"></span>${Number(is_liked) ? '取消点赞': '点赞'}`,

@@ -6,7 +6,9 @@ var path = require('path');
 var env = process.env.NODE_ENV || '';
 
 webpackConfig = {
-	entry: {},
+	entry: {
+		vendor: ['jquery', 'amazeui'],
+	},
 	output: {
 		path: path.resolve(__dirname, 'public'),
 		filename: '[name]',
