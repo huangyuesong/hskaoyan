@@ -49,7 +49,7 @@ class NewsCollegeList {
 						this.view.setPagination();
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},

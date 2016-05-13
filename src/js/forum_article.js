@@ -59,7 +59,7 @@ class ForumArticle {
 						this.view.setComment();
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},
@@ -148,7 +148,7 @@ class ForumArticle {
 							}
 						},
 						error: (xhr, status, error)=> {
-							alert(error);
+							alert('Network Error!');
 						},
 					});
 				}));
@@ -170,7 +170,7 @@ class ForumArticle {
 							}
 						},
 						error: (xhr, status, error)=> {
-							alert(error);
+							alert('Network Error!');
 						},
 					});
 				});
@@ -192,7 +192,7 @@ class ForumArticle {
 							}
 						},
 						error: (xhr, status, error)=> {
-							alert(error);
+							alert('Network Error!');
 						},
 					});
 				});
@@ -268,7 +268,7 @@ class ForumArticle {
 								}
 							},
 							error: (xhr, status, error)=> {
-								alert(error);
+								alert('Network Error!');
 							},
 						});
 					});
@@ -290,7 +290,7 @@ class ForumArticle {
 								}
 							},
 							error: (xhr, status, error)=> {
-								alert(error);
+								alert('Network Error!');
 							},
 						});
 					});

@@ -90,7 +90,7 @@ class Forum {
 						this.view.setOtherSite();
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},

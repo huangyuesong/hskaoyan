@@ -104,7 +104,7 @@ body {
 						margin-left: 10px;
 					}
 
-					.upper, .lower {
+					.lower {
 						ul {
 							padding: 0;
 							margin: 0;
@@ -125,12 +125,13 @@ body {
 
 					.upper {
 						border-bottom: 1px solid #BFBFBF;
+					    min-height: 60px;
 
 						.top {
 							font-size: 24px;
 						}
 
-						ul {
+						/* ul {
 							display: inline-block;
 							margin: 20px 55px;
 							padding: 0;
@@ -140,7 +141,7 @@ body {
 								@include text-overflow(135);
 								display: block;
 							}
-						}
+						} */
 					}
 
 					.lower {

@@ -93,7 +93,7 @@ export default class WriteArticle {
 						}
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			} else {
@@ -126,7 +126,7 @@ export default class WriteArticle {
 						}
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			}

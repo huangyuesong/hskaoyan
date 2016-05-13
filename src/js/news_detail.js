@@ -68,7 +68,7 @@ class NewsDetail {
 						this.view.setDetail();
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},

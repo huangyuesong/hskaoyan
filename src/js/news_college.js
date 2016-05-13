@@ -7,6 +7,10 @@ import './component/footer';
 import HeaderForum from './component/header_forum';
 import OtherSite from './component/other_site';
 
+import {
+	serverUrl,
+} from '../../config';
+
 import url from 'url';
 
 let {
@@ -16,6 +20,42 @@ let {
 
 if (!college_name || !college_id) {
 	location.href = '/forum.html';
+}
+
+class NewsCollege {
+	constructor () {
+		this.model = {
+			categories: [],
+		};
+		this.controller = {
+			bindEvents: ()=> {},
+			setCategory: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_type.php`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.categories = data.list;
+						this.view.setCategory();
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
+		};
+		this.view = {
+			setCategory: ()=> {
+
+			},
+		};
+	}
+
+	init () {
+		this.controller.setCategory();
+		this.controller.bindEvents();
+	}
 }
 
 $(window).load(()=> {
@@ -46,11 +86,13 @@ $(()=> {
 		color: '#9E9E9E',
 	});
 
+	new NewsCollege().init();
+
 	for (let i = 0; i < 4; ++i) {
 		$('.introduction .center .upper ul').append($('.introduction .center .upper ul li').eq(0).clone());
 	}
 
-	for (let i = 0; i < 9; ++i) {
+	for (let i = 0; i < 12; ++i) {
 		$('.introduction .center .lower ul').append($('.introduction .center .lower ul li').eq(0).clone());
 	}
 

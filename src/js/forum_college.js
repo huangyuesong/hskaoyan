@@ -79,7 +79,7 @@ class ForumCollege {
 						this.view.setHotTopic();
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},
@@ -96,7 +96,7 @@ class ForumCollege {
 						this.view.setTopic();
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},
@@ -110,7 +110,7 @@ class ForumCollege {
 						this.view.setLabel(data.list);
 					},
 					error: (xhr, status, error)=> {
-						alert(error);
+						alert('Network Error!');
 					},
 				});
 			},

@@ -222,7 +222,7 @@ export default $(()=> {
 							}
 						},
 						error: (xhr, status, error)=> {
-							alert(error);
+							alert('Network Error!');
 						},
 					});
 			    });
@@ -233,7 +233,7 @@ export default $(()=> {
 			}
 		},
 		error: (xhr, status, error)=> {
-			alert(error);
+			alert('Network Error!');
 		},
 	});
 
@@ -293,7 +293,7 @@ export default $(()=> {
 				}
 			},
 			error: (xhr, status, error)=> {
-				alert(error);
+				alert('Network Error!');
 			},
 		});
     });
@@ -323,7 +323,7 @@ export default $(()=> {
 				}
 			},
 			error: (xhr, status, error)=> {
-				alert(error);
+				alert('Network Error!');
 			},
     	});
     });
@@ -353,7 +353,7 @@ export default $(()=> {
 				}
 			},
 			error: (xhr, status, error)=> {
-				alert(error);
+				alert('Network Error!');
 			},
     	});
     });
@@ -392,7 +392,7 @@ export default $(()=> {
 					}
 				},
 				error: (xhr, status, error)=> {
-					alert(error);
+					alert('Network Error!');
 				},
 			});
 		} else if (type === 'register') {
@@ -415,7 +415,7 @@ export default $(()=> {
 					}
 				},
 				error: (xhr, status, error)=> {
-					alert(error);
+					alert('Network Error!');
 				},
 	    	});
 		} else if (type === 'captcha-login') {
@@ -438,7 +438,7 @@ export default $(()=> {
 					}
 				},
 				error: (xhr, status, error)=> {
-					alert(error);
+					alert('Network Error!');
 				},
 	    	});
 		}
@@ -470,7 +470,7 @@ function onModalRegisterGetCaptchaClick (evt) {
 			}
 		},
 		error: (xhr, status, error)=> {
-			alert(error);
+			alert('Network Error!');
 		},
 	});
 }
@@ -500,7 +500,7 @@ function onModalForgetPasswordGetCaptcha (evt) {
 			}
 		},
 		error: (xhr, status, error)=> {
-			alert(error);
+			alert('Network Error!');
 		},
 	});
 }
