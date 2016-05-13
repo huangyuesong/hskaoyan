@@ -7,13 +7,13 @@ import {
 	loginUrl,
 	SUCCESS,
 	COMMON_ERROR,
-	NEED_LOGIN,
 	NEED_CAPTCHA,
 } from '../../../config';
 
 export default $(()=> {
 	DEVELOPMENT ? (()=> {
     	$(document).ajaxSend((evt, xhr, options)=> {
+    		if (!window.localStorage.token) return;
     		if (options.type === 'GET') {
     			options.url += options.url.indexOf('&') > -1 ? `&token=${window.localStorage.token}` : 
     				options.url.indexOf('?') > -1 ? `&token=${window.localStorage.token}` : `?token=${window.localStorage.token}`;
