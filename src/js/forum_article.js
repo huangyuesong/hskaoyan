@@ -10,6 +10,7 @@ import WriteArticle from './component/write_article';
 import {
 	serverUrl,
 	imagePrefix,
+	SUCCESS,
 } from '../../config';
 
 import url from 'url';
@@ -29,14 +30,15 @@ class ForumArticle {
 		this.model = {
 			title: '',
 			nick_name: '',
-			view_count: 0,
-			comment_count: 0,
+			view_count: '0',
+			comment_count: '0',
 			avatar: '/images/web/forum_article/avatar.png',
 			pub_time: '2016-01-01',
 			content: '',
 			comment_list: [],
-			is_locked: 0,
-			labels: [],
+			is_locked: '0',
+			labels: '',
+			is_liked: '0',
 		};
 		this.controller = {
 			bindEvents: ()=> {},
@@ -47,18 +49,7 @@ class ForumArticle {
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { title, nick_name, view_count, comment_count, avatar, pub_time, content, comment_list, is_locked, labels } = data.topic_array;
-
-						this.model.title = title;
-						this.model.nick_name = nick_name;
-						this.model.view_count = view_count;
-						this.model.comment_count = comment_count;
-						this.model.avatar = avatar;
-						this.model.pub_time = pub_time;
-						this.model.content = content;
-						this.model.comment_list = comment_list;
-						this.model.is_locked = is_locked;
-						this.model.labels = labels.split(',').filter(_=> _);
+						Object.keys(data.topic_array).map(key=> this.model[key] = data.topic_array[key]);
 
 						this.view.setArticle();
 						this.view.setComment();
@@ -74,11 +65,11 @@ class ForumArticle {
 		};
 		this.view = {
 			setArticle: ()=> {
-				let { title, nick_name, view_count, comment_count, avatar, pub_time, content, labels } = this.model;
+				let { title, nick_name, view_count, comment_count, avatar, pub_time, content, labels, is_liked, id } = this.model;
 
 				let wrapper = $([
 					`<div class="article-title-wrapper">`,
-						`<span class="author" id="nick-name">[${labels.join(',') || '无主题'}]</span>`,
+						`<span class="author" id="nick-name">[${labels.split(',').filter(_=> _).join(',') || '无主题'}]</span>`,
 						`<span class="article-title" id="title">`,
 							`${title}`,
 						`</span>`,
@@ -109,12 +100,38 @@ class ForumArticle {
 							`<div class="bottom">`,
 								`<a href="javascript:"><span class="fl"><!-- 删除回复 --></span></a>`,
 								`<a href="javascript:"><span class="collect"><span class="icon icon-star"></span>收藏</span></a>`,
-								`<a href="javascript:"><span class="good"><span class="icon icon-good"></span>点赞</span></a>`,
+								`<a href="javascript:">`,
+									`<span class="good" id="like">`,
+										`<span class="icon icon-good"></span>${Number(is_liked) ? '取消点赞': '点赞'}`,
+									`</span>`,
+								`</a>`,
 								`<a href="javascript:"><span class="fr">举报</span></a>`,
 							`</div>`,
 						`</div>`,
 					`</div>`,
 				].join(''));
+
+				$('#like', wrapper).click(evt=> {
+					$.ajax({
+						url: `${serverUrl}/user_like.php?topic_id=${id}&is_liked=${Number(is_liked) ? 0 : 1}`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === SUCCESS) {
+								alert(message);
+								location.reload();
+							} else {
+								alert(message);
+							}
+						},
+						error: (xhr, status, error)=> {
+							alert(error);
+						},
+					});
+				});
 
 				$('.container .article-title-wrapper, .container .article-wrapper').remove();
 
@@ -132,7 +149,9 @@ class ForumArticle {
 								`<p class="author red" id="nick-name">${nick_name}</p>`,
 								`<img class="avatar" src="${imagePrefix}${avatar}" width="50%" id="avatar">`,
 								`<p class="star"><span class="icon icon-star"></span><span class="icon icon-star"></span></p>`,
-								`<a href="javascript:"><p class="send-message"><span class="icon icon-message"></span><span>发消息</span></p></a>`,
+								`<a href="javascript:">`,
+									`<p class="send-message"><span class="icon icon-message"></span><span>发消息</span></p>`,
+								`</a>`,
 							`</div>`,
 							`<div class="content-wrapper">`,
 								`<div class="top">`,
@@ -160,12 +179,14 @@ class ForumArticle {
 			setWrite: ()=> {
 				let { is_locked } = this.model;
 
-				$('.container > .button:last-of-type').css({display: 'none'}).after(new WriteArticle({
-					url: `${serverUrl}/comment_post.php`,
-					topic_id: article_id,
-					tag: '回复',
-					buttonText: '发表回复',
-				}).render());
+				if (!Number(is_locked)) {
+					$('.container > .button:last-of-type').css({display: 'none'}).after(new WriteArticle({
+						url: `${serverUrl}/comment_post.php`,
+						topic_id: article_id,
+						tag: '回复',
+						buttonText: '发表回复',
+					}).render());
+				}
 			},
 		};
 	}

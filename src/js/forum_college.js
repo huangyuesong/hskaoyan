@@ -47,34 +47,6 @@ class ForumCollege {
 					}
 				});
 
-				$('.write .content .button').click((evt)=> {
-					let _context = $(evt.target).parent();
-					
-					let label = $('select', _context).val().replace('选择主题', '').replace('无', '');
-					let title = $('input', _context).val();
-					let content = $('textarea', _context).val();
-
-					$.ajax({
-						url: `${serverUrl}/topic_post.php`,
-						type: 'post',
-						dataType: 'json',
-						data: {
-							college_id: college_id,
-							labels: label,
-							title: title,
-							content: content,
-						},
-						cache: false,
-						success: (data, status)=> {
-							alert('发帖成功');
-							location.reload();
-						},
-						error: (xhr, status, error)=> {
-							alert(error);
-						},
-					});
-				});
-
 				$('.write .content input').on('input', (evt)=> {
 					let countDown = $('.write .content .count-down');
 					let title = $(evt.target).val();
@@ -245,6 +217,8 @@ $(()=> {
 			href: `javascript:`,
 		},
 	]).render();
+
+	$('.container .right .forum-body > .button').hide();
 
 	new ForumCollege().init();
 });

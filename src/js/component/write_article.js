@@ -7,11 +7,11 @@ import {
 
 export default class WriteArticle {
 	constructor (options) {
-		let { url, labels, college_id, tag, buttonText, topic_id, news_id } = options;
+		let { url, labels, board_id, tag, buttonText, topic_id, news_id } = options;
 
 		this.url = url || '';
 		this.labels = labels || [];
-		this.college_id = college_id || 1;
+		this.board_id = board_id || 1;
 		this.tag = tag || '发表帖子';
 		this.buttonText = buttonText || '发表帖子';
 		this.topic_id = topic_id;
@@ -109,7 +109,7 @@ export default class WriteArticle {
 					url: this.url,
 					type: 'post',
 					data: {
-						college_id: this.college_id,
+						board_id: this.board_id,
 						labels: label,
 						title: title,
 						content: content,
