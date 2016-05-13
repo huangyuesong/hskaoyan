@@ -4,7 +4,7 @@ import 'amazeui';
 
 import {
 	serverUrl,
-	userInfoUrl,
+	loginUrl,
 	SUCCESS,
 	COMMON_ERROR,
 	NEED_LOGIN,
@@ -12,6 +12,17 @@ import {
 } from '../../../config';
 
 export default $(()=> {
+	DEVELOPMENT ? (()=> {
+    	$(document).ajaxSend((evt, xhr, options)=> {
+    		if (options.type === 'GET') {
+    			options.url += options.url.indexOf('&') > -1 ? `&token=${window.localStorage.token}` : 
+    				options.url.indexOf('?') > -1 ? `&token=${window.localStorage.token}` : `?token=${window.localStorage.token}`;
+    		} else if (options.type === 'POST') {
+    			options.data += `&token=${window.localStorage.token}`
+    		}
+    	});
+    })() : ()=> null;
+
 	let header = function () {
 		return $([
 			'<div class="header">',
@@ -168,7 +179,7 @@ export default $(()=> {
 		].join(''));
 	};
 
-	$.ajax(`${userInfoUrl}`, {
+	$.ajax(`${serverUrl}/user_info.php`, {
 		method: 'get',
 		dataType: 'json',
 		cache: false,
@@ -197,6 +208,8 @@ export default $(()=> {
 				$('.header .middle .right').append(alreadyLogin);
 
 				$('.middle .right #logout', header).click((evt)=> {
+					DEVELOPMENT ? (()=> window.localStorage.removeItem('token'))(): ()=> null;
+
 					$('body').removeData('userInfo');
 
 			    	$.ajax(`${serverUrl}/logout.php`, {
@@ -253,7 +266,7 @@ export default $(()=> {
     	let password = $('#password', $('#modal-login')).val();
     	let autoLogin = $('#auto-login', $('#modal-login')).prop('checked');
 
-		$.ajax(`${serverUrl}/login.php`, {
+		$.ajax(`${loginUrl}`, {
 			method: 'post',
 			data: {
 				user_tel: username,
@@ -265,6 +278,8 @@ export default $(()=> {
 			success: (data, status)=> {
 				let { result_code, message } = data;
 				
+				DEVELOPMENT ? (()=> window.localStorage.token = data.token)() : ()=> null;
+
 				if (result_code === SUCCESS) {
 					location.reload();
 				} else if (result_code === NEED_CAPTCHA) {
