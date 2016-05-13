@@ -19,6 +19,8 @@ let {
 	college_name,
 	college_id,
 	article_id,
+	reverse_order,
+	select_comment,
 } = url.parse(location.href, true).query;
 
 if (!college_name || !college_id || !article_id) {
@@ -92,8 +94,16 @@ class ForumArticle {
 							`<div class="top">`,
 								`<span>发表于</span>`,
 								`<span id="pub-time">${pub_time}</span>`,
-								`<a href="javascript:"><span>只看该作者</span></a>`,
-								`<a href="javascript:"><span>倒序浏览</span></a>`,
+								`<a href="${select_comment ?
+									location.href.replace(/\&select_comment=1/, '') :
+									location.href.concat('&select_comment=1')}">`,
+									`<span>${select_comment ? '查看所有回复': '只看该作者'}</span>`,
+								`</a>`,
+								`<a href="${reverse_order ? 
+										location.href.replace(/\&reverse_order=1/, '') : 
+										location.href.concat('&reverse_order=1')}">`,
+									`<span>${reverse_order ? '顺序': '倒序'}浏览</span>`,
+								`</a>`,
 								`<a href="javascript:"><span id="delete-article">${Number(check_delete) ? '删除主题' : ''}</span></a>`,
 								`<span class="fr" id="floor">1楼</span>`,
 							`</div>`,
@@ -183,8 +193,16 @@ class ForumArticle {
 								`<div class="top">`,
 									`<span>发表于</span>`,
 									`<span id="pub-time">${pub_time}</span>`,
-									`<a href="javascript:"><span>只看该作者</span></a>`,
-									`<a href="javascript:"><span>倒序浏览</span></a>`,
+									`<a href="${select_comment ?
+										location.href.replace(/\&select_comment=1/, '') :
+										location.href.concat('&select_comment=1')}">`,
+										`<span>${select_comment ? '查看所有回复': '只看该作者'}</span>`,
+									`</a>`,
+									`<a href="${reverse_order ? 
+											location.href.replace(/\&reverse_order=1/, '') : 
+											location.href.concat('&reverse_order=1')}">`,
+										`<span>${reverse_order ? '顺序': '倒序'}浏览</span>`,
+									`</a>`,
 									`<a href="javascript:"><span id="delete-comment">${Number(check_delete) ? '删除该回复' : ''}</span></a>`,
 									`<span class="fr" id="floor">${idx + 2}楼</span>`,
 								`</div>`,
