@@ -160,7 +160,7 @@ class ForumCollege {
 				$('.container .pagination-wrapper:last-of-type').after(new WriteArticle({
 					url: `${serverUrl}/topic_post.php`,
 					labels: Object.keys(labels),
-					college_id: college_id,
+					board_id: college_id,
 				}).render());
 			},
 			setPagination: ()=> {

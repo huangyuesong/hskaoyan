@@ -39,6 +39,7 @@ class ForumArticle {
 			is_locked: '0',
 			labels: '',
 			is_liked: '0',
+			check_delete: '0',
 		};
 		this.controller = {
 			bindEvents: ()=> {},
@@ -65,7 +66,7 @@ class ForumArticle {
 		};
 		this.view = {
 			setArticle: ()=> {
-				let { title, nick_name, view_count, comment_count, avatar, pub_time, content, labels, is_liked, id } = this.model;
+				let { title, nick_name, view_count, comment_count, avatar, pub_time, content, labels, is_liked, id, check_delete } = this.model;
 
 				let wrapper = $([
 					`<div class="article-title-wrapper">`,
@@ -93,7 +94,7 @@ class ForumArticle {
 								`<span id="pub-time">${pub_time}</span>`,
 								`<a href="javascript:"><span>只看该作者</span></a>`,
 								`<a href="javascript:"><span>倒序浏览</span></a>`,
-								`<a href="javascript:"><span>删除主题</span></a>`,
+								`<a href="javascript:"><span id="delete-article">${Number(check_delete) ? '删除主题' : ''}</span></a>`,
 								`<span class="fr" id="floor">1楼</span>`,
 							`</div>`,
 							`<div class="content" id="content">${content}</div>`,
@@ -110,6 +111,31 @@ class ForumArticle {
 						`</div>`,
 					`</div>`,
 				].join(''));
+
+				$('#delete-article', wrapper).click((evt=> {
+					$.ajax({
+						url: `${serverUrl}/topic_post.php`,
+						type: 'post',
+						data: {
+							delete_id: id,
+						},
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === SUCCESS) {
+								alert(message);
+								location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}`;
+							} else {
+								alert(message);
+							}
+						},
+						error: (xhr, status, error)=> {
+							alert(error);
+						},
+					});
+				}));
 
 				$('#like', wrapper).click(evt=> {
 					$.ajax({
@@ -141,7 +167,7 @@ class ForumArticle {
 				let { comment_list } = this.model;
 
 				comment_list.map((_comment, idx)=> {
-					let { nick_name, avatar, content, pub_time } = _comment;
+					let { nick_name, avatar, content, pub_time, id, check_delete, is_liked } = _comment;
 
 					let wrapper = $([
 						`<div class="article-wrapper">`,
@@ -159,19 +185,70 @@ class ForumArticle {
 									`<span id="pub-time">${pub_time}</span>`,
 									`<a href="javascript:"><span>只看该作者</span></a>`,
 									`<a href="javascript:"><span>倒序浏览</span></a>`,
-									`<a href="javascript:"><span>删除主题</span></a>`,
+									`<a href="javascript:"><span id="delete-comment">${Number(check_delete) ? '删除该回复' : ''}</span></a>`,
 									`<span class="fr" id="floor">${idx + 2}楼</span>`,
 								`</div>`,
 								`<div class="content" id="content">${content}</div>`,
 								`<div class="bottom">`,
 									`<a href="javascript:"><span class="fl"><!-- 删除回复 --></span></a>`,
 									`<a href="javascript:"><span class="collect"><span class="icon icon-star"></span>收藏</span></a>`,
-									`<a href="javascript:"><span class="good"><span class="icon icon-good"></span>点赞</span></a>`,
+									`<a href="javascript:">`,
+									`<span class="good" id="like">`,
+											`<span class="icon icon-good"></span>${Number(is_liked) ? '取消点赞': '点赞'}`,
+										`</span>`,
+									`</a>`,
 									`<a href="javascript:"><span class="fr">举报</span></a>`,
 								`</div>`,
 							`</div>`,
 						`</div>`,
 					].join(''));
+
+					$('#delete-comment', wrapper).click(evt=> {
+							$.ajax({
+							url: `${serverUrl}/comment_post.php`,
+							type: 'post',
+							data: {
+								delete_id: id,
+							},
+							dataType: 'json',
+							cache: false,
+							success: (data, status)=> {
+								let { result_code, message } = data;
+
+								if (result_code === SUCCESS) {
+									alert(message);
+									location.reload();
+								} else {
+									alert(message);
+								}
+							},
+							error: (xhr, status, error)=> {
+								alert(error);
+							},
+						});
+					});
+
+					$('#like', wrapper).click(evt=> {
+						$.ajax({
+							url: `${serverUrl}/user_like.php?comment_id=${id}&is_liked=${Number(is_liked) ? 0 : 1}`,
+							type: 'get',
+							dataType: 'json',
+							cache: false,
+							success: (data, status)=> {
+								let { result_code, message } = data;
+
+								if (result_code === SUCCESS) {
+									alert(message);
+									location.reload();
+								} else {
+									alert(message);
+								}
+							},
+							error: (xhr, status, error)=> {
+								alert(error);
+							},
+						});
+					});
 
 					$('.container > .button:last-of-type').css({display: 'none'}).before(wrapper);
 				});
