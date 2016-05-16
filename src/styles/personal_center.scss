@@ -302,7 +302,7 @@ body {
 		.article {
 
 			.am-nav-tabs li {
-				width: (1 / 3) * 100%;
+				width: 50%;
 			}
 
 			.am-tabs-bd {
@@ -329,54 +329,6 @@ body {
 
 								.focus {
 									margin: 15px;
-								}
-							}
-						}
-					}
-
-					.pagination-wrapper ul {
-						text-align: center;
-					}
-				}
-
-				.my-article {
-					padding-top: 40px;
-					
-					ul.content {
-						text-align: center;
-						border-top: 2px solid rgba(0, 0, 0, 0.1);
-
-						li {
-							text-align: left;
-							padding: 10px 40px 10px 0;
-							border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-							color: #7D7D7D;
-							font-size: 14px;
-
-							p {
-								
-								&:first-of-type {
-
-									.avatar {
-										@include border-radius(25);
-										margin-right: 15px;
-									}
-
-									.author {
-										color: #548EBA;
-										margin: 15px;
-									}
-								}
-
-								&:nth-of-type(2) {
-									font-size: 18px;
-								}
-
-								&:nth-of-type(3) {
-									
-									&:after, &::after {
-										content: '...';
-									}
 								}
 							}
 						}

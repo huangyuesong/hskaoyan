@@ -6,6 +6,7 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 import WriteArticle from './component/write_article';
+import Pagination from './component/pagination';
 
 import {
 	serverUrl,
@@ -21,11 +22,14 @@ let {
 	article_id,
 	reverse_order,
 	select_comment,
+	page,
 } = url.parse(location.href, true).query;
 
 if (!college_name || !college_id || !article_id) {
 	location.href = '/forum.html';
 }
+
+const PAGE_SIZE = 9;
 
 class ForumArticle {
 	constructor () {
@@ -43,20 +47,23 @@ class ForumArticle {
 			is_liked: '0',
 			check_delete: '0',
 			mark_value: '0',
+			pages: 1,
 		};
 		this.controller = {
 			bindEvents: ()=> {},
 			setArticleAndComment: ()=> {
 				$.ajax({
-					url: `${serverUrl}/topic_view.php?topic_id=${article_id}`,
+					url: `${serverUrl}/topic_view.php?topic_id=${article_id}&page=${page || 1}&page_size=${PAGE_SIZE}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
+						this.model.pages = data.page_count;
 						Object.keys(data.topic_array).map(key=> this.model[key] = data.topic_array[key]);
 
 						this.view.setArticle();
 						this.view.setComment();
+						this.view.setPagination();
 					},
 					error: (xhr, status, error)=> {
 						alert('Network Error!');
@@ -205,7 +212,7 @@ class ForumArticle {
 				let { comment_list } = this.model;
 
 				comment_list.map((_comment, idx)=> {
-					let { nick_name, avatar, content, pub_time, id, check_delete, is_liked } = _comment;
+					let { nick_name, avatar, content, pub_time, id, check_delete, is_liked, floor } = _comment;
 
 					let wrapper = $([
 						`<div class="article-wrapper">`,
@@ -232,7 +239,7 @@ class ForumArticle {
 										`<span>${reverse_order ? '顺序': '倒序'}浏览</span>`,
 									`</a>`,
 									`<a href="javascript:"><span id="delete-comment">${Number(check_delete) ? '删除该回复' : ''}</span></a>`,
-									`<span class="fr" id="floor">${idx + 2}楼</span>`,
+									`<span class="fr" id="floor">${floor}楼</span>`,
 								`</div>`,
 								`<div class="content" id="content">${content}</div>`,
 								`<div class="bottom">`,
@@ -302,7 +309,7 @@ class ForumArticle {
 				let { is_locked } = this.model;
 
 				if (!Number(is_locked)) {
-					$('.container > .button:last-of-type').css({display: 'none'}).after(new WriteArticle({
+					$('.container > .pagination-wrapper:last-of-type').after(new WriteArticle({
 						url: `${serverUrl}/comment_post.php`,
 						topic_id: article_id,
 						tag: '回复',
@@ -310,12 +317,42 @@ class ForumArticle {
 					}).render());
 				}
 			},
+			setPagination: ()=> {
+				let { pages } = this.model;
+				let idx = Number(page) || 1;
+				pages = Number(pages) || 1;
+
+				$('.pagination-wrapper').append(new Pagination({
+					idx: idx,
+					pages: pages,
+					onPageSelect: (page)=> {
+						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${page}`;
+					},
+					onFirstSelect: ()=> {
+						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${1}`;
+					},
+					onLastSelect: ()=> {
+						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${pages}`;
+					},
+					onPrevSelect: ()=> {
+						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${idx > 1 ? idx - 1 : 1}`;
+					},
+					onNextSelect: ()=> {
+						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${idx < pages ? idx + 1 : pages}`;
+					},
+					onGoSelect: (target)=> {
+						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${target}`;
+					},
+				}).render());
+			},
 		};
 	}
 
 	init () {
 		this.controller.setArticleAndComment();
-		this.controller.setWrite();
+		this.controller.setWrite(()=> {
+			this.controller.setPagination();
+		});
 		this.controller.bindEvents();
 	}
 }

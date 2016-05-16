@@ -12,18 +12,6 @@ import {
 } from '../../../config';
 
 export default $(()=> {
-	DEVELOPMENT ? (()=> {
-    	$(document).ajaxSend((evt, xhr, options)=> {
-    		if (!window.localStorage.token) return;
-    		if (options.type === 'GET') {
-    			options.url += options.url.indexOf('&') > -1 ? `&token=${window.localStorage.token}` : 
-    				options.url.indexOf('?') > -1 ? `&token=${window.localStorage.token}` : `?token=${window.localStorage.token}`;
-    		} else if (options.type === 'POST') {
-    			options.data += `&token=${window.localStorage.token}`
-    		}
-    	});
-    })() : ()=> null;
-
 	let header = function () {
 		return $([
 			'<div class="header">',

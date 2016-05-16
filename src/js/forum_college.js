@@ -70,7 +70,7 @@ class ForumCollege {
 			},
 			setHotTopic: ()=> {
 				$.ajax({
-					url: `${serverUrl}/hot_topic_list.php?board_id=${college_id}`,
+					url: `${serverUrl}/topic_list.php?board_id=${college_id}&type=3&limit=5`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,

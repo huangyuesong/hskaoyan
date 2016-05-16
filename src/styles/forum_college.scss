@@ -10,6 +10,10 @@ $icons: (
 .container {
 	overflow: hidden;
 
+	.am-pagination {
+		text-align: right;
+	}
+
 	.left {
 		display: inline-block;
 		width: 170px;

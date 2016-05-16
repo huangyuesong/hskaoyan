@@ -10,15 +10,20 @@ import Pagination from './component/pagination';
 
 import {
 	serverUrl,
+	imagePrefix,
 	SUCCESS,
+	NEED_LOGIN,
 } from '../../config';
 
 import url from 'url';
+
+let { page } = url.parse(location.href, true).query;
 
 class PersonalCenter {
 	constructor () {
 		this.model = {
 			section: 'setting',
+			userInfo: [],
 		};
 		this.controller = {
 			bindEvents: ()=> {
@@ -39,7 +44,7 @@ class PersonalCenter {
 					console.log(state)
 				});
 			},
-			setUserInfo: ()=> {
+			getUserInfo: (callback)=> {
 				$.ajax(`${serverUrl}/user_info.php`, {
 					method: 'get',
 					dataType: 'json',
@@ -48,8 +53,34 @@ class PersonalCenter {
 						let { result, list } = data;
 
 						if (result === SUCCESS) {
-							
+							this.model.userInfo = list;
+							callback && callback();
+						} else if (result === NEED_LOGIN) {
+							alert('您还未登录，请登录后再进入个人中心');
+							location.href = 'index.html';
 						}
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
+			setUserInfo: ()=> {
+				this.view.setUserInfo();
+			},
+			setMessage: ()=> {
+				$.ajax(`${serverUrl}/message_list.php?type=0&page=1&page_size=5`, {
+					method: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						// let { result_code, list } = data;
+
+						// if (result_code === SUCCESS) {
+						// 	this.model.userInfo = list;
+						// 	this.view.setUserInfo();
+						// 	callback && callback();
+						// }
 					},
 					error: (xhr, status, error)=> {
 						alert('Network Error!');
@@ -58,6 +89,18 @@ class PersonalCenter {
 			},
 		};
 		this.view = {
+			setUserInfo: ()=> {
+				let { avatar, nick_name, true_name, gender, user_tel, college } = this.model.userInfo;
+
+				$('.personal-center-top-bar ul li .avatar').prop('src', `${imagePrefix}${avatar}`).load();
+				$('.personal-center-top-bar ul li .nick-name').html(nick_name);
+				$('.container .main .nav .avatar-wrapper  img').prop('src', `${imagePrefix}${avatar}`).load();
+				$('.container .main .setting .am-tabs-bd .profile .content li .name').html(true_name);
+				$('.container .main .setting .am-tabs-bd .profile .content li .nick-name').html(nick_name);
+				$('.container .main .setting .am-tabs-bd .profile .content li.sex input').eq(gender - 1).prop('checked', true);
+				$('.container .main .setting .am-tabs-bd .profile .content li .tel').html(user_tel);
+				$('.container .main .setting .am-tabs-bd .profile .content li .college').html(college);
+			},
 			setActiveNav: ()=> {
 				$('.container .main .nav ul li').each((idx, li)=> {
 					$(li).prop('class').indexOf(this.model.section) === -1 ? (()=> null)() : $(li).addClass('active');
@@ -126,10 +169,15 @@ class PersonalCenter {
 	}
 
 	init () {
-		this.controller.setPageState();
-		this.controller.setSwitch();
-		this.controller.setPagination();
-		this.controller.bindEvents();
+		this.controller.getUserInfo(()=> {
+			this.controller.setPageState();
+			this.controller.setUserInfo();
+			this.controller.setMessage();
+			this.controller.bindEvents();
+
+			this.controller.setPagination();
+			this.controller.setSwitch();
+		});
 	}
 }
 
