@@ -25,25 +25,43 @@ if (!college_name || !college_id || !category_id || !category_name) {
 	location.href = '/forum.html';
 }
 
+const PAGE_SIZE = 15;
+
 class NewsCollegeList {
 	constructor () {
 		this.model = {
 			newsList: [],
 			pages: 1,
+			categories: [],
 		};
 		this.controller = {
 			bindEvents: ()=> {},
-			setNewsList: ()=> {
+			setCategory: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list.php?board_id=${college_id}&news_limit=20&page=${page || 1}`,
+					url: `${serverUrl}/news_type.php`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { list, page } = data;
+						this.model.categories = data.list;
+						this.view.setCategory();
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
+			setNewsList: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list.php?board_id=${college_id}&page_size=${PAGE_SIZE}&page=${page || 1}&types=${category_id}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list, page_count } = data;
 
 						this.model.newsList = list;
-						this.model.pages = page;
+						this.model.pages = page_count;
 
 						this.view.setNewsList();
 						this.view.setPagination();
@@ -55,17 +73,44 @@ class NewsCollegeList {
 			},
 		};
 		this.view = {
+			setCategory: ()=> {
+				let { categories } = this.model;
+
+				$('.container .main-wrapper .layout .right .college-section p:not(.top)').remove();
+
+				while (categories.length) {
+					let p = $('<p></p>');
+
+					categories.splice(0, 3).map(_category=> {
+						let { id, type } = _category;
+
+						let wrapper = $([
+							`<a href="news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${id}&category_name=${type}">`,
+								`<span class="button">${type}</span>`,
+							`</a>`,
+						].join(''));
+
+						p.append(wrapper);
+					});
+
+					$('.container .main-wrapper .layout .right .college-section').append(p);
+				}
+
+				$('.container .main-wrapper .layout .left p.top').html(`${college_name}${category_name}`);
+			},
 			setNewsList: ()=> {
 				let { newsList } = this.model;
 
-				$('.main-wrapper .list ul').empty();
+				$('.main-wrapper .list ul').empty().append(newsList.length ? null : $(
+					`<li><p style="text-align: center; ">暂无资讯</p></li>`
+				));
 
 				newsList.map((_news)=> {
 					let { id, title, edit_time } = _news;
 
 					let wrapper = $(`
 						<li>
-	    					<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&news_id=${id}&news_name=${title}">${title}</a>
+	    					<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}">${title}</a>
 	    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
 	    				</li>
 					`);
@@ -82,22 +127,22 @@ class NewsCollegeList {
 					idx: idx,
 					pages: pages,
 					onPageSelect: (page)=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&page=${page}`;
+						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${page}`;
 					},
 					onFirstSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&page=1`;
+						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=1`;
 					},
 					onLastSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&page=${pages}`;
+						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${pages}`;
 					},
 					onPrevSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&page=${idx > 1 ? idx - 1 : 1}`;
+						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${idx > 1 ? idx - 1 : 1}`;
 					},
 					onNextSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&page=${idx < pages ? idx + 1 : pages}`;
+						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${idx < pages ? idx + 1 : pages}`;
 					},
 					onGoSelect: (target)=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=招生简介&page=${target}`;
+						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${target}`;
 					},
 				}).render());
 			},
@@ -105,6 +150,7 @@ class NewsCollegeList {
 	}
 
 	init () {
+		this.controller.setCategory();
 		this.controller.setNewsList();
 		this.controller.bindEvents();
 	}

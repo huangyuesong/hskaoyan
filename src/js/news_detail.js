@@ -16,8 +16,6 @@ import url from 'url';
 let {
 	college_name,
 	college_id,
-	category_id,
-	category_name,
 	news_id,
 	news_name,
 } = url.parse(location.href, true).query;
@@ -122,11 +120,6 @@ $(()=> {
 		{
 			name: `资讯`,
 			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `${category_name}`,
-			href: `news_college_list.html?college_id=${college_id}&college_name=${college_name}
-				&category_id=${category_id}&category_name=${category_name}`,
 		},
 		{
 			name: `${news_name}`,

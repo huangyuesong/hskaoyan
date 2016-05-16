@@ -56,6 +56,7 @@ body {
 
 		.content {
 			position: relative;
+			overflow: hidden;
 
 			.left {
 				width: 350px;
@@ -99,6 +100,7 @@ body {
 					width: 540px;
 					margin-left: 350px;
 					text-align: center;
+					padding-left: 40px;
 
 					& > div {
 						margin-left: 10px;
@@ -131,6 +133,10 @@ body {
 							font-size: 24px;
 						}
 
+						p {
+							@include text-overflow(475);
+						}
+
 						/* ul {
 							display: inline-block;
 							margin: 20px 55px;
@@ -145,7 +151,7 @@ body {
 					}
 
 					.lower {
-						padding: 10px 0 10px 65px;
+						padding: 10px 0 10px 0;
 						line-height: 27px;
 
 						ul li {
@@ -163,38 +169,44 @@ body {
 				border-left: 1px solid #BFBFBF;
 				min-height: 485px;
 				padding: 10px;
-				margin: 15px 0;
-				text-align: center;
 				margin-left: -270px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 100%;
 
 				.top {
 					color: #2D7BBD;
-					text-align: left;
 					margin-bottom: 10px;
 				}
 
-				a {
-					color: #808080;
+				p:last-of-type {
+					width: 200px;
+					margin: 0 auto;
 
-					&:hover {
-						color: $color-a-hover;
-					}
-
-					.button {
-						display: inline-block;
-						width: 80px;
-						line-height: 35px;
-						background: #F4F8FB;
-						border: 1px solid rgba(0, 0, 0, 0.2);
-						box-sizing: border-box;
-						font-size: 14px;
-						@include border-radius(20);
-						text-align: center;
-						margin: 8px 10px;
-						color: #939394;
+					a {
+						color: #808080;
 
 						&:hover {
 							color: $color-a-hover;
+						}
+
+						.button {
+							display: inline-block;
+							width: 80px;
+							line-height: 35px;
+							background: #F4F8FB;
+							border: 1px solid rgba(0, 0, 0, 0.2);
+							box-sizing: border-box;
+							font-size: 14px;
+							@include border-radius(20);
+							text-align: center;
+							margin: 8px 10px;
+							color: #939394;
+
+							&:hover {
+								color: $color-a-hover;
+							}
 						}
 					}
 				}
@@ -257,6 +269,7 @@ body {
 
 				.center {
 					padding: 0 20px;
+					width: 594px;
 
 					a {
 						color: #808080;

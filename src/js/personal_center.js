@@ -8,29 +8,27 @@ import 'amazeui-switch/amazeui.switch.css';
 
 import Pagination from './component/pagination';
 
-import url from 'url';
+import {
+	serverUrl,
+	SUCCESS,
+} from '../../config';
 
-let { hash } = url.parse(location.href, true);
-let section = hash ? hash.substring(1) : 'setting';
+import url from 'url';
 
 class PersonalCenter {
 	constructor () {
 		this.model = {
-			section: section,
+			section: 'setting',
 		};
 		this.controller = {
 			bindEvents: ()=> {
 				$('.container .main .nav ul li a').click((evt)=> location.reload());
 			},
-			setActiveNav: ()=> {
-				$('.container .main .nav ul li').each((idx, li)=> {
-					$(li).prop('class').indexOf(this.model.section) === -1 ? (()=> null)() : $(li).addClass('active');
-				});
-			},
-			setActiveTabs: ()=> {
-				$('.container .main .am-tabs').each((idx, tabs)=> {
-					$(tabs).prop('class').indexOf(this.model.section) === -1 ? (()=> null)() : $(tabs).css({display: 'block'});
-				});
+			setPageState: ()=> {
+				let { hash } = url.parse(location.href, true);
+				hash ? this.model.section = hash.substring(1) : ()=> null;
+				this.view.setActiveNav();
+				this.view.setActiveTabs();
 			},
 			setPagination: ()=> {
 				this.view.setPagination();
@@ -41,8 +39,35 @@ class PersonalCenter {
 					console.log(state)
 				});
 			},
+			setUserInfo: ()=> {
+				$.ajax(`${serverUrl}/user_info.php`, {
+					method: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { result, list } = data;
+
+						if (result === SUCCESS) {
+							
+						}
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
 		};
 		this.view = {
+			setActiveNav: ()=> {
+				$('.container .main .nav ul li').each((idx, li)=> {
+					$(li).prop('class').indexOf(this.model.section) === -1 ? (()=> null)() : $(li).addClass('active');
+				});
+			},
+			setActiveTabs: ()=> {
+				$('.container .main .am-tabs').each((idx, tabs)=> {
+					$(tabs).prop('class').indexOf(this.model.section) === -1 ? (()=> null)() : $(tabs).css({display: 'block'});
+				});
+			},
 			setPagination: ()=> {
 				$('.container .main .message .system .pagination-wrapper').append(new Pagination({
 					idx: 1,
@@ -101,8 +126,7 @@ class PersonalCenter {
 	}
 
 	init () {
-		this.controller.setActiveNav();
-		this.controller.setActiveTabs();
+		this.controller.setPageState();
 		this.controller.setSwitch();
 		this.controller.setPagination();
 		this.controller.bindEvents();

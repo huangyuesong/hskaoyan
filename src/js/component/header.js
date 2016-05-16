@@ -4,6 +4,7 @@ import 'amazeui';
 
 import {
 	serverUrl,
+	imagePrefix,
 	loginUrl,
 	SUCCESS,
 	COMMON_ERROR,
@@ -198,7 +199,7 @@ export default $(()=> {
 				$('.header .middle .right .register').remove();
 
 				let alreadyLogin = $([
-					`<img class="avatar" width="30" height="30" src="http://hskaoyan.com/${avatar}">`,
+					`<img class="avatar" width="30" height="30" src="${imagePrefix}${avatar}">`,
 					`<span class="nick-name">${nick_name}</span>`,
 					`<a href="personal_center.html#message"><span>站内消息<span class="unread">（${message_count}）</span></span></a>`,
 					`<a href="personal_center.html"><span>个人中心</span></a>`,
