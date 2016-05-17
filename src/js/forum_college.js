@@ -129,6 +129,10 @@ class ForumCollege {
 						`</li>`
 					].join('')));
 				});
+
+				if (!hotTopics.length) {
+					$('.recommend .content ul').css({'padding': '130px 0', 'text-align': 'center'}).text('暂无帖子');
+				}
 			},
 			setTopic: ()=> {
 				let { topics } = this.model;

@@ -37,7 +37,6 @@ class NewsDetail {
 			content: '',
 		};
 		this.controller = {
-			bindEvents: ()=> {},
 			onLogin: ()=> {
 				let { avatar } = JSON.parse($('body').data('userInfo'));
 
@@ -103,7 +102,6 @@ class NewsDetail {
 	init () {
 		window.onLogin = this.controller.onLogin;
 		this.controller.setDetail();
-		this.controller.bindEvents();
 	}
 }
 

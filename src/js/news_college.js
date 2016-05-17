@@ -31,7 +31,6 @@ class NewsCollege {
 			categoryContent: [],
 		};
 		this.controller = {
-			bindEvents: ()=> {},
 			setCategory: ()=> {
 				$.ajax({
 					url: `${serverUrl}/news_type.php`,
@@ -248,7 +247,6 @@ class NewsCollege {
 		this.controller.setTopNews();
 		this.controller.setHotNews();
 		this.controller.setCategoryContent();
-		this.controller.bindEvents();
 	}
 }
 

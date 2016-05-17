@@ -50,7 +50,6 @@ class ForumArticle {
 			pages: 1,
 		};
 		this.controller = {
-			bindEvents: ()=> {},
 			setArticleAndComment: ()=> {
 				$.ajax({
 					url: `${serverUrl}/topic_view.php?topic_id=${article_id}&page=${page || 1}&page_size=${PAGE_SIZE}`,
@@ -353,7 +352,6 @@ class ForumArticle {
 		this.controller.setWrite(()=> {
 			this.controller.setPagination();
 		});
-		this.controller.bindEvents();
 	}
 }
 

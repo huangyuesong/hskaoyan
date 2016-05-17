@@ -77,7 +77,7 @@ class Forum {
 		this.controller = {
 			setData: ()=> {
 				$.ajax({
-					url: `${serverUrl}/college_list.php?college_limit=24`,
+					url: `${serverUrl}/board_list.php?college_limit=24`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
