@@ -44,6 +44,40 @@ class PersonalCenter {
 					messages: [],
 				},
 			},
+			article: {
+				question: {
+					PAGE_SIZE: 5,
+					page: 1,
+					pages: 1,
+					articles: [],
+				},
+				answer: {
+					PAGE_SIZE: 5,
+					page: 1,
+					pages: 1,
+					articles: [],
+				},
+			},
+			favorate: {
+				news: {
+					PAGE_SIZE: 4,
+					page: 1,
+					pages: 1,
+					entries: [],
+				},
+				article: {
+					PAGE_SIZE: 4,
+					page: 1,
+					pages: 1,
+					entries: [],
+				},
+				'wrong-question': {
+					PAGE_SIZE: 4,
+					page: 1,
+					pages: 1,
+					entries: [],
+				},
+			},
 		};
 		this.controller = {
 			bindEvents: ()=> {
@@ -63,6 +97,15 @@ class PersonalCenter {
 						this.controller.setMessage('system');
 						this.controller.setMessage('send');
 						this.controller.setMessage('receive');
+						break;
+					case 'article':
+						this.controller.setArticle('question');
+						this.controller.setArticle('answer');
+						break;
+					case 'favorate':
+						this.controller.setFavorate('news');
+						this.controller.setFavorate('article');
+						this.controller.setFavorate('wrong-question');
 						break;
 					default: 
 						break;
@@ -103,7 +146,7 @@ class PersonalCenter {
 			},
 			setMessage: type=> {
 				let url;
-				let page = this.model.message[type].page = $(`.container .main div.message`).data(`page-${type}`);
+				let page = this.model.message[type].page = $(`.container .main div.message div.${type}`).data('page');
 				let { PAGE_SIZE } = this.model.message[type];
 
 				switch (type) {
@@ -138,8 +181,201 @@ class PersonalCenter {
 					},
 				});
 			},
+			setArticle: (type)=> {
+				let url;
+				let page = this.model.article[type].page = $(`.container .main div.article div.${type}`).data('page');
+				let { PAGE_SIZE } = this.model.article[type];
+
+				switch (type) {
+					case 'question':
+						url = `${serverUrl}/topic_list.php?board_id=-3&page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					case 'answer':
+						url = `${serverUrl}/topic_list.php?board_id=-4&page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					default:
+						break;
+				}
+
+				$.ajax(url, {
+					method: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { result_code, list, page_count } = data;
+
+						if (result_code === SUCCESS) {
+							this.model.article[type].articles = list;
+							this.model.article[type].pages = page_count;
+							this.view.setArticle(type, ()=> this.controller.setArticle(type));
+						}
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
+			setFavorate: (type)=> {
+				let url;
+				let page = this.model.favorate[type].page = $(`.container .main div.favorate div.${type}`).data('page');
+				let { PAGE_SIZE } = this.model.favorate[type];
+
+				switch (type) {
+					case 'news':
+						url = `${serverUrl}/mark_list.php?type=2&page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					case 'article':
+						url = `${serverUrl}/mark_list.php?type=1&page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					case 'wrong-question':
+						url = `${serverUrl}/mark_list.php?type=0&page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					default:
+						break;
+				}
+
+				$.ajax(url, {
+					method: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { result_code, list, page_count } = data;
+
+						if (result_code === SUCCESS) {
+							this.model.favorate[type].entries = list;
+							this.model.favorate[type].pages = page_count;
+							this.view.setFavorate(type, ()=> this.controller.setFavorate(type));
+						}
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
 		};
 		this.view = {
+			setFavorate: (type, callback)=> {
+				let { entries, page, pages } = this.model.favorate[type];
+
+				$(`.container .main .favorate .${type} > ul`).empty().append(entries.length ? null : $(
+					`<li><p style="text-align: center;">暂无收藏</p></li>`
+				));
+
+				entries.map(_entry=> {
+					let { title, type:_type, edit_time, mark_id } = _entry;
+					let href;
+
+					switch (type) {
+						case 'news':
+							href = `news_detail.html?college_id=2&college_name=清华大学&news_id=${mark_id}&news_name=${title}`;
+							break;
+						case 'article':
+							href = `forum_article.html?college_id=2&college_name=清华大学&article_id=${mark_id}`;
+							break;
+						case 'wrong-question':
+							href = `javascript:`;
+							break;
+						default:
+							break;
+					}
+
+					let wrapper = $([
+						`<li>`,
+							`<p><a href="${href}" title="${title}">${title}</a></p>`,
+							`<p>`,
+								`<span>${_type || '&nbsp;'}</span>`,
+								`<span class="fr">${edit_time}</span>`,
+							`</p>`,
+						`</li>`,
+					].join(''));
+
+					$(`.container .main .favorate .${type} > ul`).append(wrapper);
+				});
+
+				$(`.container .main .favorate .${type} .pagination-wrapper`).empty().append(new Pagination({
+					idx: page,
+					pages: pages,
+					onPageSelect: (page)=> {
+						$(`.container .main div.favorate div.${type}`).data('page', page);
+						callback && callback();
+					},
+					onFirstSelect: ()=> {
+						$(`.container .main div.favorate div.${type}`).data('page', 1);
+						callback && callback();
+					},
+					onLastSelect: ()=> {
+						$(`.container .main div.favorate div.${type}`).data('page', pages);
+						callback && callback();
+					},
+					onPrevSelect: ()=> {
+						$(`.container .main div.favorate div.${type}`).data('page', page > 1 ? page - 1 : 1);
+						callback && callback();
+					},
+					onNextSelect: ()=> {
+						$(`.container .main div.favorate div.${type}`).data('page', page < pages ? page + 1 : pages);
+						callback && callback();
+					},
+					onGoSelect: (target)=> {
+						$(`.container .main div.favorate div.${type}`).data('page', target);
+						callback && callback();
+					},
+				}).render());
+			},
+			setArticle: (type, callback)=> {
+				let { articles, page, pages } = this.model.article[type];
+
+				$(`.container .main .article .${type} > ul`).empty().append(articles.length ? null : $(
+					`<li><p style="text-align: center;">暂无帖子</p></li>`
+				));
+
+				articles.map(_article=> {
+					let { title, comment_count, view_count, pub_time, id } = _article;
+
+					let wrapper = $([
+						`<li>`,
+							`<p>`,
+								`<a href="forum_article.html?college_id=2&college_name=清华大学&article_id=${id}" title="${title}">${title}</a>`,
+							`</p>`,
+							`<p>`,
+								`<span class="answer">${comment_count}个回答</span>`,
+								`<span class="focus">${view_count}人查看</span>`,
+								`<span class="date fr">${pub_time}</span>`,
+							`</p>`,
+						`</li>`,
+					].join(''));
+
+					$(`.container .main .article .${type} > ul`).append(wrapper);
+				});
+
+				$(`.container .main .article .${type} .pagination-wrapper`).empty().append(new Pagination({
+					idx: page,
+					pages: pages,
+					onPageSelect: (page)=> {
+						$(`.container .main div.article div.${type}`).data('page', page);
+						callback && callback();
+					},
+					onFirstSelect: ()=> {
+						$(`.container .main div.article div.${type}`).data('page', 1);
+						callback && callback();
+					},
+					onLastSelect: ()=> {
+						$(`.container .main div.article div.${type}`).data('page', pages);
+						callback && callback();
+					},
+					onPrevSelect: ()=> {
+						$(`.container .main div.article div.${type}`).data('page', page > 1 ? page - 1 : 1);
+						callback && callback();
+					},
+					onNextSelect: ()=> {
+						$(`.container .main div.article div.${type}`).data('page', page < pages ? page + 1 : pages);
+						callback && callback();
+					},
+					onGoSelect: (target)=> {
+						$(`.container .main div.article div.${type}`).data('page', target);
+						callback && callback();
+					},
+				}).render());
+			},
 			setMessage: (type, callback)=> {
 				let { messages, page, pages } = this.model.message[type];
 
@@ -167,27 +403,27 @@ class PersonalCenter {
 					idx: page,
 					pages: pages,
 					onPageSelect: (page)=> {
-						$(`.container .main div.message`).data(`page-${type}`, page);
+						$(`.container .main div.message div.${type}`).data('page', page);
 						callback && callback();
 					},
 					onFirstSelect: ()=> {
-						$(`.container .main div.message`).data(`page-${type}`, 1);
+						$(`.container .main div.message div.${type}`).data('page', 1);
 						callback && callback();
 					},
 					onLastSelect: ()=> {
-						$(`.container .main div.message`).data(`page-${type}`, pages);
+						$(`.container .main div.message div.${type}`).data('page', pages);
 						callback && callback();
 					},
 					onPrevSelect: ()=> {
-						$(`.container .main div.message`).data(`page-${type}`, page > 1 ? page - 1 : 1);
+						$(`.container .main div.message div.${type}`).data('page', page > 1 ? page - 1 : 1);
 						callback && callback();
 					},
 					onNextSelect: ()=> {
-						$(`.container .main div.message`).data(`page-${type}`, page < pages ? page + 1 : pages);
+						$(`.container .main div.message div.${type}`).data('page', page < pages ? page + 1 : pages);
 						callback && callback();
 					},
 					onGoSelect: (target)=> {
-						$(`.container .main div.message`).data(`page-${type}`, target);
+						$(`.container .main div.message div.${type}`).data('page', target);
 						callback && callback();
 					},
 				}).render());
@@ -215,30 +451,6 @@ class PersonalCenter {
 				});
 			},
 			setPagination: ()=> {
-				$('.container .main .article .question .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
-				$('.container .main .article .answer .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
-				$('.container .main .article .my-article .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
-				$('.container .main .favorate .news .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
-				$('.container .main .favorate .article .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
-				$('.container .main .favorate .wrong-question .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
 				$('.container .main .questionnaire .forum .pagination-wrapper').append(new Pagination({
 					idx: 1,
 					pages: 3,

@@ -77,16 +77,31 @@ class Forum {
 		this.controller = {
 			setData: ()=> {
 				$.ajax({
-					url: `${serverUrl}/board_list.php?college_limit=24`,
+					url: `${serverUrl}/board_list.php?limit=24`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { list, list_flink } = data;
+						let { list } = data;
 
 						this.model.collegeList = list;
-						this.model.linkList = list_flink;
 						this.view.setDistrict();
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
+			setOtherSite: ()=> {
+				$.ajax({
+					url: `${serverUrl}/flink_list.php?limit=18`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.linkList = list;
 						this.view.setOtherSite();
 					},
 					error: (xhr, status, error)=> {
@@ -124,6 +139,7 @@ class Forum {
 		let { controller } = this;
 
 		controller.setData();
+		controller.setOtherSite();
 	}
 }
 

@@ -13,6 +13,8 @@ export const _resultCodeFilter = (()=> {
 				$('#modal-login', $('.header')).modal({
 		    		relatedTarget: this,
 		    	});
+			} else if (result_code === COMMON_ERROR) {
+				alert('Server Error!');
 			}
 		}
 	});

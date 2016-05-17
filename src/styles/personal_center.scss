@@ -152,6 +152,10 @@ body {
 						padding-left: 80px;
 					}
 				}
+
+				ul.content {
+					min-height: 300px;
+				}
 			}
 		}
 
@@ -272,7 +276,6 @@ body {
 					ul.content {
 						text-align: center;
 						border-top: 2px solid rgba(0, 0, 0, 0.1);
-					    min-height: 300px;
 
 						li {
 							text-align: left;
@@ -308,7 +311,7 @@ body {
 
 			.am-tabs-bd {
 
-				.question, .answer {
+				.question, div.answer {
 					padding-top: 40px;
 					
 					ul.content {

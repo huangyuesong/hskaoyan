@@ -29,6 +29,7 @@ class NewsCollege {
 			topNews: [],
 			hotNews: [],
 			categoryContent: [],
+			linkList: [],
 		};
 		this.controller = {
 			setCategory: ()=> {
@@ -85,6 +86,22 @@ class NewsCollege {
 					success: (data, status)=> {
 						this.model.categoryContent = data.list;
 						this.view.setCategoryContent();
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},setOtherSite: ()=> {
+				$.ajax({
+					url: `${serverUrl}/flink_list.php?limit=18`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.linkList = list;
+						this.view.setOtherSite();
 					},
 					error: (xhr, status, error)=> {
 						alert('Network Error!');
@@ -239,6 +256,11 @@ class NewsCollege {
 					$('.container .apply .content .layout .center #lower-tab2 ul').append(wrapper);
 				});
 			},
+			setOtherSite: ()=> {
+				let { linkList } = this.model;
+
+				new OtherSite(linkList).render();
+			},
 		};
 	}
 
@@ -247,6 +269,7 @@ class NewsCollege {
 		this.controller.setTopNews();
 		this.controller.setHotNews();
 		this.controller.setCategoryContent();
+		this.controller.setOtherSite();
 	}
 }
 
@@ -264,12 +287,6 @@ $(()=> {
 			name: `资讯`,
 			href: `javascript:`,
 		},
-	]).render();
-
-	new OtherSite([
-		{name: '百度', href: 'http://www.baidu.com'},
-		{name: '百度', href: 'http://www.baidu.com'},
-		{name: '百度', href: 'http://www.baidu.com'},
 	]).render();
 
 	$('p:last-of-type', $('.footer')).remove();
