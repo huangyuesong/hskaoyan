@@ -78,12 +78,26 @@ class PersonalCenter {
 					entries: [],
 				},
 			},
+			questionnaire: {
+				forum: {
+					PAGE_SIZE: 5,
+					page: 1,
+					pages: 1,
+					questionnaires: [],
+				},
+				my: {
+					PAGE_SIZE: 5,
+					page: 1,
+					pages: 1,
+					questionnaires: [],
+				},
+			},
 		};
 		this.controller = {
 			bindEvents: ()=> {
 				$('.container .main .nav ul li a').click(evt=> location.reload());
 			},
-			setPageState: ()=> {
+			renderPage: ()=> {
 				let { hash } = url.parse(location.href, true);
 				hash ? this.model.section = hash.substring(1) : ()=> null;
 				this.view.setActiveNav();
@@ -107,6 +121,9 @@ class PersonalCenter {
 						this.controller.setFavorate('article');
 						this.controller.setFavorate('wrong-question');
 						break;
+					case 'questionnaire':
+						this.controller.setQuestionnaire('forum');
+						this.controller.setQuestionnaire('my');
 					default: 
 						break;
 				}
@@ -252,8 +269,98 @@ class PersonalCenter {
 					},
 				});
 			},
+			setQuestionnaire: (type)=> {
+				let url;
+				let page = this.model.questionnaire[type].page = $(`.container .main div.questionnaire div.${type}`).data('page');
+				let { PAGE_SIZE } = this.model.questionnaire[type];
+
+				switch (type) {
+					case 'forum':
+						url = `${serverUrl}/survey_list.php?page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					case 'my':
+						url = `${serverUrl}/survey_list.php?type=1&page=${page || 1}&page_size=${PAGE_SIZE}`;
+						break;
+					default:
+						break;
+				}
+
+				$.ajax(url, {
+					method: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { result_code, list, page_count } = data;
+
+						if (result_code === SUCCESS) {
+							this.model.questionnaire[type].questionnaires = list;
+							this.model.questionnaire[type].pages = page_count;
+							this.view.setQuestionnaire(type, ()=> this.controller.setQuestionnaire(type));
+						}
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
 		};
 		this.view = {
+			setQuestionnaire: (type, callback)=> {
+				let { questionnaires, page, pages } = this.model.questionnaire[type];
+
+				$(`.container .main .questionnaire .${type} > ul`).empty().append(questionnaires.length ? null : $(
+					`<li><p style="text-align: center;">暂无问卷</p></li>`
+				));
+
+				questionnaires.map(_questionnaire=> {
+					let { title, edit_time, id } = _questionnaire;
+
+					let wrapper = $([
+						`<li>`,
+							`<p><a href="javascript:">${title}</a></p>`,
+							`<p>`,
+								/*`<span>`,
+									`<img class="avatar" src="/images/web/personal_center/avatar.png" width="25" height="25" />哈哈1298`,
+								`</span>`,*/
+								`<span class="join">2人参与</span>`,
+								`<span>3人关注</span>`,
+								`<span class="fr">${edit_time}</span>`,
+							`</p>`,
+						`</li>`,
+					].join(''));
+
+					$(`.container .main .questionnaire .${type} > ul`).append(wrapper);
+				});
+
+				$(`.container .main .questionnaire .${type} .pagination-wrapper`).empty().append(new Pagination({
+					idx: page,
+					pages: pages,
+					onPageSelect: (page)=> {
+						$(`.container .main div.questionnaire div.${type}`).data('page', page);
+						callback && callback();
+					},
+					onFirstSelect: ()=> {
+						$(`.container .main div.questionnaire div.${type}`).data('page', 1);
+						callback && callback();
+					},
+					onLastSelect: ()=> {
+						$(`.container .main div.questionnaire div.${type}`).data('page', pages);
+						callback && callback();
+					},
+					onPrevSelect: ()=> {
+						$(`.container .main div.questionnaire div.${type}`).data('page', page > 1 ? page - 1 : 1);
+						callback && callback();
+					},
+					onNextSelect: ()=> {
+						$(`.container .main div.questionnaire div.${type}`).data('page', page < pages ? page + 1 : pages);
+						callback && callback();
+					},
+					onGoSelect: (target)=> {
+						$(`.container .main div.questionnaire div.${type}`).data('page', target);
+						callback && callback();
+					},
+				}).render());
+			},
 			setFavorate: (type, callback)=> {
 				let { entries, page, pages } = this.model.favorate[type];
 
@@ -454,14 +561,6 @@ class PersonalCenter {
 				});
 			},
 			setPagination: ()=> {
-				$('.container .main .questionnaire .forum .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
-				$('.container .main .questionnaire .my .pagination-wrapper').append(new Pagination({
-					idx: 1,
-					pages: 3,
-				}).render());
 				$('.container .main .practice .history .pagination-wrapper').append(new Pagination({
 					idx: 1,
 					pages: 3,
@@ -476,7 +575,7 @@ class PersonalCenter {
 
 	init () {
 		this.controller.getUserInfo(()=> {
-			this.controller.setPageState();
+			this.controller.renderPage();
 			this.controller.bindEvents();
 		});
 	}

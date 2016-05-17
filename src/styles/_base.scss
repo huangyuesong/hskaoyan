@@ -2,7 +2,7 @@
 @import '_amazeui';
 @import '_image';
 
-$container_width: 1280;
+$container-width: 1280;
 $color-a-hover: #0E9F4E;
 
 @mixin border-radius ($radius) {

@@ -301,19 +301,19 @@ dt {
 			margin-left: -5px;
 
 			.icon-person1 {
-				@include background(map-get($icons, icon-person1), 100%, $container_width * 0.245 / 360 * 455);
+				@include background(map-get($icons, icon-person1), 100%, $container-width * 0.245 / 360 * 455);
 			}
 
 			.icon-person2 {
-				@include background(map-get($icons, icon-person2), 100%, $container_width * 0.245 / 360 * 455);
+				@include background(map-get($icons, icon-person2), 100%, $container-width * 0.245 / 360 * 455);
 			}
 
 			.icon-person3 {
-				@include background(map-get($icons, icon-person3), 100%, $container_width * 0.245 / 360 * 455);
+				@include background(map-get($icons, icon-person3), 100%, $container-width * 0.245 / 360 * 455);
 			}
 
 			.icon-person4 {
-				@include background(map-get($icons, icon-person4), 100%, $container_width * 0.245 / 360 * 455);
+				@include background(map-get($icons, icon-person4), 100%, $container-width * 0.245 / 360 * 455);
 			}
 
 			.slogan {
