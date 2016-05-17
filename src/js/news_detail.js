@@ -20,7 +20,7 @@ let {
 	news_name,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id || !news_id || !news_name) {
+if (!college_id || !news_id || !news_name) {
 	location.href = '/forum.html';
 }
 
@@ -69,8 +69,30 @@ class NewsDetail {
 					},
 				});
 			},
+			setCollegeName: ()=> {
+				if (!college_name) {
+					$.ajax({
+						url: `${serverUrl}/board_list.php?board_id=${college_id}`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							this.model.college_name = data.list.college;
+							this.view.setCollegeName();
+						},
+						error: (xhr, status, error)=> {
+							alert('Network Error!');
+						},
+					});
+				}
+			},
 		};
 		this.view = {
+			setCollegeName: ()=> {
+				$('.container .header-forum .section5 > a').eq(1).html(this.model.college_name);
+				$('.container .header-forum .section5 > a').eq(1).prop('href', 
+					`news_college.html?college_id=${college_id}&college_name=${this.model.college_name}`);
+			},
 			setComment: ()=> {
 				let { avatar } = this.model;
 
@@ -101,6 +123,7 @@ class NewsDetail {
 
 	init () {
 		window.onLogin = this.controller.onLogin;
+		this.controller.setCollegeName();
 		this.controller.setDetail();
 	}
 }
