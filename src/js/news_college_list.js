@@ -33,6 +33,7 @@ class NewsCollegeList {
 			newsList: [],
 			pages: 1,
 			categories: [],
+			hotNewsList: [],
 		};
 		this.controller = {
 			setCategory: ()=> {
@@ -70,8 +71,45 @@ class NewsCollegeList {
 					},
 				});
 			},
+			setHotNewsList: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list.php?limit=10`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.hotNewsList = list;
+						this.view.setHotNewsList();
+					},
+					error: (xhr, status, error)=> {
+						alert('Network Error!');
+					},
+				});
+			},
 		};
 		this.view = {
+			setHotNewsList: ()=> {
+				let { hotNewsList } = this.model;
+
+				$('.container .main-wrapper ul.layout li .latest-news ul').empty().append(hotNewsList.length ? null : $(
+					`<li><p style="text-align: center; ">暂无资讯</p></li>`
+				));
+
+				hotNewsList.map(_news=> {
+					let { id, title } = _news;
+
+					let wrapper = $([
+						`<li>`,
+							`<span class="point"></span>`,
+							`<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}" title="${title}">${title}</a>`,
+						`</li>`,
+					].join(''));
+
+					$('.container .main-wrapper ul.layout li .latest-news ul').append(wrapper);
+				});
+			},
 			setCategory: ()=> {
 				let { categories } = this.model;
 
@@ -151,6 +189,7 @@ class NewsCollegeList {
 	init () {
 		this.controller.setCategory();
 		this.controller.setNewsList();
+		this.controller.setHotNewsList();
 	}
 }
 

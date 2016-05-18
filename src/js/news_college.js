@@ -259,6 +259,10 @@ class NewsCollege {
 			setOtherSite: ()=> {
 				let { linkList } = this.model;
 
+				linkList.map(_link=> {
+					_link.href = _link.url;
+				});
+
 				new OtherSite(linkList).render();
 			},
 		};

@@ -133,6 +133,7 @@ body {
 					ul li {
 						width: 100%;
 						line-height: 26px;	
+						@include text-overflow(300);
 					}
 				}
 

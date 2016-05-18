@@ -128,6 +128,10 @@ class Forum {
 			setOtherSite: ()=> {
 				let { linkList } = this.model;
 
+				linkList.map(_link=> {
+					_link.href = _link.url;
+				});
+
 				new OtherSite(linkList).render();
 
 				$('.other-site .title, .other-site .content').css({background: '#F5F5F5'});
