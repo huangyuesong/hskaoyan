@@ -5,6 +5,8 @@ import {
 	NEED_LOGIN,
 } from '../../../config';
 
+import ubbEditor from './ubbeditor/ubbEditor';
+
 export default class WriteArticle {
 	constructor (options) {
 		let { url, labels, board_id, tag, buttonText, topic_id, news_id } = options;
@@ -24,7 +26,7 @@ export default class WriteArticle {
 					`<select><option>选择主题</option></select>`,
 					`<input type="text"></input>`,
 					`<span>还可以输入<span class="count-down">50</span>个字符</span>`,
-					`<textarea></textarea>`,
+					`<textarea id="editor"></textarea>`,
 					`<span class="button">${this.buttonText}</span>`,
 				`</div>`,
 			`</div>`,
@@ -37,7 +39,7 @@ export default class WriteArticle {
 		}
 	}
 
-	render () {
+	render (wrapper) {
 		this.labels.map((_label)=> {
 			$('.content select', this.write).append($(`<option>${_label}</option>`));
 		});
@@ -59,7 +61,8 @@ export default class WriteArticle {
 
 		$('.content .button', this.write).click((evt)=> {
 			let _context = $(evt.target).parent();
-			let content = $('textarea', _context).val();
+			// let content = $('textarea', _context).val();
+			let content = nEditor.tGetUBB();
 
 			if (this.tag === '回复') {
 				if (!content) {
@@ -132,6 +135,12 @@ export default class WriteArticle {
 			}
 		});
 
-		return this.write;
+		wrapper.append(this.write);
+
+		let nEditor = new ubbEditor('editor');
+		nEditor.tLang = 'zh-cn';
+		nEditor.tToolbar = 'custom';
+		nEditor.tInit('nEditor', '/ubbeditor/');
+		return nEditor;
 	}
 }

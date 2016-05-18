@@ -331,12 +331,12 @@ class ForumArticle {
 				let { is_locked } = this.model;
 
 				if (!Number(is_locked)) {
-					$('.container > .pagination-wrapper:last-of-type').after(new WriteArticle({
+					window.nEditor = new WriteArticle({
 						url: `${serverUrl}/comment_post.php`,
 						topic_id: article_id,
 						tag: '回复',
 						buttonText: '发表回复',
-					}).render());
+					}).render($('.container > .write-wrapper'));
 				}
 			},
 			setPagination: ()=> {

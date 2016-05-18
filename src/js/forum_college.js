@@ -161,11 +161,11 @@ class ForumCollege {
 				}
 			},
 			setLabel: (labels)=> {
-				$('.container .pagination-wrapper:last-of-type').after(new WriteArticle({
+				window.nEditor = new WriteArticle({
 					url: `${serverUrl}/topic_post.php`,
 					labels: Object.keys(labels),
 					board_id: college_id,
-				}).render());
+				}).render($('.container .write-wrapper'));
 			},
 			setPagination: ()=> {
 				let { pages } = this.model;
