@@ -42,9 +42,6 @@ class NewsCollege {
 						this.model.categories = data.list;
 						this.view.setCategory();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setTopNews: ()=> {
@@ -56,9 +53,6 @@ class NewsCollege {
 					success: (data, status)=> {
 						this.model.topNews = data.list;
 						this.view.setTopNews();
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},
@@ -72,9 +66,6 @@ class NewsCollege {
 						this.model.hotNews = data.list;
 						this.view.setHotNews();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setCategoryContent: ()=> {
@@ -86,9 +77,6 @@ class NewsCollege {
 					success: (data, status)=> {
 						this.model.categoryContent = data.list;
 						this.view.setCategoryContent();
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},setOtherSite: ()=> {
@@ -102,9 +90,6 @@ class NewsCollege {
 
 						this.model.linkList = list;
 						this.view.setOtherSite();
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},

@@ -93,9 +93,6 @@ class Forum {
 						this.view.setDistrict();
 						this.view.setOtherSite();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 		};

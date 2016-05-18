@@ -46,9 +46,6 @@ class NewsCollegeList {
 						this.model.categories = data.list;
 						this.view.setCategory();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setNewsList: ()=> {
@@ -66,9 +63,6 @@ class NewsCollegeList {
 						this.view.setNewsList();
 						this.view.setPagination();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setHotNewsList: ()=> {
@@ -82,9 +76,6 @@ class NewsCollegeList {
 
 						this.model.hotNewsList = list;
 						this.view.setHotNewsList();
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},

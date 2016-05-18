@@ -78,9 +78,6 @@ class ForumCollege {
 						this.model.hotTopics = data.list;
 						this.view.setHotTopic();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setTopic: ()=> {
@@ -95,9 +92,6 @@ class ForumCollege {
 						this.view.setPagination();
 						this.view.setTopic();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setLabel: ()=> {
@@ -108,9 +102,6 @@ class ForumCollege {
 					cache: false,
 					success: (data, status)=> {
 						this.view.setLabel(data.list);
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},

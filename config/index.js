@@ -4,7 +4,7 @@ export const [SUCCESS, COMMON_ERROR, NEED_LOGIN, NEED_CAPTCHA] = [0, 1, 2, 3];
 export const serverUrl = DEVELOPMENT ? 'http://www.hskaoyan.com/html_php' : '/html_php';
 export const loginUrl = DEVELOPMENT ? 'http://www.hskaoyan.com/html_php/login_local.php' : '/html_php/login.php';
 export const imagePrefix = DEVELOPMENT ? 'http://www.hskaoyan.com/' : '';
-export const _resultCodeFilter = (()=> {
+export const _ajaxResultCodeFilter = (()=> {
 	$(document).ajaxSuccess((evt, xhr, options)=> {
 		if (url.parse(options.url, true).pathname.indexOf('user_info.php') > -1) return;
 		let { result_code } = JSON.parse(xhr.responseText);
@@ -13,13 +13,16 @@ export const _resultCodeFilter = (()=> {
 				$('#modal-login', $('.header')).modal({
 		    		relatedTarget: this,
 		    	});
-			} else if (result_code === COMMON_ERROR) {
+			} /*else if (result_code === COMMON_ERROR) {
 				alert('Server Error!');
-			}
+			}*/
 		}
 	});
 })();
-export const _devAjaxSend = (()=> {
+export const _globalErrorHandler = (()=> {
+	$(document).ajaxError((evt, xhr, options, exc)=> alert('Network Error!'));
+})();
+export const _devAjaxSendToken = (()=> {
 	DEVELOPMENT ? (()=> {
     	$(document).ajaxSend((evt, xhr, options)=> {
     		if (!window.localStorage.token) return;

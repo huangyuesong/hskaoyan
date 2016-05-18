@@ -87,9 +87,6 @@ class Forum {
 						this.model.collegeList = list;
 						this.view.setDistrict();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setOtherSite: ()=> {
@@ -103,9 +100,6 @@ class Forum {
 
 						this.model.linkList = list;
 						this.view.setOtherSite();
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},

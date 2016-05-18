@@ -65,9 +65,6 @@ class ForumArticle {
 						this.view.setComment();
 						this.view.setPagination();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setWrite: ()=> {
@@ -83,9 +80,6 @@ class ForumArticle {
 						success: (data, status)=> {
 							this.model.college_name = data.list.college;
 							this.view.setCollegeName();
-						},
-						error: (xhr, status, error)=> {
-							alert('Network Error!');
 						},
 					});
 				}

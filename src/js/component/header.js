@@ -210,9 +210,6 @@ export default $(()=> {
 								location.reload();
 							}
 						},
-						error: (xhr, status, error)=> {
-							alert('Network Error!');
-						},
 					});
 			    });
 
@@ -220,9 +217,6 @@ export default $(()=> {
 			    	window.onLogin();
 			    }
 			}
-		},
-		error: (xhr, status, error)=> {
-			alert('Network Error!');
 		},
 	});
 
@@ -281,9 +275,6 @@ export default $(()=> {
 					alert(message);
 				}
 			},
-			error: (xhr, status, error)=> {
-				alert('Network Error!');
-			},
 		});
     });
 
@@ -311,9 +302,6 @@ export default $(()=> {
 					alert(message)
 				}
 			},
-			error: (xhr, status, error)=> {
-				alert('Network Error!');
-			},
     	});
     });
 
@@ -340,9 +328,6 @@ export default $(()=> {
 				} else {
 					alert(message)
 				}
-			},
-			error: (xhr, status, error)=> {
-				alert('Network Error!');
 			},
     	});
     });
@@ -380,9 +365,6 @@ export default $(()=> {
 						alert(message);
 					}
 				},
-				error: (xhr, status, error)=> {
-					alert('Network Error!');
-				},
 			});
 		} else if (type === 'register') {
 			let username = $('#username', $('#modal-register')).val();
@@ -403,9 +385,6 @@ export default $(()=> {
 						$('.header #modal-captcha').modal('toggle');
 					}
 				},
-				error: (xhr, status, error)=> {
-					alert('Network Error!');
-				},
 	    	});
 		} else if (type === 'captcha-login') {
 			let username = $('#username', $('#modal-forget-password')).val();
@@ -425,9 +404,6 @@ export default $(()=> {
 						$('.header #modal-forget-password').modal('toggle');
 						$('.header #modal-captcha').modal('toggle');
 					}
-				},
-				error: (xhr, status, error)=> {
-					alert('Network Error!');
 				},
 	    	});
 		}
@@ -458,9 +434,6 @@ function onModalRegisterGetCaptchaClick (evt) {
 				alert(message);
 			}
 		},
-		error: (xhr, status, error)=> {
-			alert('Network Error!');
-		},
 	});
 }
 
@@ -487,9 +460,6 @@ function onModalForgetPasswordGetCaptcha (evt) {
 			} else {
 				alert(message);
 			}
-		},
-		error: (xhr, status, error)=> {
-			alert('Network Error!');
 		},
 	});
 }

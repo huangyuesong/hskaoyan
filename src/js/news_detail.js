@@ -64,9 +64,6 @@ class NewsDetail {
 
 						this.view.setDetail();
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setCollegeName: ()=> {
@@ -79,9 +76,6 @@ class NewsDetail {
 						success: (data, status)=> {
 							this.model.college_name = data.list.college;
 							this.view.setCollegeName();
-						},
-						error: (xhr, status, error)=> {
-							alert('Network Error!');
 						},
 					});
 				}

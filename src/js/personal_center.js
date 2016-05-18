@@ -156,9 +156,6 @@ class PersonalCenter {
 							location.href = 'index.html';
 						}
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setMessage: type=> {
@@ -193,9 +190,6 @@ class PersonalCenter {
 							this.view.setMessage(type, ()=> this.controller.setMessage(type));
 						}
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setArticle: (type)=> {
@@ -226,9 +220,6 @@ class PersonalCenter {
 							this.model.article[type].pages = page_count;
 							this.view.setArticle(type, ()=> this.controller.setArticle(type));
 						}
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},
@@ -264,9 +255,6 @@ class PersonalCenter {
 							this.view.setFavorate(type, ()=> this.controller.setFavorate(type));
 						}
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			},
 			setQuestionnaire: (type)=> {
@@ -297,9 +285,6 @@ class PersonalCenter {
 							this.model.questionnaire[type].pages = page_count;
 							this.view.setQuestionnaire(type, ()=> this.controller.setQuestionnaire(type));
 						}
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			},
