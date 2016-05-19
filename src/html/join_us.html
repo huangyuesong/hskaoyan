@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="form">
+		<div class="hd">
+			<p>授课老师</p>
+		</div>
+		<div class="bd">
+			<ul class="row">
+				<li>
+					<ul class="col">
+						<li>读研院校：</li>
+						<li>
+							<select id="province"><option></option></select>
+							<select id="school"></select>
+						</li>
+					</ul>
+					<ul class="col">
+						<li>目前状态：</li>
+						<li><select id="situation"></select></li>
+					</ul>
+					<ul class="col">
+						<li>读研专业：</li>
+						<li><input type="text" id="major" /></li>
+					</ul>
+					<ul class="col">
+						<li>政治成绩：</li>
+						<li>
+							<input type="text" class="score fl" id="score-zz" />
+							<input type="text" class="score fr" id="score-yy" />
+							<span class="fr">英语成绩：</span>
+						</li>
+					</ul>
+					<ul class="col">
+						<li>数学成绩：</li>
+						<li>
+							<input type="text" class="score fl" id="score-sx" />
+							<input type="text" class="score fr" id="score-zy" />
+							<span class="fr">专业成绩：</span>
+						</li>
+					</ul>
+					<ul class="col">
+						<li>专业代码：</li>
+						<li><input type="text" id="course-code" id="course-code" /></li>
+					</ul>
+					<ul class="col">
+						<li>家教经验：</li>
+						<li><input type="text" id="has-exp"></li>
+					</ul>
+					<ul class="col">
+						<li>试音文件：</li>
+						<li>
+							<input type="text" id="file-select" readonly placeholder="点击选择文件" />
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<form id="form" enctype="multipart/form-data">
+				<input type="file" id="file-input" name="file" />
+			</form>
+			<span class="button">提交</span>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,90 @@
+@import '_base';
+
+$icons: (
+
+);
+
+.container {
+	background: #454545;
+	.form {
+		width: 600px;
+		margin: 0 auto;
+		text-align: center;
+		.hd {
+			color: white;
+			background: #CA1332;
+			line-height: 50px;
+			border-top-left-radius: 20px;
+			border-top-right-radius: 20px;
+			-webkit-border-top-left-radius: 20px;
+			-webkit-border-top-right-radius: 20px;
+			-moz-border-top-left-radius: 20px;
+			-moz-border-top-right-radius: 20px;
+		}
+		.bd {
+			background: white;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			-webkit-border-bottom-left-radius: 20px;
+			-webkit-border-bottom-right-radius: 20px;
+			-moz-border-bottom-left-radius: 20px;
+			-moz-border-bottom-right-radius: 20px;
+			padding: 1px 0;
+			ul.row {
+				& > li {
+					ul.col {
+						li {
+							display: inline-block;
+						    vertical-align: middle;
+							&:first-of-type {
+								text-align: right;
+							}
+							&:last-of-type {
+								text-align: left;
+								width: 250px;
+								& > select {
+									width: 100%;
+									border: 1px solid white;
+									background: #E9A1AD;
+									&#province {
+										width: 100px;
+										display: inline-block;
+									}
+									&#school {
+										width: 145px;
+										display: inline-block;
+									}
+								}
+								& > input[type="text"] {
+									width: 100%;
+									border: 1px solid white;
+									background: #E9A1AD;
+									&.score {
+										width: 80px;
+									}
+									&#file-select {
+										cursor: pointer;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			form#form > input[type="file"] {
+				display: none;
+			}
+			.button {
+				display: inline-block;
+				width: 70px;
+				@include border-radius(15);
+				color: black;
+				background: #E9A1AD;
+				text-align: center;
+				line-height: 30px;
+				cursor: pointer;
+				font-size: 14px;
+			}
+		}
+	}
+}

@@ -315,6 +315,7 @@ class ForumArticle {
 						topic_id: article_id,
 						tag: '回复',
 						buttonText: '发表回复',
+						fileUploadUrl: `${serverUrl}/upload_file.php`,
 					}).render($('.container > .write-wrapper'));
 				}
 			},
