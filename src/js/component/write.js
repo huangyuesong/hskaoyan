@@ -2,7 +2,6 @@ import '../../styles/write.scss';
 
 import {
 	SUCCESS,
-	NEED_LOGIN,
 } from '../../../config';
 
 import ubbEditor from './ubbeditor/ubbEditor';
@@ -19,6 +18,7 @@ export default class Write {
 		this.topic_id = topic_id;
 		this.news_id = news_id;
 		this.fileUploadUrl = fileUploadUrl;
+		this.fileUploading = false;
 
 		this.write = $([
 			`<div class="write-article-wrapper">`,
@@ -39,12 +39,7 @@ export default class Write {
 					<input type="file" id="file-input" name="file" />
 				</form>
 				<button class="select-btn">添加附件</button>
-				<ul>
-					<li>
-						<span>文件名</span>
-						<a href="javascript:">删除</a>
-					</li>
-				</ul>
+				<ul></ul>
 			</div>
 		`);
 
@@ -59,12 +54,13 @@ export default class Write {
 
 	render (wrapper) {
 		$('.select-btn', this.write).click(evt=> {
+			$('#file-input', this.write).val('');
 			$('#file-input', this.write).click();
 		});
 
 		$('#file-input', this.write).change(evt=> {
+			this.fileUploading = true;
 			let form = new FormData($('form', this.write)[0]);
-			
 			$.ajax({
 				url: this.fileUploadUrl,
 				type: 'post',
@@ -74,7 +70,21 @@ export default class Write {
 				processData: false,
 				dataType: 'json',
 				success: (data, status)=> {
-					
+					this.fileUploading = false;
+					if (!data.file_name) {
+						alert('附件上传失败，请重新选择文件');
+					} else {
+						let attachment = $(`
+							<li data-file-name="${data.file_name}">
+								<span>${$(evt.target).val().replace(/C\:\\fakepath\\/, '').replace(/C\:\/fakepath\//, '')}</span>
+								<a href="javascript:">删除</a>
+							</li>
+						`);
+
+						$('a', attachment).click(evt=> $(evt.target).parent().remove());
+
+						$('.attachment-wrapper ul', this.write).append(attachment);
+					}
 				},
 			});
 		});
@@ -100,7 +110,6 @@ export default class Write {
 
 		$('.content .button', this.write).click((evt)=> {
 			let _context = $(evt.target).parent();
-			// let content = $('textarea', _context).val();
 			let content = nEditor.tGetUBB();
 
 			if (this.tag === '回复') {

@@ -32,7 +32,7 @@ class JoinUs {
 				});
 
 				$('.container form#form > input[type="file"]').change(evt=> {
-					$('.container .form .bd ul.col li #file-select').val($(evt.target).val());
+					$('.container .form .bd ul.col li #file-select').val($(evt.target).val().replace(/C\:(\\|\/)fakepath(\\|\/)/, ''));
 
 					let form = new FormData($('.container form#form')[0]);
 					this.model.fileUploading = true;

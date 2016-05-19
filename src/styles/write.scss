@@ -44,6 +44,13 @@
 	}
 
 	.attachment-wrapper {
+		margin: 15px 0;
+		a {
+			color: blue;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 		input[type="file"] {
 			display: none;
 		}

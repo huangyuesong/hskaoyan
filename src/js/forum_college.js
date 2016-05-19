@@ -186,6 +186,10 @@ class ForumCollege {
 						location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&page=${target}`;
 					},
 				}).render());
+
+				if (!pages || Number(pages) < 2) {
+					$('.container .right .forum-body .keyword-section').css({border: '0'});
+				}
 			},
 		};
 	}
