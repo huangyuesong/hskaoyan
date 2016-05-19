@@ -25,6 +25,7 @@ export const _globalErrorHandler = (()=> {
 export const _devAjaxSendToken = (()=> {
 	DEVELOPMENT ? (()=> {
     	$(document).ajaxSend((evt, xhr, options)=> {
+    		if (url.parse(options.url, true).pathname.indexOf('upload_file.php') > -1) return;
     		if (!window.localStorage.token) return;
     		if (options.type === 'GET') {
     			options.url += options.url.indexOf('&') > -1 ? `&token=${window.localStorage.token}` : 

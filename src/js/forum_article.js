@@ -5,7 +5,7 @@ import './component/header';
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
-import WriteArticle from './component/write_article';
+import Write from './component/write';
 import Pagination from './component/pagination';
 
 import {
@@ -170,9 +170,6 @@ class ForumArticle {
 								alert(message);
 							}
 						},
-						error: (xhr, status, error)=> {
-							alert('Network Error!');
-						},
 					});
 				}));
 
@@ -192,9 +189,6 @@ class ForumArticle {
 								alert(message);
 							}
 						},
-						error: (xhr, status, error)=> {
-							alert('Network Error!');
-						},
 					});
 				});
 
@@ -213,9 +207,6 @@ class ForumArticle {
 							} else {
 								alert(message);
 							}
-						},
-						error: (xhr, status, error)=> {
-							alert('Network Error!');
 						},
 					});
 				});
@@ -290,9 +281,6 @@ class ForumArticle {
 									alert(message);
 								}
 							},
-							error: (xhr, status, error)=> {
-								alert('Network Error!');
-							},
 						});
 					});
 
@@ -312,9 +300,6 @@ class ForumArticle {
 									alert(message);
 								}
 							},
-							error: (xhr, status, error)=> {
-								alert('Network Error!');
-							},
 						});
 					});
 
@@ -325,7 +310,7 @@ class ForumArticle {
 				let { is_locked } = this.model;
 
 				if (!Number(is_locked)) {
-					window.nEditor = new WriteArticle({
+					window.nEditor = new Write({
 						url: `${serverUrl}/comment_post.php`,
 						topic_id: article_id,
 						tag: '回复',

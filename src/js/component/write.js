@@ -1,4 +1,4 @@
-import '../../styles/write_article.scss';
+import '../../styles/write.scss';
 
 import {
 	SUCCESS,
@@ -7,9 +7,9 @@ import {
 
 import ubbEditor from './ubbeditor/ubbEditor';
 
-export default class WriteArticle {
+export default class Write {
 	constructor (options) {
-		let { url, labels, board_id, tag, buttonText, topic_id, news_id } = options;
+		let { url, labels, board_id, tag, buttonText, topic_id, news_id, fileUploadUrl } = options;
 
 		this.url = url || '';
 		this.labels = labels || [];
@@ -18,6 +18,7 @@ export default class WriteArticle {
 		this.buttonText = buttonText || '发表帖子';
 		this.topic_id = topic_id;
 		this.news_id = news_id;
+		this.fileUploadUrl = fileUploadUrl;
 
 		this.write = $([
 			`<div class="write-article-wrapper">`,
@@ -32,6 +33,23 @@ export default class WriteArticle {
 			`</div>`,
 		].join(''));
 
+		let attachmentWrapper = $(`
+			<div class="attachment-wrapper">
+				<form id="file-form" enctype="multipart/form-data">
+					<input type="file" id="file-input" name="file" />
+				</form>
+				<button class="select-btn">添加附件</button>
+				<ul>
+					<li>
+						<span>文件名</span>
+						<a href="javascript:">删除</a>
+					</li>
+				</ul>
+			</div>
+		`);
+
+		$('#editor', this.write).after(attachmentWrapper);
+
 		if (this.tag === '回复') {
 			$('input[type="text"]', this.write).prev().remove();
 			$('input[type="text"]', this.write).next().remove();
@@ -40,6 +58,27 @@ export default class WriteArticle {
 	}
 
 	render (wrapper) {
+		$('.select-btn', this.write).click(evt=> {
+			$('#file-input', this.write).click();
+		});
+
+		$('#file-input', this.write).change(evt=> {
+			let form = new FormData($('form', this.write)[0]);
+			
+			$.ajax({
+				url: this.fileUploadUrl,
+				type: 'post',
+				data: form,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: 'json',
+				success: (data, status)=> {
+					
+				},
+			});
+		});
+
 		this.labels.map((_label)=> {
 			$('.content select', this.write).append($(`<option>${_label}</option>`));
 		});
@@ -95,9 +134,6 @@ export default class WriteArticle {
 							alert(message);
 						}
 					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
-					},
 				});
 			} else {
 				let label = $('select', _context).val().replace('选择主题', '').replace('无', '');
@@ -127,9 +163,6 @@ export default class WriteArticle {
 						} else {
 							alert(message);
 						}
-					},
-					error: (xhr, status, error)=> {
-						alert('Network Error!');
 					},
 				});
 			}

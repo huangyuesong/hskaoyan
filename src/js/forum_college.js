@@ -6,7 +6,7 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 import Pagination from './component/pagination';
-import WriteArticle from './component/write_article';
+import Write from './component/write';
 
 import url from 'url';
 
@@ -152,10 +152,11 @@ class ForumCollege {
 				}
 			},
 			setLabel: (labels)=> {
-				window.nEditor = new WriteArticle({
+				window.nEditor = new Write({
 					url: `${serverUrl}/topic_post.php`,
 					labels: Object.keys(labels),
 					board_id: college_id,
+					fileUploadUrl: `${serverUrl}/upload_file.php`,
 				}).render($('.container .write-wrapper'));
 			},
 			setPagination: ()=> {
