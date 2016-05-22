@@ -524,7 +524,7 @@ class PersonalCenter {
 				}).render());
 			},
 			setUserInfo: ()=> {
-				let { avatar, nick_name, true_name, gender, user_tel, college } = this.model.userInfo;
+				let { avatar, nick_name, true_name, gender, user_tel, college, message_count } = this.model.userInfo;
 
 				$('.personal-center-top-bar ul li .avatar').prop('src', `${imagePrefix}${avatar}`).load();
 				$('.personal-center-top-bar ul li .nick-name').html(nick_name);
@@ -534,6 +534,9 @@ class PersonalCenter {
 				$('.container .main .setting .am-tabs-bd .profile .content li.sex input').eq(gender - 1).prop('checked', true);
 				$('.container .main .setting .am-tabs-bd .profile .content li .tel').html(user_tel);
 				$('.container .main .setting .am-tabs-bd .profile .content li .college').html(college);
+				if (message_count) {
+					$('.container .main .nav ul li .badge').html(message_count).css({display: 'inline-block'});
+				}
 			},
 			setActiveNav: ()=> {
 				$('.container .main .nav ul li').each((idx, li)=> {
