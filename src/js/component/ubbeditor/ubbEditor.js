@@ -20,7 +20,7 @@ module.exports = function ubbEditor(_id)
   this.tToolbarSets['simple'] = ['Bold','Italic','Underline','RemoveFormat','separator','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','separator','Link','Unlink','TextColor','BGColor','separator','About'];
   this.tToolbarSets['mini'] = ['Bold','Italic','Underline','RemoveFormat','separator','Link','Unlink','TextColor','BGColor','separator','About'];
   this.tToolbarSets['mico'] = ['Bold','Italic','Underline','RemoveFormat','separator','About'];
-  this.tToolbarSets['custom'] = ['Source','separator','Bold','Italic','Underline','RemoveFormat','separator','Link','Unlink','Image', 'separator','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','separator','OrderedList','UnorderedList','TextColor','BGColor'];
+  this.tToolbarSets['custom'] = ['Source','separator','Bold','Italic','Underline','TextColor','BGColor','separator','Link','Unlink','Image', 'separator','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','separator','OrderedList','UnorderedList'];
   this.tSystem = 'UBBEditor';
   this.tVersion = '1.0.1.0';
   this.tAuthor = 'Jetiben';
@@ -798,7 +798,7 @@ module.exports = function ubbEditor(_id)
       tIframe1.setAttribute('marginHeight', '3');
       tIframe1.setAttribute('allowTransparency', 'true');
       tIframe1.style.width = '100%';
-      tIframe1.style.height = (tObj1Height - this.tPanelHeight - 5) + 'px';
+      tIframe1.style.height = (tObj1Height - this.tPanelHeight - 2) + 'px';
       tIframe1.className = 'ubbEditorIframe';
       tDiv1.appendChild(tIframe1);
       var tObj3 = this.tFW(this.tid + '-iframe');
