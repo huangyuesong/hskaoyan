@@ -8,7 +8,7 @@ import ubbEditor from './ubbeditor/ubbEditor';
 
 export default class Write {
 	constructor (options) {
-		let { url, labels, board_id, tag, buttonText, topic_id, news_id, fileUploadUrl } = options;
+		let { url, labels, board_id, tag, buttonText, topic_id, news_id, fileUploadUrl, imageUploadUrl } = options;
 
 		this.url = url || '';
 		this.labels = labels || [];
@@ -18,6 +18,7 @@ export default class Write {
 		this.topic_id = topic_id;
 		this.news_id = news_id;
 		this.fileUploadUrl = fileUploadUrl;
+		this.imageUploadUrl = imageUploadUrl;
 		this.fileUploading = false;
 
 		this.write = $([
@@ -54,6 +55,10 @@ export default class Write {
 
 	render (wrapper) {
 		$('.select-btn', this.write).click(evt=> {
+			if (this.fileUploading) {
+				alert('附件正在上传，请稍后');
+				return;
+			}
 			$('#file-input', this.write).val('');
 			$('#file-input', this.write).click();
 		});
@@ -111,6 +116,11 @@ export default class Write {
 		$('.content .button', this.write).click((evt)=> {
 			let _context = $(evt.target).parent();
 			let content = nEditor.tGetUBB();
+			let attaches = [];
+
+			$('.attachment-wrapper ul li', this.write).each((_, _attach)=> {
+				attaches.push($(_attach).data('file-name'));
+			});
 
 			if (this.tag === '回复') {
 				if (!content) {
@@ -118,7 +128,10 @@ export default class Write {
 					return;
 				}
 
-				let data = {content: content};
+				let data = {
+					content: content,
+					attaches: attaches.join('//'),
+				};
 
 				if (this.topic_id) {
 					data.topic_id = this.topic_id;
@@ -161,6 +174,7 @@ export default class Write {
 						labels: label,
 						title: title,
 						content: content,
+						attaches: attaches.join('//'),
 					},
 					cache: false,
 					success: (data, status)=> {
@@ -180,6 +194,7 @@ export default class Write {
 		wrapper.append(this.write);
 
 		let nEditor = new ubbEditor('editor');
+		nEditor.imageUploadUrl = this.imageUploadUrl;
 		nEditor.tLang = 'zh-cn';
 		nEditor.tToolbar = 'custom';
 		nEditor.tInit('nEditor', '/ubbeditor/');

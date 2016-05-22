@@ -157,6 +157,7 @@ class ForumCollege {
 					labels: Object.keys(labels),
 					board_id: college_id,
 					fileUploadUrl: `${serverUrl}/upload_file.php`,
+					imageUploadUrl: `${serverUrl}/upload_image.php`,
 				}).render($('.container .write-wrapper'));
 			},
 			setPagination: ()=> {

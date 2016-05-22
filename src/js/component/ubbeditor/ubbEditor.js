@@ -1,3 +1,7 @@
+import {
+  serverUrl,
+} from '../../../../config';
+
 module.exports = function ubbEditor(_id)
 {
   this.tid = _id;
@@ -385,8 +389,12 @@ module.exports = function ubbEditor(_id)
           this.texecCommand('unlink');
           break;
         case 'Image':
-          this.tLoadImageTable();
-          this.tGetSelection();
+          if (this.imageUploading) {
+            alert('图片正在上传，请稍候');
+            return;
+          }
+          $('#image-upload-form > input').val('');
+          $('#image-upload-form > input').click();
           break;
         case 'ImageS':
           this.tLoadMaskClose();
@@ -828,6 +836,33 @@ module.exports = function ubbEditor(_id)
       this.tAttachEvent(tObj3, 'blur', this.tOnblur, tObj3Object);
       this.tAttachEvent(tObj3, 'keypress', this.tOnkeypress, tObj3Object);
       this.tSetInputValue();
+      $('body').append($(`
+        <form style="display: none; " id="image-upload-form" enctype="multipart/form-data">
+          <input type="file" name="file" accept="image/*" />
+        </form>
+      `));
+      $('#image-upload-form > input').change(evt=> {
+        this.imageUploading = true;
+        let form = new FormData($('#image-upload-form')[0]);
+        $.ajax({
+          url: `${this.imageUploadUrl} || ${serverUrl}/upload_image.php`,
+          type: 'post',
+          data: form,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: (data, status)=> {
+            this.imageUploading = false;
+            if (!data.file_name) {
+              alert('图片上传失败，请重新选择图片文件');
+            } else {
+              let { file_name } = data;
+              this.tinsertUBB(`[image]${file_name}[/image]`);
+            }
+          },
+        });
+      });
     };
   };
   this.tOnblur = function()
