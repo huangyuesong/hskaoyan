@@ -13,6 +13,7 @@ import {
 	imagePrefix,
 	SUCCESS,
 	NEED_LOGIN,
+	NEED_CAPTCHA,
 } from '../../config';
 
 import url from 'url';
@@ -99,10 +100,6 @@ class PersonalCenter {
 			bindEvents: ()=> {
 				$('.container .main .nav ul li a').click(evt=> location.reload());
 
-				$('.container .main .setting #modify').click(evt=> {
-					$('#modal-user-info').modal('toggle');
-				});
-
 				$('.modal-user-info #province').change(evt=> {
 					this.controller.setCollege($(evt.target).val());
 					if ($(evt.target).children().length - this.model.provinceList.length) {
@@ -110,9 +107,134 @@ class PersonalCenter {
 					}
 				});
 
+				$('.container .main .setting #modify').click(evt=> {
+					$('#modal-user-info').modal('toggle');
+				});
+
+				$('.container .main .setting #change-password').click(evt=> {
+					$('#modal-change-password').modal('toggle');
+				});
+
+				$('.container .main .setting #change-phone').click(evt=> {
+					$('#modal-change-phone').modal('toggle');
+				});
+
 				$('.modal-user-info .button').click(evt=> {
 					alert();
 				});
+
+				$('.modal-change-password #button').click(evt=> {
+					alert();
+				});
+
+				$('.modal-change-phone #button').click(evt=> {
+					alert();
+				});
+
+				$('.modal-captcha .button').click(evt=> {
+					let type = $('#modal-captcha #type').val();
+					let image_code = $('#image_code', $('#modal-captcha')).val();
+					let username = $('#username', $(`#modal-change-${type}`)).val();
+
+					$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}&image_code=${image_code}`, {
+			    		method: 'get',
+						dataType: 'json',
+			    		cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === NEED_CAPTCHA) {
+								$('#modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+								alert(message);
+							} else {
+								alert(message);
+								$(`#modal-change-${type}`).modal('toggle');
+								$('#modal-captcha').modal('toggle');
+							}
+						},
+			    	});
+				});
+
+				$('.modal-change-password #get-captcha').click(_onModalChangePasswordGetCaptcha);
+
+				function _onModalChangePasswordGetCaptcha (evt) {
+					let username = $('#username', $('#modal-change-password')).val();
+
+					$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
+						method: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === NEED_CAPTCHA) {
+								$('#modal-captcha #image_code').val('');
+								$('#modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+								$('#modal-captcha #type').val('password');
+								$('#modal-change-password').modal('toggle');
+								$('#modal-captcha').modal('toggle');
+							} else if (result_code === SUCCESS) {
+								countDown('modal-change-password');
+								alert(message);
+							} else {
+								alert(message);
+							}
+						},
+					});
+				}
+
+				$('.modal-change-phone #get-captcha').click(_onModalChangePhoneGetCaptcha);
+
+				function _onModalChangePhoneGetCaptcha (evt) {
+					let username = $('#username', $('#modal-change-phone')).val();
+
+					$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
+						method: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === NEED_CAPTCHA) {
+								$('#modal-captcha #image_code').val('');
+								$('#modal-captcha #captcha').prop('src', `${serverUrl}/image_code.php`).load();
+								$('#modal-captcha #type').val('phone');
+								$('#modal-change-phone').modal('toggle');
+								$('#modal-captcha').modal('toggle');
+							} else if (result_code === SUCCESS) {
+								countDown('modal-change-phone');
+								alert(message);
+							} else {
+								alert(message);
+							}
+						},
+					});
+				}
+
+				function countDown (modal) {
+					let second = 60;
+					let button = $(`.${modal} #get-captcha`);
+					button.addClass('disabled');
+					button.unbind();
+					button.text(`请等待60秒`);
+
+					let interval = setInterval(()=> {
+						--second;
+						button.text(`请等待${second}秒`);
+
+						if (second === 0) {
+							clearInterval(interval);
+							button.text(`获取验证码`);
+							button.removeClass('disabled');
+
+							if (modal === 'modal-change-password') {
+								button.click(_onModalChangePasswordGetCaptcha);
+							} else if (modal === 'modal-change-phone') {
+								button.click(_onModalChangePhoneGetCaptcha);
+							}
+						}
+					}, 1000);
+				}
 			},
 			renderPage: ()=> {
 				let { hash } = url.parse(location.href, true);
