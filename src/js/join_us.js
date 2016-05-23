@@ -1,6 +1,7 @@
 import '../styles/join_us.scss';
 
 import './component/header';
+import './component/footer';
 
 import {
 	serverUrl,
@@ -197,5 +198,7 @@ $(window).load(()=> {
 });
 
 $(()=> {
+	$('.footer').css({background: '#CA1332'});
+
 	new JoinUs().init();
 });

@@ -1,15 +1,54 @@
 @import '_base';
 
 $icons: (
-
+	icon-bg: '/images/web/join_us/bg.png',
+	icon-rect: '/images/web/join_us/rect-1.png',
+	icon-tech: '/images/web/join_us/tech.png',
+	icon-tutor: '/images/web/join_us/tutor.png',
+	icon-ads: '/images/web/join_us/ads.png',
 );
 
 .container {
 	background: #454545;
+	.icon-bg {
+		@include background(map-get($icons, icon-bg), 1280, 800);
+		margin-left: -15px;
+	}
+	.rect-wrapper {
+		text-align: center;
+		margin-top: -550px;
+		.icon-rect {
+			@include background(map-get($icons, icon-rect), 960, 660);
+		}
+	}
+	.person-wrapper {
+		text-align: center;
+		.person {
+			display: inline-block;
+			a {
+				color: white;
+				.tutor-text {
+					position: relative;
+					left: 7px;
+				}
+				.icon-tech {
+					@include background(map-get($icons, icon-tech), 50, 150);
+				}
+				.icon-tutor {
+					@include background(map-get($icons, icon-tutor), 82, 145);
+					margin: 0 115px 0 100px;
+				}
+				.icon-ads {
+					@include background(map-get($icons, icon-ads), 50, 150);
+				}
+			}
+		}
+	}
 	.form {
 		width: 600px;
 		margin: 0 auto;
 		text-align: center;
+		padding: 60px 0;
 		.hd {
 			color: white;
 			background: #CA1332;
@@ -29,7 +68,7 @@ $icons: (
 			-webkit-border-bottom-right-radius: 20px;
 			-moz-border-bottom-left-radius: 20px;
 			-moz-border-bottom-right-radius: 20px;
-			padding: 1px 0;
+			padding: 1px 0 20px 0;
 			ul.row {
 				& > li {
 					ul.col {
