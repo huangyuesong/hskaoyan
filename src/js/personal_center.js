@@ -22,6 +22,8 @@ let { page } = url.parse(location.href, true).query;
 class PersonalCenter {
 	constructor () {
 		this.model = {
+			provinceList: [],
+			collegeList: [],
 			section: 'setting',
 			userInfo: [],
 			message: {
@@ -96,10 +98,26 @@ class PersonalCenter {
 		this.controller = {
 			bindEvents: ()=> {
 				$('.container .main .nav ul li a').click(evt=> location.reload());
+
+				$('.container .main .setting #modify').click(evt=> {
+					$('#modal-user-info').modal('toggle');
+				});
+
+				$('.modal-user-info #province').change(evt=> {
+					this.controller.setCollege($(evt.target).val());
+					if ($(evt.target).children().length - this.model.provinceList.length) {
+						$(evt.target).children().eq(0).remove();
+					}
+				});
+
+				$('.modal-user-info .button').click(evt=> {
+					alert();
+				});
 			},
 			renderPage: ()=> {
 				let { hash } = url.parse(location.href, true);
 				hash ? this.model.section = hash.substring(1) : ()=> null;
+				this.controller.setProvince();
 				this.view.setActiveNav();
 				this.view.setActiveTabs();
 				this.view.setUserInfo();
@@ -155,6 +173,30 @@ class PersonalCenter {
 							alert('您还未登录，请登录后再进入个人中心');
 							location.href = 'index.html';
 						}
+					},
+				});
+			},
+			setProvince: ()=> {
+				$.ajax({
+					url: `${serverUrl}/college_ajax.php?type=province`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.provinceList = data;
+						this.view.setProvince();
+					},
+				});
+			},
+			setCollege: (province)=> {
+				$.ajax({
+					url: `${serverUrl}/college_ajax.php?type=college&value=${province}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.collegeList = data;
+						this.view.setCollege();
 					},
 				});
 			},
@@ -290,6 +332,25 @@ class PersonalCenter {
 			},
 		};
 		this.view = {
+			setCollege: ()=> {
+				let { collegeList } = this.model;
+
+				$('.modal-user-info #college').empty();
+				collegeList.map(_college=> {
+					$('.modal-user-info #college').append(`
+						<option value="${_college.value}">${_college.text}</option>
+					`);
+				});
+			},
+			setProvince: ()=> {
+				let { provinceList } = this.model;
+
+				provinceList.map(_province=> {
+					$('.modal-user-info .province').append($(`
+						<option value="${_province.value}">${_province.text}</option>
+					`));
+				});
+			},
 			setQuestionnaire: (type, callback)=> {
 				let { questionnaires, page, pages } = this.model.questionnaire[type];
 
@@ -524,19 +585,23 @@ class PersonalCenter {
 				}).render());
 			},
 			setUserInfo: ()=> {
-				let { avatar, nick_name, true_name, gender, user_tel, college, message_count } = this.model.userInfo;
+				let { avatar, nick_name, true_name, gender, user_tel, college, message_count, college_id } = this.model.userInfo;
 
 				$('.personal-center-top-bar ul li .avatar').prop('src', `${imagePrefix}${avatar}`).load();
 				$('.personal-center-top-bar ul li .nick-name').html(nick_name);
 				$('.container .main .nav .avatar-wrapper  img').prop('src', `${imagePrefix}${avatar}`).load();
 				$('.container .main .setting .am-tabs-bd .profile .content li .name').html(true_name);
 				$('.container .main .setting .am-tabs-bd .profile .content li .nick-name').html(nick_name);
-				$('.container .main .setting .am-tabs-bd .profile .content li.sex input').eq(gender - 1).prop('checked', true);
+				$('.container .main .setting .am-tabs-bd .profile .content li .gender').html(gender - 1 ? '女' : '男');
 				$('.container .main .setting .am-tabs-bd .profile .content li .tel').html(user_tel);
 				$('.container .main .setting .am-tabs-bd .profile .content li .college').html(college);
 				if (message_count) {
 					$('.container .main .nav ul li .badge').html(message_count).css({display: 'inline-block'});
 				}
+				$('.modal-user-info #nick-name').val(nick_name);
+				$('.modal-user-info #gender').prop('selectedIndex', gender - 1);
+				$('.modal-user-info #true-name').val(true_name);
+				$('.modal-user-info #college').append(`<option value=${college_id}>${college}</option>`);
 			},
 			setActiveNav: ()=> {
 				$('.container .main .nav ul li').each((idx, li)=> {

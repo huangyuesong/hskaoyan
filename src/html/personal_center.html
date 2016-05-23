@@ -35,39 +35,17 @@
 		<div class="am-tabs setting" data-am-tabs>
 		    <ul class="am-tabs-nav am-nav am-nav-tabs">
 		        <li class="am-active"><a href="javascript:">个人资料</a></li>
-		        <li class=""><a href="javascript:">修改密码</a></li>
 		    </ul>
 		    <div class="am-tabs-bd">
 		        <div class="am-tab-panel am-fade am-in am-active">
 		        	<div class="profile">
-		        		<p><a href="javascript:">修改头像</a></p>
+		        		<p><a href="javascript:" id="modify">修改资料</a></p>
 		        		<ul class="content">
-		        			<li>姓名：<span class="name">周丽</span><a style="margin: 0 10px; " href="javascript:"><i class="am-icon-edit"></i></a></li>
-		        			<li class="sex">
-		        				性别：
-		        				<span><input type="radio" name="sex"/>男</span>
-		        				<span><input type="radio" name="sex"/>女</span>
-		        			</li>
-		        			<li>慧升昵称：<span class="nick-name">未设置</span><!-- <a class="button fr" href="javascript:">去设置</a> --></li>
-		        			<li>手机号码：<span class="tel">13681568652</span><!-- <a class="button fr" href="javascript:">修改手机</a> --></li>
-		        			<li>本科院校：<span class="college">北京航空航天大学</span><!-- <a class="button fr" href="javascript:">去绑定</a> --></li>
-		        			<!-- <li>考研院校信息（完整正确设置本信息有助于我们精准为您个性化推送考研资讯和练习）</li>
-		        			<li class="select-college">
-		        				省份
-		        				<select><option>请选择</option></select>
-		        				学校
-		        				<select><option>请选择</option></select>
-		        			</li> -->
-		        		</ul>
-		        	</div>
-		        </div>
-		        <div class="am-tab-panel am-fade">
-		        	<div class="change-password">
-		        		<ul>
-		        			<li><input type="text" placeholder="请输入原密码" /></li>
-		        			<li><input type="password" placeholder="请输入新密码"/></li>
-		        			<li><input type="password" placeholder="请再次输入新密码"/></li>
-		        			<li><a class="button" href="javascript:">确认修改</a></li>
+		        			<li><span>慧升昵称：</span><span class="nick-name">未设置</span></li>
+		        			<li><span>性别：</span><span class="gender"></span></li>
+		        			<li><span>姓名：</span><span class="name">周丽</span></li>
+		        			<li><span>手机号码：</span><span class="tel">13681568652</span></li>
+		        			<li><span>本科院校：</span><span class="college">北京航空航天大学</span></li>
 		        		</ul>
 		        	</div>
 		        </div>
@@ -346,5 +324,61 @@
 		        </div>
 		    </div>
 	    </div>
+	</div>
+</div>
+<div class="am-modal" id="modal-change-password">
+	<div class="am-modal-dialog modal-change-password">
+		<div class="am-modal-hd">
+			<span class="icon icon-modal-logo"></span>
+			<span>修改密码</span>
+			<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		</div>
+		<div class="am-modal-bd">
+			<p><input type="text" placeholder="请输入手机号码" /></p>
+			<p class="al">
+				<input class="captcha" type="text" placeholder="短信验证码" />
+				<a href="javascript:"><span class="button get-captcha">获取验证码</span></a>
+			</p>
+			<p><input type="password" placeholder="请输入新密码" /></p>
+			<p><input type="password" placeholder="请再次输入新密码" /></p>
+		</div>
+	</div>
+</div>
+<div class="am-modal" id="modal-user-info">
+	<div class="am-modal-dialog modal-user-info">
+		<div class="am-modal-hd">
+			<span class="icon icon-edit"></span>
+			<span>修改资料</span>
+			<a href="javascript:" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		</div>
+		<div class="am-modal-bd">
+			<ul class="layout">
+				<li class="left">慧升昵称</li>
+				<li class="right"><input type="text" id="nick-name" /></li>
+			</ul>
+			<ul class="layout">
+				<li class="left">性别</li>
+				<li class="right">
+					<select id="gender"><option>男</option><option>女</option></select>
+				</li>
+			</ul>
+			<ul class="layout">
+				<li class="left">姓名</li>
+				<li class="right"><input type="text" id="true-name" /></li>
+			</ul>
+			<ul class="layout">
+				<li class="left">本科院校</li>
+				<li class="right">
+					<select class="province" id="province"><option></option></select>
+					<select class="college" id="college"></select>
+				</li>
+			</ul>
+			<ul class="layout">
+				<li class="left"></li>
+				<li class="right">
+					<span class="button">确定</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>
