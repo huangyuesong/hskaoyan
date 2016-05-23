@@ -792,11 +792,13 @@ module.exports = function ubbEditor(_id)
       tDiv1.appendChild(tDiv3);
       var tTextarea1 = document.createElement('textarea');
       tTextarea1.setAttribute('id', this.tid + '-textarea');
-      tTextarea1.style.width = tObj1Width + 'px';
-      tTextarea1.style.maxWidth = tObj1Width + 'px';
-      tTextarea1.style.height = (tObj1Height - this.tPanelHeight - 5) + 'px';
-      tTextarea1.style.maxHeight = (tObj1Height - this.tPanelHeight - 5) + 'px';
+      tTextarea1.style.width = (tObj1Width - 2) + 'px';
+      tTextarea1.style.maxWidth = (tObj1Width - 2) + 'px';
+      tTextarea1.style.height = (tObj1Height - this.tPanelHeight - 2) + 'px';
+      tTextarea1.style.maxHeight = (tObj1Height - this.tPanelHeight - 2) + 'px';
       tTextarea1.style.display = 'none';
+      tTextarea1.style.position = 'relative';
+      tTextarea1.style.top = '0';
       tTextarea1.className = 'ubbEditorTextarea';
       tDiv1.appendChild(tTextarea1);
       var tIframe1 = document.createElement('iframe');
