@@ -120,7 +120,30 @@ class PersonalCenter {
 				});
 
 				$('.modal-user-info .button').click(evt=> {
-					alert();
+					let nick_name = $('.modal-user-info #nick-name').val();
+					let gender = Number($('.modal-user-info #gender').prop('selectedIndex')) + 1;
+					let true_name = $('.modal-user-info #true-name').val();
+					let college_id = $('.modal-user-info #college').val();
+
+					$.ajax(`${serverUrl}/user_info_update.php`, {
+			    		method: 'post',
+			    		data: {
+			    			nick_name: nick_name,
+			    			gender: gender,
+			    			true_name: true_name,
+			    			college_id: college_id,
+			    		},
+						dataType: 'json',
+			    		cache: false,
+						success: (data, status)=> {
+							let { result, message } = data;
+
+							alert(message);
+							if (result === SUCCESS) {
+								location.reload();
+							}
+						},
+			    	});
 				});
 
 				$('.modal-change-password #button').click(evt=> {
@@ -128,7 +151,28 @@ class PersonalCenter {
 				});
 
 				$('.modal-change-phone #button').click(evt=> {
-					alert();
+					let username = $('.modal-change-phone #username').val();
+			    	let captcha = $('.modal-change-phone #captcha').val();
+
+			    	$.ajax(`${serverUrl}/register.php`, {
+			    		method: 'post',
+			    		data: {
+			    			user_tel: username,
+			    			phone_code: captcha,
+			    		},
+						dataType: 'json',
+			    		cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === SUCCESS) {
+								alert('修改手机号成功');
+								location.reload();
+							} else {
+								alert(message);
+							}
+						},
+			    	});
 				});
 
 				$('.modal-captcha .button').click(evt=> {
