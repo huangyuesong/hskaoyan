@@ -134,7 +134,9 @@ class PersonalCenter {
 				$('.modal-captcha .button').click(evt=> {
 					let type = $('#modal-captcha #type').val();
 					let image_code = $('#image_code', $('#modal-captcha')).val();
-					let username = $('#username', $(`#modal-change-${type}`)).val();
+					let username = type === 'password' ? 
+						$('#username', $('#modal-change-password')).text() : 
+						$('#username', $('#modal-change-phone')).val();
 
 					$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}&image_code=${image_code}`, {
 			    		method: 'get',
@@ -158,7 +160,7 @@ class PersonalCenter {
 				$('.modal-change-password #get-captcha').click(_onModalChangePasswordGetCaptcha);
 
 				function _onModalChangePasswordGetCaptcha (evt) {
-					let username = $('#username', $('#modal-change-password')).val();
+					let username = $('#username', $('#modal-change-password')).text();
 
 					$.ajax(`${serverUrl}/phone_code.php?user_tel=${username}`, {
 						method: 'get',
@@ -724,6 +726,7 @@ class PersonalCenter {
 				$('.modal-user-info #gender').prop('selectedIndex', gender - 1);
 				$('.modal-user-info #true-name').val(true_name);
 				$('.modal-user-info #college').append(`<option value=${college_id}>${college}</option>`);
+				$('.modal-change-password #username').text(user_tel);
 			},
 			setActiveNav: ()=> {
 				$('.container .main .nav ul li').each((idx, li)=> {
