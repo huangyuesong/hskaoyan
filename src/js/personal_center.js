@@ -5,6 +5,9 @@ import './component/footer';
 import 'amazeui';
 import 'amazeui-switch';
 import 'amazeui-switch/amazeui.switch.css';
+import 'jquery-cropbox';
+import 'jquery-cropbox/jquery.cropbox.min.css';
+import 'jquery-mousewheel';
 
 import Pagination from './component/pagination';
 
@@ -281,6 +284,37 @@ class PersonalCenter {
 						}
 					}, 1000);
 				}
+
+				$('.container .main .nav .avatar-wrapper img').click(evt=> {
+					let avatar = $(evt.target);
+					avatar.siblings().eq(0).click().change(evt=> {
+						let _img = evt.target.files[0];
+						let fileReader = new FileReader();
+
+						fileReader.onload = ()=> {
+							$.fn.hammer = null;
+							$('.container .main .nav').css({height: '528px'});
+							$('.container .main .nav p.ok-wrapper').show();
+
+							avatar.prop('src', fileReader.result).load()
+							.cropbox({
+								width: 120,
+								height: 120,
+								showControls: 'always',
+							});
+
+							$('span', avatar.next().eq(0)).text('拖拽剪裁,滚轮缩放');
+							$('a', avatar.next()).remove();
+						};
+
+						fileReader.readAsDataURL(_img);
+					});
+				});
+
+				$('.container .main .nav .avatar-wrapper #ok').click(evt=> {
+					let img = $('.container .main .nav .avatar-wrapper img').data('cropbox').getDataURL();
+					alert(img);
+				});
 			},
 			renderPage: ()=> {
 				let { hash } = url.parse(location.href, true);
