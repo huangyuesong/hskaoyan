@@ -1,7 +1,6 @@
 import '../styles/news_college.scss';
 
 import './component/header';
-
 import './component/footer';
 
 import HeaderForum from './component/header_forum';

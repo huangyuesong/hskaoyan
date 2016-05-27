@@ -1,11 +1,14 @@
 import '../styles/material_college.scss';
 
 import './component/header';
-
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
 import OtherSite from './component/other_site';
+
+import {
+	serverUrl,
+} from '../../config';
 
 import url from 'url';
 
@@ -16,6 +19,86 @@ let {
 
 if (!college_name || !college_id) {
 	location.href = '/forum.html';
+}
+
+class MaterialCollege {
+	constructor () {
+		this.model = {
+			linkList: [],
+			courseList: [],
+		};
+		this.controller = {
+			setOtherSite: ()=> {
+				$.ajax({
+					url: `${serverUrl}/flink_list.php?limit=18`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.linkList = list;
+						this.view.setOtherSite();
+					},
+				});
+			},
+			setCourseList: ()=> {
+				$.ajax({
+					url: `${serverUrl}/course_list.php?board_id=${college_id}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.courseList = list;
+						this.view.setCourseList();
+					},
+				});
+			},
+		};
+		this.view = {
+			setOtherSite: ()=> {
+				let { linkList } = this.model;
+
+				linkList.map(_link=> {
+					_link.href = _link.url;
+				});
+
+				new OtherSite(linkList).render();
+			},
+			setCourseList: ()=> {
+				let { courseList } = this.model;
+
+				$('.container .department-wrapper .content').empty();
+				while (courseList.length) {
+					let _row = $(`<div class="row"></div>`);
+
+					courseList.splice(0, 5).map(_course=> {
+						let { course_code, course, id} = _course;
+
+						_row.append($(`
+							<div class="department">
+								<div class="name-wrapper">
+									<a href="javascript:" title="${course}">${course_code}${course}</a>
+								</div>
+								<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
+								<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
+								<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
+							</div>
+						`));
+					});
+
+					$('.container .department-wrapper .content').append(_row);
+				}
+			},
+		};
+	}
+
+	init () {
+		this.controller.setOtherSite();
+		this.controller.setCourseList();
+	}
 }
 
 $(window).load(()=> {
@@ -34,17 +117,13 @@ $(()=> {
 		},
 	]).render();
 
-	new OtherSite([
-		{name: '百度', href: 'http://www.baidu.com'},
-		{name: '百度', href: 'http://www.baidu.com'},
-		{name: '百度', href: 'http://www.baidu.com'},
-	]).render();
-
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
 		color: '#9E9E9E',
 	});
+
+	new MaterialCollege().init();
 
 	for (let i = 0; i < 4; ++i) {
 		$('.introduction .center .upper ul').append($('.introduction .center .upper ul li').eq(0).clone());
@@ -56,13 +135,5 @@ $(()=> {
 
 	for (let i = 0; i < 7; ++i) {
 		$('.introduction .right').append($('.introduction .right p').eq(1).clone());
-	}
-
-	for (let i = 0; i < 4; ++i) {
-		$('.department-wrapper .content .row').append($('.department-wrapper .content .row .department').eq(i).clone());
-	}
-
-	for (let i = 0; i < 2; ++i) {
-		$('.department-wrapper .content').append($('.department-wrapper .content .row').eq(i).clone());
 	}
 });
