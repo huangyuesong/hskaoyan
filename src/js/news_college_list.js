@@ -150,26 +150,26 @@ class NewsCollegeList {
 				let idx = Number(page) || 1;
 				pages = Number(pages) || 1;
 
-				$('.container .pagination-wrapper').html(new Pagination({
+				$('.pagination-wrapper').append(new Pagination({
 					idx: idx,
 					pages: pages,
 					onPageSelect: (page)=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${page}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${page}`);
 					},
 					onFirstSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=1`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=1`);
 					},
 					onLastSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${pages}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${pages}`);
 					},
 					onPrevSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${idx > 1 ? idx - 1 : 1}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx > 1 ? idx - 1 : 1}`);
 					},
 					onNextSelect: ()=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${idx < pages ? idx + 1 : pages}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx < pages ? idx + 1 : pages}`);
 					},
 					onGoSelect: (target)=> {
-						location.href = `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${category_id}&category_name=${category_name}&page=${target}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${target}`);
 					},
 				}).render());
 			},

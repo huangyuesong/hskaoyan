@@ -328,22 +328,22 @@ class ForumArticle {
 					idx: idx,
 					pages: pages,
 					onPageSelect: (page)=> {
-						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${page}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${page}`);
 					},
 					onFirstSelect: ()=> {
-						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${1}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=1`);
 					},
 					onLastSelect: ()=> {
-						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${pages}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${pages}`);
 					},
 					onPrevSelect: ()=> {
-						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${idx > 1 ? idx - 1 : 1}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx > 1 ? idx - 1 : 1}`);
 					},
 					onNextSelect: ()=> {
-						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${idx < pages ? idx + 1 : pages}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx < pages ? idx + 1 : pages}`);
 					},
 					onGoSelect: (target)=> {
-						location.href = `forum_article.html?article_id=371&college_id=${college_id}&college_name=${college_name}&page=${target}`;
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${target}`);
 					},
 				}).render());
 			},
