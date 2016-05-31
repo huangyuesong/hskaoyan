@@ -80,11 +80,11 @@ class MaterialCollege {
 						_row.append($(`
 							<div class="department">
 								<div class="name-wrapper">
-									<a href="javascript:" title="${course}">${course_code}${course}</a>
+									<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" title="${course}">${course_code}${course}</a>
 								</div>
-								<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
-								<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
-								<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
+								<a href="material_course.html?material_type=本科课件&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
+								<a href="material_course.html?material_type=练习习题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
+								<a href="material_course.html?material_type=历年真题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
 							</div>
 						`));
 					});

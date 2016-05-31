@@ -5,18 +5,66 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 
+import {
+	serverUrl,
+} from '../../config';
+
 import url from 'url';
 
 let {
 	college_name,
 	college_id,
-	course,
-	material_id,
-	material_name,
+	course_id,
+	course_code,
+	course_name,
+	file_id,
+	file_name,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id || !course || !material_id) {
+if (!college_name || !college_id || !course_name || !file_id) {
 	location.href = '/forum.html';
+}
+
+class MaterialDownload {
+	constructor () {
+		this.model = {
+			file_desc: [],
+		};
+		this.controller = {
+			setFileDesc: ()=> {
+				$.ajax({
+					url: `${serverUrl}/file_view.php?file_id=${file_id}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.file_desc = list;
+						this.view.setFileDesc();
+					},
+				});
+			},
+		};
+		this.view = {
+			setFileDesc: ()=> {
+				let { file_size, down_count, file_describe, pub_time, file_path, id } = this.model.file_desc;
+
+				$('.container .material-wrapper .content table tbody').empty().append($(`
+					<tr><td>文件大小&nbsp;:&nbsp;</td><td>${file_size}</td></tr>
+					<tr><td>下载次数&nbsp;:&nbsp;</td><td>${down_count}</td></tr>
+					<tr><td>文件描述&nbsp;:&nbsp;</td><td>${file_describe}</td></tr>
+					<tr><td>上传时间&nbsp;:&nbsp;</td><td>${pub_time}</td></tr>
+				`));
+
+				$('#download-link').prop('href', serverUrl.concat(`/download.php?file_id=${id}`));
+			},
+		};
+	}
+
+	init () {
+		this.controller.setFileDesc();
+	}
 }
 
 $(window).load(()=> {
@@ -34,11 +82,11 @@ $(()=> {
 			href: `material_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 		{
-			name: `${course}`,
-			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course=${course}`,
+			name: `${course_name}`,
+			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course_id=${course_id}&course_code=${course_code}&course_name=${course_name}`,
 		},
 		{
-			name: `${material_name}`,
+			name: `${file_name}`,
 			href: `javascript:`,
 		},
 	]).render();
@@ -55,8 +103,5 @@ $(()=> {
 		background: 'white',
 	}));
 
-	for (let i = 0; i < 10; ++i) {
-		$('ul.knowledge-point-wrapper')
-			.append($('ul.knowledge-point-wrapper li').eq(i).clone());
-	}
+	new MaterialDownload().init();
 });

@@ -238,7 +238,7 @@ body {
 							@include text-overflow(150);
 
 							&:hover {
-								cursor: default;
+								text-decoration: underline;
 							}
 						}
 					}
