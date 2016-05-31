@@ -72,6 +72,7 @@ class Forum {
 		this.model = {
 			collegeList: [],
 			linkList: [],
+			pub_board: [],
 		};
 		this.controller = {
 			setData: ()=> {
@@ -81,10 +82,12 @@ class Forum {
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { list } = data;
+						let { list, pub_board } = data;
 
 						this.model.collegeList = list;
+						this.model.pub_board = pub_board;
 						this.view.setDistrict();
+						this.view.setPublic();
 					},
 				});
 			},
@@ -104,6 +107,33 @@ class Forum {
 			},
 		};
 		this.view = {
+			setPublic: ()=> {
+				let { pub_board } = this.model;
+
+				$('.container .common-course .content').empty();
+				while (pub_board.length) {
+					let _row = $(`<div class="row"></div>`);
+
+					pub_board.splice(0, 5).map(_pub=> {
+						let { id, board } = _pub;
+
+						_row.append($(`
+							<div class="school">
+								<div class="name-wrapper">
+									<a href="javascript:" title="${board}">
+										${board}
+									</a>
+								</div>
+								<a href="forum_college.html?college_id=${id}&college_name=${board}" class="link">论坛</a>
+								<a href="news_college.html?college_id=${id}&college_name=${board}" class="link">资讯</a>
+								<a href="material_college.html?college_id=${id}&college_name=${board}" class="link">资料</a>
+							</div>
+						`));
+
+						$('.container .common-course .content').append(_row);
+					});
+				}
+			},
 			setDistrict: ()=> {
 				let { collegeList } = this.model;
 

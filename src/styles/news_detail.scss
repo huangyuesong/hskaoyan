@@ -167,7 +167,14 @@ body {
 		}
 	}
 
-	.comment {
+	.comment-wrapper {
+		background: white;
+		padding: 20px 15px;
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		margin: 20px 0;
+	}
+
+	.write-comment {
 		background: white;
 		margin: 20px 0;
 		border: 2px solid rgba(0, 0, 0, 0.2);

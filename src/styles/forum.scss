@@ -1,9 +1,6 @@
 @import '_base';
 
 $icons: (
-	icon-communication: '/images/web/forum/communication.png',
-	icon-practice: '/images/web/forum/practice.png',
-	icon-waiting: '/images/web/forum/waiting.png',
 	icon-search: '/images/web/forum/search.png',
 );
 
@@ -30,49 +27,34 @@ $icons: (
 		}
 
 		.content {
-			border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
-			padding: 20px 30px;
-			text-align: center;
-
-			.area {
-				display: inline-block;
-				width: 300px;
-				text-align: left;
-
-				.icon-communication {
-					@include background(map-get($icons, icon-communication), 85, 85, 39, 35);
-					background-color: #EEEEEE;
-					margin-right: 10px;
-				}
-
-				.icon-practice {
-					@include background(map-get($icons, icon-practice), 85, 85, 29, 33);
-					background-color: #EEEEEE;
-					margin-right: 10px;
-				}
-
-				.icon-waiting {
-					@include background(map-get($icons, icon-waiting), 85, 85, 36, 25);
-					background-color: #EEEEEE;
-					margin-right: 10px;
-				}
-
-				p {
+			padding: 10px 0;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			border-top: 0;
+			.row {
+				border-bottom: 1px dashed #888888;
+				position: relative;
+				.school {
+				    margin: 10px 0;
 					font-size: 14px;
-					color: #5e5e5e;
-					 @include text-overflow(186);
-
-					 a:hover {
-					 	text-decoration: underline;
-					 }
-				}
-
-				.name {
-					
-					a, span {
-						color: #f6211c;
-						font-size: 16px;
+					display: inline-block;
+					width: 20%;
+					padding-left: 30px;
+					.name-wrapper {
+						a {
+							color: #2d7bbd;
+							display: inline-block;
+							@include text-overflow(150);
+							&:hover {
+								cursor: default;
+							}
+						}
 					}
+					a {
+						margin-right: 5px;
+					}
+				}
+				&:last-of-type {
+					border: 0;
 				}
 			}
 		}

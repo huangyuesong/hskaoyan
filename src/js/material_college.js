@@ -71,25 +71,32 @@ class MaterialCollege {
 				let { courseList } = this.model;
 
 				$('.container .department-wrapper .content').empty();
-				while (courseList.length) {
-					let _row = $(`<div class="row"></div>`);
 
-					courseList.splice(0, 5).map(_course=> {
-						let { course_code, course, id} = _course;
+				if (!courseList.length) {
+					$('.container .department-wrapper .content').append($(`
+						<p class="text-align: center; line-height: 30px; ">暂无课程</p>
+					`));
+				} else {
+					while (courseList.length) {
+						let _row = $(`<div class="row"></div>`);
 
-						_row.append($(`
-							<div class="department">
-								<div class="name-wrapper">
-									<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" title="${course}">${course_code}${course}</a>
+						courseList.splice(0, 5).map(_course=> {
+							let { course_code, course, id} = _course;
+
+							_row.append($(`
+								<div class="department">
+									<div class="name-wrapper">
+										<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" title="${course}">${course_code}${course}</a>
+									</div>
+									<a href="material_course.html?material_type=本科课件&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
+									<a href="material_course.html?material_type=练习习题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
+									<a href="material_course.html?material_type=历年真题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
 								</div>
-								<a href="material_course.html?material_type=本科课件&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
-								<a href="material_course.html?material_type=练习习题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
-								<a href="material_course.html?material_type=历年真题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
-							</div>
-						`));
-					});
+							`));
+						});
 
-					$('.container .department-wrapper .content').append(_row);
+						$('.container .department-wrapper .content').append(_row);
+					}
 				}
 			},
 		};
