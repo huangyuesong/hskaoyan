@@ -4,7 +4,6 @@ $icons: (
 	icon-banner: '/images/web/news_detail/banner.png',
 	icon-ad: '/images/web/news_detail/ad.png',
 	icon-temp: '/images/web/news_detail/temp.png',
-	icon-avatar: '/images/web/news_detail/temp.png',
 	icon-star: '/images/web/forum_article/star.png',
 	icon-good: '/images/web/forum_article/good.png',
 );
@@ -62,6 +61,35 @@ body {
 						color: white;
 						background: #D80B2A;
 						padding: 2px 5px;
+					}
+				}
+
+				.operation {
+					text-align: center;
+					a {
+						font-size: 14px;
+						margin: 0 10px;
+						&:last-of-type span {
+							color: red;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+						.collect {
+							display: inline-block;
+							width: 85px;
+							line-height: 32px;
+							@include border-radius(5);
+							background: #e6edf2;
+							text-align: center;
+							.icon {
+								position: relative;
+								top: -3px;
+							}
+							.icon-star {
+								@include background(map-get($icons, icon-star), 16, 16);
+							}
+						}
 					}
 				}
 
@@ -185,9 +213,6 @@ body {
 				&.left {
 					width: 50px;
 				    vertical-align: top;
-					.icon-avatar {
-						@include background(map-get($icons, icon-avatar), 50, 50);
-					}
 				}
 				&.right {
 					width: 700px;
@@ -211,15 +236,11 @@ body {
 										color: $color-a-hover;
 									}
 								}
-								.favorate, .good {
+								.good {
 									.icon {
 										position: relative;
 										top: -3px;
 									}
-									.icon-star {
-										@include background(map-get($icons, icon-star), 16, 16);
-									}
-
 									.icon-good {
 										@include background(map-get($icons, icon-good), 14, 17);
 									}

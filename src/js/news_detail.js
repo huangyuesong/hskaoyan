@@ -5,10 +5,12 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 import Write from './component/write';
+import Pagination from './component/pagination';
 
 import {
 	serverUrl,
 	imagePrefix,
+	SUCCESS,
 } from '../../config';
 
 import url from 'url';
@@ -18,6 +20,7 @@ let {
 	college_id,
 	news_id,
 	news_name,
+	page,
 } = url.parse(location.href, true).query;
 
 if (!college_id || !news_id || !news_name) {
@@ -35,6 +38,9 @@ class NewsDetail {
 			edit_time: '',
 			media: 0,
 			content: '',
+			mark_value: 0,
+			comment_list: [],
+			pages: 1,
 		};
 		this.controller = {
 			setHotNewsList: ()=> {
@@ -51,14 +57,16 @@ class NewsDetail {
 					},
 				});
 			},
-			setDetail: ()=> {
+			setDetailAndComment: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_view.php?news_id=${news_id}`,
+					url: `${serverUrl}/news_view.php?news_id=${news_id}&page=${page}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						let { title, author, is_locked, comment_count, edit_time, media, content } = data.news_array;
+						let { title, author, is_locked, comment_count, edit_time, 
+							media, content, mark_value, comment_list } = data.news_array;
+						let { page_count } = data;
 
 						this.model.title = title;
 						this.model.author = author;
@@ -67,8 +75,14 @@ class NewsDetail {
 						this.model.edit_time = edit_time;
 						this.model.media = media;
 						this.model.content = content;
+						this.model.mark_value = mark_value;
+						this.model.comment_list = comment_list;
+						this.model.pages = page_count;
 
 						this.view.setDetail();
+						this.view.setComment(()=> {
+							this.view.setCommentPagination();
+						});
 					},
 				});
 			},
@@ -91,6 +105,93 @@ class NewsDetail {
 			},
 		};
 		this.view = {
+			setCommentPagination: ()=> {
+				let { pages } = this.model;
+				let idx = Number(page) || 1;
+				pages = Number(pages) || 1;
+
+				$('.pagination-wrapper').append(new Pagination({
+					idx: idx,
+					pages: pages,
+					onPageSelect: (page)=> {
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${page}`);
+					},
+					onFirstSelect: ()=> {
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=1`);
+					},
+					onLastSelect: ()=> {
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${pages}`);
+					},
+					onPrevSelect: ()=> {
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx > 1 ? idx - 1 : 1}`);
+					},
+					onNextSelect: ()=> {
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx < pages ? idx + 1 : pages}`);
+					},
+					onGoSelect: (target)=> {
+						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${target}`);
+					},
+				}).render());
+			},
+			setComment: (callback)=> {
+				let { comment_list } = this.model;
+
+				$('.container .comment-wrapper').empty();
+				comment_list.map(_comment=> {
+					let { avatar, id, is_liked, nick_name, pub_time, content } = _comment;
+
+					let wrapper = $(`
+						<div class="comment-entry">
+				            <div class="left">
+				                <img src="${imagePrefix}${avatar}" width="50" height="50">
+				            </div>
+				            <div class="right">
+				                <ul>
+				                    <li>
+				                        <span class="nick-name">${nick_name}</span>
+				                        <span class="pub-time fr">${pub_time}</span>
+				                    </li>
+				                    <li>${content}</li>
+				                    <li>
+				                        <a href="javascript:" id="like">
+				                        	<span class="good">
+				                        		<span class="icon icon-good"></span>
+				                        		${Number(is_liked) ? '取消点赞': '点赞'}
+				                        	</span>
+				                        </a>
+				                        <a href="javascript:">举报</a>
+				                    </li>
+				                </ul>
+				            </div>
+				        </div>
+					`);
+
+					$('#like', wrapper).click(evt=> {
+						$.ajax({
+							url: `${serverUrl}/user_like.php?comment_id=${id}&is_liked=${Number(is_liked) ? 0 : 1}`,
+							type: 'get',
+							dataType: 'json',
+							cache: false,
+							success: (data, status)=> {
+								let { result_code, message } = data;
+
+								if (result_code === SUCCESS) {
+									alert(message);
+									location.reload();
+								} else {
+									alert(message);
+								}
+							},
+						});
+					});
+
+					$('.container .comment-wrapper').append(wrapper);
+				});
+
+				$('.container .comment-wrapper').append($(`<div class="pagination-wrapper"></div>`));
+
+				callback && callback();
+			},
 			setWrite: ()=> {
 				window.nEditor = new Write({
 					url: `${serverUrl}/comment_post.php`,
@@ -109,7 +210,7 @@ class NewsDetail {
 					`news_college.html?college_id=${college_id}&college_name=${this.model.college_name}`);
 			},
 			setDetail: ()=> {
-				let { title, author, is_locked, comment_count, edit_time, content } = this.model;
+				let { title, author, is_locked, comment_count, edit_time, content, mark_value } = this.model;
 
 				let detailWrapper = $([
 					`<p class="news-name">${title}</p>`,
@@ -120,10 +221,40 @@ class NewsDetail {
 						`<a class="college-link" 
 							href="news_college.html?college_id=${college_id}&college_name=${college_name}">${college_name}</a>`,
 					`</p>`,
+					`
+					<p class="operation">
+	                    <a href="javascript:" id="favorate">
+	                    	<span class="collect">
+	                    		<span class="icon icon-star"></span>
+	                    		${Number(mark_value) ? '取消收藏' : '收藏'}
+	                    	</span>
+	                    </a>
+	                    <a href="javascript:"><span>举报</span></a>
+	                </p>
+					`,
 					`<div class="news-content">`,
 						`<p>${content}</p>`,
 					`</div>`,
 				].join(''));
+
+				$('#favorate', detailWrapper).click(evt=> {
+					$.ajax({
+						url: `${serverUrl}/mark_item.php?mark_id=${news_id}&type=2&value=${Number(mark_value) ? 0 : 1}`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === SUCCESS) {
+								alert(message.replace('标记', '收藏'));
+								location.reload();
+							} else {
+								alert(message);
+							}
+						},
+					});
+				});
 
 				$('.container .main-wrapper .left').empty();
 				$('.container .main-wrapper .left').append(detailWrapper);
@@ -154,7 +285,7 @@ class NewsDetail {
 	init () {
 		this.controller.setHotNewsList();
 		this.controller.setCollegeName();
-		this.controller.setDetail();
+		this.controller.setDetailAndComment();
 		this.controller.setWrite();
 	}
 }

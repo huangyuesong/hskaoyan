@@ -338,6 +338,10 @@ class PersonalCenter {
 					let img = $('.container .main .nav .avatar-wrapper img').data('cropbox').getDataURL();
 					alert(img);
 				});
+
+				$('.container .main .nav .avatar-wrapper #cancel').click(evt=> {
+					location.reload();
+				});
 			},
 			renderPage: ()=> {
 				let { hash } = url.parse(location.href, true);
