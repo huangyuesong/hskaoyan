@@ -4,6 +4,9 @@ $icons: (
 	icon-banner: '/images/web/news_detail/banner.png',
 	icon-ad: '/images/web/news_detail/ad.png',
 	icon-temp: '/images/web/news_detail/temp.png',
+	icon-avatar: '/images/web/news_detail/temp.png',
+	icon-star: '/images/web/forum_article/star.png',
+	icon-good: '/images/web/forum_article/good.png',
 );
 
 .point {
@@ -157,6 +160,7 @@ body {
 					ul li {
 						width: 100%;
 						line-height: 26px;
+						@include text-overflow(300);
 					}
 				}
 
@@ -172,49 +176,58 @@ body {
 		padding: 20px 15px;
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin: 20px 0;
-	}
-
-	.write-comment {
-		background: white;
-		margin: 20px 0;
-		border: 2px solid rgba(0, 0, 0, 0.2);
-		padding: 20px 50px;
-
-		.top {
-			font-weight: bold;
-		}
-
-		& > div {
-			width: 680px;
-			height: 300px;
-
-			p {
-				margin-bottom: 15px;
-			}
-
-			img {
-				width: 50px;
-				height: 50px;
-			}
-
-			textarea {
-				width: 600px;
-			    height: 200px;
-			    resize: none;
-			    margin-left: 15px;
-			}
-
-			.button {
+		.comment-entry {
+			display: inline-block;
+		    border-bottom: 1px dotted #d9d9d9;
+		    padding-bottom: 10px;
+			& > div {
 				display: inline-block;
-				width: 90px;
-				@include border-radius(5);
-				color: white;
-				background: #3CAEFF;
-				text-align: center;
-				line-height: 35px;
-				cursor: pointer;
-				font-size: 18px;
-				margin: 10px;
+				&.left {
+					width: 50px;
+				    vertical-align: top;
+					.icon-avatar {
+						@include background(map-get($icons, icon-avatar), 50, 50);
+					}
+				}
+				&.right {
+					width: 700px;
+					padding: 0 15px;
+					ul {
+						li {
+							&:nth-of-type(1) {
+								font-size: 14px;
+								color: #b8b8b8;
+							}
+							&:nth-of-type(2) {
+								padding: 10px 0;
+							}
+							&:nth-of-type(3) {
+								text-align: right;
+								font-size: 14px;
+								a {
+									margin-left: 10px;
+									color: #b8b8b8;
+									&:hover {
+										color: $color-a-hover;
+									}
+								}
+								.favorate, .good {
+									.icon {
+										position: relative;
+										top: -3px;
+									}
+									.icon-star {
+										@include background(map-get($icons, icon-star), 16, 16);
+									}
+
+									.icon-good {
+										@include background(map-get($icons, icon-good), 14, 17);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}

@@ -46,7 +46,7 @@ export default class Write {
 
 		$('#editor', this.write).after(attachmentWrapper);
 
-		if (this.tag === '回复') {
+		if (this.tag === '回复' || this.tag === '评论资讯') {
 			$('input[type="text"]', this.write).prev().remove();
 			$('input[type="text"]', this.write).next().remove();
 			$('input[type="text"]', this.write).remove();
@@ -131,15 +131,35 @@ export default class Write {
 				let data = {
 					content: content,
 					attaches: attaches.join('//'),
+					topic_id: this.topic_id,
 				};
 
-				if (this.topic_id) {
-					data.topic_id = this.topic_id;
+				$.ajax({
+					url: this.url,
+					type: 'post',
+					data: data,
+					cache: false,
+					success: (data, status)=> {
+						let { result_code, message } = JSON.parse(data);
+
+						if (result_code === SUCCESS) {
+							alert('发表成功');
+							location.reload();
+						} else  {
+							alert(message);
+						}
+					},
+				});
+			} else if (this.tag === '评论资讯') {
+				if (!content) {
+					alert('内容不能为空');
+					return;
 				}
 
-				if (this.news_id) {
-					data.news_id = this.news_id;
-				}
+				let data = {
+					content: content,
+					news_id: this.news_id,
+				};
 
 				$.ajax({
 					url: this.url,

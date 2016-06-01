@@ -4,6 +4,7 @@ import './component/header';
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
+import Write from './component/write';
 
 import {
 	serverUrl,
@@ -36,13 +37,19 @@ class NewsDetail {
 			content: '',
 		};
 		this.controller = {
-			onLogin: ()=> {
-				let { avatar } = JSON.parse($('body').data('userInfo'));
+			setHotNewsList: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list.php?limit=10`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
 
-				if (avatar) {
-					this.model.avatar = avatar;
-					this.view.setComment();
-				}
+						this.model.hotNewsList = list;
+						this.view.setHotNewsList();
+					},
+				});
 			},
 			setDetail: ()=> {
 				$.ajax({
@@ -79,17 +86,27 @@ class NewsDetail {
 					});
 				}
 			},
+			setWrite: ()=> {
+				this.view.setWrite();
+			},
 		};
 		this.view = {
+			setWrite: ()=> {
+				window.nEditor = new Write({
+					url: `${serverUrl}/comment_post.php`,
+					news_id: news_id,
+					tag: '评论资讯',
+					buttonText: '发表评论',
+					fileUploadUrl: `${serverUrl}/upload_file.php`,
+					imageUploadUrl: `${serverUrl}/upload_image.php`,
+				}).render($('.container > .write-wrapper'));
+
+				$('.container > .write-wrapper .attachment-wrapper').hide();
+			},
 			setCollegeName: ()=> {
 				$('.container .header-forum .section5 > a').eq(1).html(this.model.college_name);
 				$('.container .header-forum .section5 > a').eq(1).prop('href', 
 					`news_college.html?college_id=${college_id}&college_name=${this.model.college_name}`);
-			},
-			setComment: ()=> {
-				let { avatar } = this.model;
-
-				$('.container .comment #avatar').prop('src', `${imagePrefix}${avatar}`).load();
 			},
 			setDetail: ()=> {
 				let { title, author, is_locked, comment_count, edit_time, content } = this.model;
@@ -111,13 +128,34 @@ class NewsDetail {
 				$('.container .main-wrapper .left').empty();
 				$('.container .main-wrapper .left').append(detailWrapper);
 			},
+			setHotNewsList: ()=> {
+				let { hotNewsList } = this.model;
+
+				$('.container .main-wrapper ul.layout li .latest-news ul').empty().append(hotNewsList.length ? null : $(
+					`<li><p style="text-align: center; ">暂无资讯</p></li>`
+				));
+
+				hotNewsList.map(_news=> {
+					let { id, title } = _news;
+
+					let wrapper = $([
+						`<li>`,
+							`<span class="point"></span>`,
+							`<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}" title="${title}">${title}</a>`,
+						`</li>`,
+					].join(''));
+
+					$('.container .main-wrapper ul.layout li .latest-news ul').append(wrapper);
+				});
+			},
 		};
 	}
 
 	init () {
-		window.onLogin = this.controller.onLogin;
+		this.controller.setHotNewsList();
 		this.controller.setCollegeName();
 		this.controller.setDetail();
+		this.controller.setWrite();
 	}
 }
 
