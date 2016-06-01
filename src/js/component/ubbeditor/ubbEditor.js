@@ -847,7 +847,7 @@ module.exports = function ubbEditor(_id)
         this.imageUploading = true;
         let form = new FormData($('#image-upload-form')[0]);
         $.ajax({
-          url: `${this.imageUploadUrl} || ${serverUrl}/upload_image.php`,
+          url: `${this.imageUploadUrl || serverUrl.concat('/upload_image.php')}`,
           type: 'post',
           data: form,
           cache: false,
