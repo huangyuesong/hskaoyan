@@ -150,7 +150,30 @@ class PersonalCenter {
 				});
 
 				$('.modal-change-password #button').click(evt=> {
-					alert();
+					let username = $('.modal-change-password #username').html();
+					let password = $('.modal-change-password #password').val();
+			    	let captcha = $('.modal-change-password #captcha').val();
+
+			    	$.ajax(`${serverUrl}/register.php`, {
+			    		method: 'post',
+			    		data: {
+			    			user_tel: username,
+			    			user_pwd: password,
+			    			phone_code: captcha,
+			    		},
+						dataType: 'json',
+			    		cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							if (result_code === SUCCESS) {
+								alert('修改密码成功');
+								location.reload();
+							} else {
+								alert(message);
+							}
+						},
+			    	});
 				});
 
 				$('.modal-change-phone #button').click(evt=> {

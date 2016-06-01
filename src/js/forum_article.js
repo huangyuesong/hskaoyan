@@ -94,6 +94,8 @@ class ForumArticle {
 				let { title, nick_name, view_count, comment_count, avatar, pub_time, 
 					content, labels, is_liked, id, check_delete, mark_value } = this.model;
 
+				$('.container .header-forum .section5 a.link:last-of-type').text(title);
+
 				let wrapper = $([
 					`<div class="article-title-wrapper">`,
 						`<span class="author" id="nick-name">[${labels.split(',').filter(_=> _).join(',') || '无主题'}]</span>`,
