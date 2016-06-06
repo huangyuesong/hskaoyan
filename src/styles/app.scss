@@ -164,17 +164,17 @@ $icons: (
 		@media only screen and (max-height: 768px) {
 
 			.icon-slogan1 {
-				@include background(map-get($icons, icon-slogan1), 894, 164 * 0.85);
+				@include background(map-get($icons, icon-slogan1), 894, 164 * 0.75);
 			}
 
 			.icon-phone {
-				@include background(map-get($icons, icon-phone), 422 * 0.7, 673 * 0.7);
+				@include background(map-get($icons, icon-phone), 422 * 0.6, 673 * 0.6);
 				left: 100px;
 			}
 
 			.right {
 				right: 100px;
-				bottom: 100px;
+				bottom: 50px;
 
 				.icon-slogan2 {
 					@include background(map-get($icons, icon-slogan2), 271 * 0.7, 34 * 0.7);
