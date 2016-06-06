@@ -336,7 +336,21 @@ class PersonalCenter {
 
 				$('.container .main .nav .avatar-wrapper #ok').click(evt=> {
 					let img = $('.container .main .nav .avatar-wrapper img').data('cropbox').getDataURL();
-					console.log(img);
+					
+					$.ajax(`${serverUrl}/change_avatar.php`, {
+						method: 'post',
+						data: {
+							image_content: img,
+						},
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							let { result_code, message } = data;
+
+							alert(message);
+							location.reload();
+						},
+					});
 				});
 
 				$('.container .main .nav .avatar-wrapper #cancel').click(evt=> {

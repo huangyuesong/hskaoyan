@@ -139,7 +139,7 @@ class Forum {
 						if (!keyword) {
 							alert('请输入搜索关键字');
 						} else {
-							location.href = `/forum.html?keyword=${keyword}`;
+							location.href = `forum.html?keyword=${keyword}`;
 						}
 					}
 				});

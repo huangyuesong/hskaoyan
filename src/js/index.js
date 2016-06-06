@@ -61,7 +61,9 @@ class Index {
 
 				$('.container .section4').empty().append(wrapper.css({width: `${tutorList.length * 300}px`}));
 
-				setInterval(()=> {
+				let interval;
+
+				function left () {
 					if (Number(wrapper.css('width').replace('px', '')) 
 							- Number($('.container .section4').css('width').replace('px', '')) 
 							> -Number(wrapper.css('left').replace('px', ''))) {
@@ -69,11 +71,23 @@ class Index {
 							left: `${Number(wrapper.css('left').replace('px', '')) - 1}px`,
 						});
 					} else {
-						wrapper.css({
-							left: `0px`,
-						});
+						clearInterval(interval);
+						interval = setInterval(right, 10);
 					}
-				}, 10);
+				}
+
+				function right () {
+					if (Number(wrapper.css('left').replace('px', '')) < 0) {
+						wrapper.css({
+							left: `${Number(wrapper.css('left').replace('px', '')) + 1}px`,
+						});
+					} else {
+						clearInterval(interval);
+						interval = setInterval(left, 10);
+					}
+				}
+
+				interval = setInterval(left, 10);
 			},
 		};
 	}
