@@ -2,6 +2,7 @@ import '../styles/app.scss';
 
 import 'fullpage.js'
 import 'fullpage.js/jquery.fullPage.css'
+import 'amazeui';
 
 $(window).load(()=> {
 	$('.loading').remove();
