@@ -24,7 +24,7 @@ class Index {
 					success: (data, status)=> {
 						let { result_code, list } = data;
 
-						this.model = list;
+						this.model.tutorList = list;
 						if (result_code === SUCCESS) {
 							this.view.setTutor();
 						}
@@ -34,7 +34,46 @@ class Index {
 		};
 		this.view = {
 			setTutor: ()=> {
-				
+				let { tutorList } = this.model;
+
+				let wrapper = $(`
+					<div class="slide-wrapper"></div>
+				`);
+
+				tutorList.map(_tutor=> {
+					let { true_name, major, introduce, avatar } = _tutor;
+
+					wrapper.append(`
+						<div class="image-wrapper">
+							<a href="javascript:">
+								<div class="icon icon-person1"></div>
+							</a>
+							<div class="slogan">
+								<span class="left-name">${true_name}</span>
+								<span class="left-course">[${major}]</span>
+								<p>${introduce}</p>
+							</div>
+						</div>
+					`);
+
+					$('.icon-person1', wrapper).css({backgroundImage: `url('${imagePrefix}${avatar}')`});
+				});
+
+				$('.container .section4').empty().append(wrapper.css({width: `${tutorList.length * 300}px`}));
+
+				setInterval(()=> {
+					if (Number(wrapper.css('width').replace('px', '')) 
+							- Number($('.container .section4').css('width').replace('px', '')) 
+							> -Number(wrapper.css('left').replace('px', ''))) {
+						wrapper.css({
+							left: `${Number(wrapper.css('left').replace('px', '')) - 1}px`,
+						});
+					} else {
+						wrapper.css({
+							left: `0px`,
+						});
+					}
+				}, 10);
 			},
 		};
 	}

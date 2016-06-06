@@ -289,57 +289,53 @@ dt {
 
 	.section4 {
 		text-align: center;
-
-		.image-wrapper:first-of-type {
-			margin-left: 0;
-		}
-
-		.image-wrapper {
-			display: inline-block;
-			width: 24.5%;
-			position: relative;
-			margin-left: -5px;
-
-			.icon-person1 {
-				@include background(map-get($icons, icon-person1), 100%, $container-width * 0.245 / 360 * 455);
+		display: inline-block;
+		width: 1250px;
+		height: 400px;
+		position: relative;
+		overflow: hidden;
+		.slide-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			.image-wrapper:first-of-type {
+				margin-left: 0;
 			}
-
-			.icon-person2 {
-				@include background(map-get($icons, icon-person2), 100%, $container-width * 0.245 / 360 * 455);
-			}
-
-			.icon-person3 {
-				@include background(map-get($icons, icon-person3), 100%, $container-width * 0.245 / 360 * 455);
-			}
-
-			.icon-person4 {
-				@include background(map-get($icons, icon-person4), 100%, $container-width * 0.245 / 360 * 455);
-			}
-
-			.slogan {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				color: white;
-				padding: 5px 10px;
-				font-size: 12px;
-				text-align: left;
-
-				.left-name {
-					font-size: 26px;
-					font-weight: bold;
+			.image-wrapper {
+				display: inline-block;
+				width: 300px;
+				position: relative;
+				margin-left: -5px;
+				.icon-person1 {
+					@include background(map-get($icons, icon-person1), 100%, $container-width * 0.245 / 360 * 455);
 				}
-
-				.right {
-					float: right;
-					color: #f9776e;
-					font-size: 18px;
-					border: 2px solid #f9776e;
-					box-sizing: border-box;
-					padding: 2px 30px;
-
-					a, a:hover {
-						color: #f9776e;
+				.icon-person2 {
+					@include background(map-get($icons, icon-person2), 100%, $container-width * 0.245 / 360 * 455);
+				}
+				.icon-person3 {
+					@include background(map-get($icons, icon-person3), 100%, $container-width * 0.245 / 360 * 455);
+				}
+				.icon-person4 {
+					@include background(map-get($icons, icon-person4), 100%, $container-width * 0.245 / 360 * 455);
+				}
+				.slogan {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					color: white;
+					padding: 5px 10px;
+					font-size: 12px;
+					text-align: left;
+					background: rgba(0, 0, 0, 0.8);
+					.left-name {
+						font-size: 26px;
+						font-weight: bold;
+					}
+					p {
+						width: 100%;
+						min-height: 38px;
 					}
 				}
 			}
