@@ -336,7 +336,7 @@ class PersonalCenter {
 
 				$('.container .main .nav .avatar-wrapper #ok').click(evt=> {
 					let img = $('.container .main .nav .avatar-wrapper img').data('cropbox').getDataURL();
-					alert(img);
+					console.log(img);
 				});
 
 				$('.container .main .nav .avatar-wrapper #cancel').click(evt=> {
