@@ -154,11 +154,32 @@ $icons: (
 	}
 	
 	.top-bar {
-		height: 50px;
+		height: 40px;
 		box-sizing: border-box;
 		border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 		background-color: #F5F7FA;
-
+		.right {
+			float: right;
+			margin-right: 100px;
+			font-size: 12px;
+			line-height: 40px;
+			.icon, span {
+				margin: 0 20px;
+			}
+			.nick-name {
+				font-size: 16px;
+				font-weight: bold;
+			}
+			.avatar {
+				margin-left: 10px;
+				position: relative;
+				top: -3px;
+			}
+			.unread {
+				margin: 0;
+				color: red;
+			}
+		}
 		.navs {
 			display: inline-block;
 			font-size: 12px;

@@ -16,7 +16,11 @@ export default $(()=> {
 		return $([
 			'<div class="header">',
 			'	<div class="top-bar">',
-			'		<div class="navs">',
+			'		<div class="right">',
+			'			<a href="javascript:" id="login-link"><span class="login">登录</span></a>',
+			'			<a href="javascript:" id="register-link"><span class="register">注册</span></a>',
+			'		</div>',
+			/*'		<div class="navs">',
 			'			<div class="nav popup">',
 			'				<a href="javascript:">网站导航<div class="icon icon-top-bar-arrow"></div></a>',
 			'				<div class="popup-wrapper">',
@@ -53,15 +57,15 @@ export default $(()=> {
 			'			<a href="javascript:"><div class="icon icon-weixin"></div></a>',
 			'			<a href="javascript:"><div class="icon icon-weibo"></div></a>',
 			'			<a href="javascript:"><div class="icon icon-qq"></div></a>',
-			'		</div>',
+			'		</div>',*/
 			'	</div>',
 			'	<div class="middle">',
 			'		<div class="icon icon-logo"></div>',
-			'		<div class="right">',
+			/*'		<div class="right">',
 			'			<a href="javascript:"><div class="icon icon-search"></div></a>',
 			'			<a href="javascript:" id="login-link"><span class="login">登录</span></a>',
 			'			<a href="javascript:" id="register-link"><span class="register">注册</span></a>',
-			'		</div>',
+			'		</div>',*/
 			'	</div>',
 			'	<div class="nav-bar">',
 			'		<dl>',
@@ -183,8 +187,8 @@ export default $(()=> {
 					nick_name: nick_name,
 				}));
 
-				$('.header .middle .right .login').remove();
-				$('.header .middle .right .register').remove();
+				$('.header .top-bar .right .login').remove();
+				$('.header .top-bar .right .register').remove();
 
 				let alreadyLogin = $([
 					`<img class="avatar" width="30" height="30" src="${imagePrefix}${avatar}">`,
@@ -194,9 +198,9 @@ export default $(()=> {
 					`<a href="javascript:" id="logout"><span>退出登录</span></a>`,
 				].join(''));
 
-				$('.header .middle .right').append(alreadyLogin);
+				$('.header .top-bar .right').append(alreadyLogin);
 
-				$('.middle .right #logout', header).click((evt)=> {
+				$('.top-bar .right #logout', header).click((evt)=> {
 					DEVELOPMENT ? (()=> window.localStorage.removeItem('token'))(): ()=> null;
 
 					$('body').removeData('userInfo');

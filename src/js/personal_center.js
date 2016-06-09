@@ -367,22 +367,27 @@ class PersonalCenter {
 
 				switch (this.model.section) {
 					case 'setting':
+						$('.container .section-name p').text('个人设置');
 						break;
 					case 'message':
+						$('.container .section-name p').text('消息中心');
 						this.controller.setMessage('system');
 						this.controller.setMessage('send');
 						this.controller.setMessage('receive');
 						break;
 					case 'article':
+						$('.container .section-name p').text('我的帖子');
 						this.controller.setArticle('question');
 						this.controller.setArticle('answer');
 						break;
 					case 'favorate':
+						$('.container .section-name p').text('我的收藏');
 						this.controller.setFavorate('news');
 						this.controller.setFavorate('article');
 						this.controller.setFavorate('wrong-question');
 						break;
 					case 'questionnaire':
+						$('.container .section-name p').text('我的问卷');
 						this.controller.setQuestionnaire('forum');
 						this.controller.setQuestionnaire('my');
 					default: 
