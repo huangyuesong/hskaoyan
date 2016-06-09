@@ -1,9 +1,10 @@
-import '../styles/forum.scss';
+import '../styles/news_list.scss';
 
 import './component/header';
 import './component/footer';
 
 import Search from './component/search';
+import './component/tabs';
 
 import {
 	serverUrl,
@@ -12,7 +13,6 @@ import {
 import url from 'url';
 
 let {
-	title,
 	keyword,
 } = url.parse(location.href, true).query;
 
@@ -29,13 +29,10 @@ class Board {
 		return $([
 			`<div class="school">`,
 			`	<div class="name-wrapper">`,
-			`		<a href="forum_college.html?college_id=${id}&college_name=${title}" title="${title}">`,
+			`		<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">`,
 			`			${title}`,
 			`		</a>`,
 			`	</div>`,
-			/*`	<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>`,
-			`	<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>`,
-			`	<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>`,*/
 			`</div>`,
 		].join(''));
 	}
@@ -90,7 +87,7 @@ class Board {
 	}
 }
 
-class Forum {
+class NewsList {
 	constructor () {
 		this.model = {
 			boardList: [],
@@ -99,12 +96,10 @@ class Forum {
 			setSearch: ()=> {
 				this.view.setSearch();
 			},
-			setData: (callback)=> {
-				let url = `${serverUrl}/board_list.php`;
-				if (title !== undefined) {
-					url = `${serverUrl}/board_list.php?title=${title}`;
-				} else if (keyword !== undefined) {
-					url = `${serverUrl}/board_list.php?keyword=${keyword}`;
+			setBoard: ()=> {
+				let url = `${serverUrl}/board_list.php?news=1`;
+				if (keyword !== undefined) {
+					url = `${serverUrl}/board_list.php?news=1&keyword=${keyword}`;
 				}
 
 				$.ajax({
@@ -116,14 +111,24 @@ class Forum {
 						let { list } = data;
 
 						this.model.boardList = list;
-						this.view.setDistrict();
-						callback && callback();
+						this.view.setBoard();
+					},
+				});
+			},
+			setTabs: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list?tabs=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						
 					},
 				});
 			},
 		};
 		this.view = {
-			setDistrict: ()=> {
+			setBoard: ()=> {
 				let { boardList } = this.model;
 
 				boardList.map((_board)=> {
@@ -135,21 +140,21 @@ class Forum {
 						last_data: last_data,
 					}).render();
 
-					$('.container').append(__board);
+					$('.container .board-wrapper').append(__board);
 				});
 			},
 			setSearch: ()=> {
 				$('.container .search-wrapper').append(new Search({
 					placeholder: '请输入搜索内容',
-					category: ['版面'],
-					selected: '版面',
-					onSearch: (keyword, categoty)=> {
+					category: ['院校'],
+					selected: '院校',
+					onSearch: (keyword, category)=> {
 						if (!keyword) {
 							alert('请输入搜索内容');
 							return;
 						}
-						
-						location.href = `forum.html?keyword=${keyword}`;
+
+						location.href = `news_list.html?keyword=${keyword}`;
 					},
 				}).render());
 			},
@@ -159,7 +164,8 @@ class Forum {
 	init () {
 		let { controller } = this;
 
-		controller.setData();
+		controller.setTabs();
+		controller.setBoard();
 		controller.setSearch();
 	}
 }
@@ -169,5 +175,5 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new Forum().init();
+	new NewsList().init();
 });

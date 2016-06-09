@@ -3,9 +3,8 @@ import '../styles/material_course.scss';
 import './component/header';
 import './component/footer';
 
-import HeaderForum from './component/header_forum';
-import OtherSite from './component/other_site';
 import Pagination from './component/pagination';
+import HeaderForum from './component/header_forum';
 
 import {
 	serverUrl,
@@ -31,27 +30,12 @@ if (!college_name || !college_id || !course_id || !course_name || !course_code) 
 class MaterialCourse {
 	constructor () {
 		this.model = {
-			linkList: [],
 			file_list: [],
 			pages: 1,
 			file_type: [],
 			material_list: [],
 		};
 		this.controller = {
-			setOtherSite: ()=> {
-				$.ajax({
-					url: `${serverUrl}/flink_list.php?limit=18`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						let { list } = data;
-
-						this.model.linkList = list;
-						this.view.setOtherSite();
-					},
-				});
-			},
 			setTitle: ()=> {
 				this.view.setTitle();
 			},
@@ -136,15 +120,6 @@ class MaterialCourse {
 			setTitle: ()=> {
 				$('.container .title span').text(`${college_name} ${course_code}${course_name} 考研复习资料下载`);
 			},
-			setOtherSite: ()=> {
-				let { linkList } = this.model;
-
-				linkList.map(_link=> {
-					_link.href = _link.url;
-				});
-
-				new OtherSite(linkList).render();
-			},
 			setPagination: ()=> {
 				let { pages } = this.model;
 				let idx = Number(page) || 1;
@@ -181,7 +156,6 @@ class MaterialCourse {
 	}
 
 	init () {
-		this.controller.setOtherSite();
 		this.controller.setTitle();
 		this.controller.getFileType(()=> {
 			this.controller.setFileList();

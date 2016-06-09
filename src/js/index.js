@@ -3,8 +3,8 @@ import '../styles/index.scss';
 import './component/header';
 import './component/footer';
 
-import Search from './component/search';
 import OtherSite from './component/other_site';
+import Search from './component/search';
 import './component/tabs';
 
 import {
@@ -138,7 +138,7 @@ class Index {
 			setHotCollege: ()=> {
 				let { boardList } = this.model;
 
-				boardList[1].list.splice(25);
+				boardList[1].list.splice(30);
 				$('.container .tabs .tabs-bd > .college').empty();
 				while (boardList[1].list.length) {
 					let _row = $(`<div class="row"></div>`);
@@ -149,7 +149,7 @@ class Index {
 						_row.append($(`
 							<div class="school">
 								<div class="name-wrapper">
-									<a href="${'javascript:void(0)'}" title="${title}">
+									<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
 										${title}
 									</a>
 								</div>
@@ -233,7 +233,7 @@ class Index {
 			setSearch: ()=> {
 				$('.container .search-wrapper').append(new Search({
 					placeholder: '请输入搜索内容',
-					category: ['院校', '版面', '科目', '资料'],
+					category: ['院校', '科目', '资料'],
 					selected: '院校',
 				}).render());
 			},

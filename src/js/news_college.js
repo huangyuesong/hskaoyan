@@ -4,7 +4,6 @@ import './component/header';
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
-import OtherSite from './component/other_site';
 import './component/tabs';
 
 import {
@@ -29,7 +28,6 @@ class NewsCollege {
 			topNews: [],
 			hotNews: [],
 			categoryContent: [],
-			linkList: [],
 		};
 		this.controller = {
 			setCategory: ()=> {

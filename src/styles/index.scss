@@ -106,7 +106,7 @@ dt {
 						display: inline-block;
 						@include text-overflow(150);
 						&:hover {
-							cursor: default;
+							text-decoration: underline;
 						}
 					}
 				}

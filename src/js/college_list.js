@@ -3,8 +3,6 @@ import '../styles/college_list.scss';
 import './component/header';
 import './component/footer';
 
-import HeaderForum from './component/header_forum';
-import OtherSite from './component/other_site';
 import Search from './component/search';
 
 import {
@@ -25,14 +23,6 @@ class Board {
 		this.title = title;
 		this.list = list;
 		this.last_data = last_data;
-	}
-
-	renderNormalLink (id, title) {
-		return $(`
-			<span class="mng-link"> 
-				<a href="forum_college.html?college_id=${id}&college_name=${title}">${title}</a>
-			</span>
-		`);
 	}
 
 	renderBoard (id, title) {
@@ -104,7 +94,6 @@ class CollegeList {
 	constructor () {
 		this.model = {
 			boardList: [],
-			linkList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
@@ -151,7 +140,7 @@ class CollegeList {
 			setSearch: ()=> {
 				$('.container .search-wrapper').append(new Search({
 					placeholder: '请输入搜索内容',
-					category: ['院校', '版面', '科目', '资料'],
+					category: ['院校'],
 					selected: '院校',
 				}).render());
 			},
@@ -171,6 +160,5 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum().render();
 	new CollegeList().init();
 });

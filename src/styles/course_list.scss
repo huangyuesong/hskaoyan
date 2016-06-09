@@ -1,0 +1,70 @@
+@import '_base';
+
+$icons: (
+	icon-search: '/images/web/course_list/search.png',
+);
+
+.container {
+	
+	.section {
+		padding: 0 0; 
+	}
+
+	.search-wrapper {
+		text-align: center;
+	}
+
+	.course-wrapper {
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		margin-bottom: 30px;
+
+		.title {
+			line-height: 60px;
+			background: #e4edf9;
+			color: #2d7bbd;
+			font-size: 24px;
+			padding: 0 50px;
+			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+			box-sizing: border-box;
+		}
+
+		.content {
+			padding: 10px 0;
+			background: white;
+
+			.row {
+				border-bottom: 1px dashed #888888;
+				position: relative;
+
+				.department {
+				    margin: 10px 0;
+					font-size: 14px;
+					display: inline-block;
+					width: 19.5%;
+					padding-left: 30px;
+
+					.name-wrapper {
+					
+						a {
+							color: #2d7bbd;
+							display: inline-block;
+							@include text-overflow(150);
+
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+					}
+
+					a {
+						margin-right: 5px;
+					}
+				}
+
+				&:last-of-type {
+					border: 0;
+				}
+			}
+		}
+	}
+}

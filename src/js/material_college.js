@@ -4,7 +4,6 @@ import './component/header';
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
-import OtherSite from './component/other_site';
 
 import {
 	serverUrl,
@@ -25,23 +24,8 @@ class MaterialCollege {
 	constructor () {
 		this.model = {
 			linkList: [],
-			courseList: [],
 		};
 		this.controller = {
-			setOtherSite: ()=> {
-				$.ajax({
-					url: `${serverUrl}/flink_list.php?limit=18`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						let { list } = data;
-
-						this.model.linkList = list;
-						this.view.setOtherSite();
-					},
-				});
-			},
 			setCourseList: ()=> {
 				$.ajax({
 					url: `${serverUrl}/course_list.php?board_id=${college_id}`,
@@ -58,15 +42,6 @@ class MaterialCollege {
 			},
 		};
 		this.view = {
-			setOtherSite: ()=> {
-				let { linkList } = this.model;
-
-				linkList.map(_link=> {
-					_link.href = _link.url;
-				});
-
-				new OtherSite(linkList).render();
-			},
 			setCourseList: ()=> {
 				let { courseList } = this.model;
 
@@ -103,7 +78,6 @@ class MaterialCollege {
 	}
 
 	init () {
-		this.controller.setOtherSite();
 		this.controller.setCourseList();
 	}
 }
@@ -119,7 +93,7 @@ $(()=> {
 			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
 		},
 		{
-			name: `资料`,
+			name: `科目`,
 			href: `javascript:`,
 		},
 	]).render();
