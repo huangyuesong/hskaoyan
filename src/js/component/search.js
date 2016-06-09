@@ -14,7 +14,7 @@ export default class Search {
 			<div class="search-section">
 				<input type="text" placeholder="${this.placeholder}"></input>
 				<select></select>
-				<button id="search"></button>
+				<button id="search">搜　索</button>
 			</div>
 		`);
 
@@ -34,11 +34,17 @@ export default class Search {
 			this.onSearch !== undefined ? 
 			this.onSearch($('input', _html).val(), $('select', _html).val()) : 
 			(()=> {
+				if (!$('input', _html).val()) {
+					alert('请输入搜索内容');
+					return;
+				}
+
 				switch ($('select', _html).val()) {
 					case '院校':
 						location.href = `college_list.html?keyword=${$('input', _html).val()}`;
 						break;
 					case '版面':
+						location.href = `forum.html?keyword=${$('input', _html).val()}`;
 						break;
 					case '科目':
 						break;
@@ -49,6 +55,8 @@ export default class Search {
 				}
 			})();
 		});
+
+		$('input', _html).keydown(evt=> evt.which === 13 ? $('button', _html).click() : (()=> null)());
 
 		return _html;
 	}

@@ -10,56 +10,6 @@ $icons: (
 		padding: 0 0; 
 	}
 
-	.common-course {
-		margin-bottom: 30px;
-
-		.title {
-			border: 1px solid rgba(0, 0, 0, 0.2);
-			box-sizing: border-box;
-			background: #fafafa;
-			height: 40px;
-			font-size: 18px;
-			padding: 0 20px;
-
-			span {
-				line-height: 40px;
-			}
-		}
-
-		.content {
-			padding: 10px 0;
-			border: 1px solid rgba(0, 0, 0, 0.2);
-			border-top: 0;
-			.row {
-				border-bottom: 1px dashed #888888;
-				position: relative;
-				.school {
-				    margin: 10px 0;
-					font-size: 14px;
-					display: inline-block;
-					width: 20%;
-					padding-left: 30px;
-					.name-wrapper {
-						a {
-							color: #2d7bbd;
-							display: inline-block;
-							@include text-overflow(150);
-							&:hover {
-								cursor: default;
-							}
-						}
-					}
-					a {
-						margin-right: 5px;
-					}
-				}
-				&:last-of-type {
-					border: 0;
-				}
-			}
-		}
-	}
-
 	.search-wrapper {
 		text-align: center;
 	}

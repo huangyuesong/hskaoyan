@@ -9,96 +9,9 @@ $icons: (
 	.section {
 		padding: 0 0; 
 	}
-
-	.common-course {
-		margin-bottom: 30px;
-
-		.title {
-			border: 1px solid rgba(0, 0, 0, 0.2);
-			box-sizing: border-box;
-			background: #fafafa;
-			height: 40px;
-			font-size: 18px;
-			padding: 0 20px;
-
-			span {
-				line-height: 40px;
-			}
-		}
-
-		.content {
-			padding: 10px 0;
-			border: 1px solid rgba(0, 0, 0, 0.2);
-			border-top: 0;
-			.row {
-				border-bottom: 1px dashed #888888;
-				position: relative;
-				.school {
-				    margin: 10px 0;
-					font-size: 14px;
-					display: inline-block;
-					width: 20%;
-					padding-left: 30px;
-					.name-wrapper {
-						a {
-							color: #2d7bbd;
-							display: inline-block;
-							@include text-overflow(150);
-							&:hover {
-								cursor: default;
-							}
-						}
-					}
-					a {
-						margin-right: 5px;
-					}
-				}
-				&:last-of-type {
-					border: 0;
-				}
-			}
-		}
-	}
-
-	.search-section {
-		margin-bottom: 20px;
-
-		input[type="text"] {
-			width: 200px;
-			height: 35px;
-			border: 1px solid rgba(0, 0, 0, 0.1);
-			font-size: 14px;
-			padding: 0 3px;
-		}
-
-		select {
-			width: 100px;
-			height: 35px;
-			border: 1px solid rgba(0, 0, 0, 0.1);
-		}
-
-		button {
-			vertical-align: middle;
-			margin: 0px 5px;
-			@include background(map-get($icons, icon-search), 36, 36, 17, 18);
-			background-color: white;
-			border-radius: 8px;
-			-webkit-border-radius: 8px;
-			-moz-border-radius: 8px;
-			border-color: white;
-			border: 1px solid #2C81BF;
-			outline: 0;
-		}
-
-		a {
-			margin: 0 10px;
-			font-size: 14px;
-			color: #2d7bbd;
-
-			&:hover {
-				color: $color-a-hover;
-			}
-		}
+	
+	.search-wrapper {
+		text-align: center;
 	}
 
 	.district, .management {
@@ -113,6 +26,12 @@ $icons: (
 			padding: 0 50px;
 			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 			box-sizing: border-box;
+			a {
+				color: #2d7bbd;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
 		}
 
 		.content {
@@ -138,7 +57,7 @@ $icons: (
 							@include text-overflow(150);
 
 							&:hover {
-								cursor: default;
+								text-decoration: underline;
 							}
 						}
 					}

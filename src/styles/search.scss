@@ -1,32 +1,3 @@
-@mixin background (
-	$url,
-	$width: 100%,
-	$height: 100%,
-	$bg_size_width: 100%,
-	$bg_size_height: 100%,
-	$position:center
-) {
-	background: url(#{$url}) no-repeat #{$position};
-	width: if($width == 100%, 100%, #{$width}px);
-	height: if($height == 100%, 100%, #{$height}px);
-	background-size: if($bg_size_width == 100%, 100%, #{$bg_size_width}px) if($bg_size_height == 100%, 100%, #{$bg_size_height}px);
-}
-
-.icon {
-	display: inline-block;
-	vertical-align: middle;
-
-	a {
-		display: inline-block;
-		width: 100%;
-		height: 100%;
-	}
-}
-
-$icons: (
-	icon-search: '/images/web/search/search.png',
-);
-
 .search-section {
 	margin-bottom: 20px;
 	input[type="text"] {
@@ -42,9 +13,11 @@ $icons: (
 		border: 1px solid rgba(0, 0, 0, 0.1);
 	}
 	button {
+		color: #2C81BF;
+		width: 90px;
+		line-height: 30px;
 		vertical-align: middle;
 		margin: 0px 5px;
-		@include background(map-get($icons, icon-search), 36, 36, 17, 18);
 		background-color: white;
 		border-radius: 8px;
 		-webkit-border-radius: 8px;
