@@ -162,11 +162,7 @@ dt {
 		}
 
 		.image-slider {
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: -1;
-			@include background(map-get($icons, image-slider));
+			@include background(map-get($icons, image-slider), 1280, 350);
 		}
 
 		.right {

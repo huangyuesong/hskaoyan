@@ -1,0 +1,29 @@
+.tabs {
+	& > ul.tabs-nav {
+	    background: #f3f6fb;
+		& > li {
+			display: inline-block;
+			box-sizing: border-box;
+			a {
+				display: inline-block;
+				line-height: 40px;
+				padding: 5px 15px;
+				border: #f3f6fb 1px solid;
+			}
+		}
+		& > li.active {
+			a {
+				background: white;
+				border: #ddd 1px solid;
+				border-bottom-color: white;
+			}
+		}
+	}
+	.tabs-bd {
+		min-height: 250px;
+		padding: 10px;
+		.tab-panel:not(:first-of-type) {
+			display: none;
+		}
+	}
+}

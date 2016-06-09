@@ -5,6 +5,7 @@ import './component/footer';
 
 import HeaderForum from './component/header_forum';
 import OtherSite from './component/other_site';
+import './component/tabs';
 
 import {
 	serverUrl,
@@ -69,7 +70,7 @@ class NewsCollege {
 			},
 			setCategoryContent: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list.php?board_id=${college_id}&types=0,1,7,6&limit=8`,
+					url: `${serverUrl}/news_list.php?board_id=${college_id}&type_ids=0,1,7,6&limit=8`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -78,7 +79,8 @@ class NewsCollege {
 						this.view.setCategoryContent();
 					},
 				});
-			},setOtherSite: ()=> {
+			},
+			setOtherSite: ()=> {
 				$.ajax({
 					url: `${serverUrl}/flink_list.php?limit=18`,
 					type: 'get',
@@ -110,6 +112,15 @@ class NewsCollege {
 
 					$('.container .introduction .content .right p:last-of-type').append(wrapper);
 				});
+
+				$('.container .apply .content .layout .center .tabs ul.tabs-nav > li > a').eq(0)
+					.prop('href', `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=0&category_name=院校信息`);
+				$('.container .apply .content .layout .center .tabs ul.tabs-nav > li > a').eq(1)
+					.prop('href', `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=1&category_name=导师介绍`);
+				$('.container .apply .content .layout .center .tabs ul.tabs-nav > li > a').eq(2)
+					.prop('href', `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=6&category_name=专业介绍`);
+				$('.container .apply .content .layout .center .tabs ul.tabs-nav > li > a').eq(3)
+					.prop('href', `news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=7&category_name=复试信息`);
 			},
 			setTopNews: ()=> {
 				let { topNews } = this.model;
