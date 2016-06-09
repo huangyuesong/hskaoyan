@@ -70,7 +70,7 @@ export default $(()=> {
 			'	<div class="nav-bar">',
 			'		<dl>',
 			'			<dt><a href="index.html">首页</a></dt>',
-			'			<dt><a href="javascript:">院校</a></dt>',
+			'			<dt><a href="college_list.html">院校</a></dt>',
 			'			<dt><a href="javascript:">科目</a></dt>',
 			'			<dt><a href="javascript:">资讯</a></dt>',
 			'			<dt><a href="forum.html">论坛</a></dt>',

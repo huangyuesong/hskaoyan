@@ -101,6 +101,7 @@ class Index {
 			setHotNews: ()=> {
 				let { newsList } = this.model;
 
+				$('.container .tabs .tabs-bd > .news').empty();
 				newsList.splice(0, 13).map(_news=> {
 					let { id, title, edit_time } = _news;
 
@@ -115,6 +116,7 @@ class Index {
 			setHotArticle: ()=> {
 				let { topicList } = this.model;
 
+				$('.container .tabs .tabs-bd > .article').empty();
 				topicList.splice(0, 5).map(_topic=> {
 					$('.container .tabs .tabs-bd > .article').append($(`
 						<div>
@@ -137,6 +139,7 @@ class Index {
 				let { boardList } = this.model;
 
 				boardList[1].list.splice(25);
+				$('.container .tabs .tabs-bd > .college').empty();
 				while (boardList[1].list.length) {
 					let _row = $(`<div class="row"></div>`);
 
@@ -232,7 +235,6 @@ class Index {
 					placeholder: '请输入搜索内容',
 					category: ['院校', '版面', '科目', '资料'],
 					selected: '院校',
-					onSearch: category=> alert(category),
 				}).render());
 			},
 		};

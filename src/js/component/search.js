@@ -7,7 +7,6 @@ export default class Search {
 		this.placeholder = placeholder || '请输入搜索内容';
 		this.category = category || [];
 		this.selected = selected || '';
-		this.onSearch = onSearch || null;
 	}
 
 	render () {
@@ -32,7 +31,23 @@ export default class Search {
 		});
 
 		$('button', _html).click(evt=> {
-			this.onSearch($('select', _html).val());
+			this.onSearch !== undefined ? 
+			this.onSearch($('input', _html).val(), $('select', _html).val()) : 
+			(()=> {
+				switch ($('select', _html).val()) {
+					case '院校':
+						location.href = `college_list.html?keyword=${$('input', _html).val()}`;
+						break;
+					case '版面':
+						break;
+					case '科目':
+						break;
+					case '资料':
+						break;
+					default: 
+						break;
+				}
+			})();
 		});
 
 		return _html;
