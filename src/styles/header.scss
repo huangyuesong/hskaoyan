@@ -269,35 +269,33 @@ $icons: (
 			}
 		}
 	}
-
 	.nav-bar {
 		line-height: 50px;
 		font-size: 20px;
 		text-align: center;
 		margin-top: 30px;
-
 		dl {
-
 			dt {
 				display: inline-block;
-				margin: 0 20px;
+				margin: 0 100px;
 				padding: 5px 20px;
-
+				&:first-of-type {
+					margin-left: 0;
+				}
+				&:last-of-type {
+					margin-right: 0;
+				}
 				.icon-arrow {
 					@include background(map-get($icons, icon-arrow-down), 14, 9);
 				}
 			}
-
 			dt.popup:hover {
-
 				.icon-arrow {
 					@include background(map-get($icons, icon-arrow-up), 14, 9);
 				}
 			}
-
 			.popup-wrapper {
 				padding-top: 50px;
-
 				.content {
 					font-weight: normal;
 				}

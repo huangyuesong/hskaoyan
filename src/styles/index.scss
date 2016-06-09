@@ -25,6 +25,7 @@ $icons: (
 	icon-5: '/images/web/index/5.png',
 	icon-6: '/images/web/index/6.png',
 	icon-bottom: '/images/web/index/bottom.png',
+	icon-search: '/images/web/index/search.png',
 );
 
 dt {
@@ -75,6 +76,107 @@ dt {
 
 			li:last-of-type {
 				margin-right: 0;
+			}
+		}
+	}
+
+	.search-wrapper {
+		text-align: center;
+	}
+
+	.tab-wrapper {
+		& > .tabs {
+			min-height: 520px;
+		}
+	}
+
+	.section .college {
+		.row {
+			border-bottom: 1px dashed #888888;
+			position: relative;
+			.school {
+			    margin: 10px 0;
+				font-size: 14px;
+				display: inline-block;
+				width: 20%;
+				padding-left: 30px;
+				.name-wrapper {
+					a {
+						color: #2d7bbd;
+						display: inline-block;
+						@include text-overflow(150);
+						&:hover {
+							cursor: default;
+						}
+					}
+				}
+				a {
+					margin-right: 5px;
+				}
+			}
+			&:last-of-type {
+				border: 0;
+			}
+		}
+	}
+
+	.section .article {
+		& > div {
+			display: inline-block;
+			border-bottom: 1px solid #BACADE;
+			padding: 15px 0;
+			position: relative;
+			width: 100%;
+			&:last-of-type {
+				border: 0;
+			}
+			img {
+				margin: 0 10px;
+			}
+			.title {
+				font-size: 16px;
+				margin-right: 10px;
+				@include text-overflow(670);
+			}
+			.author, .release, .date {
+				font-size: 14px;
+				color: #8C8C8C;
+				margin: 0 5px;
+			}
+			.author {
+				margin: 0;
+			}
+			.reply, .visit {
+				position: absolute;
+				font-size: 14px;
+				right: 0;
+			}
+			.reply {
+				top: 15px;
+				color: #3a6ba4;
+				width: 100px;
+				text-align: center;
+			}
+			.visit {
+				top: 35px;
+				width: 100px;
+				text-align: center;
+			}
+		}
+	}
+
+	.section .news {
+		& > div {
+			display: inline-block;
+			width: 100%;
+			font-size: 14px;
+			line-height: 32px;
+			border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+			.icon-arrow-right {
+				@include background(map-get($icons, icon-arrow-right), 5, 9);
+				position: relative;
+				top: -2px;
+				margin: 0 3px;
 			}
 		}
 	}
@@ -162,7 +264,7 @@ dt {
 		}
 
 		.image-slider {
-			@include background(map-get($icons, image-slider), 1280, 350);
+			@include background(map-get($icons, image-slider), 1250, 350);
 		}
 
 		.right {

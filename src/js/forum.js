@@ -162,7 +162,7 @@ class Forum {
 
 						this.model.boardList = list;
 						this.view.setDistrict();
-						callback && callback()
+						callback && callback();
 					},
 				});
 			},

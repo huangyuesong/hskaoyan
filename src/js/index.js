@@ -3,6 +3,10 @@ import '../styles/index.scss';
 import './component/header';
 import './component/footer';
 
+import Search from './component/search';
+import OtherSite from './component/other_site';
+import './component/tabs';
+
 import {
 	serverUrl,
 	imagePrefix,
@@ -13,6 +17,10 @@ class Index {
 	constructor () {
 		this.model = {
 			tutorList: [],
+			linkList: [],
+			boardList: [],
+			topicList: [],
+			newsList: [],
 		};
 		this.controller = {
 			setTutor: ()=> {
@@ -31,8 +39,138 @@ class Index {
 					},
 				});
 			},
+			setOtherSite: ()=> {
+				$.ajax({
+					url: `${serverUrl}/flink_list.php?limit=18`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.linkList = list;
+						this.view.setOtherSite();
+					},
+				});
+			},
+			setSearch: ()=> {
+				this.view.setSearch();
+			},
+			setHotCollege: ()=> {
+				$.ajax({
+					url: `${serverUrl}/board_list.php?index=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.boardList = list;
+						this.view.setHotCollege();
+					},
+				});
+			},
+			setHotArticle: ()=> {
+				$.ajax({
+					url: `${serverUrl}/topic_list.php?index=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.topicList = data.list;
+						this.view.setHotArticle();
+					},
+				});
+			},
+			setHotNews: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list.php?index=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						let { list } = data;
+
+						this.model.newsList = list;
+						this.view.setHotNews();
+					},
+				});
+			},
 		};
 		this.view = {
+			setHotNews: ()=> {
+				let { newsList } = this.model;
+
+				newsList.splice(0, 13).map(_news=> {
+					let { id, title, edit_time } = _news;
+
+					$('.container .tabs .tabs-bd > .news').append($(`
+						<div>
+							<a href="news_detail.html?college_id=${2}&college_name=${'清华大学'}&news_id=${id}&news_name=${title}">${title}</a>
+	    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
+						</div>
+					`));
+				});
+			},
+			setHotArticle: ()=> {
+				let { topicList } = this.model;
+
+				topicList.splice(0, 5).map(_topic=> {
+					$('.container .tabs .tabs-bd > .article').append($(`
+						<div>
+							<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
+							<p>
+								<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}&college_name=">
+									<span class="title" title="${_topic.title}">${_topic.title}</span>
+								</a>
+							</p>
+							<span class="author">${_topic.nick_name}</span>
+							<span class="release">发表于</span>
+							<span class="date">${_topic.pub_time}</span>
+							<span class="reply fr">回复：${_topic.comment_count}</span>
+							<span class="visit fr">查看：${_topic.view_count}</span>
+						</div>
+					`));
+				});
+			},
+			setHotCollege: ()=> {
+				let { boardList } = this.model;
+
+				boardList[1].list.splice(25);
+				while (boardList[1].list.length) {
+					let _row = $(`<div class="row"></div>`);
+
+					boardList[1].list.splice(0, 5).map(_board=> {
+						let { id, board:title } = _board;
+
+						_row.append($(`
+							<div class="school">
+								<div class="name-wrapper">
+									<a href="${'javascript:void(0)'}" title="${title}">
+										${title}
+									</a>
+								</div>
+								<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+								<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
+								<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>
+							</div>
+						`));
+					});
+
+					$('.container .tabs .tabs-bd > .college').append(_row);
+				}
+			},
+			setOtherSite: ()=> {
+				let { linkList } = this.model;
+
+				linkList.map(_link=> {
+					_link.href = _link.url;
+				});
+
+				new OtherSite(linkList).render();
+
+				$('.container .other-site-wrapper').append($('.other-site'));
+			},
 			setTutor: ()=> {
 				let { tutorList } = this.model;
 
@@ -89,11 +227,24 @@ class Index {
 
 				interval = setInterval(left, 10);
 			},
+			setSearch: ()=> {
+				$('.container .search-wrapper').append(new Search({
+					placeholder: '请输入搜索内容',
+					category: ['院校', '版面', '科目', '资料'],
+					selected: '院校',
+					onSearch: category=> alert(category),
+				}).render());
+			},
 		};
 	}
 
 	init () {
-		this.controller.setTutor();
+		// this.controller.setTutor();
+		this.controller.setOtherSite();
+		this.controller.setSearch();
+		this.controller.setHotCollege();
+		this.controller.setHotArticle();
+		this.controller.setHotNews();
 	}
 }
 
