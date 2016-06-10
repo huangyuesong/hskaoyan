@@ -45,16 +45,20 @@ class CourseList {
 				});
 			},
 			setMyCourse: ()=> {
-				$.ajax({
-					url: `${serverUrl}/course_list.php?tabs=1`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						this.model.myCourseList = data.list;
-						this.view.setMyCourse();
-					},
-				});
+				if (!keyword) {
+					$.ajax({
+						url: `${serverUrl}/course_list.php?tabs=1`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							this.model.myCourseList = data.list;
+							this.view.setMyCourse();
+						},
+					});
+				} else {
+					$('.container .my-wrapper').remove();
+				}
 			},
 		};
 		this.view = {
@@ -103,7 +107,7 @@ class CourseList {
 					</div>
 				`);
 
-				$('.content', wrapper).append(courseList.length ? null : $('<p style="text-align: center; line-height: 40px; ">暂无数据</p>'));
+				$('.content', wrapper).append(courseList.length ? null : $('<p style="text-align: center; line-height: 300px; ">暂无数据</p>'));
 
 				while (courseList.length) {
 					let _row = $(`<div class="row"></div>`);

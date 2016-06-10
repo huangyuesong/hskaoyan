@@ -13,6 +13,7 @@ import {
 import url from 'url';
 
 let {
+	title,
 	keyword,
 } = url.parse(location.href, true).query;
 
@@ -48,14 +49,14 @@ class Board {
 	}
 
 	renderMore () {
-		return $(`<a class="more" href="forum.html?title=${this.title}">查看全部>></a>`);
+		return $(`<a class="more" href="news_list.html?title=${this.title}">查看全部>></a>`);
 	}
 
 	render () {
 		let _board = $([
 			`<div class="section district">`,
 			`	<div class="title">`,
-			`		<a href="forum.html?title=${this.title}">${this.title}</a>`,
+			`		<a href="news_list.html?title=${this.title}">${this.title}</a>`,
 			`	</div>`,
 			`	<div class="content"></div>`,
 			`</div>`,
@@ -98,9 +99,11 @@ class NewsList {
 				this.view.setSearch();
 			},
 			setBoard: ()=> {
-				let url = `${serverUrl}/board_list.php?news=1`;
+				let url = `${serverUrl}/college_list.php?news=1`;
 				if (keyword !== undefined) {
-					url = `${serverUrl}/board_list.php?news=1&keyword=${keyword}`;
+					url = `${serverUrl}/college_list.php?news=1&keyword=${keyword}`;
+				} else if (title !== undefined) {
+					url = `${serverUrl}/college_list.php?news=1&title=${title}`;
 				}
 
 				$.ajax({
@@ -117,16 +120,20 @@ class NewsList {
 				});
 			},
 			setTabs: ()=> {
-				$.ajax({
-					url: `${serverUrl}/news_list.php?tabs=1`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						this.model.myBoardList = data.list;
-						this.view.setTabs();
-					},
-				});
+				if (!title && !keyword) {
+					$.ajax({
+						url: `${serverUrl}/news_list.php?tabs=1`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							this.model.myBoardList = data.list;
+							this.view.setTabs();
+						},
+					});
+				} else {
+					$('.container .tabs-wrapper').remove();
+				}
 			},
 		};
 		this.view = {

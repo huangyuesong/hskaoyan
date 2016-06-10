@@ -78,20 +78,6 @@ class NewsCollege {
 					},
 				});
 			},
-			setOtherSite: ()=> {
-				$.ajax({
-					url: `${serverUrl}/flink_list.php?limit=18`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						let { list } = data;
-
-						this.model.linkList = list;
-						this.view.setOtherSite();
-					},
-				});
-			},
 		};
 		this.view = {
 			setCategory: ()=> {
@@ -249,15 +235,6 @@ class NewsCollege {
 					$('.container .apply .content .layout .center #lower-tab2 ul').append(wrapper);
 				});
 			},
-			setOtherSite: ()=> {
-				let { linkList } = this.model;
-
-				linkList.map(_link=> {
-					_link.href = _link.url;
-				});
-
-				new OtherSite(linkList).render();
-			},
 		};
 	}
 
@@ -266,7 +243,6 @@ class NewsCollege {
 		this.controller.setTopNews();
 		this.controller.setHotNews();
 		this.controller.setCategoryContent();
-		this.controller.setOtherSite();
 	}
 }
 

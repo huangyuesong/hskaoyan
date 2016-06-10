@@ -94,6 +94,7 @@ class CollegeList {
 	constructor () {
 		this.model = {
 			boardList: [],
+			myBoardList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
@@ -121,12 +122,57 @@ class CollegeList {
 				});
 			},
 			setMyBoard: ()=> {
-
+				if (!title && !keyword) {
+					$.ajax({
+						url: `${serverUrl}/college_list.php?tabs=1`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							this.model.myBoardList = data.list;
+							this.view.setMyBoard();
+						},
+					});
+				}
 			},
 		};
 		this.view = {
 			setMyBoard: ()=> {
+				let { myBoardList } = this.model;
 
+				let wrapper = $(`
+					<div class="section district">
+						<div class="title">
+							<span>我关注的院校</span>
+						</div>
+						<div class="content"></div>
+					</div>
+				`);
+
+				while (myBoardList.length) {
+					let _row = $(`<div class="row"></div>`);
+
+					myBoardList.splice(0, 5).map(_board=> {
+						let { id, board:title } = _board;
+
+						_row.append($(`
+							<div class="school">
+								<div class="name-wrapper">
+									<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+										${title}
+									</a>
+								</div>
+								<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
+								<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>
+								<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+							</div>
+						`));
+					});
+
+					$('.content', wrapper).append(_row);
+				}
+
+				$('.container .my-wrapper').append(wrapper);
 			},
 			setBoard: ()=> {
 				let { boardList } = this.model;

@@ -124,16 +124,20 @@ class Forum {
 				});
 			},
 			setTabs: ()=> {
-				$.ajax({
-					url: `${serverUrl}/topic_list.php?tabs=1`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						this.model.myBoardList = data.list;
-						this.view.setTabs();
-					},
-				});
+				if (!title && !keyword) {
+					$.ajax({
+						url: `${serverUrl}/topic_list.php?tabs=1`,
+						type: 'get',
+						dataType: 'json',
+						cache: false,
+						success: (data, status)=> {
+							this.model.myBoardList = data.list;
+							this.view.setTabs();
+						},
+					});
+				} else {
+					$('.container .tabs-wrapper').remove();
+				}
 			},
 		};
 		this.view = {
