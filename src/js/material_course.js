@@ -23,7 +23,7 @@ let {
 	material_id,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id || !course_id || !course_name || !course_code) {
+if (!college_id || !course_id || !course_name || !course_code) {
 	location.href = '/forum.html';
 }
 
@@ -54,6 +54,7 @@ class MaterialCourse {
 						this.view.setFileList();
 						this.view.setMaterialList();
 						this.view.setPagination();
+						this.view.setHeader();
 					},
 				});
 			},
@@ -73,6 +74,9 @@ class MaterialCourse {
 			},
 		};
 		this.view = {
+			setHeader: ()=> {
+				new HeaderForum([], college_name, '版面').render();
+			},
 			setMaterialList: ()=> {
 				let { material_list } = this.model;
 
@@ -168,21 +172,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `资料`,
-			href: `material_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `${course_code}${course_name}`,
-			href: `javascript:`,
-		},
-	]).render();
-
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',

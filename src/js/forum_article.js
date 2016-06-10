@@ -63,6 +63,7 @@ class ForumArticle {
 						this.view.setArticle();
 						this.view.setComment();
 						this.view.setPagination();
+						this.view.setHeader();
 					},
 				});
 			},
@@ -85,6 +86,9 @@ class ForumArticle {
 			},
 		};
 		this.view = {
+			setHeader: ()=> {
+				new HeaderForum([], college_name, '版面').render();
+			},
 			setCollegeName: ()=> {
 				$('.container .header-forum .section5 > a').eq(1).html(this.model.college_name);
 				$('.container .header-forum .section5 > a').eq(1).prop('href', 
@@ -366,28 +370,13 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `论坛`,
-			href: `forum_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `查看帖子`,
-			href: `javascript:`,
-		},
-	]).render();
-
-	let logo = $(`<div class="icon icon-logo"></div>`);
+	/*let logo = $(`<div class="icon icon-logo"></div>`);
 	$('.section3', $('.header-forum')).prepend(logo);
 	$('.section1', $('.header-forum')).remove();
 	$('.section2', $('.header-forum')).remove();
 	$('.section4', $('.header-forum')).remove();
-	// $('.middle', $('.header')).remove();
-	$('.nav-bar', $('.header')).remove();
+	$('.middle', $('.header')).remove();
+	$('.nav-bar', $('.header')).remove();*/
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',

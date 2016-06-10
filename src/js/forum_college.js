@@ -21,7 +21,7 @@ let {
 	type,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id) {
+if (!college_id) {
 	location.href = '/forum.html';
 }
 
@@ -31,6 +31,7 @@ class ForumCollege {
 			topics: [],
 			hotTopics: [],
 			pages: 1,
+			is_marked: false,
 		};
 		this.controller = {
 			bindEvents: ()=> {
@@ -87,9 +88,11 @@ class ForumCollege {
 					cache: false,
 					success: (data, status)=> {
 						this.model.topics = data.list;
+						this.model.is_marked = data.is_marked;
 						this.model.pages = data.page_count;
 						this.view.setPagination();
 						this.view.setTopic();
+						this.view.setHeader();
 					},
 				});
 			},
@@ -106,6 +109,11 @@ class ForumCollege {
 			},
 		};
 		this.view = {
+			setHeader: ()=> {
+				let { is_marked } = this.model;
+
+				new HeaderForum([], college_name, '版面', is_marked).render();
+			},
 			setHotTopic: ()=> {
 				let { hotTopics } = this.model;
 
@@ -207,17 +215,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `论坛`,
-			href: `javascript:`,
-		},
-	]).render();
-
 	$('.container .right .forum-body > .button').hide();
 
 	new ForumCollege().init();

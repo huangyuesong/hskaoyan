@@ -8,6 +8,7 @@ $icons: (
 	icon-banner2: '/images/web/header_forum/banner2.png',
 	icon-home: '/images/web/header_forum/home.png',
 	icon-arrow-right: '/images/web/header_forum/arrow-right.png',
+	icon-arrow-right-white: '/images/web/header_forum/arrow-right-white.png',
 );
 
 .header-forum {
@@ -75,21 +76,47 @@ $icons: (
 
 		.navs {
 			margin: 0;
-			padding: 10px 20px;
-			display: inline-block;
+			padding: 0 20px;
 
-			.nav {
-				display: inline-block;
-				height: 40px;
-				line-height: 40px;
-				font-size: 22px;
-				font-weight: bold;
-				padding: 0 10px;
-				box-sizing: border-box;
-				border-left: 1px solid rgba(255, 255, 255, 0.15);
-
-				a {
+			li {
+				&.nav {
+					display: inline-block;
+					height: 60px;
+					line-height: 60px;
+					font-size: 22px;
+					font-weight: bold;
+					padding: 0 10px;
+					box-sizing: border-box;
+					border-left: 1px solid rgba(255, 255, 255, 0.15);
 					color: white;
+
+					a {
+						color: white;
+					}
+
+					.icon-arrow-right-white {
+						@include background(map-get($icons, icon-arrow-right-white), 8, 18);
+						margin: -6px 5px 0 5px;
+					}
+
+					&.active {
+						background: #00A5F0;
+					}
+				}
+
+				.button {
+					font-size: 18px;
+					background: #E5E5E5;
+					color: #2d7bbd;
+					display: inline-block;
+					width: 100px;
+					line-height: 50px;
+					text-align: center;
+					border-radius: 5px;
+					-webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					margin-top: 5px;
+					cursor: pointer;
 				}
 			}
 

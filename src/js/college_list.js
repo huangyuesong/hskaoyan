@@ -34,7 +34,7 @@ class Board {
 			`		</a>`,
 			`	</div>`,
 			`	<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>`,
-			`	<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>`,
+			`	<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>`,
 			`	<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>`,
 			`</div>`,
 		].join(''));
@@ -163,7 +163,7 @@ class CollegeList {
 									</a>
 								</div>
 								<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
-								<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>
+								<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
 								<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
 							</div>
 						`));

@@ -61,6 +61,7 @@ class NewsCollegeList {
 
 						this.view.setNewsList();
 						this.view.setPagination();
+						this.view.setHeader();
 					},
 				});
 			},
@@ -80,6 +81,9 @@ class NewsCollegeList {
 			},
 		};
 		this.view = {
+			setHeader: ()=> {
+				new HeaderForum([], college_name, '版面').render();
+			},
 			setHotNewsList: ()=> {
 				let { hotNewsList } = this.model;
 
@@ -188,21 +192,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `资讯`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `${category_name}`,
-			href: `javascript:`,
-		},
-	]).render();
-
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',

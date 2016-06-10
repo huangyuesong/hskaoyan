@@ -16,7 +16,7 @@ let {
 	college_id,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id) {
+if (!college_id) {
 	location.href = '/forum.html';
 }
 
@@ -24,6 +24,7 @@ class MaterialCollege {
 	constructor () {
 		this.model = {
 			linkList: [],
+			is_marked: [],
 		};
 		this.controller = {
 			setCourseList: ()=> {
@@ -36,12 +37,19 @@ class MaterialCollege {
 						let { list } = data;
 
 						this.model.courseList = list;
+						this.model.is_marked = data.is_marked;
 						this.view.setCourseList();
+						this.view.setHeader();
 					},
 				});
 			},
 		};
 		this.view = {
+			setHeader: ()=> {
+				let { is_marked } = this.model;
+
+				new HeaderForum([], college_name, '版面', is_marked).render();
+			},
 			setCourseList: ()=> {
 				let { courseList } = this.model;
 
@@ -87,17 +95,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `科目`,
-			href: `javascript:`,
-		},
-	]).render();
-
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',

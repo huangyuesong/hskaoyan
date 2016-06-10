@@ -17,7 +17,7 @@ let {
 	college_id,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id) {
+if (!college_id) {
 	location.href = '/forum.html';
 }
 
@@ -28,6 +28,7 @@ class NewsCollege {
 			topNews: [],
 			hotNews: [],
 			categoryContent: [],
+			is_marked: false,
 		};
 		this.controller = {
 			setCategory: ()=> {
@@ -74,12 +75,19 @@ class NewsCollege {
 					cache: false,
 					success: (data, status)=> {
 						this.model.categoryContent = data.list;
+						this.model.is_marked = data.is_marked;
 						this.view.setCategoryContent();
+						this.view.setHeader();
 					},
 				});
 			},
 		};
 		this.view = {
+			setHeader: ()=> {
+				let { is_marked } = this.model;
+
+				new HeaderForum([], college_name, '版面', is_marked).render();
+			},
 			setCategory: ()=> {
 				let { categories } = this.model;
 
@@ -251,17 +259,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `资讯`,
-			href: `javascript:`,
-		},
-	]).render();
-
 	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
