@@ -14,89 +14,113 @@ $icons: (
 		text-align: center;
 	}
 
-	.district, .management {
-		border: 2px solid rgba(0, 0, 0, 0.2);
-		margin-bottom: 30px;
-
-		.title {
-			line-height: 60px;
-			background: #e4edf9;
-			color: #2d7bbd;
-			font-size: 24px;
-			padding: 0 50px;
-			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-			box-sizing: border-box;
-			a {
-				color: #2d7bbd;
-				&:hover {
-					text-decoration: underline;
-				}
+	.tabs-wrapper .article {
+		& > div {
+			display: inline-block;
+			border-bottom: 1px solid #BACADE;
+			padding: 15px 0;
+			position: relative;
+			width: 100%;
+			&:last-of-type {
+				border: 0;
+			}
+			img {
+				margin: 0 10px;
+			}
+			.title {
+				font-size: 16px;
+				margin-right: 10px;
+				@include text-overflow(670);
+			}
+			.author, .release, .date {
+				font-size: 14px;
+				color: #8C8C8C;
+				margin: 0 5px;
+			}
+			.author {
+				margin: 0;
+			}
+			.reply, .visit {
+				position: absolute;
+				font-size: 14px;
+				right: 0;
+			}
+			.reply {
+				top: 15px;
+				color: #3a6ba4;
+				width: 100px;
+				text-align: center;
+			}
+			.visit {
+				top: 35px;
+				width: 100px;
+				text-align: center;
 			}
 		}
+	}
 
-		.content {
-			padding: 10px 0;
-			background: #F5F5F5;
-
-			.row {
-				border-bottom: 1px dashed #888888;
-				position: relative;
-
-				.school {
-				    margin: 10px 0;
-					font-size: 14px;
-					display: inline-block;
-					width: 20%;
-					padding-left: 30px;
-
-					.name-wrapper {
-					
-						a {
-							color: #2d7bbd;
-							display: inline-block;
-							@include text-overflow(150);
-
-							&:hover {
-								text-decoration: underline;
-							}
-						}
-					}
-
-					a {
-						margin-right: 5px;
-					}
-				}
-
-				.mng-link {
-					font-size: 20px;
-					line-height: 30px;
-					width: 20%;
-					display: inline-block;
-					text-align: center;
-					margin: 10px 0;
-
-					.unread {
-						color: #d92828;
-					}
-				}
-
-				&:last-of-type {
-					border: 0;
-				}
-
-				.more {
-					width: 20%;
-					color: #FF6E6E;
-					display: inline-block;
-					padding-left: 30px;
-					font-size: 14px;
-					position: absolute;
-					top: 50%;
-					margin-top: -11px;
-					right: 0;
-
+	.board-wrapper {
+		.district {
+			border: 2px solid rgba(0, 0, 0, 0.2);
+			margin-bottom: 30px;
+			.title {
+				line-height: 60px;
+				background: #e4edf9;
+				color: #2d7bbd;
+				font-size: 24px;
+				padding: 0 50px;
+				border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+				box-sizing: border-box;
+				a {
+					color: #2d7bbd;
 					&:hover {
 						text-decoration: underline;
+					}
+				}
+			}
+			.content {
+				padding: 10px 0;
+				background: #F5F5F5;
+				.row {
+					border-bottom: 1px dashed #888888;
+					position: relative;
+					.school {
+					    margin: 10px 0;
+						font-size: 14px;
+						display: inline-block;
+						width: 20%;
+						padding-left: 30px;
+						.name-wrapper {
+							a {
+								color: #2d7bbd;
+								display: inline-block;
+								@include text-overflow(150);
+
+								&:hover {
+									text-decoration: underline;
+								}
+							}
+						}
+						a {
+							margin-right: 5px;
+						}
+					}
+					&:last-of-type {
+						border: 0;
+					}
+					.more {
+						width: 20%;
+						color: #FF6E6E;
+						display: inline-block;
+						padding-left: 30px;
+						font-size: 14px;
+						position: absolute;
+						top: 50%;
+						margin-top: -11px;
+						right: 0;
+						&:hover {
+							text-decoration: underline;
+						}
 					}
 				}
 			}

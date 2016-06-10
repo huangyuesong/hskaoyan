@@ -19,6 +19,7 @@ class CourseList {
 	constructor () {
 		this.model = {
 			courseList: [],
+			myCourseList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
@@ -43,19 +44,66 @@ class CourseList {
 					},
 				});
 			},
+			setMyCourse: ()=> {
+				$.ajax({
+					url: `${serverUrl}/course_list.php?tabs=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.myCourseList = data.list;
+						this.view.setMyCourse();
+					},
+				});
+			},
 		};
 		this.view = {
+			setMyCourse: ()=> {
+				let { myCourseList } = this.model;
+
+				let wrapper = $(`
+					<div class="section district">
+						<div class="title">
+							<span>我关注的科目</span>
+						</div>
+						<div class="content"></div>
+					</div>
+				`);
+
+				while (myCourseList.length) {
+					let _row = $(`<div class="row"></div>`);
+
+					myCourseList.splice(0, 5).map(_course=> {
+						let { id, course, course_code, college, college_id } = _course;
+
+						_row.append($(`
+							<div class="department">
+								<div class="name-wrapper">
+									<a href="material_course.html?college_id=${college_id}&college_name=${college}&course_code=${course_code}&course_id=${id}&course_name=${course}">${course_code}${course}</a>
+								</div>
+								<span class="link">${college}</span>
+							</div>
+						`));
+					});
+
+					$('.content', wrapper).append(_row);
+				}
+
+				$('.container .my-wrapper').append(wrapper);
+			},
 			setCourse: ()=> {
 				let { courseList } = this.model;
 
 				let wrapper = $(`
 					<div class="section district">
 						<div class="title">
-							<span>热门课程</span>
+							<span>${keyword ? '搜索“'.concat(keyword).concat('”的结果') : '热门科目'}</span>
 						</div>
 						<div class="content"></div>
 					</div>
 				`);
+
+				$('.content', wrapper).append(courseList.length ? null : $('<p style="text-align: center; line-height: 40px; ">暂无数据</p>'));
 
 				while (courseList.length) {
 					let _row = $(`<div class="row"></div>`);
@@ -77,7 +125,6 @@ class CourseList {
 				}
 
 				$('.container .course-wrapper').append(wrapper);
-				$('.container .my-wrapper').append(wrapper.clone());
 			},
 			setSearch: ()=> {
 				$('.container .search-wrapper').append(new Search({
@@ -92,6 +139,7 @@ class CourseList {
 	init () {
 		let { controller } = this;
 
+		controller.setMyCourse();
 		controller.setSearch();
 		controller.setCourse();
 	}

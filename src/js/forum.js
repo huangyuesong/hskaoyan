@@ -4,10 +4,11 @@ import './component/header';
 import './component/footer';
 
 import Search from './component/search';
-import './component/tabs';
+import Tabs from './component/tabs';
 
 import {
 	serverUrl,
+	imagePrefix,
 } from '../../config';
 
 import url from 'url';
@@ -95,12 +96,13 @@ class Forum {
 	constructor () {
 		this.model = {
 			boardList: [],
+			myBoardList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
 				this.view.setSearch();
 			},
-			setData: (callback)=> {
+			setBoard: ()=> {
 				let url = `${serverUrl}/board_list.php`;
 				if (title !== undefined) {
 					url = `${serverUrl}/board_list.php?title=${title}`;
@@ -117,14 +119,66 @@ class Forum {
 						let { list } = data;
 
 						this.model.boardList = list;
-						this.view.setDistrict();
-						callback && callback();
+						this.view.setBoard();
+					},
+				});
+			},
+			setTabs: ()=> {
+				$.ajax({
+					url: `${serverUrl}/topic_list.php?tabs=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.myBoardList = data.list;
+						this.view.setTabs();
 					},
 				});
 			},
 		};
 		this.view = {
-			setDistrict: ()=> {
+			setTabs: ()=> {
+				let { myBoardList } = this.model;
+
+				myBoardList.length ? (()=> {
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
+					$('.container .tabs-wrapper .tabs .tabs-bd').empty();
+				})() : (()=> null)();
+
+				myBoardList.map((_board, idx)=> {
+					let { board, board_id, list } = _board;
+
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
+						<li class="${idx === 0 ? 'active' : ''}">
+							<a href="forum_college.html?college_id=${board_id}&college_name=${board}">${board}</a>
+						</li>
+					`));
+
+					let _panel = $(`<div class="tab-panel article"></div>`);
+					_panel.append(list.length ? null : $('<p style="text-align: center; line-height: 40px; ">暂无数据</p>'))
+					list.map(_topic=> {
+						_panel.append($(`
+							<div>
+								<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
+								<p>
+									<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}&college_name=">
+										<span class="title" title="${_topic.title}">${_topic.title}</span>
+									</a>
+								</p>
+								<span class="author">${_topic.nick_name}</span>
+								<span class="release">发表于</span>
+								<span class="date">${_topic.pub_time}</span>
+								<span class="reply fr">回复：${_topic.comment_count}</span>
+								<span class="visit fr">查看：${_topic.view_count}</span>
+							</div>
+						`));
+					});
+					$('.container .tabs-wrapper .tabs .tabs-bd').append(_panel);
+				});
+
+				Tabs.refresh();
+			},
+			setBoard: ()=> {
 				let { boardList } = this.model;
 
 				boardList.map((_board)=> {
@@ -160,7 +214,8 @@ class Forum {
 	init () {
 		let { controller } = this;
 
-		controller.setData();
+		controller.setTabs();
+		controller.setBoard();
 		controller.setSearch();
 	}
 }
