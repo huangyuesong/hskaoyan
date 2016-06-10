@@ -4,6 +4,7 @@ import './component/header';
 import './component/footer';
 
 import Search from './component/search';
+import './component/tabs';
 
 import {
 	serverUrl,
@@ -135,7 +136,7 @@ class Forum {
 						last_data: last_data,
 					}).render();
 
-					$('.container').append(__board);
+					$('.container .board-wrapper').append(__board);
 				});
 			},
 			setSearch: ()=> {

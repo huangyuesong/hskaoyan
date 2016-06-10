@@ -99,7 +99,7 @@ class CollegeList {
 			setSearch: ()=> {
 				this.view.setSearch();
 			},
-			setData: ()=> {
+			setBoard: ()=> {
 				let url = `${serverUrl}/college_list.php`;
 				if (title !== undefined) {
 					url = `${serverUrl}/college_list.php?title=${title}`;
@@ -116,13 +116,19 @@ class CollegeList {
 						let { list } = data;
 
 						this.model.boardList = list;
-						this.view.setDistrict();
+						this.view.setBoard();
 					},
 				});
 			},
+			setMyBoard: ()=> {
+
+			},
 		};
 		this.view = {
-			setDistrict: ()=> {
+			setMyBoard: ()=> {
+
+			},
+			setBoard: ()=> {
 				let { boardList } = this.model;
 
 				boardList.map((_board)=> {
@@ -134,7 +140,7 @@ class CollegeList {
 						last_data: last_data,
 					}).render();
 
-					$('.container').append(__board);
+					$('.container .college-wrapper').append(__board);
 				});
 			},
 			setSearch: ()=> {
@@ -151,7 +157,8 @@ class CollegeList {
 		let { controller } = this;
 
 		controller.setSearch();
-		controller.setData();
+		controller.setBoard();
+		controller.setMyBoard();
 	}
 }
 

@@ -1,7 +1,7 @@
 @import '_base';
 
 $icons: (
-	icon-search: '/images/web/news_list/search.png',
+	icon-arrow-right: '/images/web/news_list/arrow-right.png',
 );
 
 .container {
@@ -12,6 +12,22 @@ $icons: (
 	
 	.search-wrapper {
 		text-align: center;
+	}
+
+	.tabs-wrapper .news {
+		& > div {
+			display: inline-block;
+			width: 100%;
+			font-size: 14px;
+			line-height: 32px;
+			border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+			.icon-arrow-right {
+				@include background(map-get($icons, icon-arrow-right), 5, 9);
+				position: relative;
+				top: -2px;
+				margin: 0 3px;
+			}
+		}
 	}
 
 	.district, .management {

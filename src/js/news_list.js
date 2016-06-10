@@ -4,7 +4,7 @@ import './component/header';
 import './component/footer';
 
 import Search from './component/search';
-import './component/tabs';
+import Tabs from './component/tabs';
 
 import {
 	serverUrl,
@@ -91,6 +91,7 @@ class NewsList {
 	constructor () {
 		this.model = {
 			boardList: [],
+			myBoardList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
@@ -117,17 +118,52 @@ class NewsList {
 			},
 			setTabs: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list?tabs=1`,
+					url: `${serverUrl}/news_list.php?tabs=1`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
-						
+						this.model.myBoardList = data.list;
+						this.view.setTabs();
 					},
 				});
 			},
 		};
 		this.view = {
+			setTabs: ()=> {
+				let { myBoardList } = this.model;
+
+				myBoardList.length ? (()=> {
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
+					$('.container .tabs-wrapper .tabs .tabs-bd').empty();
+				})() : (()=> null)();
+
+				myBoardList.map((_board, idx)=> {
+					let { board, board_id, list } = _board;
+
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
+						<li class="${idx === 0 ? 'active' : ''}">
+							<a href="news_college.html?college_id=${board_id}&college_name=${board}">${board}</a>
+						</li>
+					`));
+
+					let _panel = $(`<div class="tab-panel news"></div>`);
+					_panel.append(list.length ? null : $('<p style="text-align: center; line-height: 40px; ">暂无数据</p>'))
+					list.map(_news=> {
+						let { id, title, edit_time } = _news;
+
+						_panel.append($(`
+							<div>
+								<a href="news_detail.html?college_id=${board_id}&college_name=${board}&news_id=${id}&news_name=${title}">${title}</a>
+		    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
+		    				</div>
+						`));
+					});
+					$('.container .tabs-wrapper .tabs .tabs-bd').append(_panel);
+				});
+
+				Tabs.refresh();
+			},
 			setBoard: ()=> {
 				let { boardList } = this.model;
 

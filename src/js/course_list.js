@@ -77,6 +77,7 @@ class CourseList {
 				}
 
 				$('.container .course-wrapper').append(wrapper);
+				$('.container .my-wrapper').append(wrapper.clone());
 			},
 			setSearch: ()=> {
 				$('.container .search-wrapper').append(new Search({

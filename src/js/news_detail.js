@@ -59,7 +59,7 @@ class NewsDetail {
 			},
 			setDetailAndComment: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_view.php?news_id=${news_id}&page=${page}`,
+					url: `${serverUrl}/news_view.php?news_id=${news_id}&page=${page || 1}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,

@@ -1,7 +1,7 @@
 @import '_base';
 
 $icons: (
-	icon-search: '/images/web/course_list/search.png',
+	
 );
 
 .container {
@@ -14,7 +14,7 @@ $icons: (
 		text-align: center;
 	}
 
-	.course-wrapper {
+	.my-wrapper, .course-wrapper {
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 
@@ -30,7 +30,7 @@ $icons: (
 
 		.content {
 			padding: 10px 0;
-			background: white;
+			background: #F5F5F5;
 
 			.row {
 				border-bottom: 1px dashed #888888;
