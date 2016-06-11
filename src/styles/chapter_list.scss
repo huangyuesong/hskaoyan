@@ -1,0 +1,140 @@
+@import '_base';
+
+$icons: (
+	icon-discuss: '/images/web/chapter_list/discuss.png',
+	icon-download: '/images/web/chapter_list/download.png',
+);
+
+.container {
+	.material-wrapper, .chapter-wrapper {
+		display: inline-block;
+		vertical-align: text-top;
+	}
+	.material-wrapper {
+		width: 400px;
+		padding: 30px 0;
+		ul {
+			li {
+				.material {
+					line-height: 30px;
+					margin: 5px 0;
+					border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+					border-left: 3px solid rgba(0, 0, 0, 0);
+					padding: 10px;
+					& > div {
+						&:nth-of-type(1) {
+							display: inline-block;
+							width: 320px;
+							p:first-of-type {
+								@include text-overflow(300);
+							}
+							.question-count {
+								span {
+									font-size: 12px;
+									color: #1192E1;
+									border: 1px solid #1192E1;
+									padding: 0 5px;
+								}
+							}
+							.no-question {
+								font-size: 12px;
+								color: gray;
+							}
+						}
+						&:nth-of-type(2) {
+							display: inline-block;
+							width: 50px;
+							p {
+								text-align: center;
+								font-size: 12px;
+								.icon-discuss {
+									@include background(map-get($icons, icon-discuss), 20, 20);
+								}
+							}
+						}
+					}
+					&.active {
+						border-left: 3px solid #40A8E7;
+						& > div:nth-of-type(1) {
+							p:first-of-type > a {
+								color: #40A8E7;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.chapter-wrapper {
+		width: 800px;
+		padding: 30px 0;
+		.url {
+			a {
+				color: rgba(0, 0, 0, 0.6);
+				&:hover {
+					color: $color-a-hover;
+				}
+			}
+			&:after {
+				content: '';
+			}
+		}
+		.am-accordion-content, .am-accordion-item {
+			font-size: 16px;
+			.section {
+				line-height: 30px;
+				margin: 5px 0;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+				& > div {
+					&:nth-of-type(1) {
+						display: inline-block;
+						width: 640px;
+						padding: 0 10px;
+						.question-count {
+							margin-top: -8px;
+							span {
+								font-size: 12px;
+								color: #1192E1;
+								border: 1px solid #1192E1;
+								padding: 0 5px;
+							}
+						}
+						.no-question {
+							font-size: 12px;
+							color: gray;
+							margin-top: -10px;
+						}
+					}
+					&:nth-of-type(2) {
+						display: inline-block;
+						width: 50px;
+						p {
+							text-align: center;
+							font-size: 12px;
+							.icon-download {
+								@include background(map-get($icons, icon-download), 20, 20);
+							}
+						}
+					}
+					&:nth-of-type(3) {
+						display: inline-block;
+						width: 50px;
+						p {
+							text-align: center;
+							font-size: 12px;
+							.icon-discuss {
+								@include background(map-get($icons, icon-discuss), 20, 20);
+							}
+						}
+					}
+				}
+			}
+		}
+		.single .section {
+			border-bottom: 1px solid #dedede;
+			a {
+				color: rgba(0, 0, 0, 0.6);
+			}
+		}
+	}
+}

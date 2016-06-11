@@ -59,7 +59,7 @@ class CourseList {
 						},
 					});
 				} else {
-					$('.container .my-wrapper').remove();
+					$('.container .tabs-wrapper').remove();
 				}
 			},
 		};
@@ -82,7 +82,7 @@ class CourseList {
 
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
 						<li class="${idx === 0 ? 'active' : ''}">
-							<a href="javascript:">${alias || course_code.concat(course)}</a>
+							<a href="chapter_list.html?course_id=${course_id}">${alias || course_code.concat(course)}</a>
 						</li>
 					`));
 
@@ -95,7 +95,7 @@ class CourseList {
 							<div>
 								<img class="fl" src="${imagePrefix}${picture}" width="50" height="50">
 								<p>
-									<a href="javascript:">
+									<a href="chapter_list.html?course_id=${course_id}&material_id=${id}">
 										<span class="title" title="${title}">${title}</span>
 									</a>
 								</p>
@@ -133,7 +133,7 @@ class CourseList {
 						_row.append($(`
 							<div class="department">
 								<div class="name-wrapper">
-									<a href="material_course.html?college_id=${college_id}&college_name=${college}&course_code=${course_code}&course_id=${id}&course_name=${course}">${course_code}${course}</a>
+									<a href="chapter_list.html?course_id=${id}">${course_code}${course}</a>
 								</div>
 								<span class="link">${college}</span>
 							</div>
