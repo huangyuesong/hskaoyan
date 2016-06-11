@@ -147,14 +147,19 @@ class Forum {
 				myBoardList.length ? (()=> {
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
 					$('.container .tabs-wrapper .tabs .tabs-bd').empty();
-				})() : (()=> null)();
+				})() : (()=> {
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
+					$('.container .tabs-wrapper .tabs .tabs-bd').empty().append(
+						$('<p style="text-align: center; line-height: 40px; ">暂无关注</p>')
+					);
+				})();
 
 				myBoardList.map((_board, idx)=> {
-					let { board, board_id, list } = _board;
+					let { board, board_id, list, alias } = _board;
 
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
 						<li class="${idx === 0 ? 'active' : ''}">
-							<a href="forum_college.html?college_id=${board_id}&college_name=${board}">${board}</a>
+							<a href="forum_college.html?college_id=${board_id}&college_name=${board}">${alias || board}</a>
 						</li>
 					`));
 
@@ -181,6 +186,7 @@ class Forum {
 				});
 
 				Tabs.refresh();
+				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/topic_list.php?tabs=1`, `${serverUrl}/board_select.php`, '版面');
 			},
 			setBoard: ()=> {
 				let { boardList } = this.model;

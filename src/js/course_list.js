@@ -4,9 +4,11 @@ import './component/header';
 import './component/footer';
 
 import Search from './component/search';
+import Tabs from './component/tabs';
 
 import {
 	serverUrl,
+	imagePrefix,
 } from '../../config';
 
 import url from 'url';
@@ -44,7 +46,7 @@ class CourseList {
 					},
 				});
 			},
-			setMyCourse: ()=> {
+			setTabs: ()=> {
 				if (!keyword) {
 					$.ajax({
 						url: `${serverUrl}/course_list.php?tabs=1`,
@@ -53,7 +55,7 @@ class CourseList {
 						cache: false,
 						success: (data, status)=> {
 							this.model.myCourseList = data.list;
-							this.view.setMyCourse();
+							this.view.setTabs();
 						},
 					});
 				} else {
@@ -62,38 +64,51 @@ class CourseList {
 			},
 		};
 		this.view = {
-			setMyCourse: ()=> {
+			setTabs: ()=> {
 				let { myCourseList } = this.model;
 
-				let wrapper = $(`
-					<div class="section district">
-						<div class="title">
-							<span>我关注的科目</span>
-						</div>
-						<div class="content"></div>
-					</div>
-				`);
+				myCourseList.length ? (()=> {
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
+					$('.container .tabs-wrapper .tabs .tabs-bd').empty();
+				})() : (()=> {
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
+					$('.container .tabs-wrapper .tabs .tabs-bd').empty().append(
+						$('<p style="text-align: center; line-height: 40px; ">暂无关注</p>')
+					);
+				})();
 
-				while (myCourseList.length) {
-					let _row = $(`<div class="row"></div>`);
+				myCourseList.map((_course, idx)=> {
+					let { college, course, course_code, course_id, alias, list } = _course;
 
-					myCourseList.splice(0, 5).map(_course=> {
-						let { id, course, course_code, college, college_id } = _course;
+					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
+						<li class="${idx === 0 ? 'active' : ''}">
+							<a href="javascript:">${alias || course_code.concat(course)}</a>
+						</li>
+					`));
 
-						_row.append($(`
-							<div class="department">
-								<div class="name-wrapper">
-									<a href="material_course.html?college_id=${college_id}&college_name=${college}&course_code=${course_code}&course_id=${id}&course_name=${course}">${course_code}${course}</a>
-								</div>
-								<span class="link">${college}</span>
+					let _panel = $(`<div class="tab-panel course"></div>`);
+					_panel.append(list.length ? null : $('<p style="text-align: center; line-height: 40px; ">暂无数据</p>'))
+					list.map(_material=> {
+						let { id, title, picture, summary, type, question_count } = _material;
+
+						_panel.append($(`
+							<div>
+								<img class="fl" src="${imagePrefix}${picture}" width="50" height="50">
+								<p>
+									<a href="javascript:">
+										<span class="title" title="${title}">${title}</span>
+									</a>
+								</p>
+								<span class="author">${summary}</span>
+								<span class="reply fr">题目数：${question_count}</span>
 							</div>
 						`));
 					});
+					$('.container .tabs-wrapper .tabs .tabs-bd').append(_panel);
+				});
 
-					$('.content', wrapper).append(_row);
-				}
-
-				$('.container .my-wrapper').append(wrapper);
+				Tabs.refresh();
+				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/course_list.php?tabs=1`, `${serverUrl}/course_select.php`, '课程');
 			},
 			setCourse: ()=> {
 				let { courseList } = this.model;
@@ -143,7 +158,7 @@ class CourseList {
 	init () {
 		let { controller } = this;
 
-		controller.setMyCourse();
+		controller.setTabs();
 		controller.setSearch();
 		controller.setCourse();
 	}

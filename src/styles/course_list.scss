@@ -14,7 +14,51 @@ $icons: (
 		text-align: center;
 	}
 
-	.my-wrapper, .course-wrapper {
+	.tabs-wrapper > p:first-of-type {
+		line-height: 40px;
+	}
+
+	.tabs-wrapper .course {
+		& > div {
+			display: inline-block;
+			border-bottom: 1px solid #BACADE;
+			padding: 15px 0;
+			position: relative;
+			width: 100%;
+			&:last-of-type {
+				border: 0;
+			}
+			img {
+				margin: 0 10px;
+			}
+			.title {
+				font-size: 16px;
+				margin-right: 10px;
+				@include text-overflow(670);
+			}
+			.author, .release, .date {
+				font-size: 14px;
+				color: #8C8C8C;
+				margin: 0 5px;
+			}
+			.author {
+				margin: 0;
+			}
+			.reply, .visit {
+				position: absolute;
+				font-size: 14px;
+				right: 0;
+			}
+			.reply {
+				top: 15px;
+				color: #3a6ba4;
+				width: 100px;
+				text-align: center;
+			}
+		}
+	}
+
+	.course-wrapper {
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 
