@@ -13,6 +13,22 @@ $icons: (
 	.material-wrapper {
 		width: 400px;
 		padding: 30px 0;
+		.am-modal#modal-manage > .am-modal-dialog > .am-modal-bd {
+			.tab-row {
+				text-align: left;
+				margin: 10px 0;
+				.real-name {
+					color: #2d7bbd;
+				}
+				.alias {
+					font-size: 12px;
+					color: rgba(0, 0, 0, 0.5);
+				}
+				a {
+					margin: 5px;
+				}
+			}
+		}
 		ul {
 			li {
 				.material {
@@ -61,6 +77,9 @@ $icons: (
 							}
 						}
 					}
+				}
+				&.manage {
+					text-align: center;
 				}
 			}
 		}

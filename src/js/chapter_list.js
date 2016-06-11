@@ -63,7 +63,18 @@ class ChapterList {
 		this.view = {
 			setMaterial: (callback)=> {
 				let { materialList } = this.model;
-				let _id;
+				let _id = material_id ? material_id : materialList[0].material_id;
+				let _modalManage = $(`
+					<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-manage">
+						<div class="am-modal-dialog">
+							<div class="am-modal-bd"></div>
+							<div class="am-modal-footer">
+								<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+								<span class="am-modal-btn" data-am-modal-confirm>确定</span>
+							</div>
+						</div>
+					</div>
+				`);
 
 				materialList.length ? (()=> {
 					$('.container .material-wrapper ul').empty();
@@ -76,13 +87,9 @@ class ChapterList {
 				materialList.map((_material, idx)=> {
 					let { material_id:id, summary, title, question_count, topic_count } = _material;
 
-					if (!material_id && idx === 0) {
-						_id = id;
-					}
-
 					let materialWrapper = $(`
 						<li>
-							<div class="material${id === material_id || (!material_id && idx === 0) ? ' active' : ''}">
+							<div class="material${id === _id ? ' active' : ''}">
 								<div>
 									<p><a href="javascript:"><span id="title">${title}</span></a></p>
 									<p class="question-count"><span>包含${question_count}道题</span></p>
@@ -104,13 +111,81 @@ class ChapterList {
 					});
 
 					$('.container .material-wrapper ul').append(materialWrapper);
+
+					let _tabRow = $(`
+						<div class="tab-row">
+							<span class="real-name">${title}</span>
+							<a href="javascript:" class="fr top">置顶</a>
+							<a href="javascript:" class="fr delete">删除</a>
+						</div>
+					`).data('material_id', id);
+
+					$('.top', _tabRow).click(evt=> {
+						$('.am-modal-bd', _modalManage).prepend($(evt.target).parent());
+					});
+
+					$('.delete', _tabRow).click(evt=> {
+						$(evt.target).parent().remove();
+
+						if (!$('.am-modal-bd', _modalManage).children().length) {
+							$('.am-modal-bd', _modalManage).append($(`
+								<p style="text-align: center; line-height: 40px; ">您已删除所有关注</p>
+							`));
+						}
+					});
+
+					$('.am-modal-bd', _modalManage).append(_tabRow).css({
+						minHeight: $('.am-modal-bd', _modalManage).height(),
+					});
 				});
 
-				if (!material_id) {
-					callback && callback(_id);
+				if (!$('.container .material-wrapper ul > li > .material').hasClass('active')) {
+					$('.container .material-wrapper ul > li > .material').eq(0).addClass('active');
+					callback && callback(materialList[0].material_id);
 				} else {
-					callback && callback(material_id);
+					callback && callback(_id);
 				}
+
+				$('.container .material-wrapper ul').after(_modalManage);
+				let _manage = $(`
+					<li class="manage"><a href="javascript:">资料管理</a></li>
+				`);
+
+				$('a', _manage).click(evt=> {
+					$('#modal-manage').modal({
+						relatedTarget: this,
+						onConfirm: options=> {
+							let list = [];
+
+							$('.tab-row', _modalManage).each((idx, _row)=> {
+								let _rowData = {};
+								
+								_rowData.material_id = $(_row).data('material_id');
+								_rowData.priority = idx;
+
+								list.push(_rowData);
+							});
+
+							$.ajax({
+								url: `${serverUrl}/material_select.php`,
+								type: 'post',
+								data: {
+									course_id: course_id,
+									list: JSON.stringify(list),
+								},
+								dataType: 'json',
+								cache: false,
+								success: (data, status)=> {
+									alert(data.message);
+									location.href = `${location.pathname}?course_id=${data.course_id}`;
+								},
+							});
+						},
+						onCancel: ()=> location.reload(),
+					});
+				});
+
+				course_id && $('.container .material-wrapper ul').append(_manage);
 			},
 			setHeader: ()=> {
 				new HeaderForum([], 'undefined', '课程').render();
