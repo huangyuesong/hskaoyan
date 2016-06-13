@@ -49,9 +49,19 @@ $icons: (
 						display: inline-block;
 						width: 20%;
 						padding-left: 30px;
-
+						.mark-wrapper {
+							display: inline-block;
+							line-height: 22px;
+							a {
+								color: purple;
+								&:hover {
+									text-decoration: underline;
+								}
+							}
+						}
 						.name-wrapper {
-						
+							display: inline-block;
+							vertical-align: top;
 							a {
 								color: #2d7bbd;
 								display: inline-block;
@@ -64,19 +74,6 @@ $icons: (
 
 						a {
 							margin-right: 5px;
-						}
-					}
-
-					.mng-link {
-						font-size: 20px;
-						line-height: 30px;
-						width: 20%;
-						display: inline-block;
-						text-align: center;
-						margin: 10px 0;
-
-						.unread {
-							color: #d92828;
 						}
 					}
 

@@ -42,7 +42,19 @@ class CourseList {
 						let { list } = data;
 
 						this.model.courseList = list;
-						this.view.setCourse();
+						this.view.setCourse(course_id=> this.controller.setMark(course_id));
+					},
+				});
+			},
+			setMark: (course_id)=> {
+				$.ajax({
+					url: `${serverUrl}/course_select.php?course_id=${course_id}&value=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						alert(data.message);
+						location.reload();
 					},
 				});
 			},
@@ -110,7 +122,7 @@ class CourseList {
 				Tabs.refresh();
 				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/course_list.php?tabs=1`, `${serverUrl}/course_select.php`, '课程');
 			},
-			setCourse: ()=> {
+			setCourse: (callback)=> {
 				let { courseList } = this.model;
 
 				let wrapper = $(`
@@ -130,14 +142,21 @@ class CourseList {
 					courseList.splice(0, 5).map(_course=> {
 						let { id, course, course_code, college, college_id } = _course;
 
-						_row.append($(`
+						let courseWrapper = $(`
 							<div class="department">
+								<div class="mark-wrapper">
+									<a href="javascript:" id="mark">关注</a>
+								</div>
 								<div class="name-wrapper">
 									<a href="chapter_list.html?course_id=${id}">${course_code}${course}</a>
 								</div>
-								<span class="link">${college}</span>
+								<p class="link">${college}</p>
 							</div>
-						`));
+						`);
+
+						$('#mark', courseWrapper).click(evt=> callback && callback(id));
+
+						_row.append(courseWrapper);
 					});
 
 					$('.content', wrapper).append(_row);

@@ -26,18 +26,38 @@ class Board {
 	}
 
 	renderBoard (id, title) {
-		return $([
-			`<div class="school">`,
-			`	<div class="name-wrapper">`,
-			`		<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">`,
-			`			${title}`,
-			`		</a>`,
-			`	</div>`,
-			`	<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>`,
-			`	<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>`,
-			`	<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>`,
-			`</div>`,
-		].join(''));
+		let boardWrapper = $(`
+			<div class="school">
+				<div class="mark-wrapper">
+					<a href="javascript:" id="mark">关注</a>
+				</div>
+				<div class="name-wrapper">
+					<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+						${title}
+					</a>
+				</div>
+				<p>
+					<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
+					<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
+					<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+				</p>
+			</div>
+		`);
+
+		$('#mark', boardWrapper).click(evt=> {
+			$.ajax({
+				url: `${serverUrl}/board_select.php?board_id=${id}&value=1`,
+				type: 'get',
+				dataType: 'json',
+				cache: false,
+				success: (data, status)=> {
+					alert(data.message);
+					location.reload();
+				},
+			});
+		});
+
+		return boardWrapper;
 	}
 
 	renderRow (boards) {
@@ -162,9 +182,11 @@ class CollegeList {
 										${title}
 									</a>
 								</div>
-								<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
-								<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
-								<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+								<p>
+									<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
+									<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
+									<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+								</p>
 							</div>
 						`));
 					});

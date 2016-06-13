@@ -142,7 +142,7 @@ export default class Tabs {
 									},
 								});
 							},
-							onCancel: ()=> null,
+							onCancel: ()=> location.reload(),
 						});
 					});
 
@@ -214,7 +214,7 @@ export default class Tabs {
 								$('.tab-row', wrapper).each((idx, _row)=> {
 									let _rowData = {};
 									
-									_rowData.alias = $('input#alias', $(_row)).val() || $(_row).data('alias');
+									_rowData.alias = $('input#alias', $(_row)).val();
 									_rowData.priority = idx;
 									_rowData.course_id = $(_row).data('course_id');
 
@@ -237,7 +237,7 @@ export default class Tabs {
 									},
 								});
 							},
-							onCancel: ()=> null,
+							onCancel: ()=> location.reload(),
 						});
 					});
 
