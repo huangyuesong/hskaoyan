@@ -1,0 +1,81 @@
+@import '_base';
+
+$icons: (
+	icon-index: '/images/web/question_view/index.png',
+	icon-star: '/images/web/question_view/star.png',
+	icon-wrong: '/images/web/question_view/wrong.png',
+);
+
+.container {
+	.question-wrapper {
+		.header {
+			text-align: center;
+			background: #E4EDF9;
+			padding: 15px 50px;
+			.btn-wrapper {
+				display: inline-block;
+				.btn {
+					color: #008BDF;
+					background: white;
+					padding: 0 5px;
+					display: inline-block;
+					height: 30px;
+					box-sizing: border-box;
+					border: 1px solid #008BDF;
+					cursor: pointer;
+					&.active {
+						background: #008BDF;
+						color: white;
+					}
+					&:first-of-type {
+						border-top-left-radius: 5px;
+						border-bottom-left-radius: 5px;
+						-webkit-border-top-left-radius: 5px;
+						-webkit-border-bottom-left-radius: 5px;
+						-moz-border-top-left-radius: 5px;
+						-moz-border-bottom-left-radius: 5px;
+					}
+					&:last-of-type {
+						margin-left: -5px;
+						border-top-right-radius: 5px;
+						border-bottom-right-radius: 5px;
+						-webkit-border-top-right-radius: 5px;
+						-webkit-border-bottom-right-radius: 5px;
+						-moz-border-top-right-radius: 5px;
+						-moz-border-bottom-right-radius: 5px;
+					}
+				}
+			}
+			.icon-index {
+				@include background(map-get($icons, icon-index), 30, 30);
+			}
+		}
+	}
+	.fixed-wrapper {
+		background: white;
+		padding: 10px 50px;
+		text-align: center;
+		.current {
+			font-size: 22px;
+			color: #309AF0;
+			margin-right: -5px;
+		}
+		.icon-star {
+			@include background(map-get($icons, icon-star), 30, 30);
+			margin-right: 5px;
+		}
+		.icon-wrong {
+			@include background(map-get($icons, icon-wrong), 30, 30);
+			margin-right: 5px;
+			margin-left: 20px;
+		}
+		.icon {
+			margin-top: -3px;
+		}
+	}
+	.content {
+		background: #F6F7F7;
+		min-height: 500px;
+		padding: 15px 30px;
+	}
+}

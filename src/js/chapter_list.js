@@ -234,7 +234,7 @@ class ChapterList {
 							let sectionWrapper = $(`
 								<div class="section">
 									<div>
-										<p><a href="javascript:"><span>${title}</span></a></p>
+										<p><a href="question_view.html?section_id=${id}" id="link"><span>${title}</span></a></p>
 										<p class="question-count"><span>包含${question_count}道题</span></p>
 									</div>
 									<div>
@@ -258,6 +258,8 @@ class ChapterList {
 								`));
 
 								$('.question-count', sectionWrapper).remove();
+
+								$('#link', sectionWrapper).prop('href', `javascript:`);
 							}
 
 							if (!Number(file_id) > 0) {
