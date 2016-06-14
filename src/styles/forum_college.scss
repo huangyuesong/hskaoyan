@@ -5,6 +5,7 @@ $icons: (
 	icon-arrow-down-gray: '/images/web/forum_college/arrow-down-gray.png',
 	icon-ad-right: '/images/web/forum_college/ad-right.png',
 	icon-arrow-up: '/images/web/forum_college/arrow-up.png',
+	icon-hot: '/images/web/forum_college/hot.png',
 );
 
 .container {
@@ -248,16 +249,37 @@ $icons: (
 							margin: 0 10px;
 						}
 
+						.label {
+							font-size: 14px;
+							border: 1px solid #0e90d2;
+							color: #0e90d2;
+							padding: 0 5px;
+							@include border-radius(3);
+						}
+
 						.title {
 							font-size: 16px;
 							margin-right: 10px;
-							@include text-overflow(670);
+							@include text-overflow(480);
+						    vertical-align: top;
 						}
 
 						.author, .release, .date {
 							font-size: 14px;
 							color: #8C8C8C;
 							margin: 0 5px;
+						}
+
+						.type {
+							font-size: 14px;
+							color: white;
+							background: #0e90d2;
+							padding: 0 5px;
+							@include border-radius(3);
+						}
+
+						.icon-hot {
+							@include background(map-get($icons, icon-hot), 34 * 0.5, 58 * 0.5);
 						}
 
 						.author {
@@ -271,14 +293,14 @@ $icons: (
 						}
 
 						.reply {
-							top: 15px;
+							top: 25px;
 							color: #3a6ba4;
 							width: 100px;
 							text-align: center;
 						}
 
 						.visit {
-							top: 35px;
+							top: 45px;
 							width: 100px;
 							text-align: center;
 						}

@@ -79,9 +79,8 @@ class QuestionView {
 						`);
 
 						_index.click(evt=> {
-							indexWrapper.modal('close');
-							
 							indexWrapper.on('closed.modal.amui', evt=> callback && callback(id));
+							indexWrapper.modal('close');
 						});
 
 						$('.am-modal-bd', indexWrapper).append(_index);

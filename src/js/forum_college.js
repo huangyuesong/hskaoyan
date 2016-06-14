@@ -19,6 +19,9 @@ let {
 	college_id,
 	page,
 	type,
+	attaches,
+	label,
+	is_hot,
 } = url.parse(location.href, true).query;
 
 if (!college_id) {
@@ -81,8 +84,15 @@ class ForumCollege {
 				});
 			},
 			setTopic: ()=> {
+				let url = `${serverUrl}/topic_list.php?board_id=${college_id}`
+					.concat(type ? `&type=${type}` : '')
+					.concat(attaches ? `&attaches=${attaches}` : '')
+					.concat(label ? `&label=${label}` : '')
+					.concat(is_hot ? `&is_hot=${is_hot}` : '')
+					.concat(page ? `&page=${page}` : '&page=1');
+
 				$.ajax({
-					url: `${serverUrl}/topic_list.php?board_id=${college_id}&type=${type || 1}&page=${page || 1}`,
+					url: url,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -137,21 +147,25 @@ class ForumCollege {
 
 				$('.article ul').empty();
 				topics.map((_topic)=> {
-					$('.article ul').append($([
-						`<li>`,
-							`<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">`,
-							`<p>`,
-								`<a href="forum_article.html?article_id=${_topic.id}&college_id=${college_id}&college_name=${college_name}">`,
-									`<span class="title" title="${_topic.title}">${_topic.title}</span>`,
-								`</a>`,
-							`</p>`,
-							`<span class="author">${_topic.nick_name}</span>`,
-							`<span class="release">发表于</span>`,
-							`<span class="date">${_topic.pub_time}</span>`,
-							`<span class="reply fr">${_topic.comment_count}</span>`,
-							`<span class="visit fr">${_topic.view_count}</span>`,
-						`</li>`,
-					].join('')));
+					$('.article ul').append($(`
+						<li>
+							<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
+							<p>
+								${_topic.label ? '<a href="forum_college.html?college_id=' + college_id + '&label=' + _topic.label + '"><span class="label" style="color: ' + _topic.label_color + '; border-color: ' + _topic.label_color + '; ">' + _topic.label + '</span></a>' : ''}
+								<a href="forum_article.html?article_id=${_topic.id}&college_id=${college_id}&college_name=${college_name}">
+									<span class="title" title="${_topic.title}">${_topic.title}</span>
+								</a>
+							</p>
+							<span class="author">${_topic.nick_name}</span>
+							<span class="release">发表于</span>
+							<span class="date">${_topic.pub_time}</span>
+							${_topic.attaches.length ? '<a class="type" href="forum_college.html?college_id=' + college_id + '&attaches=1">附件</a>' : ''}
+							${_topic.type.length ? '<a class="type" href="forum_college.html?college_id=' + college_id + '&type=' + _topic.type + '" style="background: ' + _topic.type_color + '; ">' + _topic.type + '</a>' : ''}
+							${Number(_topic.is_hot) ? '<a href="forum_college.html?college_id=' + college_id + '&is_hot=1"><span class="icon icon-hot"></span></a>' : ''}
+							<span class="reply fr">${_topic.comment_count}</span>
+							<span class="visit fr">${_topic.view_count}</span>
+						</li>
+					`));
 				});
 
 				if (!topics.length) {
@@ -176,22 +190,22 @@ class ForumCollege {
 					idx: idx,
 					pages: pages,
 					onPageSelect: (page)=> {
-						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${page}`);
+						location.href = location.href.replace(/\&page=(\d*)/, '').concat(`&page=${page}`);
 					},
 					onFirstSelect: ()=> {
-						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=1`);
+						location.href = location.href.replace(/\&page=(\d*)/, '').concat(`&page=1`);
 					},
 					onLastSelect: ()=> {
-						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${pages}`);
+						location.href = location.href.replace(/\&page=(\d*)/, '').concat(`&page=${pages}`);
 					},
 					onPrevSelect: ()=> {
-						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx > 1 ? idx - 1 : 1}`);
+						location.href = location.href.replace(/\&page=(\d*)/, '').concat(`&page=${idx > 1 ? idx - 1 : 1}`);
 					},
 					onNextSelect: ()=> {
-						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${idx < pages ? idx + 1 : pages}`);
+						location.href = location.href.replace(/\&page=(\d*)/, '').concat(`&page=${idx < pages ? idx + 1 : pages}`);
 					},
 					onGoSelect: (target)=> {
-						location.href = location.href.replace(/\&page=\d/, '').concat(`&page=${target}`);
+						location.href = location.href.replace(/\&page=(\d*)/, '').concat(`&page=${target}`);
 					},
 				}).render());
 

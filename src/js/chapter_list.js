@@ -63,6 +63,18 @@ class ChapterList {
 		this.view = {
 			setMaterial: (callback)=> {
 				let { materialList } = this.model;
+
+				if (materialList.length) {
+					$('.container .material-wrapper ul').empty();
+				} else {
+					$('.container .material-wrapper ul').empty().append($(`
+						<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+					`));
+
+					callback && callback(null);
+					return;
+				}
+
 				let _id = material_id ? material_id : materialList[0].material_id;
 				let _modalManage = $(`
 					<div class="am-modal am-modal-confirm" tabindex="-1" id="modal-manage">
@@ -75,14 +87,6 @@ class ChapterList {
 						</div>
 					</div>
 				`);
-
-				materialList.length ? (()=> {
-					$('.container .material-wrapper ul').empty();
-				})() : (()=> {
-					$('.container .material-wrapper ul').empty().append($(`
-						<p style="text-align: center; line-height: 300px; ">暂无数据</p>
-					`));
-				})();
 
 				materialList.map((_material, idx)=> {
 					let { material_id:id, summary, title, question_count, topic_count } = _material;
@@ -147,6 +151,7 @@ class ChapterList {
 				}
 
 				$('.container .material-wrapper ul').after(_modalManage);
+				
 				let _manage = $(`
 					<li class="manage"><a href="javascript:">资料管理</a></li>
 				`);
