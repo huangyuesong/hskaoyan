@@ -4,12 +4,13 @@ $icons: (
 	icon-index: '/images/web/question_view/index.png',
 	icon-star: '/images/web/question_view/star.png',
 	icon-wrong: '/images/web/question_view/wrong.png',
+	icon-answer: '/images/web/question_view/answer.png',
 );
 
 .container {
 	.question-wrapper {
+		margin-bottom: 20px;
 		.header {
-			text-align: center;
 			background: #E4EDF9;
 			padding: 15px 50px;
 			.btn-wrapper {
@@ -48,6 +49,7 @@ $icons: (
 			}
 			.icon-index {
 				@include background(map-get($icons, icon-index), 30, 30);
+				margin: 0 30px;
 			}
 		}
 	}
@@ -60,22 +62,43 @@ $icons: (
 			color: #309AF0;
 			margin-right: -5px;
 		}
+		.nav {
+			display: inline-block;
+			width: 110px;
+		}
 		.icon-star {
-			@include background(map-get($icons, icon-star), 30, 30);
+			@include background(map-get($icons, icon-star), 20, 20);
 			margin-right: 5px;
 		}
 		.icon-wrong {
-			@include background(map-get($icons, icon-wrong), 30, 30);
+			@include background(map-get($icons, icon-wrong), 20, 20);
 			margin-right: 5px;
 			margin-left: 20px;
 		}
 		.icon {
-			margin-top: -3px;
+			margin-top: 3px;
 		}
+	}
+	.desc-wrapper {
+		background: #F6F7F7;
 	}
 	.content {
 		background: #F6F7F7;
-		min-height: 500px;
+		min-height: 400px;
 		padding: 15px 30px;
+		.question {
+			margin: 15px 0;
+		}
+		.choice {
+			margin: 15px 0;
+		}
+		.answer, .analysis {
+			p {
+				margin: 15px 0;
+			}
+			.icon-answer {
+				@include background(map-get($icons, icon-answer), 30, 30);
+			}
+		}
 	}
 }
