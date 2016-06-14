@@ -22,9 +22,10 @@ class QuestionView {
 	constructor () {
 		this.model = {
 			partition: {},
+			indexList: [],
 		};
 		this.controller = {
-			setQuestion: (_partition_id)=> {
+			setQuestion: (_partition_id, callback)=> {
 				$.ajax({
 					url: `${serverUrl}/question_view.php?section_id=${section_id || ''}&partition_id=${_partition_id || partition_id || ''}&partition_ids=${partition_ids || ''}`,
 					type: 'get',
@@ -32,12 +33,69 @@ class QuestionView {
 					cache: false,
 					success: (data, status)=> {
 						this.model.partition = data;
-						this.view.setQuestion(this.controller.setQuestion);
+						this.view.setQuestion(id=> this.controller.setQuestion(id, ()=> this.controller.setIndex()));
+						callback && callback();
 					},
 				});
 			},
+			setIndex: ()=> {
+				$.ajax({
+					url: `${serverUrl}/question_index.php?section_id=${section_id || ''}&partition_id=${partition_id || ''}&partition_ids=${partition_ids || ''}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.indexList = data.list;
+						this.view.setIndex(id=> this.controller.setQuestion(id, ()=> this.controller.setIndex()));
+					},
+				});
+			}
 		};
 		this.view = {
+			setIndex: (callback)=> {
+				let { indexList } = this.model;
+
+				let indexWrapper = $(`
+					<div class="am-modal am-modal-alert" tabindex="-1" id="modal-index">
+					  	<div class="am-modal-dialog">
+				    		<div class="am-modal-bd"></div>
+					    	<div class="am-modal-footer">
+					      		<span class="am-modal-btn" data-am-modal-confirm>收起</span>
+					    	</div>
+					  	</div>
+					</div>
+				`);
+
+				indexList.map(_partition=> {
+					let { id, index, node_type, title } = _partition;
+
+					if (node_type.toString() === '0') {
+						$('.am-modal-bd', indexWrapper).append($(`
+							<p class="title">${title}</p>
+						`));
+					} else if (node_type.toString() === '1') {
+						let _index = $(`
+							<span class="index">${index}</span>
+						`);
+
+						_index.click(evt=> {
+							indexWrapper.modal('close');
+							
+							indexWrapper.on('closed.modal.amui', evt=> callback && callback(id));
+						});
+
+						$('.am-modal-bd', indexWrapper).append(_index);
+					}
+				});
+
+				$('.container > .question-wrapper .header #index').click(evt=> {
+					indexWrapper.modal({
+						relatedTarget: this,
+					});
+				});
+
+				$('.container > .question-wrapper .index-modal-wrapper').append(indexWrapper);
+			},
 			setQuestion: (callback)=> {
 				let { partition } = this.model;
 
@@ -51,10 +109,10 @@ class QuestionView {
 								<span class="btn active">看题模式</span>
 								<span class="btn">做题模式</span>
 							</span>
-							<a href="javascript:"><span class="icon icon-index fr"></span></a>
+							<a href="javascript:" id="index"><span class="icon icon-index fr"></span></a>
 						</div>
 						<div class="fixed-wrapper">
-							<span class="fl">
+							<span class="index fl">
 								<span class="current">${partition_index}</span>
 								<span>/${partition_count}</span>
 							</span>
@@ -73,6 +131,7 @@ class QuestionView {
 						</div>
 						<div class="desc-wrapper"></div>
 						<div class="content"></div>
+						<div class="index-modal-wrapper"></div>
 					</div>
 				`);
 
@@ -84,6 +143,7 @@ class QuestionView {
 
 				if (node_type.toString() === '0') {
 					$('.content', partitionWrapper).hide();
+					$('.fixed-wrapper > .index', partitionWrapper).children().css({color: 'white'});
 					$('.desc-wrapper', partitionWrapper).empty().append($(`<div>${list[0].question}</div>`)).css({
 						padding: '15px 30px',
 						minHeight: '400px',
@@ -167,7 +227,7 @@ class QuestionView {
 	}
 
 	init () {
-		this.controller.setQuestion();
+		this.controller.setQuestion(null, ()=> this.controller.setIndex());
 	}
 }
 

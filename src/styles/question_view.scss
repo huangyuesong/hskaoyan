@@ -57,10 +57,14 @@ $icons: (
 		background: white;
 		padding: 10px 50px;
 		text-align: center;
-		.current {
-			font-size: 22px;
-			color: #309AF0;
-			margin-right: -5px;
+		.index {
+			display: inline-block;
+			min-width: 45px;
+			.current {
+				font-size: 22px;
+				color: #309AF0;
+				margin-right: -5px;
+			}
 		}
 		.nav {
 			display: inline-block;
@@ -98,6 +102,26 @@ $icons: (
 			}
 			.icon-answer {
 				@include background(map-get($icons, icon-answer), 30, 30);
+			}
+		}
+	}
+	.index-modal-wrapper {
+		.am-modal-bd {
+			text-align: left;
+			p {
+				margin: 5px 0;
+			}
+			.index {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				color: #008BDF;
+				border: 1px solid #008BDF;
+				cursor: pointer;
+				@include border-radius(30);
+				margin: 0 10px;
 			}
 		}
 	}
