@@ -129,6 +129,10 @@ class QuestionView {
 								<span class="link fr">收藏</span>
 								<span class="icon icon-star fr"></span>
 							</a>
+							<a href="topic_list.html?question_id=${list[0].id}">
+								<span class="link fr">讨论</span>
+								<span class="icon icon-discuss fr"></span>
+							</a>
 						</div>
 						<div class="desc-wrapper"></div>
 						<div class="content"></div>
@@ -189,7 +193,7 @@ class QuestionView {
 					}
 
 					$('.content img', partitionWrapper).each((idx, _img)=> {
-						$(_img).prop('src', $(_img).prop('src').replace(/172.22.11.1/, 'www.hskaoyan.com'));
+						$(_img).prop('src', $(_img).prop('src').replace(/(172.22.11.1|192.168.3.140)/, 'www.hskaoyan.com'));
 					});
 
 					$('.content img[alt="latex"]', partitionWrapper).each((idx, _img)=> {

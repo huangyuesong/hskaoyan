@@ -140,61 +140,65 @@ class NewsDetail {
 			setComment: (callback)=> {
 				let { comment_list } = this.model;
 
-				$('.container .comment-wrapper').empty();
-				comment_list.map(_comment=> {
-					let { avatar, id, is_liked, nick_name, pub_time, content } = _comment;
+				comment_list.length ? (()=> {
+					$('.container .comment-wrapper').empty();
+					comment_list.map(_comment=> {
+						let { avatar, id, is_liked, nick_name, pub_time, content } = _comment;
 
-					let wrapper = $(`
-						<div class="comment-entry">
-				            <div class="left">
-				                <img src="${imagePrefix}${avatar}" width="50" height="50">
-				            </div>
-				            <div class="right">
-				                <ul>
-				                    <li>
-				                        <span class="nick-name">${nick_name}</span>
-				                        <span class="pub-time fr">${pub_time}</span>
-				                    </li>
-				                    <li>${content}</li>
-				                    <li>
-				                        <a href="javascript:" id="like">
-				                        	<span class="good">
-				                        		<span class="icon icon-good"></span>
-				                        		${Number(is_liked) ? '取消点赞': '点赞'}
-				                        	</span>
-				                        </a>
-				                        <a href="javascript:">举报</a>
-				                    </li>
-				                </ul>
-				            </div>
-				        </div>
-					`);
+						let wrapper = $(`
+							<div class="comment-entry">
+					            <div class="left">
+					                <img src="${imagePrefix}${avatar}" width="50" height="50">
+					            </div>
+					            <div class="right">
+					                <ul>
+					                    <li>
+					                        <span class="nick-name">${nick_name}</span>
+					                        <span class="pub-time fr">${pub_time}</span>
+					                    </li>
+					                    <li>${content}</li>
+					                    <li>
+					                        <a href="javascript:" id="like">
+					                        	<span class="good">
+					                        		<span class="icon icon-good"></span>
+					                        		${Number(is_liked) ? '取消点赞': '点赞'}
+					                        	</span>
+					                        </a>
+					                        <a href="javascript:">举报</a>
+					                    </li>
+					                </ul>
+					            </div>
+					        </div>
+						`);
 
-					$('#like', wrapper).click(evt=> {
-						$.ajax({
-							url: `${serverUrl}/user_like.php?comment_id=${id}&is_liked=${Number(is_liked) ? 0 : 1}`,
-							type: 'get',
-							dataType: 'json',
-							cache: false,
-							success: (data, status)=> {
-								let { result_code, message } = data;
+						$('#like', wrapper).click(evt=> {
+							$.ajax({
+								url: `${serverUrl}/user_like.php?comment_id=${id}&is_liked=${Number(is_liked) ? 0 : 1}`,
+								type: 'get',
+								dataType: 'json',
+								cache: false,
+								success: (data, status)=> {
+									let { result_code, message } = data;
 
-								if (result_code === SUCCESS) {
-									alert(message);
-									location.reload();
-								} else {
-									alert(message);
-								}
-							},
+									if (result_code === SUCCESS) {
+										alert(message);
+										location.reload();
+									} else {
+										alert(message);
+									}
+								},
+							});
 						});
+
+						$('.container .comment-wrapper').append(wrapper);
 					});
 
-					$('.container .comment-wrapper').append(wrapper);
-				});
+					$('.container .comment-wrapper').append($(`<div class="pagination-wrapper"></div>`));
 
-				$('.container .comment-wrapper').append($(`<div class="pagination-wrapper"></div>`));
-
-				callback && callback();
+					callback && callback();
+				})() : (()=> {
+					$('.container .comment-wrapper').remove();
+				})();
 			},
 			setWrite: ()=> {
 				window.nEditor = new Write({

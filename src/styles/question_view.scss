@@ -5,6 +5,7 @@ $icons: (
 	icon-star: '/images/web/question_view/star.png',
 	icon-wrong: '/images/web/question_view/wrong.png',
 	icon-answer: '/images/web/question_view/answer.png',
+	icon-discuss: '/images/web/question_view/discuss.png',
 );
 
 .container {
@@ -73,11 +74,16 @@ $icons: (
 		.icon-star {
 			@include background(map-get($icons, icon-star), 20, 20);
 			margin-right: 5px;
+			margin-left: 20px;
 		}
 		.icon-wrong {
 			@include background(map-get($icons, icon-wrong), 20, 20);
 			margin-right: 5px;
 			margin-left: 20px;
+		}
+		.icon-discuss {
+			@include background(map-get($icons, icon-discuss), 20, 20);
+			margin-right: 5px;
 		}
 		.icon {
 			margin-top: 3px;

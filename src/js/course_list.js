@@ -148,7 +148,7 @@ class CourseList {
 									<a href="javascript:" id="mark">关注</a>
 								</div>
 								<div class="name-wrapper">
-									<a href="chapter_list.html?course_id=${id}">${course_code}${course}</a>
+									<a href="chapter_list.html?course_id=${id}" title="${course_code}${course}">${course_code}${course}</a>
 								</div>
 								<p class="link">${college}</p>
 							</div>

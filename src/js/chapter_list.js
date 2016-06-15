@@ -99,7 +99,7 @@ class ChapterList {
 									<p class="question-count"><span>包含${question_count}道题</span></p>
 								</div>
 								<div>
-									<a href="javascript:">
+									<a href="topic_list.html?material_id=${id}">
 										<p><span class="icon icon-discuss"></span></p>
 										<p>${topic_count}帖</p>
 									</a>
@@ -249,7 +249,7 @@ class ChapterList {
 										</a>
 									</div>
 									<div>
-										<a href="javascript:">
+										<a href="topic_list.html?section_id=${id}">
 											<p><span class="icon icon-discuss"></span></p>
 											<p>${topic_count}帖</p>
 										</a>
@@ -264,7 +264,7 @@ class ChapterList {
 
 								$('.question-count', sectionWrapper).remove();
 
-								$('#link', sectionWrapper).prop('href', `javascript:`);
+								$('#link', sectionWrapper).prop('href', `topic_list.html?section_id=${id}`);
 							}
 
 							if (!Number(file_id) > 0) {

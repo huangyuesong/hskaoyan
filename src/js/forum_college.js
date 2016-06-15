@@ -255,10 +255,8 @@ class ForumCollege {
 				}).render());
 
 				if (!pages || Number(pages) < 2) {
-					$('.pagination-wrapper').eq(0).css({
-						display: 'inline-block',
-						width: '100%',
-						height: '60px',
+					$('.container .right .forum-body').css({
+						marginTop: '10px',
 					});
 				}
 			},
