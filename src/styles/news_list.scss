@@ -34,79 +34,78 @@ $icons: (
 		}
 	}
 
-	.district, .management {
-		border: 2px solid rgba(0, 0, 0, 0.2);
-		margin-bottom: 30px;
-		.title {
-			line-height: 60px;
-			background: #e4edf9;
-			color: #2d7bbd;
-			font-size: 24px;
-			padding: 0 50px;
-			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-			box-sizing: border-box;
-			a {
-				color: #2d7bbd;
-				&:hover {
-					text-decoration: underline;
+	.board-tabs-wrapper {
+		.tabs-bd {
+			padding: 0;
+			.district {
+				border: #ddd 1px solid;
+				border-top: 0;
+				.content {
+					background: white;
 				}
 			}
 		}
-		.content {
-			padding: 10px 0;
-			background: #F5F5F5;
-			.row {
-				border-bottom: 1px dashed #888888;
-				position: relative;
-				.school {
-				    margin: 10px 0;
-					font-size: 14px;
-					display: inline-block;
-					width: 20%;
-					padding-left: 30px;
-					.name-wrapper {
-					
-						a {
-							color: #2d7bbd;
-							display: inline-block;
-							@include text-overflow(150);
+	}
 
-							&:hover {
-								text-decoration: underline;
-							}
-						}
-					}
-					a {
-						margin-right: 5px;
-					}
-				}
-				.mng-link {
-					font-size: 20px;
-					line-height: 30px;
-					width: 20%;
-					display: inline-block;
-					text-align: center;
-					margin: 10px 0;
-
-					.unread {
-						color: #d92828;
-					}
-				}
-				&:last-of-type {
-					border: 0;
-				}
-				.more {
-					width: 20%;
-					color: #FF6E6E;
-					display: inline-block;
-					padding-left: 30px;
-					font-size: 14px;
-					position: absolute;
-					top: 50%;
-					margin-top: -11px;
-					right: 0;
+	.board-tabs-wrapper, .board-wrapper {
+		.district {
+			border: 2px solid rgba(0, 0, 0, 0.2);
+			margin-bottom: 30px;
+			.title {
+				line-height: 60px;
+				background: #e4edf9;
+				color: #2d7bbd;
+				font-size: 24px;
+				padding: 0 50px;
+				border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+				box-sizing: border-box;
+				a {
+					color: #2d7bbd;
 					&:hover {
 						text-decoration: underline;
+					}
+				}
+			}
+			.content {
+				padding: 10px 0;
+				background: #F5F5F5;
+				.row {
+					border-bottom: 1px dashed #888888;
+					position: relative;
+					.school {
+					    margin: 10px 0;
+						font-size: 14px;
+						display: inline-block;
+						width: 20%;
+						padding-left: 30px;
+						.mark-wrapper {
+							display: inline-block;
+							line-height: 22px;
+							a {
+								color: purple;
+								&:hover {
+									text-decoration: underline;
+								}
+							}
+						}
+						.name-wrapper {
+							display: inline-block;
+							vertical-align: top;
+							a {
+								color: #2d7bbd;
+								display: inline-block;
+								@include text-overflow(150);
+								&:hover {
+									text-decoration: underline;
+								}
+							}
+						}
+						a {
+							margin-right: 5px;
+						}
+					}
+					&:last-of-type {
+						border: 0;
 					}
 				}
 			}
