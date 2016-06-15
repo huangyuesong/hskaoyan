@@ -22,6 +22,8 @@ let {
 	attaches,
 	label,
 	is_hot,
+	category,
+	keyword,
 } = url.parse(location.href, true).query;
 
 if (!college_id) {
@@ -32,9 +34,10 @@ class ForumCollege {
 	constructor () {
 		this.model = {
 			topics: [],
-			hotTopics: [],
 			pages: 1,
 			is_marked: false,
+			boards: [],
+			categories: [],
 		};
 		this.controller = {
 			bindEvents: ()=> {
@@ -71,24 +74,14 @@ class ForumCollege {
 					}
 				});
 			},
-			setHotTopic: ()=> {
-				$.ajax({
-					url: `${serverUrl}/topic_list.php?board_id=${college_id}&type=3&limit=5`,
-					type: 'get',
-					dataType: 'json',
-					cache: false,
-					success: (data, status)=> {
-						this.model.hotTopics = data.list;
-						this.view.setHotTopic();
-					},
-				});
-			},
 			setTopic: ()=> {
 				let url = `${serverUrl}/topic_list.php?board_id=${college_id}`
 					.concat(type ? `&type=${type}` : '')
 					.concat(attaches ? `&attaches=${attaches}` : '')
 					.concat(label ? `&label=${label}` : '')
 					.concat(is_hot ? `&is_hot=${is_hot}` : '')
+					.concat(category ? `&category=${category}` : '')
+					.concat(keyword ? `&keyword=${keyword}` : '')
 					.concat(page ? `&page=${page}` : '&page=1');
 
 				$.ajax({
@@ -100,6 +93,11 @@ class ForumCollege {
 						this.model.topics = data.list;
 						this.model.is_marked = data.is_marked;
 						this.model.pages = data.page_count;
+						this.model.boards = data.boards;
+						this.model.categories = data.category;
+
+						this.view.setCategory();
+						this.view.setBoard();
 						this.view.setPagination();
 						this.view.setTopic();
 						this.view.setHeader();
@@ -119,28 +117,73 @@ class ForumCollege {
 			},
 		};
 		this.view = {
+			setBoard: ()=> {
+				let { boards } = this.model;
+
+				boards.length ? (()=> {
+					$('.container .right .hot-wrapper').empty();
+
+					boards.map(_boardList=> {
+						let { title, list } = _boardList;
+
+						$('.container .right .hot-wrapper').append($(`
+							<p>${title}</p>
+						`));
+
+						list.map(_board=> {
+							let { board, id } = _board;
+
+							$('.container .right .hot-wrapper').append($(`
+								<div class="hot"><a href="forum_college.html?college_id=${id}" title="${board}">${board}</a></div>
+							`));
+						});
+					});
+				})() : (()=> {
+					$('.container .right .hot-wrapper').empty().append($(`
+						<p style="text-align: center; line-height: 40px; ">暂无数据</p>
+					`));
+				})();
+			},
+			setCategory: ()=> {
+				let { categories } = this.model;
+
+				categories.length ? (()=> {
+					$('.container .right .category-wrapper').empty().append($(`
+						<p>分类</p>
+					`));
+
+					categories.map(_category=> {
+						let { name, value } = _category;
+
+						$('.container .right .category-wrapper').append($(`
+							<div class="category">
+								<span class="category-text">
+									<a href="forum_college.html?college_id=${college_id}&category=${value}">${name}</a>
+								</span>
+							</div>
+						`));
+					});
+				})() : (()=> {
+					$('.container .right .category-wrapper').empty().append($(`
+						<p style="text-align: center; line-height: 40px; ">暂无分类</p>
+					`));
+				})();
+
+				let searchWrapper = $(`
+					<div class="search-wrapper">
+		                <input type="text" placeholder="在本版内搜索" />
+		                <button>搜 索</button>
+		            </div>
+				`);
+
+				$('button', searchWrapper).click(evt=> location.href = `forum_college.html?college_id=${college_id}&keyword=${$(evt.target).prev().val()}`);
+
+				$('.container .right .category-wrapper').append(searchWrapper);
+			},
 			setHeader: ()=> {
 				let { is_marked } = this.model;
 
 				new HeaderForum([], college_name, '版面', is_marked).render();
-			},
-			setHotTopic: ()=> {
-				let { hotTopics } = this.model;
-
-				$('.recommend .content ul').empty();
-				hotTopics.map((_hotTopic)=> {
-					$('.recommend .content ul').append($([
-						`<li>`,
-							`<a class="bbs-title" title="${_hotTopic.title}" href="forum_article.html?
-								article_id=${_hotTopic.id}&college_id=${college_id}&college_name=${college_name}">${_hotTopic.title}</a>`,
-							`<p><span class="bbs-author" title="${_hotTopic.nick_name}">${_hotTopic.nick_name}</span></p>`,
-						`</li>`
-					].join('')));
-				});
-
-				if (!hotTopics.length) {
-					$('.recommend .content ul').css({'padding': '130px 0', 'text-align': 'center'}).text('暂无帖子');
-				}
 			},
 			setTopic: ()=> {
 				let { topics } = this.model;
@@ -180,6 +223,8 @@ class ForumCollege {
 					fileUploadUrl: `${serverUrl}/upload_file.php`,
 					imageUploadUrl: `${serverUrl}/upload_image.php`,
 				}).render($('.container .write-wrapper'));
+
+				$('.container .write-wrapper .ubbEditorDiv').css({width: '818px'});
 			},
 			setPagination: ()=> {
 				let { pages } = this.model;
@@ -210,14 +255,17 @@ class ForumCollege {
 				}).render());
 
 				if (!pages || Number(pages) < 2) {
-					$('.container .right .forum-body .keyword-section').css({border: '0'});
+					$('.pagination-wrapper').eq(0).css({
+						display: 'inline-block',
+						width: '100%',
+						height: '60px',
+					});
 				}
 			},
 		};
 	}
 
 	init () {
-		this.controller.setHotTopic();
 		this.controller.setTopic();
 		this.controller.setLabel();
 		this.controller.bindEvents();

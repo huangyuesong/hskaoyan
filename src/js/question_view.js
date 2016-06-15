@@ -289,9 +289,11 @@ class QuestionView {
 
 					if ($(evt.target).index() === 1) {
 						$('.content .answer, .content .analysis', partitionWrapper).hide();
+						$('.content', partitionWrapper).height(60 + $('.content .question', partitionWrapper).height() + $('.content .choice', partitionWrapper).height());
 						location.hash = '#hide_answer';
 					} else if ($(evt.target).index() === 0) {
 						$('.content .answer, .content .analysis', partitionWrapper).show();
+						$('.content', partitionWrapper).height(100 + $('.content .question', partitionWrapper).height() + $('.content .choice', partitionWrapper).height() + $('.content .answer', partitionWrapper).height() + $('.content .analysis', partitionWrapper).height());
 						location.hash = '';
 					}
 				});
