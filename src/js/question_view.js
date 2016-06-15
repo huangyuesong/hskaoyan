@@ -3,6 +3,8 @@ import '../styles/question_view.scss';
 import './component/header';
 import './component/footer';
 
+import Tabs from './component/tabs';
+
 import {
 	serverUrl,
 	imagePrefix,
@@ -73,7 +75,7 @@ class QuestionView {
 						$('.am-modal-bd', indexWrapper).append($(`
 							<p class="title">${title}</p>
 						`));
-					} else if (node_type.toString() === '1') {
+					} else if (node_type.toString() === '1' || node_type.toString() === '1') {
 						let _index = $(`
 							<span class="index">${index}</span>
 						`);
@@ -198,13 +200,87 @@ class QuestionView {
 
 					$('.content', partitionWrapper).children().show();
 				} else if (node_type.toString() === '2') {
+					$('.desc-wrapper', partitionWrapper).empty().append($(`<div>${content}</div>`).hide()).css({
+						padding: '15px 30px',
+						minHeight: '400px',
+					});
 
+					$('.desc-wrapper img', partitionWrapper).each((idx, _img)=> {
+						$(_img).prop('src', $(_img).prop('src').replace(/172.22.11.1/, 'www.hskaoyan.com'));
+					});
+
+					$('.desc-wrapper', partitionWrapper).children().show();
+
+					list.length ? (()=> {
+						let tabsWrapper = $(`
+							<div class="tabs">
+								<ul class="tabs-nav">
+									<li class="active"><a href="javascript:">热门院校</a></li>
+								</ul>
+								<div class="tabs-bd">
+									<div class="tab-panel college">
+										<p style="text-align: center; line-height: 40px; ">暂无数据</p>
+									</div>
+								</div>
+							</div>
+						`);
+
+						$('ul.tabs-nav, .tabs-bd', tabsWrapper).empty();
+						$('.content', partitionWrapper).append(tabsWrapper);
+					})() : (()=> {
+						$('.content', partitionWrapper).hide();
+					})();
+
+					list.map((_question, idx)=> {
+						let { analysis, answer, choice, question, title } = _question;
+
+						$('.content .tabs ul.tabs-nav', partitionWrapper).append($(`
+							<li class="${idx === 0 ? 'active': ''}"><a href="javascript:">${title}</a></li>
+						`));
+
+						let questionWrapper = $(`
+							<div class="tab-panel">
+								<div class="question">${question}</div>
+								<div class="choice"></div>
+							</div>
+						`);
+
+						if (choice.length) {
+							for (let i = 0; i < choice.split('//').length; ++i) {
+								$('.choice', questionWrapper).append($(`
+									<p>${String.fromCharCode(i + 65)}: ${choice.split('//')[i]}</p>
+								`));
+							}
+						}
+
+						if (answer.length) {
+							questionWrapper.append($(`
+								<div class="answer">
+									<span class="icon icon-answer"></span>
+									<span>答案</span>
+									<p>${answer}</p>
+								</div>
+							`));
+						}
+
+						if (analysis.length) {
+							questionWrapper.append($(`
+								<div class="analysis">
+									<span class="icon icon-answer"></span>
+									<span>解析</span>
+									<p>${analysis}</p>
+								</div>
+							`));
+						}
+
+						$('.content .tabs .tabs-bd', partitionWrapper).append(questionWrapper);
+					});
 				}
 
 				if (location.hash === '#hide_answer') {
 					$('.btn-wrapper', partitionWrapper).children().removeClass('active');
 					$('.btn-wrapper > .btn', partitionWrapper).eq(1).addClass('active');
-					$('.content > .answer, .content > .analysis', partitionWrapper).hide();
+					$('.content .answer, .content .analysis', partitionWrapper).hide();
 				}
 
 				$('.btn-wrapper .btn', partitionWrapper).click(evt=> {
@@ -212,15 +288,17 @@ class QuestionView {
 					$(evt.target).addClass('active');
 
 					if ($(evt.target).index() === 1) {
-						$('.content > .answer, .content > .analysis', partitionWrapper).hide();
+						$('.content .answer, .content .analysis', partitionWrapper).hide();
 						location.hash = '#hide_answer';
 					} else if ($(evt.target).index() === 0) {
-						$('.content > .answer, .content > .analysis', partitionWrapper).show();
+						$('.content .answer, .content .analysis', partitionWrapper).show();
 						location.hash = '';
 					}
 				});
 
 				$('.container .question-wrapper').empty().append(partitionWrapper);
+
+				Tabs.refresh();
 			},
 		};
 	}

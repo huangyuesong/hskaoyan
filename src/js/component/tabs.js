@@ -25,6 +25,7 @@ $(()=> {
 
 export default class Tabs {
 	static refresh () {
+		console.log($('.tabs'))
 		$('.tabs > ul.tabs-nav > li:not(.manage) > a').mouseenter(evt=> {
 			$(evt.target).parent().parent().find('li').removeClass('active');
 			$(evt.target).parent().addClass('active');
