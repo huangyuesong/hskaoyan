@@ -1,7 +1,7 @@
 @import '_base';
 
 $icons: (
-	
+	icon-tsinghua: '/images/web/college_list/tsinghua.png',
 );
 
 .container {
@@ -14,9 +14,22 @@ $icons: (
 		text-align: center;
 	}
 
-	.my-wrapper, .college-wrapper {
+	.college-tabs-wrapper {
+		.tabs-bd {
+			padding: 0;
+			.district {
+				border: #ddd 1px solid;
+				border-top: 0;
+				.content {
+					background: white;
+				}
+			}
+		}
+	}
+
+	.my-wrapper, .college-tabs-wrapper, .result-wrapper {
 		.district {
-			border: 2px solid rgba(0, 0, 0, 0.2);
+			border: 1px solid rgba(0, 0, 0, 0.2);
 			margin-bottom: 30px;
 
 			.title {
@@ -24,7 +37,7 @@ $icons: (
 				background: #e4edf9;
 				font-size: 24px;
 				padding: 0 50px;
-				border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+				border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 				box-sizing: border-box;
 				color: #2d7bbd;
 				a {
@@ -98,6 +111,16 @@ $icons: (
 					}
 				}
 			}
+		}
+	}
+
+	.image-wrapper {
+		text-align: center;
+		.icon {
+			margin-bottom: 5px;
+		}
+		.icon-tsinghua {
+			@include background(map-get($icons, icon-tsinghua), 245, 60);
 		}
 	}
 }
