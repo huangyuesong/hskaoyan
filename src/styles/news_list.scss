@@ -8,6 +8,7 @@ $icons: (
 	
 	.section {
 		padding: 0 0; 
+		margin: 20px 0;
 	}
 	
 	.search-wrapper {
@@ -24,7 +25,9 @@ $icons: (
 			width: 100%;
 			font-size: 14px;
 			line-height: 32px;
-			border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+			border-bottom: 1px dashed rgba(0, 0, 0, 0.3);& > a {
+				@include text-overflow(900);
+			}
 			.icon-arrow-right {
 				@include background(map-get($icons, icon-arrow-right), 5, 9);
 				position: relative;
@@ -106,6 +109,44 @@ $icons: (
 					}
 					&:last-of-type {
 						border: 0;
+					}
+				}
+			}
+		}
+	}
+
+	.hot-wrapper {
+		.image-wrapper {
+			display: inline-block;
+			width: #{140 * 2}px;
+			height: #{100 * 2}px;
+		}
+		.news-wrapper {
+			display: inline-block;
+			width: #{$container-width - 30 - (140 * 2)}px;
+			padding: 0 10px;
+			.tabs {
+				& > ul.tabs-nav > li > a:hover {
+					cursor: default;
+				}
+				.tabs-bd {
+					.news {
+						& > div {
+							display: inline-block;
+							width: 100%;
+							font-size: 14px;
+							line-height: 32px;
+							border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+							& > a {
+								@include text-overflow(600);
+							}
+							.icon-arrow-right {
+								@include background(map-get($icons, icon-arrow-right), 5, 9);
+								position: relative;
+								top: -2px;
+								margin: 0 3px;
+							}
+						}
 					}
 				}
 			}

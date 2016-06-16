@@ -119,7 +119,7 @@ export default class Tabs {
 								$('.tab-row', wrapper).each((idx, _row)=> {
 									let _rowData = {};
 									
-									_rowData.alias = $('input#alias', $(_row)).val() || $(_row).data('alias');
+									_rowData.alias = $('input#alias', $(_row)).val();
 									_rowData.priority = idx;
 									_rowData.board_id = $(_row).data('board_id');
 

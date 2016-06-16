@@ -46,7 +46,7 @@ class Forum {
 			setTabs: ()=> {
 				if (!title) {
 					$.ajax({
-						url: `${serverUrl}/topic_list.php?tabs=1`,
+						url: `${serverUrl}/topic_list.php?data=mine`,
 						type: 'get',
 						dataType: 'json',
 						cache: false,

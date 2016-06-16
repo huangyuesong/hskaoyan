@@ -8,6 +8,7 @@ import Tabs from './component/tabs';
 
 import {
 	serverUrl,
+	imagePrefix,
 } from '../../config';
 
 import url from 'url';
@@ -21,6 +22,8 @@ class NewsList {
 		this.model = {
 			boardList: [],
 			myBoardList: [],
+			imageList: [],
+			hotList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
@@ -45,7 +48,7 @@ class NewsList {
 			setTabs: ()=> {
 				if (!title) {
 					$.ajax({
-						url: `${serverUrl}/news_list.php?tabs=1`,
+						url: `${serverUrl}/news_list.php?data=mine`,
 						type: 'get',
 						dataType: 'json',
 						cache: false,
@@ -57,6 +60,30 @@ class NewsList {
 				} else {
 					$('.container .tabs-wrapper').remove();
 				}
+			},
+			setImageSlider: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list.php?data=image`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.imageList = data.list;
+						this.view.setImageSlider();
+					},
+				});
+			},
+			setHotNews: ()=> {
+				$.ajax({
+					url: `${serverUrl}/news_list.php?data=recommend`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.hotList = data.list;
+						this.view.setHotNews();
+					},
+				});
 			},
 			setSearchResult: (keyword)=> {
 				$.ajax({
@@ -72,6 +99,80 @@ class NewsList {
 			},
 		};
 		this.view = {
+			setHotNews: ()=> {
+				let { hotList } = this.model;
+
+				hotList.length ? (()=> {
+					let wrapper = $(`
+						<div class="tabs">
+							<ul class="tabs-nav"></ul>
+							<div class="tabs-bd"></div>
+						</div>
+					`);
+
+					hotList.map((_tab, idx)=> {
+						let { title, list } = _tab;
+
+						$('ul.tabs-nav', wrapper).append($(`
+							<li class="${idx === 0 ? 'active' : ''}">
+								<a href="javascript:">${title}</a>
+							</li>
+						`));
+
+						list.map(_news=> {
+							let { title, id, edit_time } = _news;
+
+							$('.tabs-bd', wrapper).append($(`
+								<div class="tab-panel news">
+									<div>
+										<a href="news_detail.html?news_id=${id}" title="${title}">${title}</a>
+				    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
+				    				</div>
+								</div>
+							`));
+						});
+					});
+
+					$('.container .hot-wrapper .news-wrapper').empty().append(wrapper);
+
+					Tabs.refresh();
+				})() : (()=> {
+					$('.container .hot-wrapper .news-wrapper').empty();
+				})();
+			},
+			setImageSlider: ()=> {
+				let { imageList } = this.model;
+
+				imageList.length ? (()=> {
+					$('.container .hot-wrapper .image-wrapper').empty();
+
+					let wrapper = $(`
+						<div class="am-slider am-slider-a1">
+							<ul class="am-slides"></ul>
+						</div>
+					`);
+
+					imageList.map(_img=> {
+						$('ul.am-slides', wrapper).append($(`
+							<li>
+					        	<a href="news_detail.html?news_id=${_img.id}">
+					        		<img src="${imagePrefix}${_img.picture}" width="280" height="200">
+					        	</a>
+					        </li>
+						`));
+					});
+
+					$('.container .hot-wrapper .image-wrapper').append(wrapper);
+
+					wrapper.flexslider({
+						directionNav: false,
+						slideshowSpeed: 4000,
+						pauseOnAction: false,
+					});
+				})() : (()=> {
+					$('.container .hot-wrapper .image-wrapper').empty();
+				})();
+			},
 			setSearchResult: ()=> {
 				let { title, list } = this.model.searchResult[0];
 
@@ -248,7 +349,7 @@ class NewsList {
 
 						_panel.append($(`
 							<div>
-								<a href="news_detail.html?college_id=${board_id}&college_name=${board}&news_id=${id}&news_name=${title}">${title}</a>
+								<a href="news_detail.html?college_id=${board_id}&college_name=${board}&news_id=${id}&news_name=${title}" title="${title}">${title}</a>
 		    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
 		    				</div>
 						`));
@@ -284,6 +385,8 @@ class NewsList {
 
 		controller.setTabs();
 		controller.setBoard();
+		controller.setImageSlider();
+		controller.setHotNews();
 		controller.setSearch();
 	}
 }

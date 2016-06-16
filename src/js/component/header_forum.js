@@ -45,6 +45,14 @@ export default class HeaderForum {
 	render () {
 		let _header = $(this.html);
 
+		if (!college_id) {
+			$('.section3 ul.navs', _header).css({padding: '0'});
+			$('.section3 ul.navs li.nav:nth-child(1)', _header).hide();
+			$('.section3 ul.navs li.nav:nth-child(2) > a', _header).prop('href', 'news_list.html');
+			$('.section3 ul.navs li.nav:nth-child(3) > a', _header).prop('href', 'course_list.html');
+			$('.section3 ul.navs li.nav:nth-child(4) > a', _header).prop('href', 'forum.html');
+		}
+
 		if (this.isMarked === undefined) {
 			$('.section3 ul.navs li:last-of-type', _header).remove();
 		}

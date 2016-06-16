@@ -23,7 +23,7 @@ let {
 	page,
 } = url.parse(location.href, true).query;
 
-if (!college_id || !news_id || !news_name) {
+if (!news_id) {
 	location.href = '/forum.html';
 }
 
