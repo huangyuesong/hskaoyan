@@ -15,6 +15,10 @@ $icons: (
 	icon-key: '/images/web/header/key.png',
 );
 
+.fr {
+	float: right;
+}
+
 .header {
 
 	.modal-login, .modal-register, .modal-forget-password, .modal-captcha {
@@ -233,8 +237,9 @@ $icons: (
 	}
 
 	.middle {
-		padding-top: 35px;
-		padding-bottom: 15px;
+		padding: 35px 0;
+		width: 1250px;
+		margin: 0 auto;
 		
 		.icon-logo {
 			@include background(map-get($icons, icon-logo), 351, 41);
@@ -268,8 +273,45 @@ $icons: (
 				color: red;
 			}
 		}
+
+		.nav-bar {
+			width: 750px;
+			line-height: 50px;
+			font-size: 20px;
+			text-align: center;
+			display: inline-block;
+			text-align: center;
+			dl {
+				margin: 0;
+				dt {
+					display: inline-block;
+					margin: 0 20px;
+					padding: 0 20px;
+					&:first-of-type {
+						margin-left: 0;
+					}
+					&:last-of-type {
+						margin-right: 0;
+					}
+					.icon-arrow {
+						@include background(map-get($icons, icon-arrow-down), 14, 9);
+					}
+				}
+				dt.popup:hover {
+					.icon-arrow {
+						@include background(map-get($icons, icon-arrow-up), 14, 9);
+					}
+				}
+				.popup-wrapper {
+					padding-top: 50px;
+					.content {
+						font-weight: normal;
+					}
+				}
+			}
+		}
 	}
-	.nav-bar {
+	/* .nav-bar {
 		line-height: 50px;
 		font-size: 20px;
 		text-align: center;
@@ -302,5 +344,5 @@ $icons: (
 				}
 			}
 		}
-	}
+	} */
 }
