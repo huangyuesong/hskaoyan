@@ -146,7 +146,7 @@ export default class Tabs {
 						});
 					});
 
-					$('.tabs ul.tabs-nav').append(_manageLink);
+					$('.tabs ul.tabs-nav', wrapper).append(_manageLink);
 				},
 			});
 		} else if (type === '课程') {

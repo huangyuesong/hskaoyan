@@ -15,82 +15,7 @@ import url from 'url';
 
 let {
 	title,
-	keyword,
 } = url.parse(location.href, true).query;
-
-class Board {
-	constructor (data) {
-		let { title, list, last_data } = data;
-
-		this.title = title;
-		this.list = list;
-		this.last_data = last_data;
-	}
-
-	renderBoard (id, title) {
-		return $([
-			`<div class="school">`,
-			`	<div class="name-wrapper">`,
-			`		<a href="forum_college.html?college_id=${id}&college_name=${title}" title="${title}">`,
-			`			${title}`,
-			`		</a>`,
-			`	</div>`,
-			/*`	<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>`,
-			`	<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>`,
-			`	<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>`,*/
-			`</div>`,
-		].join(''));
-	}
-
-	renderRow (boards) {
-		let row = $('<div class="row"></div>');
-
-		boards.map((_board)=> {
-			row.append(this.renderBoard( _board.id, _board.board));
-		});
-
-		return row;
-	}
-
-	renderMore () {
-		return $(`<a class="more" href="forum.html?title=${this.title}">查看全部>></a>`);
-	}
-
-	render () {
-		let _board = $([
-			`<div class="section district">`,
-			`	<div class="title">`,
-			`		<a href="forum.html?title=${this.title}">${this.title}</a>`,
-			`	</div>`,
-			`	<div class="content"></div>`,
-			`</div>`,
-		].join(''));
-
-		if (this.list.length) {
-			while (this.list.length) {
-				$('.content', _board).append(this.renderRow(this.list.splice(0, 5)));
-			}
-
-			if (!this.last_data) {
-				let _row = $('.content .row:last-of-type', _board).eq(0);
-				
-				if ($(_row).children().length < 5) {
-					$(_row).append(this.renderMore());
-				} else {
-					let _content = $(_row).parent();
-					_content.append(this.renderRow([]));
-					$('.row:last-of-type', _content).css({height: '70px'}).append(this.renderMore());
-				}
-			}
-		} else {
-			$('.content', _board).css({height: '300px'}).append($(`
-				<p style="text-align: center; line-height: 300px">暂无数据</p>
-			`));
-		}
-
-		return _board;
-	}
-}
 
 class Forum {
 	constructor () {
@@ -100,15 +25,10 @@ class Forum {
 		};
 		this.controller = {
 			setSearch: ()=> {
-				this.view.setSearch();
+				this.view.setSearch(this.controller.setSearchResult);
 			},
 			setBoard: ()=> {
-				let url = `${serverUrl}/board_list.php`;
-				if (title !== undefined) {
-					url = `${serverUrl}/board_list.php?title=${title}`;
-				} else if (keyword !== undefined) {
-					url = `${serverUrl}/board_list.php?keyword=${keyword}`;
-				}
+				let url = `${serverUrl}/board_list.php`.concat(title ? `?title=${title}` : ``);
 
 				$.ajax({
 					url: url,
@@ -119,12 +39,12 @@ class Forum {
 						let { list } = data;
 
 						this.model.boardList = list;
-						this.view.setBoard();
+						this.view.setBoardTabs();
 					},
 				});
 			},
 			setTabs: ()=> {
-				if (!title && !keyword) {
+				if (!title) {
 					$.ajax({
 						url: `${serverUrl}/topic_list.php?tabs=1`,
 						type: 'get',
@@ -139,8 +59,167 @@ class Forum {
 					$('.container .tabs-wrapper').remove();
 				}
 			},
+			setSearchResult: (keyword)=> {
+				$.ajax({
+					url: `${serverUrl}/board_list.php?keyword=${keyword}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.searchResult = data.list;
+						this.view.setSearchResult();
+					},
+				});
+			},
 		};
 		this.view = {
+			setSearchResult: ()=> {
+				let { title, list } = this.model.searchResult[0];
+
+				let wrapper = $(`
+					<div class="district">
+						<div class="title">
+							<span>${title}</span>
+						</div>
+						<div class="content"></div>
+					</div>
+				`);
+
+				list.length ? (()=> {
+					while (list.length) {
+						let row = $(`<div class="row"></div>`);
+
+						list.splice(0, 5).map(_college=> {
+							let { id, board:title } = _college;
+
+							let collegeWrapper = $(`
+								<div class="school">
+									<div class="mark-wrapper">
+										<a href="javascript:" id="mark">关注</a>
+									</div>
+									<div class="name-wrapper">
+										<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+											${title}
+										</a>
+									</div>
+								</div>
+							`);
+
+							row.append(collegeWrapper);
+
+							$('#mark', collegeWrapper).click(evt=> {
+								$.ajax({
+									url: `${serverUrl}/board_select.php?board_id=${id}&value=1`,
+									type: 'get',
+									dataType: 'json',
+									cache: false,
+									success: (data, status)=> {
+										alert(data.message);
+										location.reload();
+									},
+								});
+							});
+						});
+
+						$('.content', wrapper).append(row);
+					}
+				})() : (()=> {
+					$('.content', wrapper).append($(`
+						<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+					`));
+				})();
+
+				$('.container .result-wrapper').empty().append(wrapper);
+			},
+			setBoardTabs: ()=> {
+				let { boardList } = this.model;
+
+				boardList.length ? (()=> {
+					let wrapper = $(`
+						<div class="tabs">
+							<ul class="tabs-nav"></ul>
+							<div class="tabs-bd"></div>
+						</div>
+					`);
+
+					boardList.map((_district, idx)=> {
+						let { title, list } = _district;
+
+						$('ul.tabs-nav', wrapper).append($(`
+							<li class="${idx === 0 ? 'active' : ''}">
+								<a href="forum.html?title=${title}">${title}</a>
+							</li>
+						`));
+
+						list.length ? (()=> {
+							let districtWrapper = $(`
+								<div class="tab-panel district">
+									<div class="content"></div>
+								</div>
+							`);
+
+							while (list.length) {
+								let row = $(`<div class="row"></div>`);
+
+								list.splice(0, 5).map(_college=> {
+									let { id, board:title } = _college;
+
+									let collegeWrapper = $(`
+							<div class="school">
+								<div class="mark-wrapper">
+									<a href="javascript:" id="mark">关注</a>
+								</div>
+								<div class="name-wrapper">
+									<a href="forum_college.html?college_id=${id}&college_name=${title}" title="${title}">
+										${title}
+									</a>
+								</div>
+							</div>
+									`);
+
+									$('#mark', collegeWrapper).click(evt=> {
+										$.ajax({
+											url: `${serverUrl}/board_select.php?board_id=${id}&value=1`,
+											type: 'get',
+											dataType: 'json',
+											cache: false,
+											success: (data, status)=> {
+												alert(data.message);
+												location.reload();
+											},
+										});
+									});
+
+									row.append(collegeWrapper);
+								});
+
+								$('.content', districtWrapper).append(row);
+							}
+
+							$('.tabs-bd', wrapper).append(districtWrapper);
+						})() : (()=> {
+							$('.tabs-bd', wrapper).append($(`
+								<div class="tab-panel">
+									<p style="text-align: center; line-height: 40px; ">暂无数据</p>
+								</div>
+							`));
+						})();
+					});
+
+					$('.container .board-tabs-wrapper').append(wrapper);
+
+					Tabs.refresh();
+				})() : (()=> {
+					$('.container .board-tabs-wrapper').empty().append($(`
+						<div class="tabs">
+							<ul class="tabs-nav"></ul>
+							<div class="tabs-bd">
+								<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+							</div>
+						</div>
+					`));
+				})();
+			},
 			setTabs: ()=> {
 				let { myBoardList } = this.model;
 
@@ -188,35 +267,22 @@ class Forum {
 				Tabs.refresh();
 				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/topic_list.php?tabs=1`, `${serverUrl}/board_select.php`, '版面');
 			},
-			setBoard: ()=> {
-				let { boardList } = this.model;
-
-				boardList.map((_board)=> {
-					let { title, list, last_data } = _board;
-
-					let __board = new Board({
-						title: title,
-						list: list,
-						last_data: last_data,
-					}).render();
-
-					$('.container .board-wrapper').append(__board);
-				});
-			},
-			setSearch: ()=> {
+			setSearch: (callback)=> {
 				$('.container .search-wrapper').append(new Search({
 					placeholder: '请输入搜索内容',
-					category: ['版面'],
-					selected: '版面',
-					onSearch: (keyword, categoty)=> {
+					category: ['院校'],
+					selected: '院校',
+					onSearch: (keyword, type)=> {
 						if (!keyword) {
 							alert('请输入搜索内容');
 							return;
 						}
-						
-						location.href = `forum.html?keyword=${keyword}`;
+
+						callback && callback(keyword);
 					},
 				}).render());
+
+				$('.container .search-wrapper .search-section select').hide();
 			},
 		}
 	}

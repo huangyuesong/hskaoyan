@@ -14,7 +14,6 @@ import url from 'url';
 
 let {
 	title,
-	keyword,
 } = url.parse(location.href, true).query;
 
 class NewsList {
@@ -25,15 +24,10 @@ class NewsList {
 		};
 		this.controller = {
 			setSearch: ()=> {
-				this.view.setSearch();
+				this.view.setSearch(this.controller.setSearchResult);
 			},
 			setBoard: ()=> {
-				let url = `${serverUrl}/college_list.php?news=1`;
-				if (keyword !== undefined) {
-					url = `${serverUrl}/college_list.php?news=1&keyword=${keyword}`;
-				} else if (title !== undefined) {
-					url = `${serverUrl}/college_list.php?news=1&title=${title}`;
-				}
+				let url = `${serverUrl}/college_list.php?news=1`.concat(title ? `&title=${title}` : ``);
 
 				$.ajax({
 					url: url,
@@ -49,7 +43,7 @@ class NewsList {
 				});
 			},
 			setTabs: ()=> {
-				if (!title && !keyword) {
+				if (!title) {
 					$.ajax({
 						url: `${serverUrl}/news_list.php?tabs=1`,
 						type: 'get',
@@ -64,8 +58,78 @@ class NewsList {
 					$('.container .tabs-wrapper').remove();
 				}
 			},
+			setSearchResult: (keyword)=> {
+				$.ajax({
+					url: `${serverUrl}/board_list.php?keyword=${keyword}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.searchResult = data.list;
+						this.view.setSearchResult();
+					},
+				});
+			},
 		};
 		this.view = {
+			setSearchResult: ()=> {
+				let { title, list } = this.model.searchResult[0];
+
+				let wrapper = $(`
+					<div class="district">
+						<div class="title">
+							<span>${title}</span>
+						</div>
+						<div class="content"></div>
+					</div>
+				`);
+
+				list.length ? (()=> {
+					while (list.length) {
+						let row = $(`<div class="row"></div>`);
+
+						list.splice(0, 5).map(_college=> {
+							let { id, board:title } = _college;
+
+							let collegeWrapper = $(`
+								<div class="school">
+									<div class="mark-wrapper">
+										<a href="javascript:" id="mark">关注</a>
+									</div>
+									<div class="name-wrapper">
+										<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+											${title}
+										</a>
+									</div>
+								</div>
+							`);
+
+							row.append(collegeWrapper);
+
+							$('#mark', collegeWrapper).click(evt=> {
+								$.ajax({
+									url: `${serverUrl}/board_select.php?board_id=${id}&value=1`,
+									type: 'get',
+									dataType: 'json',
+									cache: false,
+									success: (data, status)=> {
+										alert(data.message);
+										location.reload();
+									},
+								});
+							});
+						});
+
+						$('.content', wrapper).append(row);
+					}
+				})() : (()=> {
+					$('.content', wrapper).append($(`
+						<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+					`));
+				})();
+
+				$('.container .result-wrapper').empty().append(wrapper);
+			},
 			setCollegeTab: ()=> {
 				let { boardList } = this.model;
 
@@ -82,7 +146,7 @@ class NewsList {
 
 						$('ul.tabs-nav', wrapper).append($(`
 							<li class="${idx === 0 ? 'active' : ''}">
-								<a href="college_list.html?title=${title}">${title}</a>
+								<a href="news_list.html?title=${title}">${title}</a>
 							</li>
 						`));
 
@@ -195,20 +259,22 @@ class NewsList {
 				Tabs.refresh();
 				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/news_list.php?tabs=1`, `${serverUrl}/board_select.php?type=1`, '版面');
 			},
-			setSearch: ()=> {
+			setSearch: (callback)=> {
 				$('.container .search-wrapper').append(new Search({
 					placeholder: '请输入搜索内容',
 					category: ['院校'],
 					selected: '院校',
-					onSearch: (keyword, category)=> {
+					onSearch: (keyword, type)=> {
 						if (!keyword) {
 							alert('请输入搜索内容');
 							return;
 						}
 
-						location.href = `news_list.html?keyword=${keyword}`;
+						callback && callback(keyword);
 					},
 				}).render());
+
+				$('.container .search-wrapper .search-section select').hide();
 			},
 		}
 	}

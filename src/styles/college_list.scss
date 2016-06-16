@@ -12,6 +12,16 @@ $icons: (
 
 	.search-wrapper {
 		text-align: center;
+		.search-section {
+			.link {
+				margin: 0 10px;
+				font-size: 14px;
+				color: #2d7bbd;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
 	}
 
 	.college-tabs-wrapper {

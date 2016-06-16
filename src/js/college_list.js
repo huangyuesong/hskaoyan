@@ -14,7 +14,9 @@ import url from 'url';
 
 let {
 	title,
-	keyword,
+	is_211,
+	is_985,
+	is_34,
 } = url.parse(location.href, true).query;
 
 class CollegeList {
@@ -29,12 +31,11 @@ class CollegeList {
 				this.view.setSearch(this.controller.setSearchResult);
 			},
 			setBoard: ()=> {
-				let url = `${serverUrl}/college_list.php`;
-				if (title !== undefined) {
-					url = `${serverUrl}/college_list.php?title=${title}`;
-				} else if (keyword !== undefined) {
-					url = `${serverUrl}/college_list.php?keyword=${keyword}`;
-				}
+				let url = `${serverUrl}/college_list.php?__=__`
+					.concat(title ? `&title=${title}` : ``)
+					.concat(is_211 ? `&is_211=${is_211}` : ``)
+					.concat(is_985 ? `&is_985=${is_985}` : ``)
+					.concat(is_34 ? `&is_34=${is_34}` : ``);
 
 				$.ajax({
 					url: url,
@@ -50,7 +51,7 @@ class CollegeList {
 				});
 			},
 			setMyBoard: ()=> {
-				if (!title && !keyword) {
+				if (!title) {
 					$.ajax({
 						url: `${serverUrl}/college_list.php?tabs=1`,
 						type: 'get',
@@ -289,6 +290,12 @@ class CollegeList {
 				}).render());
 
 				$('.container .search-wrapper .search-section select').hide();
+
+				$('.container .search-wrapper .search-section').append($(`
+					<a class="link" href="college_list.html?is_211=1">211</a>
+					<a class="link" href="college_list.html?is_985=1">985</a>
+					<a class="link" href="college_list.html?is_34=1">34所</a>
+				`));
 			},
 		}
 	}
