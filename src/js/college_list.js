@@ -17,6 +17,7 @@ let {
 	is_211,
 	is_985,
 	is_34,
+	keyword,
 } = url.parse(location.href, true).query;
 
 class CollegeList {
@@ -29,6 +30,8 @@ class CollegeList {
 		this.controller = {
 			setSearch: ()=> {
 				this.view.setSearch(this.controller.setSearchResult);
+
+				if (keyword) this.controller.setSearchResult(keyword);
 			},
 			setBoard: ()=> {
 				let url = `${serverUrl}/college_list.php?__=__`

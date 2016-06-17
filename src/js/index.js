@@ -245,8 +245,8 @@ class Index {
 		this.controller.setOtherSite();
 		this.controller.setSearch();
 		this.controller.setHotCollege();
-		this.controller.setHotArticle();
 		this.controller.setHotNews();
+		this.controller.setHotArticle();
 	}
 }
 

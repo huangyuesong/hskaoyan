@@ -234,18 +234,10 @@ body {
 
 					.top {
 						color: $color-blue;
-						padding: 0 30px;
-					}
-
-					.image-slider {
-
-						.icon-college {
-							@include background(map-get($icons, icon-college), 330, 300);
-						}
+						padding: 10px 30px;
 					}
 
 					ul {
-						margin-top: 20px;
 
 						li {
 							font-size: 14px;
@@ -268,28 +260,44 @@ body {
 				}
 
 				.center {
-					padding: 0 20px;
+					padding: 0 15px;
 					width: 594px;
-
-					a {
-						color: #808080;
-
-						&:hover {
-							color: $color-a-hover;
+					.tabs {
+						ul.tabs-nav > li > a {
+							cursor: default;
+							&:hover {
+								color: #333333;
+							}
 						}
-					}
-
-					.am-tabs:nth-child(2) {
-						margin-top: 50px;
-					}
-
-					.am-tabs-bd {
-
-						ul li {
-							@include text-overflow(531);
-
+						.tabs-bd {
 							a {
-								line-height: 27px;
+								color: #808080;
+								&:hover {
+									color: $color-a-hover;
+								}
+							}
+							&.bd-teacher {
+								padding: 20px 0;
+								text-align: center;
+								.teacher-wrapper {
+									display: inline-block;
+									text-align: center;
+									width: (1 / 4) * 97%;
+									margin: 10px 0;
+									img {
+										width: 60px;
+										height: 60px;
+										@include border-radius(60);
+									}
+									.profile {
+										font-size: 12px;
+									}
+								}
+							}
+							.experience {
+								ul li a {
+									@include text-overflow(540);
+								}
 							}
 						}
 					}
@@ -323,11 +331,11 @@ body {
 						tr {
 
 							td {
-								width: 135px;
+								width: 270px;
 
 								a {
 									display: inline-block;
-									@include text-overflow(135);
+									@include text-overflow(270);
 									color: #808080;
 
 									&:hover {
