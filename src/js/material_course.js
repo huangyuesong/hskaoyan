@@ -13,8 +13,6 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
 	course_id,
 	course_code,
 	course_name,
@@ -23,7 +21,7 @@ let {
 	material_id,
 } = url.parse(location.href, true).query;
 
-if (!college_id || !course_id || !course_name || !course_code) {
+if (!board_id || !course_id) {
 	location.href = '/forum.html';
 }
 
@@ -75,7 +73,7 @@ class MaterialCourse {
 		};
 		this.view = {
 			setHeader: ()=> {
-				new HeaderForum([], college_name, '版面').render();
+				new HeaderForum('版面').render();
 			},
 			setMaterialList: ()=> {
 				let { material_list } = this.model;
@@ -85,10 +83,10 @@ class MaterialCourse {
 					let { id, title } = _material;
 
 					$('.container .main .layout .left ul').append($(`
-						<li class="name"><a title="${title}" href="material_course.html?material_id=${id}&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}">${title}</a></li>
-		    			<li><a href="material_course.html?material_type=本科课件&material_id=${id}&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}"><span>本科课件<span></a></li>
-		    			<li><a href="material_course.html?material_type=练习习题&material_id=${id}&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}"><span>练习习题<span></a></li>
-		    			<li><a href="material_course.html?material_type=历年真题&material_id=${id}&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}"><span>历年真题<span></a></li>
+						<li class="name"><a title="${title}" href="material_course.html?material_id=${id}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}">${title}</a></li>
+		    			<li><a href="material_course.html?material_type=本科课件&material_id=${id}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}"><span>本科课件<span></a></li>
+		    			<li><a href="material_course.html?material_type=练习习题&material_id=${id}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}"><span>练习习题<span></a></li>
+		    			<li><a href="material_course.html?material_type=历年真题&material_id=${id}&course_code=${course_code}&course_id=${course_id}&course_name=${course_name}"><span>历年真题<span></a></li>
 					`));
 				});
 			},
@@ -113,7 +111,7 @@ class MaterialCourse {
 							<tr>
 			    				<td><span>${idx + 1}</span></td>
 			    				<td><span>${material_type}</span></td>
-			    				<td><a href="material_download.html?course_code=${course_code}&course_id=${course_id}&college_id=${college_id}&college_name=${college_name}&course_name=${course_name}&file_id=${id}&file_name=${file_name}"><span>${file_name}</span></a></td>
+			    				<td><a href="material_download.html?course_code=${course_code}&course_id=${course_id}&course_name=${course_name}&file_id=${id}&file_name=${file_name}"><span>${file_name}</span></a></td>
 			    				<td><span>${file_size}</span></td>
 			    				<td><span>${pub_time}</span></td>
 			    			</tr>
@@ -122,7 +120,7 @@ class MaterialCourse {
 				}
 			},
 			setTitle: ()=> {
-				$('.container .title span').text(`${college_name} ${course_code}${course_name} 考研复习资料下载`);
+				$('.container .title span').text(`${course_code}${course_name} 考研复习资料下载`);
 			},
 			setPagination: ()=> {
 				let { pages } = this.model;

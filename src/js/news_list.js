@@ -198,7 +198,7 @@ class NewsList {
 										<a href="javascript:" id="mark">关注</a>
 									</div>
 									<div class="name-wrapper">
-										<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+										<a href="news_college.html?board_id=${id}" title="${title}">
 											${title}
 										</a>
 									</div>
@@ -270,7 +270,7 @@ class NewsList {
 									<a href="javascript:" id="mark">关注</a>
 								</div>
 								<div class="name-wrapper">
-									<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+									<a href="news_college.html?board_id=${id}" title="${title}">
 										${title}
 									</a>
 								</div>
@@ -338,7 +338,7 @@ class NewsList {
 
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
 						<li class="${idx === 0 ? 'active' : ''}">
-							<a href="news_college.html?college_id=${board_id}&college_name=${board}">${alias || board}</a>
+							<a href="news_college.html?board_id=${board_id}">${alias || board}</a>
 						</li>
 					`));
 
@@ -349,7 +349,7 @@ class NewsList {
 
 						_panel.append($(`
 							<div>
-								<a href="news_detail.html?college_id=${board_id}&college_name=${board}&news_id=${id}&news_name=${title}" title="${title}">${title}</a>
+								<a href="news_detail.html?news_id=${id}&news_name=${title}" title="${title}">${title}</a>
 		    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
 		    				</div>
 						`));

@@ -13,14 +13,13 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
+	board_id,
 	category_id,
 	category_name,
 	page,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id || !category_id || !category_name) {
+if (!board_id || !category_id || !category_name) {
 	location.href = '/forum.html';
 }
 
@@ -49,7 +48,7 @@ class NewsCollegeList {
 			},
 			setNewsList: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list.php?board_id=${college_id}&page_size=${PAGE_SIZE}&page=${page || 1}&types=${category_id}`,
+					url: `${serverUrl}/news_list.php?board_id=${board_id}&page_size=${PAGE_SIZE}&page=${page || 1}&types=${category_id}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -82,7 +81,7 @@ class NewsCollegeList {
 		};
 		this.view = {
 			setHeader: ()=> {
-				new HeaderForum([], college_name, '版面').render();
+				new HeaderForum('版面').render();
 			},
 			setHotNewsList: ()=> {
 				let { hotNewsList } = this.model;
@@ -97,7 +96,7 @@ class NewsCollegeList {
 					let wrapper = $([
 						`<li>`,
 							`<span class="point"></span>`,
-							`<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}" title="${title}">${title}</a>`,
+							`<a href="news_detail.html?news_id=${id}&news_name=${title}" title="${title}">${title}</a>`,
 						`</li>`,
 					].join(''));
 
@@ -116,7 +115,7 @@ class NewsCollegeList {
 						let { id, type } = _category;
 
 						let wrapper = $([
-							`<a href="news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${id}&category_name=${type}">`,
+							`<a href="news_college_list.html?board_id=${board_id}&category_id=${id}&category_name=${type}">`,
 								`<span class="button">${type}</span>`,
 							`</a>`,
 						].join(''));
@@ -127,7 +126,7 @@ class NewsCollegeList {
 					$('.container .main-wrapper .layout .right .college-section').append(p);
 				}
 
-				$('.container .main-wrapper .layout .left p.top').html(`${college_name}${category_name}`);
+				$('.container .main-wrapper .layout .left p.top').html(`${category_name}`);
 			},
 			setNewsList: ()=> {
 				let { newsList } = this.model;
@@ -141,7 +140,7 @@ class NewsCollegeList {
 
 					let wrapper = $(`
 						<li>
-	    					<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}">${title}</a>
+	    					<a href="news_detail.html?news_id=${id}&news_name=${title}">${title}</a>
 	    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
 	    				</li>
 					`);

@@ -16,8 +16,6 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
 	news_id,
 	news_name,
 	page,
@@ -41,6 +39,7 @@ class NewsDetail {
 			mark_value: 0,
 			comment_list: [],
 			pages: 1,
+			college_name: '',
 		};
 		this.controller = {
 			setHotNewsList: ()=> {
@@ -87,27 +86,13 @@ class NewsDetail {
 					},
 				});
 			},
-			setCollegeName: ()=> {
-				if (!college_name) {
-					$.ajax({
-						url: `${serverUrl}/board_list.php?board_id=${college_id}`,
-						type: 'get',
-						dataType: 'json',
-						cache: false,
-						success: (data, status)=> {
-							this.model.college_name = data.list.college;
-							this.view.setCollegeName();
-						},
-					});
-				}
-			},
 			setWrite: ()=> {
 				this.view.setWrite();
 			},
 		};
 		this.view = {
 			setHeader: ()=> {
-				new HeaderForum([], college_name, '版面').render();
+				new HeaderForum('版面').render();
 			},
 			setCommentPagination: ()=> {
 				let { pages } = this.model;
@@ -212,11 +197,6 @@ class NewsDetail {
 
 				$('.container > .write-wrapper .attachment-wrapper').hide();
 			},
-			setCollegeName: ()=> {
-				$('.container .header-forum .section5 > a').eq(1).html(this.model.college_name);
-				$('.container .header-forum .section5 > a').eq(1).prop('href', 
-					`news_college.html?college_id=${college_id}&college_name=${this.model.college_name}`);
-			},
 			setDetail: ()=> {
 				let { title, author, is_locked, comment_count, edit_time, content, mark_value } = this.model;
 
@@ -225,9 +205,6 @@ class NewsDetail {
 					`<p class="instruction">`,
 						`<span>来源：${author}</span>`,
 						`<span>${edit_time}</span>`,
-						`<span>相关院校：</span>`,
-						`<a class="college-link" 
-							href="news_college.html?college_id=${college_id}&college_name=${college_name}">${college_name}</a>`,
 					`</p>`,
 					`
 					<p class="operation">
@@ -280,7 +257,7 @@ class NewsDetail {
 					let wrapper = $([
 						`<li>`,
 							`<span class="point"></span>`,
-							`<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}" title="${title}">${title}</a>`,
+							`<a href="news_detail.html?news_id=${id}&news_name=${title}" title="${title}">${title}</a>`,
 						`</li>`,
 					].join(''));
 
@@ -292,7 +269,6 @@ class NewsDetail {
 
 	init () {
 		this.controller.setHotNewsList();
-		this.controller.setCollegeName();
 		this.controller.setDetailAndComment();
 		this.controller.setWrite();
 	}

@@ -663,15 +663,15 @@ class PersonalCenter {
 				));
 
 				entries.map(_entry=> {
-					let { title, type:_type, edit_time, mark_id, board_id } = _entry;
+					let { title, type:_type, edit_time, mark_id } = _entry;
 					let href;
 
 					switch (type) {
 						case 'news':
-							href = `news_detail.html?college_id=${board_id}&news_id=${mark_id}&news_name=${title}`;
+							href = `news_detail.html?news_id=${mark_id}&news_name=${title}`;
 							break;
 						case 'article':
-							href = `forum_article.html?college_id=${board_id}&article_id=${mark_id}`;
+							href = `forum_article.html?article_id=${mark_id}`;
 							break;
 						case 'wrong-question':
 							href = `javascript:`;
@@ -730,15 +730,14 @@ class PersonalCenter {
 				));
 
 				articles.map(_article=> {
-					let { title, comment_count, view_count, pub_time, id, board_id } = _article;
+					let { title, comment_count, view_count, pub_time, id } = _article;
 
 					let wrapper = $([
 						`<li>`,
 							`<p>`,
 								`<a href="forum_article.html?${[
-									`college_id=${board_id}`,
 									`article_id=${id}`,
-								].join('&')}" title="${title}">${title}</a>`,
+								].join('')}" title="${title}">${title}</a>`,
 							`</p>`,
 							`<p>`,
 								`<span class="answer">${comment_count}个回答</span>`,

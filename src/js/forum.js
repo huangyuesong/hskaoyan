@@ -113,7 +113,7 @@ class Forum {
 								<div>
 									<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
 									<p>
-										<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}&college_name=">
+										<a href="forum_article.html?article_id=${_topic.id}">
 											<span class="title" title="${_topic.title}">${_topic.title}</span>
 										</a>
 									</p>
@@ -162,7 +162,7 @@ class Forum {
 										<a href="javascript:" id="mark">关注</a>
 									</div>
 									<div class="name-wrapper">
-										<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+										<a href="news_college.html?board_id=${id}" title="${title}">
 											${title}
 										</a>
 									</div>
@@ -234,7 +234,7 @@ class Forum {
 									<a href="javascript:" id="mark">关注</a>
 								</div>
 								<div class="name-wrapper">
-									<a href="forum_college.html?college_id=${id}&college_name=${title}" title="${title}">
+									<a href="forum_college.html?board_id=${id}" title="${title}">
 										${title}
 									</a>
 								</div>
@@ -302,7 +302,7 @@ class Forum {
 
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').append($(`
 						<li class="${idx === 0 ? 'active' : ''}">
-							<a href="forum_college.html?college_id=${board_id}&college_name=${board}">${alias || board}</a>
+							<a href="forum_college.html?board_id=${board_id}">${alias || board}</a>
 						</li>
 					`));
 
@@ -313,7 +313,7 @@ class Forum {
 							<div>
 								<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
 								<p>
-									<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}&college_name=">
+									<a href="forum_article.html?article_id=${_topic.id}">
 										<span class="title" title="${_topic.title}">${_topic.title}</span>
 									</a>
 								</p>

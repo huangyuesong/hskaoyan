@@ -74,10 +74,10 @@ class TopicList {
 					`));
 
 					recommend.list.map(_topic=> {
-						let { board_id, title, id } = _topic;
+						let { title, id } = _topic;
 
 						$('.container .right .recommend-wrapper').append($(`
-							<p><a href="forum_article.html?article_id=${id}&college_id=${board_id}" title="${title}">${title}</a></p>
+							<p><a href="forum_article.html?article_id=${id}" title="${title}">${title}</a></p>
 						`));
 					});
 				})() : (()=> {
@@ -97,7 +97,7 @@ class TopicList {
 							<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
 							<p>
 								${_topic.label ? '<a href="forum_college.html?label=' + _topic.label + '"><span class="label" style="color: ' + _topic.label_color + '; border-color: ' + _topic.label_color + '; ">' + _topic.label + '</span></a>' : ''}
-								<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}">
+								<a href="forum_article.html?article_id=${_topic.id}">
 									<span class="title" title="${_topic.title}">${_topic.title}</span>
 								</a>
 							</p>

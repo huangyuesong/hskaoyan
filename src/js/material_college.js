@@ -12,11 +12,10 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
+	board_id,
 } = url.parse(location.href, true).query;
 
-if (!college_id) {
+if (!board_id) {
 	location.href = '/forum.html';
 }
 
@@ -29,7 +28,7 @@ class MaterialCollege {
 		this.controller = {
 			setCourseList: ()=> {
 				$.ajax({
-					url: `${serverUrl}/course_list.php?board_id=${college_id}`,
+					url: `${serverUrl}/course_list.php?board_id=${board_id}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -48,7 +47,7 @@ class MaterialCollege {
 			setHeader: ()=> {
 				let { is_marked } = this.model;
 
-				new HeaderForum([], college_name, '版面', is_marked).render();
+				new HeaderForum('版面', is_marked).render();
 			},
 			setCourseList: ()=> {
 				let { courseList } = this.model;
@@ -57,7 +56,7 @@ class MaterialCollege {
 
 				if (!courseList.length) {
 					$('.container .department-wrapper .content').append($(`
-						<p class="text-align: center; line-height: 30px; ">暂无课程</p>
+						<p style="text-align: center; line-height: 300px; ">暂无课程</p>
 					`));
 				} else {
 					while (courseList.length) {
@@ -69,11 +68,11 @@ class MaterialCollege {
 							_row.append($(`
 								<div class="department">
 									<div class="name-wrapper">
-										<a href="material_course.html?college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" title="${course}">${course_code}${course}</a>
+										<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" title="${course}">${course_code}${course}</a>
 									</div>
-									<a href="material_course.html?material_type=本科课件&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
-									<a href="material_course.html?material_type=练习习题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
-									<a href="material_course.html?material_type=历年真题&college_id=${college_id}&college_name=${college_name}&course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
+									<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
+									<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
+									<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
 								</div>
 							`));
 						});
@@ -95,23 +94,10 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
 		color: '#9E9E9E',
 	});
 
 	new MaterialCollege().init();
-
-	for (let i = 0; i < 4; ++i) {
-		$('.introduction .center .upper ul').append($('.introduction .center .upper ul li').eq(0).clone());
-	}
-
-	for (let i = 0; i < 9; ++i) {
-		$('.introduction .center .lower ul').append($('.introduction .center .lower ul li').eq(0).clone());
-	}
-
-	for (let i = 0; i < 7; ++i) {
-		$('.introduction .right').append($('.introduction .right p').eq(1).clone());
-	}
 });

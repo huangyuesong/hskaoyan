@@ -12,8 +12,6 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
 	course_id,
 	course_code,
 	course_name,
@@ -21,7 +19,7 @@ let {
 	file_name,
 } = url.parse(location.href, true).query;
 
-if (!college_name || !college_id || !course_name || !file_id) {
+if (!board_id || !course_name || !file_id) {
 	location.href = '/forum.html';
 }
 
@@ -72,24 +70,7 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	new HeaderForum([
-		{
-			name: `${college_name}`,
-			href: `news_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `资料`,
-			href: `material_college.html?college_id=${college_id}&college_name=${college_name}`,
-		},
-		{
-			name: `${course_name}`,
-			href: `material_course.html?college_id=${college_id}&college_name=${college_name}&course_id=${course_id}&course_code=${course_code}&course_name=${course_name}`,
-		},
-		{
-			name: `${file_name}`,
-			href: `javascript:`,
-		},
-	]).render();
+	new HeaderForum([], 'undefined', '版面').render();
 
 	$('p:last-of-type', $('.footer')).remove();
 	$('p:last-of-type', $('.footer')).remove();

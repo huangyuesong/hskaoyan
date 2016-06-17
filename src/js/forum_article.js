@@ -16,15 +16,13 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
 	article_id,
 	reverse_order,
 	select_comment,
 	page,
 } = url.parse(location.href, true).query;
 
-if (!college_id || !article_id) {
+if (!article_id) {
 	location.href = '/forum.html';
 }
 
@@ -47,7 +45,7 @@ class ForumArticle {
 			check_delete: '0',
 			mark_value: '0',
 			pages: 1,
-			college_name: college_name || '',
+			college_name: '',
 		};
 		this.controller = {
 			setArticleAndComment: ()=> {
@@ -70,29 +68,10 @@ class ForumArticle {
 			setWrite: ()=> {
 				this.view.setWrite();
 			},
-			setCollegeName: ()=> {
-				if (!college_name) {
-					$.ajax({
-						url: `${serverUrl}/board_list.php?board_id=${college_id}`,
-						type: 'get',
-						dataType: 'json',
-						cache: false,
-						success: (data, status)=> {
-							this.model.college_name = data.list.college;
-							this.view.setCollegeName();
-						},
-					});
-				}
-			},
 		};
 		this.view = {
 			setHeader: ()=> {
-				new HeaderForum([], college_name, '版面').render();
-			},
-			setCollegeName: ()=> {
-				$('.container .header-forum .section5 > a').eq(1).html(this.model.college_name);
-				$('.container .header-forum .section5 > a').eq(1).prop('href', 
-					`news_college.html?college_id=${college_id}&college_name=${this.model.college_name}`);
+				new HeaderForum('版面').render();
 			},
 			setArticle: ()=> {
 				let { title, nick_name, view_count, comment_count, avatar, pub_time, 
@@ -170,7 +149,7 @@ class ForumArticle {
 
 							if (result_code === SUCCESS) {
 								alert(message);
-								location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}`;
+								location.href = `forum_college.html?board_id=${data.board_id}`;
 							} else {
 								alert(message);
 							}
@@ -357,7 +336,6 @@ class ForumArticle {
 	}
 
 	init () {
-		this.controller.setCollegeName();
 		this.controller.setArticleAndComment();
 		this.controller.setWrite(()=> {
 			this.controller.setPagination();

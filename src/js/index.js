@@ -58,7 +58,7 @@ class Index {
 			},
 			setHotCollege: ()=> {
 				$.ajax({
-					url: `${serverUrl}/board_list.php?index=1`,
+					url: `${serverUrl}/board_list.php?data=index`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -72,7 +72,7 @@ class Index {
 			},
 			setHotArticle: ()=> {
 				$.ajax({
-					url: `${serverUrl}/topic_list.php?index=1`,
+					url: `${serverUrl}/topic_list.php?data=index`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -84,7 +84,7 @@ class Index {
 			},
 			setHotNews: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list.php?index=1`,
+					url: `${serverUrl}/news_list.php?data=index`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -102,12 +102,12 @@ class Index {
 				let { newsList } = this.model;
 
 				$('.container .tabs .tabs-bd > .news').empty();
-				newsList.splice(0, 13).map(_news=> {
+				newsList.map(_news=> {
 					let { id, title, edit_time } = _news;
 
 					$('.container .tabs .tabs-bd > .news').append($(`
 						<div>
-							<a href="news_detail.html?college_id=${2}&college_name=${'清华大学'}&news_id=${id}&news_name=${title}">${title}</a>
+							<a href="news_detail.html?news_id=${id}&news_name=${title}">${title}</a>
 	    					<span class="fr"><span class="icon icon-arrow-right"></span>${edit_time}</span>
 						</div>
 					`));
@@ -117,12 +117,12 @@ class Index {
 				let { topicList } = this.model;
 
 				$('.container .tabs .tabs-bd > .article').empty();
-				topicList.splice(0, 5).map(_topic=> {
+				topicList.map(_topic=> {
 					$('.container .tabs .tabs-bd > .article').append($(`
 						<div>
 							<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
 							<p>
-								<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}&college_name=">
+								<a href="forum_article.html?article_id=${_topic.id}">
 									<span class="title" title="${_topic.title}">${_topic.title}</span>
 								</a>
 							</p>
@@ -138,7 +138,6 @@ class Index {
 			setHotCollege: ()=> {
 				let { boardList } = this.model;
 
-				boardList[1].list.splice(30);
 				$('.container .tabs .tabs-bd > .college').empty();
 				while (boardList[1].list.length) {
 					let _row = $(`<div class="row"></div>`);
@@ -149,13 +148,13 @@ class Index {
 						_row.append($(`
 							<div class="school">
 								<div class="name-wrapper">
-									<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+									<a href="news_college.html?board_id=${id}" title="${title}">
 										${title}
 									</a>
 								</div>
-								<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
-								<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
-								<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">资料</a>
+								<a href="news_college.html?board_id=${id}" class="link">资讯</a>
+								<a href="material_college.html?board_id=${id}" class="link">科目</a>
+								<a href="forum_college.html?board_id=${id}" class="link">论坛</a>
 							</div>
 						`));
 					});

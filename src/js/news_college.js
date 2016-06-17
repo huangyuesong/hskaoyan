@@ -14,11 +14,10 @@ import {
 import url from 'url';
 
 let {
-	college_name,
-	college_id,
+	board_id,
 } = url.parse(location.href, true).query;
 
-if (!college_id) {
+if (!board_id) {
 	location.href = '/forum.html';
 }
 
@@ -50,19 +49,21 @@ class NewsCollege {
 			},
 			setTopNews: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list.php?board_id=${college_id}&is_ontop=1&limit=3`,
+					url: `${serverUrl}/news_list.php?board_id=${board_id}&is_ontop=1&limit=3`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
 					success: (data, status)=> {
 						this.model.topNews = data.list;
+						this.model.is_marked = data.is_marked;
 						this.view.setTopNews();
+						this.view.setHeader();
 					},
 				});
 			},
 			setHotNews: ()=> {
 				$.ajax({
-					url: `${serverUrl}/news_list.php?board_id=${college_id}&is_hot=1&limit=20`,
+					url: `${serverUrl}/news_list.php?board_id=${board_id}&is_hot=1&limit=20`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -74,7 +75,7 @@ class NewsCollege {
 			},
 			setSchool: ()=> {
 				$.ajax({
-					url: `${serverUrl}/school_list.php?board_id=${college_id}`,
+					url: `${serverUrl}/school_list.php?board_id=${board_id}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -86,7 +87,7 @@ class NewsCollege {
 			},
 			setHotTopic: ()=> {
 				$.ajax({
-					url: `${serverUrl}/topic_list.php?board_id=${college_id}&category=热门&limit=15`,
+					url: `${serverUrl}/topic_list.php?board_id=${board_id}&category=热门&limit=15`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -98,7 +99,7 @@ class NewsCollege {
 			},
 			setTeacher: ()=> {
 				$.ajax({
-					url: `${serverUrl}/teacher_list.php?board_id=${college_id}`,
+					url: `${serverUrl}/teacher_list.php?board_id=${board_id}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -110,7 +111,7 @@ class NewsCollege {
 			},
 			setExp: ()=> {
 				$.ajax({
-					url: `${serverUrl}/experience_list.php?board_id=${college_id}`,
+					url: `${serverUrl}/experience_list.php?board_id=${board_id}`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -182,7 +183,7 @@ class NewsCollege {
 						let { id, title } = _topic;
 
 						$('.container .apply .content .left ul').append($(`
-							<li><a href="forum_article.html?article_id=${id}&college_id=${college_id}" title=${title}><span class="point"></span><span>${title}</span></a></li>
+							<li><a href="forum_article.html?article_id=${id}&board_id=${board_id}" title=${title}><span class="point"></span><span>${title}</span></a></li>
 						`));
 					});
 				})() : (()=> {
@@ -214,7 +215,7 @@ class NewsCollege {
 			setHeader: ()=> {
 				let { is_marked } = this.model;
 
-				new HeaderForum([], college_name, '版面', is_marked).render();
+				new HeaderForum('版面', is_marked).render();
 			},
 			setCategory: ()=> {
 				let { categories } = this.model;
@@ -225,7 +226,7 @@ class NewsCollege {
 					let { id, type } = _category;
 
 					let wrapper = $([
-						`<a href="news_college_list.html?college_id=${college_id}&college_name=${college_name}&category_id=${id}&category_name=${type}">`,
+						`<a href="news_college_list.html?board_id=${board_id}&category_id=${id}&category_name=${type}">`,
 							`<span class="button">${type}</span>`,
 						`</a>`,
 					].join(''));
@@ -241,7 +242,7 @@ class NewsCollege {
 				topNews.map(_news=> {
 					let { id, title } = _news;
 
-					let wrapper = $(`<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}" title=${title}><p class="top blue">${title}</p></a>`);
+					let wrapper = $(`<a href="news_detail.html?board_id=${board_id}&news_id=${id}&news_name=${title}" title=${title}><p class="top blue">${title}</p></a>`);
 
 					$('.container .introduction .content .center-wrapper .center .upper').append(wrapper);
 				});
@@ -258,7 +259,7 @@ class NewsCollege {
 
 					let wrapper = $([
 						`<li>`,
-							`<a href="news_detail.html?college_id=${college_id}&college_name=${college_name}&news_id=${id}&news_name=${title}" title="${title}">`,
+							`<a href="news_detail.html?board_id=${board_id}&news_id=${id}&news_name=${title}" title="${title}">`,
 								`<span class="point"></span>`,
 								`<span>${title}</span>`,
 							`</a>`,

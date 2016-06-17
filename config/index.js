@@ -13,9 +13,9 @@ export const _ajaxResultCodeFilter = (()=> {
 				$('#modal-login', $('.header')).modal({
 		    		relatedTarget: this,
 		    	});
-			} /*else if (result_code === COMMON_ERROR) {
-				alert('Server Error!');
-			}*/
+			} else if (result_code === COMMON_ERROR) {
+				alert(xhr.responseJSON.message);
+			}
 		}
 	});
 })();

@@ -15,8 +15,7 @@ import {
 } from '../../config';
 
 let {
-	college_name,
-	college_id,
+	board_id,
 	page,
 	type,
 	attaches,
@@ -26,7 +25,7 @@ let {
 	keyword,
 } = url.parse(location.href, true).query;
 
-if (!college_id) {
+if (!board_id) {
 	location.href = '/forum.html';
 }
 
@@ -63,7 +62,7 @@ class ForumCollege {
 				});
 
 				$('.operation-bar a').click((evt)=> {
-					location.href = `forum_college.html?college_id=${college_id}&college_name=${college_name}&type=${$(evt.target).prop('type')}`;
+					location.href = `forum_college.html?board_id=${board_id}&type=${$(evt.target).prop('type')}`;
 				});
 
 				$('.operation-bar a').each((idx, _link)=> {
@@ -75,7 +74,7 @@ class ForumCollege {
 				});
 			},
 			setTopic: ()=> {
-				let url = `${serverUrl}/topic_list.php?board_id=${college_id}`
+				let url = `${serverUrl}/topic_list.php?board_id=${board_id}`
 					.concat(type ? `&type=${type}` : '')
 					.concat(attaches ? `&attaches=${attaches}` : '')
 					.concat(label ? `&label=${label}` : '')
@@ -134,7 +133,7 @@ class ForumCollege {
 							let { board, id } = _board;
 
 							$('.container .right .hot-wrapper').append($(`
-								<div class="hot"><a href="forum_college.html?college_id=${id}" title="${board}">${board}</a></div>
+								<div class="hot"><a href="forum_college.html?board_id=${id}" title="${board}">${board}</a></div>
 							`));
 						});
 					});
@@ -158,7 +157,7 @@ class ForumCollege {
 						$('.container .right .category-wrapper').append($(`
 							<div class="category">
 								<span class="category-text">
-									<a href="forum_college.html?college_id=${college_id}&category=${value}">${name}</a>
+									<a href="forum_college.html?board_id=${board_id}&category=${value}">${name}</a>
 								</span>
 							</div>
 						`));
@@ -176,14 +175,14 @@ class ForumCollege {
 		            </div>
 				`);
 
-				$('button', searchWrapper).click(evt=> location.href = `forum_college.html?college_id=${college_id}&keyword=${$(evt.target).prev().val()}`);
+				$('button', searchWrapper).click(evt=> location.href = `forum_college.html?board_id=${board_id}&keyword=${$(evt.target).prev().val()}`);
 
 				$('.container .right .category-wrapper').append(searchWrapper);
 			},
 			setHeader: ()=> {
 				let { is_marked } = this.model;
 
-				new HeaderForum([], college_name, '版面', is_marked).render();
+				new HeaderForum('版面', is_marked).render();
 			},
 			setTopic: ()=> {
 				let { topics } = this.model;
@@ -194,17 +193,17 @@ class ForumCollege {
 						<li>
 							<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
 							<p>
-								${_topic.label ? '<a href="forum_college.html?college_id=' + college_id + '&label=' + _topic.label + '"><span class="label" style="color: ' + _topic.label_color + '; border-color: ' + _topic.label_color + '; ">' + _topic.label + '</span></a>' : ''}
-								<a href="forum_article.html?article_id=${_topic.id}&college_id=${college_id}&college_name=${college_name}">
+								${_topic.label ? '<a href="forum_college.html?board_id=' + board_id + '&label=' + _topic.label + '"><span class="label" style="color: ' + _topic.label_color + '; border-color: ' + _topic.label_color + '; ">' + _topic.label + '</span></a>' : ''}
+								<a href="forum_article.html?article_id=${_topic.id}">
 									<span class="title" title="${_topic.title}">${_topic.title}</span>
 								</a>
 							</p>
 							<span class="author">${_topic.nick_name}</span>
 							<span class="release">发表于</span>
 							<span class="date">${_topic.pub_time}</span>
-							${_topic.attaches.length ? '<a class="type" href="forum_college.html?college_id=' + college_id + '&attaches=1">附件</a>' : ''}
-							${_topic.type.length ? '<a class="type" href="forum_college.html?college_id=' + college_id + '&type=' + _topic.type + '" style="background: ' + _topic.type_color + '; ">' + _topic.type + '</a>' : ''}
-							${Number(_topic.is_hot) ? '<a href="forum_college.html?college_id=' + college_id + '&is_hot=1"><span class="icon icon-hot"></span></a>' : ''}
+							${_topic.attaches.length ? '<a class="type" href="forum_college.html?board_id=' + board_id + '&attaches=1">附件</a>' : ''}
+							${_topic.type.length ? '<a class="type" href="forum_college.html?board_id=' + board_id + '&type=' + _topic.type + '" style="background: ' + _topic.type_color + '; ">' + _topic.type + '</a>' : ''}
+							${Number(_topic.is_hot) ? '<a href="forum_college.html?board_id=' + board_id + '&is_hot=1"><span class="icon icon-hot"></span></a>' : ''}
 							<span class="reply fr">${_topic.comment_count}</span>
 							<span class="visit fr">${_topic.view_count}</span>
 						</li>
@@ -219,7 +218,7 @@ class ForumCollege {
 				window.nEditor = new Write({
 					url: `${serverUrl}/topic_post.php`,
 					labels: Object.keys(labels),
-					board_id: college_id,
+					board_id: board_id,
 					fileUploadUrl: `${serverUrl}/upload_file.php`,
 					imageUploadUrl: `${serverUrl}/upload_image.php`,
 				}).render($('.container .write-wrapper'));

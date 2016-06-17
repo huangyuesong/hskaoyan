@@ -193,7 +193,7 @@ class ChapterList {
 				course_id && $('.container .material-wrapper ul').append(_manage);
 			},
 			setHeader: ()=> {
-				new HeaderForum([], 'undefined', '课程').render();
+				new HeaderForum('课程').render();
 			},
 			setChapter: ()=> {
 				let { chapterList } = this.model;

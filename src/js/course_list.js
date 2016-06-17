@@ -60,7 +60,7 @@ class CourseList {
 			},
 			setTabs: ()=> {
 				$.ajax({
-					url: `${serverUrl}/course_list.php?tabs=1`,
+					url: `${serverUrl}/course_list.php?data=mine`,
 					type: 'get',
 					dataType: 'json',
 					cache: false,
@@ -101,7 +101,7 @@ class CourseList {
 						let row = $(`<div class="row"></div>`);
 
 						searchResult.splice(0, 5).map(_course=> {
-							let { id, course, course_code, college, college_id } = _course;
+							let { id, course, course_code, college } = _course;
 
 							let courseWrapper = $(`
 								<div class="department">
@@ -205,7 +205,7 @@ class CourseList {
 					let _row = $(`<div class="row"></div>`);
 
 					courseList.splice(0, 5).map(_course=> {
-						let { id, course, course_code, college, college_id } = _course;
+						let { id, course, course_code, college } = _course;
 
 						let courseWrapper = $(`
 							<div class="department">

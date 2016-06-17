@@ -17,6 +17,7 @@ let {
 	is_211,
 	is_985,
 	is_34,
+	is_c9,
 	keyword,
 } = url.parse(location.href, true).query;
 
@@ -36,9 +37,10 @@ class CollegeList {
 			setBoard: ()=> {
 				let url = `${serverUrl}/college_list.php?__=__`
 					.concat(title ? `&title=${title}` : ``)
-					.concat(is_211 ? `&is_211=${is_211}` : ``)
-					.concat(is_985 ? `&is_985=${is_985}` : ``)
-					.concat(is_34 ? `&is_34=${is_34}` : ``);
+					.concat(is_211 ? `&data=211` : ``)
+					.concat(is_985 ? `&data=985` : ``)
+					.concat(is_34 ? `&data=34` : ``)
+					.concat(is_c9 ? `&data=c9` : ``);
 
 				$.ajax({
 					url: url,
@@ -56,7 +58,7 @@ class CollegeList {
 			setMyBoard: ()=> {
 				if (!title) {
 					$.ajax({
-						url: `${serverUrl}/college_list.php?tabs=1`,
+						url: `${serverUrl}/college_list.php?data=mine`,
 						type: 'get',
 						dataType: 'json',
 						cache: false,
@@ -106,14 +108,14 @@ class CollegeList {
 										<a href="javascript:" id="mark">关注</a>
 									</div>
 									<div class="name-wrapper">
-										<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+										<a href="news_college.html?board_id=${id}" title="${title}">
 											${title}
 										</a>
 									</div>
 									<p>
-										<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
-										<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
-										<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+										<a href="news_college.html?board_id=${id}" class="link">资讯</a>
+										<a href="material_college.html?board_id=${id}" class="link">科目</a>
+										<a href="forum_college.html?board_id=${id}" class="link">论坛</a>
 									</p>
 								</div>
 							`);
@@ -183,14 +185,14 @@ class CollegeList {
 									<a href="javascript:" id="mark">关注</a>
 								</div>
 								<div class="name-wrapper">
-									<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+									<a href="news_college.html?board_id=${id}" title="${title}">
 										${title}
 									</a>
 								</div>
 								<p>
-									<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
-									<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
-									<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+									<a href="news_college.html?board_id=${id}" class="link">资讯</a>
+									<a href="material_college.html?board_id=${id}" class="link">科目</a>
+									<a href="forum_college.html?board_id=${id}" class="link">论坛</a>
 								</p>
 							</div>
 									`);
@@ -259,14 +261,14 @@ class CollegeList {
 						_row.append($(`
 							<div class="school">
 								<div class="name-wrapper">
-									<a href="news_college.html?college_id=${id}&college_name=${title}" title="${title}">
+									<a href="news_college.html?board_id=${id}" title="${title}">
 										${title}
 									</a>
 								</div>
 								<p>
-									<a href="news_college.html?college_id=${id}&college_name=${title}" class="link">资讯</a>
-									<a href="material_college.html?college_id=${id}&college_name=${title}" class="link">科目</a>
-									<a href="forum_college.html?college_id=${id}&college_name=${title}" class="link">论坛</a>
+									<a href="news_college.html?board_id=${id}" class="link">资讯</a>
+									<a href="material_college.html?board_id=${id}" class="link">科目</a>
+									<a href="forum_college.html?board_id=${id}" class="link">论坛</a>
 								</p>
 							</div>
 						`));
@@ -295,9 +297,10 @@ class CollegeList {
 				$('.container .search-wrapper .search-section select').hide();
 
 				$('.container .search-wrapper .search-section').append($(`
-					<a class="link" href="college_list.html?is_211=1">211</a>
-					<a class="link" href="college_list.html?is_985=1">985</a>
+					<a class="link" href="college_list.html?is_211=1">211院校</a>
+					<a class="link" href="college_list.html?is_985=1">985院校</a>
 					<a class="link" href="college_list.html?is_34=1">34所</a>
+					<a class="link" href="college_list.html?is_c9=1">c9联盟</a>
 				`));
 			},
 		}

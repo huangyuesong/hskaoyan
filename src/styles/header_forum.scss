@@ -12,6 +12,7 @@ $icons: (
 );
 
 .header-forum {
+	margin-bottom: 30px;
 	.section1 {
 		text-align: center;
 
@@ -85,7 +86,7 @@ $icons: (
 					line-height: 60px;
 					font-size: 22px;
 					font-weight: bold;
-					padding: 0 10px;
+					padding: 0 25px;
 					box-sizing: border-box;
 					border-left: 1px solid rgba(255, 255, 255, 0.15);
 					color: white;
@@ -96,7 +97,7 @@ $icons: (
 
 					.icon-arrow-right-white {
 						@include background(map-get($icons, icon-arrow-right-white), 8, 18);
-						margin: -6px 5px 0 5px;
+						margin: -6px 20px 0 20px;
 					}
 
 					&.active {
