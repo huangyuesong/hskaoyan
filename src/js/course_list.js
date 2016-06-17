@@ -22,16 +22,16 @@ class CourseList {
 		this.model = {
 			courseList: [],
 			myCourseList: [],
+			searchResult: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
-				this.view.setSearch();
+				this.view.setSearch(this.controller.setSearchResult);
+
+				if (keyword) this.controller.setSearchResult(keyword);
 			},
 			setCourse: ()=> {
 				let url = `${serverUrl}/course_list.php`;
-				if (keyword !== undefined) {
-					url = `${serverUrl}/course_list.php?keyword=${keyword}`;
-				}
 
 				$.ajax({
 					url: url,
@@ -59,23 +59,88 @@ class CourseList {
 				});
 			},
 			setTabs: ()=> {
-				if (!keyword) {
-					$.ajax({
-						url: `${serverUrl}/course_list.php?tabs=1`,
-						type: 'get',
-						dataType: 'json',
-						cache: false,
-						success: (data, status)=> {
-							this.model.myCourseList = data.list;
-							this.view.setTabs();
-						},
-					});
-				} else {
-					$('.container .tabs-wrapper').remove();
-				}
+				$.ajax({
+					url: `${serverUrl}/course_list.php?tabs=1`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.myCourseList = data.list;
+						this.view.setTabs();
+					},
+				});
+			},
+			setSearchResult: (keyword)=> {
+				$.ajax({
+					url: `${serverUrl}/course_list.php?keyword=${keyword}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.searchResult = data.list;
+						this.view.setSearchResult();
+					},
+				});
 			},
 		};
 		this.view = {
+			setSearchResult: ()=> {
+				let { searchResult } = this.model;
+
+				let wrapper = $(`
+					<div class="district">
+						<div class="title">
+							<span>搜索结果</span>
+						</div>
+						<div class="content"></div>
+					</div>
+				`);
+
+				searchResult.length ? (()=> {
+					while (searchResult.length) {
+						let row = $(`<div class="row"></div>`);
+
+						searchResult.splice(0, 5).map(_course=> {
+							let { id, course, course_code, college, college_id } = _course;
+
+							let courseWrapper = $(`
+								<div class="department">
+									<div class="mark-wrapper">
+										<a href="javascript:" id="mark">关注</a>
+									</div>
+									<div class="name-wrapper">
+										<a href="chapter_list.html?course_id=${id}" title="${course_code}${course}">${course_code}${course}</a>
+									</div>
+									<p class="link">${college}</p>
+								</div>
+							`);
+
+							row.append(courseWrapper);
+
+							$('#mark', courseWrapper).click(evt=> {
+								$.ajax({
+									url: `${serverUrl}/course_select.php?course_id=${id}&value=1`,
+									type: 'get',
+									dataType: 'json',
+									cache: false,
+									success: (data, status)=> {
+										alert(data.message);
+										location.reload();
+									},
+								});
+							});
+						});
+
+						$('.content', wrapper).append(row);
+					}
+				})() : (()=> {
+					$('.content', wrapper).append($(`
+						<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+					`));
+				})();
+
+				$('.container .result-wrapper').empty().append(wrapper).show();
+			},
 			setTabs: ()=> {
 				let { myCourseList } = this.model;
 
@@ -128,7 +193,7 @@ class CourseList {
 				let wrapper = $(`
 					<div class="section district">
 						<div class="title">
-							<span>${keyword ? '搜索“'.concat(keyword).concat('”的结果') : '热门科目'}</span>
+							<span>热门科目</span>
 						</div>
 						<div class="content"></div>
 					</div>
@@ -164,12 +229,22 @@ class CourseList {
 
 				$('.container .course-wrapper').append(wrapper);
 			},
-			setSearch: ()=> {
+			setSearch: (callback)=> {
 				$('.container .search-wrapper').append(new Search({
 					placeholder: '请输入搜索内容',
 					category: ['科目'],
 					selected: '科目',
+					onSearch: (keyword, type)=> {
+						if (!keyword) {
+							alert('请输入搜索内容');
+							return;
+						}
+
+						callback && callback(keyword);
+					},
 				}).render());
+
+				$('.container .search-wrapper .search-section select').hide();
 			},
 		}
 	}

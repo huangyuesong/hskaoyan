@@ -58,7 +58,11 @@ $icons: (
 		}
 	}
 
-	.course-wrapper {
+	.result-wrapper {
+		display: none;
+	}
+
+	.course-wrapper, .result-wrapper {
 		border: 2px solid rgba(0, 0, 0, 0.2);
 		margin-bottom: 30px;
 
