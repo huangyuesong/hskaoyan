@@ -22,6 +22,7 @@ class Forum {
 		this.model = {
 			boardList: [],
 			myBoardList: [],
+			hotList: [],
 		};
 		this.controller = {
 			setSearch: ()=> {
@@ -71,8 +72,71 @@ class Forum {
 					},
 				});
 			},
+			setHotTopic: ()=> {
+				$.ajax({
+					url: `${serverUrl}/topic_list.php?data=recommend`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.hotList = data.list;
+						this.view.setHotTopic();
+					},
+				});
+			},
 		};
 		this.view = {
+			setHotTopic: ()=> {
+				let { hotList } = this.model;
+
+				hotList.length ? (()=> {
+					let wrapper = $(`
+						<div class="tabs">
+							<ul class="tabs-nav"></ul>
+							<div class="tabs-bd"></div>
+						</div>
+					`);
+
+					hotList.map((_tab, idx)=> {
+						let { title, list } = _tab;
+
+						$('ul.tabs-nav', wrapper).append($(`
+							<li class="${idx === 0 ? 'active' : ''}">
+								<a href="javascript:">${title}</a>
+							</li>
+						`));
+
+						let _panel = $(`<div class="tab-panel article"></div>`);
+						_panel.append(list.length ? null : $('<p style="text-align: center; line-height: 40px; ">暂无数据</p>'))
+						list.map(_topic=> {
+							_panel.append($(`
+								<div>
+									<img class="fl" src="${imagePrefix}${_topic.avatar}" width="50" height="50">
+									<p>
+										<a href="forum_article.html?article_id=${_topic.id}&college_id=${_topic.board_id}&college_name=">
+											<span class="title" title="${_topic.title}">${_topic.title}</span>
+										</a>
+									</p>
+									<span class="author">${_topic.nick_name}</span>
+									<span class="release">发表于</span>
+									<span class="date">${_topic.pub_time}</span>
+									<span class="reply fr">回复：${_topic.comment_count}</span>
+									<span class="visit fr">查看：${_topic.view_count}</span>
+								</div>
+							`));
+						});
+						$('.tabs-bd', wrapper).append(_panel);
+					});
+
+					$('.container .hot-wrapper').append(wrapper);
+					Tabs.refresh();
+				})() : (()=> {
+					$('.container .hot-wrapper .tabs ul.tabs-nav').empty();
+					$('.container .hot-wrapper .tabs .tabs-bd').empty().append(
+						$('<p style="text-align: center; line-height: 40px; ">暂无关注</p>')
+					);
+				})();
+			},
 			setSearchResult: ()=> {
 				let { title, list } = this.model.searchResult[0];
 
@@ -265,7 +329,7 @@ class Forum {
 				});
 
 				Tabs.refresh();
-				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/topic_list.php?tabs=1`, `${serverUrl}/board_select.php`, '版面');
+				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/topic_list.php?data=mine`, `${serverUrl}/board_select.php`, '版面');
 			},
 			setSearch: (callback)=> {
 				$('.container .search-wrapper').append(new Search({
@@ -292,6 +356,7 @@ class Forum {
 
 		controller.setTabs();
 		controller.setBoard();
+		controller.setHotTopic();
 		controller.setSearch();
 	}
 }

@@ -18,7 +18,11 @@ $icons: (
 		line-height: 40px;
 	}
 
-	.tabs-wrapper .article {
+	.hot-wrapper > .tabs > ul.tabs-nav > li > a {
+		cursor: default;
+	}
+
+	.tabs-wrapper .article, .hot-wrapper .article {
 		& > div {
 			display: inline-block;
 			border-bottom: 1px solid #BACADE;

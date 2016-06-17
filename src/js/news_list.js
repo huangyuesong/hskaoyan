@@ -358,7 +358,7 @@ class NewsList {
 				});
 
 				Tabs.refresh();
-				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/news_list.php?tabs=1`, `${serverUrl}/board_select.php?type=1`, '版面');
+				Tabs.setManage($('.container .tabs-wrapper'), `${serverUrl}/news_list.php?data=mine`, `${serverUrl}/board_select.php?type=1`, '版面');
 			},
 			setSearch: (callback)=> {
 				$('.container .search-wrapper').append(new Search({
