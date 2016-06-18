@@ -279,7 +279,6 @@ $(window).load(()=> {
 });
 
 $(()=> {
-	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
 		color: '#9E9E9E',

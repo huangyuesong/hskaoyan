@@ -15,8 +15,15 @@ $icons: (
 		text-align: center;
 	}
 
-	.tabs-wrapper > p:first-of-type {
-		line-height: 40px;
+	.tabs-wrapper > .title {
+		line-height: 60px;
+		background: #e4edf9;
+		color: #2d7bbd;
+		font-size: 24px;
+		padding: 0 50px;
+		border: 1px solid #ddd;
+		border-bottom: 0;
+		box-sizing: border-box;
 	}
 
 	.tabs-wrapper .news {

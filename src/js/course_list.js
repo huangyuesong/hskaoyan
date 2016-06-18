@@ -106,7 +106,7 @@ class CourseList {
 							let courseWrapper = $(`
 								<div class="department">
 									<div class="mark-wrapper">
-										<a href="javascript:" id="mark">关注</a>
+										<a href="javascript:" id="mark">[关注]</a>
 									</div>
 									<div class="name-wrapper">
 										<a href="chapter_list.html?course_id=${id}" title="${course_code}${course}">${course_code}${course}</a>
@@ -148,10 +148,7 @@ class CourseList {
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
 					$('.container .tabs-wrapper .tabs .tabs-bd').empty();
 				})() : (()=> {
-					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
-					$('.container .tabs-wrapper .tabs .tabs-bd').empty().append(
-						$('<p style="text-align: center; line-height: 40px; ">暂无关注</p>')
-					);
+					$('.container .tabs-wrapper').remove();
 				})();
 
 				myCourseList.map((_course, idx)=> {
@@ -210,10 +207,10 @@ class CourseList {
 						let courseWrapper = $(`
 							<div class="department">
 								<div class="mark-wrapper">
-									<a href="javascript:" id="mark">关注</a>
+									<a href="javascript:" id="mark">[关注]</a>
 								</div>
 								<div class="name-wrapper">
-									<a href="chapter_list.html?course_id=${id}" title="${course_code}${course}">${course_code}${course}</a>
+									<a href="javascript:" title="${course_code}${course}">${course_code}${course}</a>
 								</div>
 								<p class="link">${college}</p>
 							</div>

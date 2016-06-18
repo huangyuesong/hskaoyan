@@ -105,7 +105,7 @@ class CollegeList {
 							let collegeWrapper = $(`
 								<div class="school">
 									<div class="mark-wrapper">
-										<a href="javascript:" id="mark">关注</a>
+										<a href="javascript:" id="mark">[关注]</a>
 									</div>
 									<div class="name-wrapper">
 										<a href="news_college.html?board_id=${id}" title="${title}">
@@ -182,7 +182,7 @@ class CollegeList {
 									let collegeWrapper = $(`
 							<div class="school">
 								<div class="mark-wrapper">
-									<a href="javascript:" id="mark">关注</a>
+									<a href="javascript:" id="mark">[关注]</a>
 								</div>
 								<div class="name-wrapper">
 									<a href="news_college.html?board_id=${id}" title="${title}">
@@ -243,41 +243,45 @@ class CollegeList {
 			setMyBoard: ()=> {
 				let { myBoardList } = this.model;
 
-				let wrapper = $(`
-					<div class="section district">
-						<div class="title">
-							<span>我关注的院校</span>
-						</div>
-						<div class="content"></div>
-					</div>
-				`);
-
-				while (myBoardList.length) {
-					let _row = $(`<div class="row"></div>`);
-
-					myBoardList.splice(0, 5).map(_board=> {
-						let { id, board:title } = _board;
-
-						_row.append($(`
-							<div class="school">
-								<div class="name-wrapper">
-									<a href="news_college.html?board_id=${id}" title="${title}">
-										${title}
-									</a>
-								</div>
-								<p>
-									<a href="news_college.html?board_id=${id}" class="link">资讯</a>
-									<a href="material_college.html?board_id=${id}" class="link">科目</a>
-									<a href="forum_college.html?board_id=${id}" class="link">论坛</a>
-								</p>
+				myBoardList.length ? (()=> {
+					let wrapper = $(`
+						<div class="section district">
+							<div class="title">
+								<span>我关注的院校</span>
 							</div>
-						`));
-					});
+							<div class="content"></div>
+						</div>
+					`);
 
-					$('.content', wrapper).append(_row);
-				}
+					while (myBoardList.length) {
+						let _row = $(`<div class="row"></div>`);
 
-				$('.container .my-wrapper').append(wrapper);
+						myBoardList.splice(0, 5).map(_board=> {
+							let { id, board:title } = _board;
+
+							_row.append($(`
+								<div class="school">
+									<div class="name-wrapper">
+										<a href="news_college.html?board_id=${id}" title="${title}">
+											${title}
+										</a>
+									</div>
+									<p>
+										<a href="news_college.html?board_id=${id}" class="link">资讯</a>
+										<a href="material_college.html?board_id=${id}" class="link">科目</a>
+										<a href="forum_college.html?board_id=${id}" class="link">论坛</a>
+									</p>
+								</div>
+							`));
+						});
+
+						$('.content', wrapper).append(_row);
+					}
+
+					$('.container .my-wrapper').append(wrapper);
+				})() : (()=> {
+					$('.container .my-wrapper').remove();
+				})();
 			},
 			setSearch: (callback)=> {
 				$('.container .search-wrapper').append(new Search({

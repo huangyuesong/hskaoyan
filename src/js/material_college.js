@@ -65,16 +65,31 @@ class MaterialCollege {
 						courseList.splice(0, 5).map(_course=> {
 							let { course_code, course, id} = _course;
 
-							_row.append($(`
+							let courseWrapper = $(`
 								<div class="department">
-									<div class="name-wrapper">
-										<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" title="${course}">${course_code}${course}</a>
+									<div class="mark-wrapper">
+										<a href="javascript:" id="mark">[关注]</a>
 									</div>
-									<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">课件</a>
-									<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">习题</a>
-									<a href="chapter_list.html?course_code=${course_code}&course_id=${id}&course_name=${course}" class="link">真题</a>
+									<div class="name-wrapper">
+										<a href="javascript:" title="${course}">${course_code}${course}</a>
+									</div>
 								</div>
-							`));
+							`);
+
+							$('#mark', courseWrapper).click(evt=> {
+								$.ajax({
+									url: `${serverUrl}/course_select.php?course_id=${id}&value=1`,
+									type: 'get',
+									dataType: 'json',
+									cache: false,
+									success: (data, status)=> {
+										alert(data.message);
+										location.reload();
+									},
+								});
+							});
+
+							_row.append(courseWrapper);
 						});
 
 						$('.container .department-wrapper .content').append(_row);

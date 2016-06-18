@@ -159,7 +159,7 @@ class Forum {
 							let collegeWrapper = $(`
 								<div class="school">
 									<div class="mark-wrapper">
-										<a href="javascript:" id="mark">关注</a>
+										<a href="javascript:" id="mark">[关注]</a>
 									</div>
 									<div class="name-wrapper">
 										<a href="news_college.html?board_id=${id}" title="${title}">
@@ -231,7 +231,7 @@ class Forum {
 									let collegeWrapper = $(`
 							<div class="school">
 								<div class="mark-wrapper">
-									<a href="javascript:" id="mark">关注</a>
+									<a href="javascript:" id="mark">[关注]</a>
 								</div>
 								<div class="name-wrapper">
 									<a href="forum_college.html?board_id=${id}" title="${title}">
@@ -291,10 +291,7 @@ class Forum {
 					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
 					$('.container .tabs-wrapper .tabs .tabs-bd').empty();
 				})() : (()=> {
-					$('.container .tabs-wrapper .tabs ul.tabs-nav').empty();
-					$('.container .tabs-wrapper .tabs .tabs-bd').empty().append(
-						$('<p style="text-align: center; line-height: 40px; ">暂无关注</p>')
-					);
+					$('.container .tabs-wrapper').remove();
 				})();
 
 				myBoardList.map((_board, idx)=> {

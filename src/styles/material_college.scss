@@ -229,16 +229,26 @@ body {
 					display: inline-block;
 					width: 19.5%;
 					padding-left: 30px;
-
+					.mark-wrapper {
+						display: inline-block;
+						line-height: 22px;
+						a {
+							color: purple;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+					}
 					.name-wrapper {
-					
+						display: inline-block;
+						vertical-align: top;
 						a {
 							color: #2d7bbd;
 							display: inline-block;
-							@include text-overflow(150);
+							@include text-overflow(160);
 
 							&:hover {
-								text-decoration: underline;
+								cursor: default;
 							}
 						}
 					}

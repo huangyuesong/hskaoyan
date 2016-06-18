@@ -72,8 +72,6 @@ $(window).load(()=> {
 $(()=> {
 	new HeaderForum([], 'undefined', '版面').render();
 
-	$('p:last-of-type', $('.footer')).remove();
-	$('p:last-of-type', $('.footer')).remove();
 	$('.footer').css({
 		background: '#ECECEC',
 		color: '#9E9E9E',

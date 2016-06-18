@@ -20,7 +20,7 @@ export const _ajaxResultCodeFilter = (()=> {
 	});
 })();
 export const _globalErrorHandler = (()=> {
-	$(document).ajaxError((evt, xhr, options, exc)=> alert('Network Error!'));
+	$(document).ajaxError((evt, xhr, options, exc)=> location.href = 'error.html'/*alert('Network Error!')*/);
 })();
 export const _devAjaxSendToken = (()=> {
 	DEVELOPMENT ? (()=> {
