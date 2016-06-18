@@ -4,6 +4,8 @@ import './component/header';
 import './component/footer';
 
 import HeaderForum from './component/header_forum';
+import Search from './component/search';
+import Tabs from './component/tabs';
 
 import {
 	serverUrl,
@@ -14,6 +16,7 @@ import url from 'url';
 let {
 	course_id,
 	material_id,
+	keyword,
 } = url.parse(location.href, true).query;
 
 if (!course_id && !material_id) {
@@ -25,8 +28,27 @@ class ChapterList {
 		this.model = {
 			chapterList: [],
 			materialList: [],
+			searchResult: [],
+			recommendList: [],
 		};
 		this.controller = {
+			setSearch: ()=> {
+				this.view.setSearch(this.controller.setSearchResult);
+
+				if (keyword) this.controller.setSearchResult(keyword);
+			},
+			setSearchResult: (keyword)=> {
+				$.ajax({
+					url: `${serverUrl}/material_list.php?keyword=${keyword}`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.searchResult = data.list;
+						this.view.setSearchResult();
+					},
+				});
+			},
 			setChapter: (_id)=> {
 				$.ajax({
 					url: `${serverUrl}/chapter_list.php?material_id=${_id}`,
@@ -59,8 +81,158 @@ class ChapterList {
 					},
 				});
 			},
+			setRecommentMaterial: ()=> {
+				$.ajax({
+					url: `${serverUrl}/material_list.php`,
+					type: 'get',
+					dataType: 'json',
+					cache: false,
+					success: (data, status)=> {
+						this.model.recommendList = data.list;
+						this.view.setRecommentMaterial();
+					},
+				});
+			},
 		};
 		this.view = {
+			setRecommentMaterial: ()=> {
+				let { recommendList } = this.model;
+
+				recommendList.length ? (()=> {
+					let wrapper = $(`
+						<div class="tabs">
+							<ul class="tabs-nav"></ul>
+							<div class="tabs-bd"></div>
+						</div>
+					`);
+
+					recommendList.map((_tabs, idx)=> {
+						let { title, list } = _tabs;
+
+						$('ul.tabs-nav', wrapper).append($(`
+							<li class="${idx === 0 ? 'active' : ''}"><a href="javascript:">${title}</a></li>
+						`));
+
+						list.length ? (()=> {
+							let materialWrapper = $(`
+								<div class="tab-panel">
+									<div class="content"></div>
+								</div>
+							`);
+
+							while (list.length) {
+								let _row = $(`<div class="row"></div>`);
+
+								list.splice(0, 5).map(_material=> {
+									let { material_id, title } = _material;
+									let _singleMaterial = $(`
+										<div class="department">
+											<div class="mark-wrapper">
+												<a href="javascript:" id="mark">[关注]</a>
+											</div>
+											<div class="name-wrapper">
+												<a href="javascript:" title="${title}">${title}</a>
+											</div>
+										</div>
+									`);
+
+									$('#mark', _singleMaterial).click(evt=> {
+										let url = `${serverUrl}/material_select.php?material_id=${material_id}&value=1`
+											.concat(course_id ? `course_id=${course_id}` : ``);
+
+										$.ajax({
+											url: url,
+											type: 'get',
+											dataType: 'json',
+											cache: false,
+											success: (data, status)=> {
+												alert(data.message);
+												location.reload();
+											},
+										});
+									});
+
+									_row.append(_singleMaterial);
+								});
+
+								$('.content', materialWrapper).append(_row);
+							}
+
+							$('.tabs-bd', wrapper).append(materialWrapper);
+						})() : (()=> {
+							$('.tabs-bd', wrapper).append($(`
+								<div class="tab-panel">
+									<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+								</div>
+							`));
+						})();
+					});
+
+					$('.container .recommend-wrapper').append(wrapper);
+					Tabs.refresh();
+				})() : (()=> {
+					$('.container .recommend-wrapper').remove();
+				})();
+			},
+			setSearchResult: ()=> {
+				let { title, list } = this.model.searchResult[0];
+
+				let wrapper = $(`
+					<div class="district">
+						<div class="title">
+							<span>${title}</span>
+						</div>
+						<div class="content"></div>
+					</div>
+				`);
+
+				list.length ? (()=> {
+					while (list.length) {
+						let row = $(`<div class="row"></div>`);
+
+						list.splice(0, 5).map(_material=> {
+							let { material_id, title } = _material;
+
+							let materialWrapper = $(`
+								<div class="department">
+									<div class="mark-wrapper">
+										<a href="javascript:" id="mark">[关注]</a>
+									</div>
+									<div class="name-wrapper">
+										<a href="javascript:" title="${title}">${title}</a>
+									</div>
+								</div>
+							`);
+
+							row.append(materialWrapper);
+
+							$('#mark', materialWrapper).click(evt=> {
+								let url = `${serverUrl}/material_select.php?material_id=${material_id}&value=1`
+									.concat(course_id ? `&course_id=${course_id}` : ``);
+
+								$.ajax({
+									url: url,
+									type: 'get',
+									dataType: 'json',
+									cache: false,
+									success: (data, status)=> {
+										alert(data.message);
+										location.reload();
+									},
+								});
+							});
+						});
+
+						$('.content', wrapper).append(row);
+					}
+				})() : (()=> {
+					$('.content', wrapper).append($(`
+						<p style="text-align: center; line-height: 300px; ">暂无数据</p>
+					`));
+				})();
+
+				$('.container .result-wrapper').empty().append(wrapper).show();
+			},
 			setMaterial: (callback)=> {
 				let { materialList } = this.model;
 
@@ -284,11 +456,30 @@ class ChapterList {
 
 				$.AMUI.accordion.init();
 			},
+			setSearch: (callback)=> {
+				$('.container .search-wrapper').append(new Search({
+					placeholder: '搜索资料',
+					category: ['资料'],
+					selected: '资料',
+					onSearch: (keyword, type)=> {
+						if (!keyword) {
+							alert('请输入搜索内容');
+							return;
+						}
+
+						callback && callback(keyword);
+					},
+				}).render());
+
+				$('.container .search-wrapper .search-section select').hide();
+			},
 		};
 	}
 
 	init () {
 		this.controller.setMaterial();
+		this.controller.setSearch();
+		this.controller.setRecommentMaterial();
 	}
 }
 

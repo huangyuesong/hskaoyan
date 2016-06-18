@@ -193,7 +193,7 @@ class Forum {
 					`));
 				})();
 
-				$('.container .result-wrapper').empty().append(wrapper);
+				$('.container .result-wrapper').empty().append(wrapper).show();
 			},
 			setBoardTabs: ()=> {
 				let { boardList } = this.model;

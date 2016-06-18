@@ -30,7 +30,7 @@ class NewsList {
 				this.view.setSearch(this.controller.setSearchResult);
 			},
 			setBoard: ()=> {
-				let url = `${serverUrl}/college_list.php?news=1`.concat(title ? `&title=${title}` : ``);
+				let url = `${serverUrl}/board_list.php?type=1`.concat(title ? `&title=${title}` : ``);
 
 				$.ajax({
 					url: url,
@@ -229,7 +229,7 @@ class NewsList {
 					`));
 				})();
 
-				$('.container .result-wrapper').empty().append(wrapper);
+				$('.container .result-wrapper').empty().append(wrapper).show();
 			},
 			setCollegeTab: ()=> {
 				let { boardList } = this.model;

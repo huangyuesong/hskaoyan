@@ -156,4 +156,78 @@ $icons: (
 			}
 		}
 	}
+	.search-wrapper {
+		text-align: center;
+	}
+	.result-wrapper {
+		display: none;
+	}
+	.recommend-wrapper {
+		.tabs {
+			ul.tabs-nav {
+				& > li > a {
+					cursor: default;
+				}
+			}
+			.tabs-bd  {
+				padding: 0;
+			}
+		}
+	}
+	.result-wrapper, .recommend-wrapper {
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		margin-bottom: 30px;
+		.title {
+			line-height: 60px;
+			background: #e4edf9;
+			color: #2d7bbd;
+			font-size: 24px;
+			padding: 0 50px;
+			border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+			box-sizing: border-box;
+		}
+		.content {
+			padding: 10px 0;
+			background: #F5F5F5;
+			.row {
+				border-bottom: 1px dashed #888888;
+				position: relative;
+				.department {
+				    margin: 10px 0;
+					font-size: 14px;
+					display: inline-block;
+					width: 19.5%;
+					padding-left: 30px;
+					.mark-wrapper {
+						display: inline-block;
+						line-height: 22px;
+						a {
+							color: purple;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+					}
+					.name-wrapper {
+						display: inline-block;
+						vertical-align: top;
+						a {
+							color: #2d7bbd;
+							display: inline-block;
+							@include text-overflow(158);
+							&:hover {
+								cursor: default;
+							}
+						}
+					}
+					a {
+						margin-right: 5px;
+					}
+				}
+				&:last-of-type {
+					border: 0;
+				}
+			}
+		}
+	}
 }
